@@ -97,7 +97,7 @@ create a new conda environment with all of the packages listed in that file
 with this shell command:
 
 ```sh
-conda env create --file env.yaml
+mamba env create --file env.yaml
 ```
 
-[conda]: https://mamba.readthedocs.io/
+[mamba]: https://mamba.readthedocs.io/
