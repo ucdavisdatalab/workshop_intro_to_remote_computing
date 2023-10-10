@@ -9,4 +9,6 @@ options:
 
 # Chapters may be written in either Markdown or as Jupyter Notebooks
 chapters:
-  - file: chapters/01_example
+  - file: chapters/01_introduction
+  - file: chapters/02_environment-setup
+  - file: chapters/03_running-scripts
