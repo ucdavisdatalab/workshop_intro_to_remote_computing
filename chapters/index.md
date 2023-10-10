@@ -1,67 +1,30 @@
 Overview
 ========
 
-YOUR DESCRIPTION
+This workshop series provides an introduction to accessing and computing on
+remote servers such as UC Davis' "Farm" cluster. The series covers everything
+you need to know to get started: how to set up and use SSH to log in and
+transfer files, how to install software with conda, how to reserve computing
+time and run programs with SLURM, and shell commands that are especially useful
+for working with servers.
 
 
 Learning Goals
 --------------
 
-After completing this workshop, learners should be able to:
+After this workshop series, learners should be able to:
 
-LEARNING GOALS
++ Use SSH to log in to a server
++ Transfer files to and from a server
++ Set up and use conda/mamba to install software on a server
++ Use SLURM to run interactive and non-interactive software on a server
++ Explain etiquette for using a server cluster such as Farm
 
 
 Prerequisites
 -------------
 
-<!--
-No prior programming experience is necessary. Learners should commit to
-attending all four sessions of this series.
-
-These workshops are not an introduction to Python. Learners must have taken
-[DataLab’s Python Basics workshop series][basics] or have equivalent prior
-experience using Python.
-
-[basics]: https://ucdavisdatalab.github.io/workshop_python_basics/
-
-These workshops are not an introduction to R. Learners must have taken
-[DataLab’s R Basics workshop series][basics] or have equivalent prior
-experience using R.
-
-[basics]: https://ucdavisdatalab.github.io/workshop_r_basics/
--->
-
-
-YOUR PREQUISITES
-
-
-Computing Requirements
-----------------------
-
-<!--
-Before the workshop, please make sure your computer has a working internet
-connection and the most recent versions of the following software:
-
-* [Anaconda Distribution][anaconda], which by default includes:
-  + [Python 3][python]
-  + [conda][]
-  + [JupyterLab][jupyter]
-
-* [R][r]
-
-You can find step-by-step installation instructions in [DataLab's Python
-Install Guide][install-guide]. If you need additional help, come chat with us
-in [DataLab's Office Hours][oh].
-
-[anaconda]: https://www.anaconda.com/
-[python]: https://www.python.org/
-[conda]: https://docs.conda.io/en/latest/
-[jupyter]: https://jupyter.org/
-
-[r]: https://www.r-project.org/
-[rstudio]: https://posit.co/products/open-source/rstudio/
-
-[install-guide]: https://ucdavisdatalab.github.io/install_guides/python-and-python-tools.html#python-and-python-tools
-[oh]: https://datalab.ucdavis.edu/office-hours/
--->
+Participants must have taken DataLab’s "Overview of Remote and High Performance
+Computing (HPC)” workshop and "Introduction to the Command Line" workshop
+series, or have equivalent prior experience. Participants must be comfortable
+with basic Linux shell syntax.
