@@ -1,9 +1,9 @@
 # Book settings
 # Learn more at https://jupyterbook.org/customize/config.html
 
-title: WORKSHOP TITLE
-author: YOUR NAME
-copyright: "202X"
+title: Introduction to Remote Computing
+author: Oliver Kreylos, Tyler Shoemaker, Nick Ulle
+copyright: "2024"
 logo: img/datalab-logo-full-color-rgb-1.png
 only_build_toc_files: true
 
@@ -24,7 +24,7 @@ latex:
 
 # Information about where the book exists on the web
 repository:
-  url: https://github.com/ucdavisdatalab/<YOUR REPO>
+  url: https://github.com/ucdavisdatalab/workshop_intro_to_remote_computing
   path_to_book: docs
 
 # Add GitHub buttons to your book

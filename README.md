@@ -1,109 +1,42 @@
-# Template: Workshop Reader
-
-This repository is a template for Python-specific workshop readers for the UC 
-Davis DataLab. It uses [Jupyter Book][jb] to knit the reader. You can also 
-optionally use **Conda** to manage packages (instructions at the bottom).
-
-To get started, create a new repo on GitHub from this template
-([instructions][gh]), then `git clone` your new repo.
-
-[gh]: https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/creating-a-repository-from-a-template
-[jb]: https://jupyterbook.org/en/stable/intro.html
-
-Once you've cloned the repo, here's a checklist of things to do to prepare it:
-
-1. **Conda** (optional): To create a new virtual environment with Conda, open 
-   a command line interface (such as Terminal) and run the following:
-
-   ```sh
-   conda create --name WORKSHOP_TITLE python=YOUR.DESIRED.VERSION
-   ```
-
-   Then activate the environment with:
-
-   ```sh
-   activate WORKSHOP_TITLE
-   ```
-
-   You'll need to install Jupyter Book before doing anything else. 
-
-   ```sh
-   conda install -c conda-forge jupyter-book
-   conda install -c conda-forge ghp-import
-   ```
-
-   You can skip this step if you're not going to use **Conda**.
-
-2. `README.md`: Replace the all-caps text with your workshop details.
-   + Title
-   + Quarter & year
-   + Author's name and email
-   + Helpers' names and email (optional)
-   + Reader URL
-   + Event URL
-   + Description, learning goals, & prerequisites
-
-3. `_config.yml`: Replace the all-caps text with your workshop details.
-   + Title
-   + Author
-   + Date (year only)
-   + URL
-
-4. `chapters/index.md`: You can write chapters as Markdown (`.md`) files,
-   Jupyter Notebook (`.ipynb`) files, or a mix of both. The template defaults
-   to Markdown files. If you want to use a Jupyter notebook for the front page,
-   delete `index.md` and use Jupyter to create `index.ipynb` instead.
-
-5. `_toc.yml`: This file is the table of contents for the book. Any chapters
-   that are not registered here will not appear in the book. The `index.md` (or
-   `index.ipynb`) and `01_example.md` chapters are already registered. Note
-   that you should not specify the file extension in the table of contents. If
-   you rename or add any chapters, you must update the table of contents in
-   order for them to appear in the book.
-
-6. Compile your book with:
-
-   ```sh
-   jupyter-book build .
-   ``` 
-
-   This will generate a new `_build/` directory, which will contain HTML 
-   versions of your reader. This should not be added to Git (a `.gitignore` 
-   file is already in the template).
-
-7. `git add` all of the changed files, then `git commit` and `git push`.
-
-8. This template is set up to serve the reader from the `gh-pages` branch of
-   the repository rather than a directory in the `main` branch (in contrast to
-   our Bookdown template). Once you've committed your files, you need to run
-   one more command, which will automatically push the rendered HTML files to
-   the `gh-pages` branch on GitHub:
-
-   ```sh
-   ghp-import -n -p -f _build/html
-   ```
-
-   Make sure the GitHub repo is configured to serve pages from the `gh-pages`
-   branch by going to `Settings/Pages` on GitHub. Select the `gh-pages` branch
-   if it isn't selected already. _You must run the `ghp-import ...` step every
-   time you wish to push updates to the live site on GitHub._
-
-9. `README.md`: Remove these template instructions, which end at this step, 
-   and, if you'd like, `git add` this file and `commit`/`push` it.
-
-# Workshop: WORKSHOP TITLE
+# Workshop: Introduction to Remote Computing
 
 [![License: CC BY-SA 4.0](https://img.shields.io/badge/License-CC_BY--SA_4.0-lightgrey.svg)](https://creativecommons.org/licenses/by-sa/4.0/)
 
 _[UC Davis DataLab](https://datalab.ucdavis.edu/)_  
-_QUARTER YEAR_  
-_Instructor: YOUR NAME <<YOUR_EMAIL@ucdavis.edu>>_  
-_Maintainer: MAINTAINER'S NAME <<MAINTAINER_EMAIL@ucdavis.edu>>_  
+_Winter 2024_  
+_Instructors & Authors: Nick Ulle, Oliver Kreylos, Tyler Shoemaker_  
+_Maintainer: Nick Ulle <<naulle@ucdavis.edu>>_  
 
-* [Reader](https://ucdavisdatalab.github.io/YOUR_REPOSITORY/)
+* [Reader](https://ucdavisdatalab.github.io/workshop_intro_to_remote_computing/)
+
+<!--
 * [Event Page](https://datalab.ucdavis.edu/eventscalendar/YOUR_EVENT/)
+-->
 
-YOUR DESCRIPTION, LEARNING GOALS, PREREQUISITES, ETC
+This workshop series provides an introduction to accessing and computing on
+remote servers such as UC Davis' "Farm" cluster. The series covers everything
+you need to know to get started: how to set up and use SSH to log in and
+transfer files, how to install software with conda, how to reserve computing
+time and run programs with SLURM, and shell commands that are especially useful
+for working with servers.
+
+### Learning Objectives
+
+After this workshop series, learners should be able to:
+
+– Use SSH to log in to a server
+– Transfer files to and from a server
+– Set up and use conda/mamba to install software on a server
+– Use SLURM to run interactive and non-interactive software on a server
+– Explain etiquette for using a server cluster such as Farm
+
+### Prerequisites
+
+Participants must have taken DataLab’s "Overview of Remote and High Performance
+Computing (HPC)” workshop and "Introduction to the Command Line" workshop
+series, or have equivalent prior experience. Participants must be comfortable
+with basic Linux shell syntax.
+
 
 ## Contributing
 
@@ -158,7 +91,7 @@ To make alterations to the reader:
 
 ### Python Packages
 
-We recommend using [conda][] to manage Python dependencies. The `env.yaml` file
+We recommend using [mamba][] to manage Python dependencies. The `env.yml` file
 in this repo contains a list of packages necessary to build the reader. You can
 create a new conda environment with all of the packages listed in that file
 with this shell command:
@@ -167,4 +100,4 @@ with this shell command:
 conda env create --file env.yaml
 ```
 
-[conda]: https://docs.conda.io/en/latest/
+[conda]: https://mamba.readthedocs.io/
