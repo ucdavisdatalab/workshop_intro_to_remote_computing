@@ -24,11 +24,11 @@ for working with servers.
 
 After this workshop series, learners should be able to:
 
-– Use SSH to log in to a server
-– Transfer files to and from a server
-– Set up and use conda/mamba to install software on a server
-– Use SLURM to run interactive and non-interactive software on a server
-– Explain etiquette for using a server cluster such as Farm
++ Use SSH to log in to a server
++ Transfer files to and from a server
++ Set up and use conda/mamba to install software on a server
++ Use SLURM to run interactive and non-interactive software on a server
++ Explain etiquette for using a server cluster such as Farm
 
 ### Prerequisites
 
