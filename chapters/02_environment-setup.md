@@ -1,4 +1,4 @@
-Example Chapter
-===============
+Setting Up Your Remote Computing Environment
+============================================
 
 Your chapter listing in the table of contents must be non-empty for the book to render properly.
