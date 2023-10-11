@@ -14,7 +14,7 @@ _Maintainer: Nick Ulle <<naulle@ucdavis.edu>>_
 -->
 
 This workshop series provides an introduction to accessing and computing on
-remote servers such as UC Davis' "Farm" cluster. The series covers everything
+remote servers such as UC Davis's "Farm" cluster. The series covers everything
 you need to know to get started: how to set up and use SSH to log in and
 transfer files, how to install software with conda, how to reserve computing
 time and run programs with SLURM, and shell commands that are especially useful
