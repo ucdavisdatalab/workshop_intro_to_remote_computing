@@ -329,7 +329,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -345,6 +347,22 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#executable-scripts">3.1. Executable Scripts</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#anatomy-of-an-executable-script">3.1.1. Anatomy of an executable script</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#shebangs">3.1.2. Shebangs</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-script">3.1.3. Example script</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#file-permissions">3.1.4. File Permissions</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#managing-sessions">3.2. Managing Sessions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#monitoring-your-code">3.3. Monitoring Your Code</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -361,7 +379,7 @@ document.write(`
 <ul class="simple">
 <li><p>Write and run executable scripts from the command line</p></li>
 <li><p>Explain what processes, jobs, and sessions are</p></li>
-<li><p>Use a terminal multiplexer (<code class="docutils literal notranslate"><span class="pre">tmux</span></code>) to create multiple, persistent sessions</p></li>
+<li><p>Use a terminal multiplexer (<code class="docutils literal notranslate"><span class="pre">tmux</span></code>) to create multiple persistent sessions</p></li>
 <li><p>Use various utilities (<code class="docutils literal notranslate"><span class="pre">ps</span></code>, <code class="docutils literal notranslate"><span class="pre">top</span></code>, <code class="docutils literal notranslate"><span class="pre">htop</span></code>) to monitor and manage processes
 and jobs as they run</p></li>
 <li><p>Identify resource usage and related system information</p></li>
@@ -369,6 +387,228 @@ and jobs as they run</p></li>
 active software development</p></li>
 </ul>
 </div>
+<section id="executable-scripts">
+<h2><span class="section-number">3.1. </span>Executable Scripts<a class="headerlink" href="#executable-scripts" title="Permalink to this headline">#</a></h2>
+<p><strong>Executable</strong> files contain a set of instructions that your computer
+interprets and follows to perform a task. Here, “instruction” covers a wide
+scope of formats: certain files contain machine or binary code, while others
+contain human-readable code written in C++, Python, or R. Many executable files
+are pre-compiled binaries that can be run directly; some (like C++) must be
+compiled before they can be run; and a final group are interpreted files
+written in high-level scripting languages (like Python and R), which require an
+external program to run.</p>
+<p>This chapter focuses on the third group of files: executable scripts.</p>
+<section id="anatomy-of-an-executable-script">
+<h3><span class="section-number">3.1.1. </span>Anatomy of an executable script<a class="headerlink" href="#anatomy-of-an-executable-script" title="Permalink to this headline">#</a></h3>
+<p>Using an executable script works very similarly to using command line programs
+like <code class="docutils literal notranslate"><span class="pre">ls</span></code>, <code class="docutils literal notranslate"><span class="pre">grep</span></code>, etc.: scripts have names and some can take optional
+arguments. The biggest difference is that there is no preset <strong>interpreter</strong>
+for your script. Unlike most command line programs, which are precompiled
+binaries, you need to execute your script by specifying a program to interpret
+it.</p>
+<p>At a high level, that looks like the following:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span><span class="o">[</span>interpreter<span class="o">]</span><span class="w"> </span><span class="o">[</span>script<span class="o">]</span><span class="w"> </span><span class="o">[</span>arg1,<span class="w"> </span>arg2,<span class="w"> </span>arg3,<span class="w"> </span>...<span class="o">]</span>
+</pre></div>
+</div>
+<p><strong>Components</strong></p>
+<ul class="simple">
+<li><p>Interpreter: a program that interprets and executes instructions written in a
+script; common examples include Bash, Python, and R</p></li>
+<li><p>Script: a plaintext file that contains your code</p></li>
+<li><p>Arguments: extra commands that change the behavior of your script, point it
+to specific resources, etc.</p></li>
+</ul>
+</section>
+<section id="shebangs">
+<h3><span class="section-number">3.1.2. </span>Shebangs<a class="headerlink" href="#shebangs" title="Permalink to this headline">#</a></h3>
+<p>It is, however, possible to execute a script without specifying the
+interpreter from the command line. Simply prepend the script with <code class="docutils literal notranslate"><span class="pre">./</span></code>:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>./<span class="o">[</span>script<span class="o">]</span><span class="w"> </span><span class="o">[</span>arg1,<span class="w"> </span>arg2,<span class="w"> </span>arg3,<span class="w"> </span>...<span class="o">]</span>
+</pre></div>
+</div>
+<p>But this requires inserting a <strong>shebang</strong> into the script. A shebang is a
+special type of comment that tells your computer how it should interpret the
+contents of a script. If you do not include one, your computer will default to
+using your shell interpreter (typically Bash or Zsh) to parse the script. As
+you might imagine, if you wrote your script in Python or R, this will throw
+errors.</p>
+<p>Shebangs always go on the first line of a script. They begin with <code class="docutils literal notranslate"><span class="pre">#!</span></code>; this
+sequence is followed by an absolute path to your interpreter and any optional
+arguments.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="ch">#![/path/to/interpreter] [arguments]</span>
+</pre></div>
+</div>
+<p>Often you’ll have several interpreters to choose from (different versions of
+Python, for example). Technically there’s no constraint on what you choose, but
+it’s usually best to let your <code class="docutils literal notranslate"><span class="pre">env</span></code> command direct your computer to whatever
+interpreter is in your current environment. This is especially important when
+you’ve copied a script onto a remote computer, where the path configuration may
+be different than the one on your own.</p>
+<p>The following examples use <code class="docutils literal notranslate"><span class="pre">env</span></code> to implement a shebang in Bash, Python, and R:</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
+</input><label class="sd-tab-label" for="sd-tab-item-0">
+Bash</label><div class="sd-tab-content docutils">
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env bash</span>
+</pre></div>
+</div>
+</div>
+<input id="sd-tab-item-1" name="sd-tab-set-0" type="radio">
+</input><label class="sd-tab-label" for="sd-tab-item-1">
+Python</label><div class="sd-tab-content docutils">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+</pre></div>
+</div>
+</div>
+<input id="sd-tab-item-2" name="sd-tab-set-0" type="radio">
+</input><label class="sd-tab-label" for="sd-tab-item-2">
+R</label><div class="sd-tab-content docutils">
+<div class="highlight-R notranslate"><div class="highlight"><pre><span></span><span class="c1">#!/usr/bin/env Rscript</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>This will direct your computer to use the environment variables set in <code class="docutils literal notranslate"><span class="pre">env</span></code>.</p>
+</section>
+<section id="example-script">
+<h3><span class="section-number">3.1.3. </span>Example script<a class="headerlink" href="#example-script" title="Permalink to this headline">#</a></h3>
+<p>Now that you know the anatomy of an executable script, you can write one
+yourself. There are three versions of such a script below, one for Bash,
+Python, and R, respectively. The script, <code class="docutils literal notranslate"><span class="pre">beacon.{sh,py,R}</span></code>, accepts one
+argument from the command line, <code class="docutils literal notranslate"><span class="pre">name</span></code>. It then prints <code class="docutils literal notranslate"><span class="pre">Hello,</span> <span class="pre">{name}</span></code> to
+screen in an indefinite <code class="docutils literal notranslate"><span class="pre">while</span></code> loop, waiting for one second after each
+iteration.</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-3" name="sd-tab-set-1" type="radio">
+</input><label class="sd-tab-label" for="sd-tab-item-3">
+Bash</label><div class="sd-tab-content docutils">
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env bash</span>
+
+<span class="nv">name</span><span class="o">=</span><span class="nv">$1</span>
+<span class="k">while</span><span class="w"> </span>true<span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Hello, </span><span class="nv">$name</span><span class="s2">&quot;</span>
+<span class="w">    </span>sleep<span class="w"> </span><span class="m">1</span>
+<span class="k">done</span>
+</pre></div>
+</div>
+</div>
+<input id="sd-tab-item-4" name="sd-tab-set-1" type="radio">
+</input><label class="sd-tab-label" for="sd-tab-item-4">
+Python</label><div class="sd-tab-content docutils">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Hello, </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<input id="sd-tab-item-5" name="sd-tab-set-1" type="radio">
+</input><label class="sd-tab-label" for="sd-tab-item-5">
+R</label><div class="sd-tab-content docutils">
+<div class="highlight-R notranslate"><div class="highlight"><pre><span></span><span class="c1">#!/usr/bin/env Rscript</span>
+
+<span class="n">args</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">commandArgs</span><span class="p">(</span><span class="n">trailingOnly</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">)</span>
+<span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">args</span><span class="p">[</span><span class="m">1</span><span class="p">]</span>
+<span class="nf">while </span><span class="p">(</span><span class="kc">TRUE</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nf">cat</span><span class="p">(</span><span class="nf">paste</span><span class="p">(</span><span class="s">&quot;Hello&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">name</span><span class="p">))</span>
+<span class="w">  </span><span class="nf">Sys.sleep</span><span class="p">(</span><span class="m">1</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="file-permissions">
+<h3><span class="section-number">3.1.4. </span>File Permissions<a class="headerlink" href="#file-permissions" title="Permalink to this headline">#</a></h3>
+<p>To use your script (in this case, the Bash version), call it from the command
+line:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>./beacon.sh<span class="w"> </span>DataLab
+zsh:<span class="w"> </span>permission<span class="w"> </span>denied:<span class="w"> </span>./beacon.sh
+</pre></div>
+</div>
+<p>This will very likely throw an error. The default file permissions for creating
+new files on your computer typically do not include allowing that file to be
+executed. This is to protect against users unwittingly running malicious code
+from a third-party (including, potentially, other users on a computer).</p>
+<p>To inspect the file permissions for <code class="docutils literal notranslate"><span class="pre">beacon.sh</span></code>, use <code class="docutils literal notranslate"><span class="pre">ls</span> <span class="pre">-l</span></code>:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>ls<span class="w"> </span>-l<span class="w"> </span>beacon.sh
+-rw-r--r--<span class="w">  </span><span class="m">1</span><span class="w"> </span>you<span class="w">  </span>staff<span class="w">  </span><span class="m">85</span><span class="w"> </span>Oct<span class="w"> </span><span class="m">12</span><span class="w"> </span><span class="m">13</span>:30<span class="w"> </span>beacon.sh
+</pre></div>
+</div>
+<p>We’re interested in the first part, <code class="docutils literal notranslate"><span class="pre">-rw-r--r--</span></code>. These are called <strong>permission
+bits</strong>. They determine whether a file has permission to be:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">r</span></code>: read</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">w</span></code>: written</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">x</span></code>: executed</p></li>
+</ul>
+<p>The first bit in this sequence designates whether something is a directory,
+<a class="reference external" href="https://en.wikipedia.org/wiki/Symbolic_link">symlink</a>, or (in this case) a file. The next nine parts designate who has
+what permissions, using three bits for each to flag this:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">-</span></code>: <code class="docutils literal notranslate"><span class="pre">beacon.sh</span></code> is a file</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">rw-</span></code>: the user (<code class="docutils literal notranslate"><span class="pre">you</span></code>) who created it can read and write it</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">r--</span></code>: other users in this user’s group (<code class="docutils literal notranslate"><span class="pre">staff</span></code>) can read it</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">r--</span></code>: users outside that group can also read it</p></li>
+</ul>
+<p>At present, no one is allowed to execute the file. But the command line program
+<code class="docutils literal notranslate"><span class="pre">chmod</span></code> can change this. There are two ways to use <code class="docutils literal notranslate"><span class="pre">chmod</span></code>. One involves
+knowing <a class="reference external" href="https://www.ibm.com/docs/en/zos/3.1.0?topic=directories-using-octal-numbers-specify-permissions">octal</a> permission representations, which are too detailed for
+this session; instead, using the symbolic representation of <code class="docutils literal notranslate"><span class="pre">r</span></code>, <code class="docutils literal notranslate"><span class="pre">w</span></code>, and <code class="docutils literal notranslate"><span class="pre">x</span></code>
+will suffice.</p>
+<p>To give a file execute (<code class="docutils literal notranslate"><span class="pre">x</span></code>) permissions, type the following:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>chmod<span class="w"> </span>u+x<span class="w"> </span>beacon.sh
+</pre></div>
+</div>
+<p>Above, <code class="docutils literal notranslate"><span class="pre">u+x</span></code> adds “executable” to <code class="docutils literal notranslate"><span class="pre">beacon.sh</span></code>. Note that it only does so for
+the original user (<code class="docutils literal notranslate"><span class="pre">u</span></code>).</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>ls<span class="w"> </span>-l<span class="w"> </span>beacon.sh
+-rwxr--r--<span class="w">  </span><span class="m">1</span><span class="w"> </span>tyler<span class="w">  </span>staff<span class="w">  </span><span class="m">85</span><span class="w"> </span>Oct<span class="w"> </span><span class="m">12</span><span class="w"> </span><span class="m">13</span>:30<span class="w"> </span>beacon.sh
+</pre></div>
+</div>
+<p>With this done, the script may be executed:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>./beacon.sh<span class="w"> </span>DataLab
+Hello,<span class="w"> </span>DataLab
+Hello,<span class="w"> </span>DataLab
+Hello,<span class="w"> </span>DataLab
+Hello,<span class="w"> </span>DataLab
+...
+</pre></div>
+</div>
+</section>
+</section>
+<section id="managing-sessions">
+<h2><span class="section-number">3.2. </span>Managing Sessions<a class="headerlink" href="#managing-sessions" title="Permalink to this headline">#</a></h2>
+<p>With no control flow to specify when the script should stop, <code class="docutils literal notranslate"><span class="pre">beacon.sh</span></code> will
+run indefinitely. While this is a toy example, there are many instances where
+you might write a script with the intent of having it run for a long time
+(fitting a big model, for example). Doing so requires you to keep the
+<strong>session</strong> in which you started your script running. In Unix-speak, a session
+is a collection of <strong>processes</strong>, which are associated with your current
+terminal from the time you log in to the time you log out. Each process is
+dedicated to a separate program in your session, and your computer assigns them
+all a unique id.</p>
+<p>But if you close your terminal (i.e., you exit Terminal, Git Bash, etc., or you
+loose your internet connection to a remote computer), all processes associated
+with that terminal will shut down. That would “kill” <code class="docutils literal notranslate"><span class="pre">beacon.sh</span></code>. In this
+instance there’s no harm in that, but if you have a script that you want to run
+across multiple hours, or even days, you will need a way to keep your session
+alive. One way to do this is with a <strong>terminal multiplexer</strong>. Multiplexers are
+applications that enable you to run one or more sessions at the same time and
+keep those sessions alive for as long as you’d like.</p>
+</section>
+<section id="monitoring-your-code">
+<h2><span class="section-number">3.3. </span>Monitoring Your Code<a class="headerlink" href="#monitoring-your-code" title="Permalink to this headline">#</a></h2>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -420,6 +660,28 @@ active software development</p></li>
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#executable-scripts">3.1. Executable Scripts</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#anatomy-of-an-executable-script">3.1.1. Anatomy of an executable script</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#shebangs">3.1.2. Shebangs</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-script">3.1.3. Example script</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#file-permissions">3.1.4. File Permissions</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#managing-sessions">3.2. Managing Sessions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#monitoring-your-code">3.3. Monitoring Your Code</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
