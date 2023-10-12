@@ -413,9 +413,9 @@ the script will continue running until you log in again.
 
 In `tmux`, a window is not the same thing as a session. The latter is a
 container for the former, and you can have multiple windows. Think of them like
-tabs in a web browsers.
+tabs in a web browser.
 
-As with sessions, naming windows is a good idea. The following starts a new
+As with sessions, naming windows can be a good idea. The following starts a new
 session, `beacon`, with window `win1`.
 
 ```
@@ -459,15 +459,16 @@ to the above. Enter command mode with `Ctrl+b`, then enter:
 ```
 
 ...to split the window into two vertical panes. Use `-h` to split horizontally.
-As before, keybindings make this faster.
-
-+ `Ctrl+b "`: do a vertical split
-+ `Ctrl+b %`: do a horizontal split
 
 ![A `tmux` window with three panes running multiple
 programs](../img/tmux_panes.png)
 
-Navigate panes in command mode using your arrow keys.
+As before, keybindings make this faster:
+
++ `Ctrl+b "`: do a vertical split
++ `Ctrl+b %`: do a horizontal split
+
+Navigate panes in command mode using your arrow keys:
 
 + `Ctrl+b left`: move to the pane on the left
 + `Ctrl+b right`: move to the pane on the right
