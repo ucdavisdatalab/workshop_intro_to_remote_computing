@@ -356,10 +356,14 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#anatomy-of-an-executable-script">3.1.1. Anatomy of an executable script</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#shebangs">3.1.2. Shebangs</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-script">3.1.3. Example script</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#file-permissions">3.1.4. File Permissions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#file-permissions">3.1.4. File permissions</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#managing-sessions">3.2. Managing Sessions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#managing-multiple-sessions">3.2. Managing Multiple Sessions</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-basics-of-tmux">3.2.1. The basics of <code class="docutils literal notranslate"><span class="pre">tmux</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#windows-and-panes">3.2.2. Windows and panes</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#monitoring-your-code">3.3. Monitoring Your Code</a></li>
 </ul>
             </nav>
@@ -407,7 +411,7 @@ for your script. Unlike most command line programs, which are precompiled
 binaries, you need to execute your script by specifying a program to interpret
 it.</p>
 <p>At a high level, that looks like the following:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span><span class="o">[</span>interpreter<span class="o">]</span><span class="w"> </span><span class="o">[</span>script<span class="o">]</span><span class="w"> </span><span class="o">[</span>arg1,<span class="w"> </span>arg2,<span class="w"> </span>arg3,<span class="w"> </span>...<span class="o">]</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ [interpreter] [script] [arg1, arg2, arg3, ...]
 </pre></div>
 </div>
 <p><strong>Components</strong></p>
@@ -423,7 +427,7 @@ to specific resources, etc.</p></li>
 <h3><span class="section-number">3.1.2. </span>Shebangs<a class="headerlink" href="#shebangs" title="Permalink to this headline">#</a></h3>
 <p>It is, however, possible to execute a script without specifying the
 interpreter from the command line. Simply prepend the script with <code class="docutils literal notranslate"><span class="pre">./</span></code>:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>./<span class="o">[</span>script<span class="o">]</span><span class="w"> </span><span class="o">[</span>arg1,<span class="w"> </span>arg2,<span class="w"> </span>arg3,<span class="w"> </span>...<span class="o">]</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./[script] [arg1, arg2, arg3, ...]
 </pre></div>
 </div>
 <p>But this requires inserting a <strong>shebang</strong> into the script. A shebang is a
@@ -435,7 +439,7 @@ errors.</p>
 <p>Shebangs always go on the first line of a script. They begin with <code class="docutils literal notranslate"><span class="pre">#!</span></code>; this
 sequence is followed by an absolute path to your interpreter and any optional
 arguments.</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="ch">#![/path/to/interpreter] [arguments]</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ch">#![/path/to/interpreter] [arguments]</span>
 </pre></div>
 </div>
 <p>Often you’ll have several interpreters to choose from (different versions of
@@ -444,7 +448,7 @@ it’s usually best to let your <code class="docutils literal notranslate"><span
 interpreter is in your current environment. This is especially important when
 you’ve copied a script onto a remote computer, where the path configuration may
 be different than the one on your own.</p>
-<p>The following examples use <code class="docutils literal notranslate"><span class="pre">env</span></code> to implement a shebang in Bash, Python, and R:</p>
+<p>The following examples use <code class="docutils literal notranslate"><span class="pre">env</span></code> to implement a shebang for Bash, Python, and R:</p>
 <div class="sd-tab-set docutils">
 <input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
 </input><label class="sd-tab-label" for="sd-tab-item-0">
@@ -528,11 +532,11 @@ R</label><div class="sd-tab-content docutils">
 </div>
 </section>
 <section id="file-permissions">
-<h3><span class="section-number">3.1.4. </span>File Permissions<a class="headerlink" href="#file-permissions" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">3.1.4. </span>File permissions<a class="headerlink" href="#file-permissions" title="Permalink to this headline">#</a></h3>
 <p>To use your script (in this case, the Bash version), call it from the command
 line:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>./beacon.sh<span class="w"> </span>DataLab
-zsh:<span class="w"> </span>permission<span class="w"> </span>denied:<span class="w"> </span>./beacon.sh
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./beacon.sh DataLab
+zsh: permission denied: ./beacon.sh
 </pre></div>
 </div>
 <p>This will very likely throw an error. The default file permissions for creating
@@ -540,8 +544,8 @@ new files on your computer typically do not include allowing that file to be
 executed. This is to protect against users unwittingly running malicious code
 from a third-party (including, potentially, other users on a computer).</p>
 <p>To inspect the file permissions for <code class="docutils literal notranslate"><span class="pre">beacon.sh</span></code>, use <code class="docutils literal notranslate"><span class="pre">ls</span> <span class="pre">-l</span></code>:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>ls<span class="w"> </span>-l<span class="w"> </span>beacon.sh
--rw-r--r--<span class="w">  </span><span class="m">1</span><span class="w"> </span>you<span class="w">  </span>staff<span class="w">  </span><span class="m">85</span><span class="w"> </span>Oct<span class="w"> </span><span class="m">12</span><span class="w"> </span><span class="m">13</span>:30<span class="w"> </span>beacon.sh
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ls -l beacon.sh
+-rw-r--r--  1 datalab  datalabgrp  85 Oct 12 13:30 beacon.sh
 </pre></div>
 </div>
 <p>We’re interested in the first part, <code class="docutils literal notranslate"><span class="pre">-rw-r--r--</span></code>. These are called <strong>permission
@@ -552,12 +556,12 @@ bits</strong>. They determine whether a file has permission to be:</p>
 <li><p><code class="docutils literal notranslate"><span class="pre">x</span></code>: executed</p></li>
 </ul>
 <p>The first bit in this sequence designates whether something is a directory,
-<a class="reference external" href="https://en.wikipedia.org/wiki/Symbolic_link">symlink</a>, or (in this case) a file. The next nine parts designate who has
-what permissions, using three bits for each to flag this:</p>
+<a class="reference external" href="https://en.wikipedia.org/wiki/Symbolic_link">symlink</a>, or a file. The next nine parts designate who has what
+permissions, using three bits for each to flag this:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">-</span></code>: <code class="docutils literal notranslate"><span class="pre">beacon.sh</span></code> is a file</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">rw-</span></code>: the user (<code class="docutils literal notranslate"><span class="pre">you</span></code>) who created it can read and write it</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">r--</span></code>: other users in this user’s group (<code class="docutils literal notranslate"><span class="pre">staff</span></code>) can read it</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">rw-</span></code>: the user (<code class="docutils literal notranslate"><span class="pre">datalab</span></code>) who created it can read and write it</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">r--</span></code>: other users in this user’s group (<code class="docutils literal notranslate"><span class="pre">datalabgrp</span></code>) can read it</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">r--</span></code>: users outside that group can also read it</p></li>
 </ul>
 <p>At present, no one is allowed to execute the file. But the command line program
@@ -566,45 +570,214 @@ knowing <a class="reference external" href="https://www.ibm.com/docs/en/zos/3.1.
 this session; instead, using the symbolic representation of <code class="docutils literal notranslate"><span class="pre">r</span></code>, <code class="docutils literal notranslate"><span class="pre">w</span></code>, and <code class="docutils literal notranslate"><span class="pre">x</span></code>
 will suffice.</p>
 <p>To give a file execute (<code class="docutils literal notranslate"><span class="pre">x</span></code>) permissions, type the following:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>chmod<span class="w"> </span>u+x<span class="w"> </span>beacon.sh
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ chmod u+x beacon.sh
 </pre></div>
 </div>
 <p>Above, <code class="docutils literal notranslate"><span class="pre">u+x</span></code> adds “executable” to <code class="docutils literal notranslate"><span class="pre">beacon.sh</span></code>. Note that it only does so for
 the original user (<code class="docutils literal notranslate"><span class="pre">u</span></code>).</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>ls<span class="w"> </span>-l<span class="w"> </span>beacon.sh
--rwxr--r--<span class="w">  </span><span class="m">1</span><span class="w"> </span>tyler<span class="w">  </span>staff<span class="w">  </span><span class="m">85</span><span class="w"> </span>Oct<span class="w"> </span><span class="m">12</span><span class="w"> </span><span class="m">13</span>:30<span class="w"> </span>beacon.sh
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ls -l beacon.sh
+-rwxr--r--  1 datalab  datalabgrp  85 Oct 12 13:30 beacon.sh
 </pre></div>
 </div>
 <p>With this done, the script may be executed:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>./beacon.sh<span class="w"> </span>DataLab
-Hello,<span class="w"> </span>DataLab
-Hello,<span class="w"> </span>DataLab
-Hello,<span class="w"> </span>DataLab
-Hello,<span class="w"> </span>DataLab
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./beacon.sh DataLab
+Hello, DataLab
+Hello, DataLab
+Hello, DataLab
+Hello, DataLab
 ...
 </pre></div>
 </div>
 </section>
 </section>
-<section id="managing-sessions">
-<h2><span class="section-number">3.2. </span>Managing Sessions<a class="headerlink" href="#managing-sessions" title="Permalink to this headline">#</a></h2>
+<section id="managing-multiple-sessions">
+<h2><span class="section-number">3.2. </span>Managing Multiple Sessions<a class="headerlink" href="#managing-multiple-sessions" title="Permalink to this headline">#</a></h2>
 <p>With no control flow to specify when the script should stop, <code class="docutils literal notranslate"><span class="pre">beacon.sh</span></code> will
-run indefinitely. While this is a toy example, there are many instances where
-you might write a script with the intent of having it run for a long time
-(fitting a big model, for example). Doing so requires you to keep the
-<strong>session</strong> in which you started your script running. In Unix-speak, a session
-is a collection of <strong>processes</strong>, which are associated with your current
-terminal from the time you log in to the time you log out. Each process is
-dedicated to a separate program in your session, and your computer assigns them
-all a unique id.</p>
-<p>But if you close your terminal (i.e., you exit Terminal, Git Bash, etc., or you
-loose your internet connection to a remote computer), all processes associated
-with that terminal will shut down. That would “kill” <code class="docutils literal notranslate"><span class="pre">beacon.sh</span></code>. In this
+run indefinitely. With this is a toy example, which is easily stopped by typing
+<code class="docutils literal notranslate"><span class="pre">Ctrl+c</span></code>, there are many instances where you might write a script with the
+intent of having it run for a long time. Fitting a big model is one example; or
+perhaps you have a big file to download instead. Keeping your code running
+requires you to keep the <strong>session</strong> in which you started your script running
+as well. In Unix-speak, a session is a group of <strong>processes</strong>, which are
+associated with your terminal from the time you log in to the time you log out.
+Each process is dedicated to a separate program in your session, and your
+computer assigns them unique ids when those programs start.</p>
+<p>Every time you open your terminal application, you start a session. Various
+processes start as well. Closing your terminal application (even
+unintentionally, as in the case of a lost internet connection) terminates all
+processes associated with a session. That would “kill” <code class="docutils literal notranslate"><span class="pre">beacon.sh</span></code>. In this
 instance there’s no harm in that, but if you have a script that you want to run
-across multiple hours, or even days, you will need a way to keep your session
+for multiple hours, or even days, you will need a way to keep your session
 alive. One way to do this is with a <strong>terminal multiplexer</strong>. Multiplexers are
 applications that enable you to run one or more sessions at the same time and
 keep those sessions alive for as long as you’d like.</p>
+<section id="the-basics-of-tmux">
+<h3><span class="section-number">3.2.1. </span>The basics of <code class="docutils literal notranslate"><span class="pre">tmux</span></code><a class="headerlink" href="#the-basics-of-tmux" title="Permalink to this headline">#</a></h3>
+<p>The two most popular multiplexers are <code class="docutils literal notranslate"><span class="pre">screen</span></code> and <code class="docutils literal notranslate"><span class="pre">tmux</span></code>. Most computers will
+come with one or both of these applications installed, though you can also
+install them separately with a package manager like Homebrew and even conda.
+This chapter will show you the basics of <code class="docutils literal notranslate"><span class="pre">tmux</span></code>. It’s a little more featureful
+than <code class="docutils literal notranslate"><span class="pre">screen</span></code> and it fits nicely with other work patterns associated with
+programs like <code class="docutils literal notranslate"><span class="pre">vim</span></code>.</p>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+A note for MacOS + conda users<div class="sd-summary-down docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-down" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 8.72a.75.75 0 000 1.06l6.25 6.25a.75.75 0 001.06 0l6.25-6.25a.75.75 0 00-1.06-1.06L12 14.44 6.28 8.72a.75.75 0 00-1.06 0z"></path></svg></div>
+<div class="sd-summary-up docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-up" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.78 15.28a.75.75 0 000-1.06l-6.25-6.25a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 101.06 1.06L12 9.56l5.72 5.72a.75.75 0 001.06 0z"></path></svg></div>
+</summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">MacOS has a path building utility that <code class="docutils literal notranslate"><span class="pre">tmux</span></code> calls twice when it initializes,
+and this can throw off your conda environment. To fix this, you’ll need to do a
+further bit of configuration.</p>
+<p class="sd-card-text">First, determine which shell you are using:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ echo $SHELL
+</pre></div>
+</div>
+<p class="sd-card-text">If you see <code class="docutils literal notranslate"><span class="pre">/bin/zsh</span></code>, create a new file in your Home directory:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">touch</span> <span class="o">~/.</span><span class="n">zprofile</span>
+</pre></div>
+</div>
+<p class="sd-card-text">If you see <code class="docutils literal notranslate"><span class="pre">/bin/bash</span></code>, create a slightly different one:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">touch</span> <span class="o">~/.</span><span class="n">bash_profile</span>
+</pre></div>
+</div>
+<p class="sd-card-text">Open the file (either <code class="docutils literal notranslate"><span class="pre">.zprofile</span></code> or <code class="docutils literal notranslate"><span class="pre">.bash_profile</span></code>) and enter the following:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span>!<span class="w"> </span>-z<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$TMUX</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">]]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span><span class="nv">PATH</span><span class="o">=</span><span class="s2">&quot;&quot;</span>
+<span class="w">    </span><span class="nb">eval</span><span class="w"> </span><span class="sb">`</span>/usr/libexec/path_helper<span class="w"> </span>-s<span class="sb">`</span>
+<span class="k">fi</span>
+</pre></div>
+</div>
+<p class="sd-card-text">This will flush your path when <code class="docutils literal notranslate"><span class="pre">tmux</span></code> initializes and rebuild it so that conda
+is where it should be.</p>
+<p class="sd-card-text">Save and exit. You should be set!</p>
+</div>
+</details><p>To start <code class="docutils literal notranslate"><span class="pre">tmux</span></code>, simply type it in your command line:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ tmux
+</pre></div>
+</div>
+<p><img alt="New  session" src="../_images/tmux_new.png" /></p>
+<p>You are now in a <strong>window</strong>, which sits inside a screen. It looks the same as
+your regular terminal view, except for a new bar at the bottom. Note the
+number: <code class="docutils literal notranslate"><span class="pre">[0]</span></code>. This means you are working in your first session.</p>
+<p>Within your window, start <code class="docutils literal notranslate"><span class="pre">beacon.sh</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./beacon.sh DataLab
+Hello, DataLab
+...
+</pre></div>
+</div>
+<p>That will kick off the script, which you’ll leave running. Now, type the
+sequence <code class="docutils literal notranslate"><span class="pre">Ctrl+b</span> <span class="pre">d</span></code>. This is a <strong>keybinding</strong> that sends a command to <code class="docutils literal notranslate"><span class="pre">tmux</span></code>.
+In this case, the command is to leave, or <strong>detach</strong>, your session. Doing so
+should bring you back to your terminal view. You’ll see the following in that
+view:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ tmux
+[detached (from session 0)]
+</pre></div>
+</div>
+<p>Detaching from the session will keep it alive but change the screen you’re
+viewing. You can go about your work and leave <code class="docutils literal notranslate"><span class="pre">beacon.sh</span></code> running. If you’d
+like to check in on it, or terminate the script, enter:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ tmux attach -t 0
+</pre></div>
+</div>
+<p>That is, <code class="docutils literal notranslate"><span class="pre">attach</span></code> to the target (<code class="docutils literal notranslate"><span class="pre">-t</span></code>), which in this case is session <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p>
+<p>Entering this command will bring you back to a screen view that contains the
+output of <code class="docutils literal notranslate"><span class="pre">beacon.sh</span></code>. Use <code class="docutils literal notranslate"><span class="pre">Ctrl+c</span></code> to stop your script. Then enter the
+following to close <code class="docutils literal notranslate"><span class="pre">tmux</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ exit
+</pre></div>
+</div>
+<p>It’s a good idea to name your sessions, rather than relying on their index
+positions.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ tmux new -s &quot;beacon&quot;
+</pre></div>
+</div>
+<p>The following starts a new session without entering it:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ tmux new -ds &quot;not_entered&quot;
+</pre></div>
+</div>
+<p>In other words, create a <code class="docutils literal notranslate"><span class="pre">new</span></code> session (<code class="docutils literal notranslate"><span class="pre">-s</span></code>) named <code class="docutils literal notranslate"><span class="pre">not_entered</span></code> in a detached
+(<code class="docutils literal notranslate"><span class="pre">-d</span></code>) state.</p>
+<p>List your current sessions with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ tmux ls
+beacon: 1 windows (created Thu Oct 12 15:43:30 2023)
+not_entered: 1 windows (created Thu Oct 12 15:46:07 2023)
+</pre></div>
+</div>
+<p>Attach to a named session like so:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ tmux attach -t &quot;not_entered&quot;
+</pre></div>
+</div>
+<p>And close a session from your normal terminal view:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ tmux kill-session -t &quot;beacon&quot;
+</pre></div>
+</div>
+<p>Terminate all sessions using:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tmux</span> <span class="n">kill</span><span class="o">-</span><span class="n">server</span>
+</pre></div>
+</div>
+<p>This functionality becomes extremely powerful with remote systems. Using
+<code class="docutils literal notranslate"><span class="pre">tmux</span></code>, you can start a session on a remote computer, kick off a script, detach
+from the session, and log off the remote computer altogether. All the while,
+the script will continue running until you log in again.</p>
+</section>
+<section id="windows-and-panes">
+<h3><span class="section-number">3.2.2. </span>Windows and panes<a class="headerlink" href="#windows-and-panes" title="Permalink to this headline">#</a></h3>
+<p>In <code class="docutils literal notranslate"><span class="pre">tmux</span></code>, a window is not the same thing as a session. The latter is a
+container for the former, and you can have multiple windows. Think of them like
+tabs in a web browsers.</p>
+<p>As with sessions, naming windows is a good idea. The following starts a new
+session, <code class="docutils literal notranslate"><span class="pre">beacon</span></code>, with window <code class="docutils literal notranslate"><span class="pre">win1</span></code>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tmux</span> <span class="n">new</span> <span class="o">-</span><span class="n">s</span> <span class="s2">&quot;beacon&quot;</span> <span class="o">-</span><span class="n">n</span> <span class="s2">&quot;win1&quot;</span>
+</pre></div>
+</div>
+<p>From <code class="docutils literal notranslate"><span class="pre">win1</span></code>, you can create another window, <code class="docutils literal notranslate"><span class="pre">win2</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tmux</span> <span class="n">new</span><span class="o">-</span><span class="n">window</span> <span class="o">-</span><span class="n">n</span> <span class="s2">&quot;win2&quot;</span>
+</pre></div>
+</div>
+<p><img alt="A  session with two windows" src="../_images/tmux_windows.png" /></p>
+<p>Note the bottom bar, which displays the two windows. To switch between them,
+enter <code class="docutils literal notranslate"><span class="pre">Ctrl+b</span></code> and type <code class="docutils literal notranslate"><span class="pre">:</span></code> to enter the command mode (if you’ve used <code class="docutils literal notranslate"><span class="pre">vim</span></code>
+before, this will feel familiar). Then, type:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">:</span><span class="n">select</span><span class="o">-</span><span class="n">window</span> <span class="o">-</span><span class="n">t</span> <span class="s2">&quot;win1&quot;</span>
+</pre></div>
+</div>
+<p>Terminate a window like so:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">:</span><span class="n">kill</span><span class="o">-</span><span class="n">window</span> <span class="o">-</span><span class="n">t</span> <span class="s2">&quot;win2&quot;</span>
+</pre></div>
+</div>
+<p>Shorthand keybindings allow for quick movement between windows:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Ctrl+b</span> <span class="pre">p</span></code>: toggle the previous window</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Ctrl+b</span> <span class="pre">n</span></code>: toggle the next window</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Ctrl+b</span> <span class="pre">x</span></code>: close the current window</p></li>
+</ul>
+<p>Finally, windows can be split into <strong>panes</strong>. This divides a window into
+different areas, which can all run different processes. The syntax is similar
+to the above. Enter command mode with <code class="docutils literal notranslate"><span class="pre">Ctrl+b</span></code>, then enter:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">:</span><span class="n">split</span><span class="o">-</span><span class="n">window</span> <span class="o">-</span><span class="n">v</span>
+</pre></div>
+</div>
+<p>…to split the window into two vertical panes. Use <code class="docutils literal notranslate"><span class="pre">-h</span></code> to split horizontally.
+As before, keybindings make this faster.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Ctrl+b</span> <span class="pre">&quot;</span></code>: do a vertical split</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Ctrl+b</span> <span class="pre">%</span></code>: do a horizontal split</p></li>
+</ul>
+<p><img alt="A  window with three panes running multipleprograms" src="../_images/tmux_panes.png" /></p>
+<p>Navigate panes in command mode using your arrow keys.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Ctrl+b</span> <span class="pre">left</span></code>: move to the pane on the left</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Ctrl+b</span> <span class="pre">right</span></code>: move to the pane on the right</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Ctrl+b</span> <span class="pre">up</span></code>: move to the pane above</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Ctrl+b</span> <span class="pre">down</span></code>: move to the pane below</p></li>
+</ul>
+<p>This only scratches the surface of <code class="docutils literal notranslate"><span class="pre">tmux</span></code>. It has much more functionality than
+the above, and nearly all of those functions may be configured according to
+your preferences. Use the application’s <code class="docutils literal notranslate"><span class="pre">man</span></code> page to find out more, or consult
+a <a class="reference external" href="https://devhints.io/tmux">cheat sheet</a> online.</p>
+</section>
 </section>
 <section id="monitoring-your-code">
 <h2><span class="section-number">3.3. </span>Monitoring Your Code<a class="headerlink" href="#monitoring-your-code" title="Permalink to this headline">#</a></h2>
@@ -673,10 +846,14 @@ keep those sessions alive for as long as you’d like.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#anatomy-of-an-executable-script">3.1.1. Anatomy of an executable script</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#shebangs">3.1.2. Shebangs</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-script">3.1.3. Example script</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#file-permissions">3.1.4. File Permissions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#file-permissions">3.1.4. File permissions</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#managing-sessions">3.2. Managing Sessions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#managing-multiple-sessions">3.2. Managing Multiple Sessions</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-basics-of-tmux">3.2.1. The basics of <code class="docutils literal notranslate"><span class="pre">tmux</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#windows-and-panes">3.2.2. Windows and panes</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#monitoring-your-code">3.3. Monitoring Your Code</a></li>
 </ul>
   </nav></div>
