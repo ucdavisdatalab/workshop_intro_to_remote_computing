@@ -726,8 +726,8 @@ the script will continue running until you log in again.</p>
 <h3><span class="section-number">3.2.2. </span>Windows and panes<a class="headerlink" href="#windows-and-panes" title="Permalink to this headline">#</a></h3>
 <p>In <code class="docutils literal notranslate"><span class="pre">tmux</span></code>, a window is not the same thing as a session. The latter is a
 container for the former, and you can have multiple windows. Think of them like
-tabs in a web browsers.</p>
-<p>As with sessions, naming windows is a good idea. The following starts a new
+tabs in a web browser.</p>
+<p>As with sessions, naming windows can be a good idea. The following starts a new
 session, <code class="docutils literal notranslate"><span class="pre">beacon</span></code>, with window <code class="docutils literal notranslate"><span class="pre">win1</span></code>.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tmux</span> <span class="n">new</span> <span class="o">-</span><span class="n">s</span> <span class="s2">&quot;beacon&quot;</span> <span class="o">-</span><span class="n">n</span> <span class="s2">&quot;win1&quot;</span>
 </pre></div>
@@ -759,14 +759,14 @@ to the above. Enter command mode with <code class="docutils literal notranslate"
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">:</span><span class="n">split</span><span class="o">-</span><span class="n">window</span> <span class="o">-</span><span class="n">v</span>
 </pre></div>
 </div>
-<p>…to split the window into two vertical panes. Use <code class="docutils literal notranslate"><span class="pre">-h</span></code> to split horizontally.
-As before, keybindings make this faster.</p>
+<p>…to split the window into two vertical panes. Use <code class="docutils literal notranslate"><span class="pre">-h</span></code> to split horizontally.</p>
+<p><img alt="A  window with three panes running multipleprograms" src="../_images/tmux_panes.png" /></p>
+<p>As before, keybindings make this faster:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">Ctrl+b</span> <span class="pre">&quot;</span></code>: do a vertical split</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">Ctrl+b</span> <span class="pre">%</span></code>: do a horizontal split</p></li>
 </ul>
-<p><img alt="A  window with three panes running multipleprograms" src="../_images/tmux_panes.png" /></p>
-<p>Navigate panes in command mode using your arrow keys.</p>
+<p>Navigate panes in command mode using your arrow keys:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">Ctrl+b</span> <span class="pre">left</span></code>: move to the pane on the left</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">Ctrl+b</span> <span class="pre">right</span></code>: move to the pane on the right</p></li>
