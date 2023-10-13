@@ -27,8 +27,7 @@ processes so that you can successfully do your work.
 + Use various utilities (`ps`, `top`, `htop`) to monitor and manage processes
   and jobs as they run
 + Identify resource usage and related system information
-+ Understand the trade offs between using local and remote systems during
-  active software development
++ Estimate the resources required to execute your code
 :::
 
 Executable Scripts
@@ -809,3 +808,167 @@ tmpfs                       26G     0   26G   0% /run/user/1027
 tmpfs                       26G     0   26G   0% /run/user/1031
 tmpfs                       26G     0   26G   0% /run/user/1032
 ```
+
+Estimating Resource Requirements
+--------------------------------
+
+Estimating how much time and memory your script requires is hard. It's hard for
+several reasons, some of which involve knowing formal principles from computer
+science. In this section we will limit ourselves to discussing practical
+considerations.
+
+If you take away anything from this section, it should be this: you should
+estimate resource usage by tip-toeing up from simple instances to more complex
+ones. There's no point in estimating resource usage by starting with hundreds
+of gigabytes of data. That will be time-intensive and probably misleading.
+Instead, start with a small amount of data and gradually scale your tests until
+you feel you're able to make a good estimate.
+
+### Example script
+
+Consider the script `factorial.{sh,py,R}`. It computes the factorial of a
+positive number `n` (e.g. $10!$).
+
+`````{tab-set}
+````{tab-item} Bash
+```{code-block} bash
+#!/usr/bin/env bash
+
+factorial() {
+    # Compute the factorial of a positive number $1
+    local result=1
+    for ((i=1; i<=$1; i++)) do
+        result=$((result * i))
+    done
+}
+
+factorial "$1"
+```
+````
+
+````{tab-item} Python
+```{code-block} python
+#!/usr/bin/env python3
+
+import sys
+
+def factorial(n):
+    """Compute the factorial of a positive number `n`."""
+    result = 1
+    for i in range(1, n+1):
+        result *= i
+
+def main():
+    n = int(sys.argv[1])
+    factorial(n)
+
+if __name__ == "__main__":
+    main()
+```
+````
+
+````{tab-item} R
+```{code-block} R
+#!/usr/bin/env Rscript
+
+library(gmp)
+
+factorial = function(n) {
+  # ' Compute the factorial of a postive number `n`
+  result = as.bigz(1)
+  for (i in 1:n) {
+    result = result * i
+  }
+}
+
+args = commandArgs(trailingOnly=TRUE)
+n = as.integer(args[1])
+factorial(n)
+```
+````
+`````
+
+### Timing code
+
+Python and R both have libraries for timing this code, but there are also
+utilities like `time`. Call `time` before any other command and it will show
+you how long it took to execute that command. Below, we use the Python version
+of this code to compute factorials for three numbers.
+
+```
+$ time ./factorial.py 5000
+./factorial.py 5000  0.02s user 0.01s system 92% cpu 0.037 total
+$ time ./factorial.py 10000
+./factorial.py 10000  0.04s user 0.01s system 94% cpu 0.058 total
+$ time ./factorial.py 15000
+./factorial.py 15000  0.08s user 0.01s system 96% cpu 0.091 total
+```
+
+`time` outputs four metrics:
+
++ `user`: time spent executing the actual script instructions
++ `system`: time spent on system-level processes (e.g. loading data into a
+  script, calls to the kernel)
++ `cpu`: percentage of CPU time spent on the command, relative to the total
+  time available
++ `total`, or `real`: actual elapsed time for the entire process
+
+Calculating the factorial of a number runs in **linear** time. That is, the
+time it takes to run this process increases linearly with the size of its
+input. This is evident from the steady rise in the `total` time value:
+increasing `n` by `50000` takes an additional ~0.03 seconds.
+
+Will that hold for the next number in our series?
+
+```
+$ time ./factorial.py 20000
+./factorial.py 20000  0.12s user 0.01s system 97% cpu 0.129 total
+```
+
+Roughly, yes. A true time test will take the average of multiple runs to
+account for variances in your system, but this is already a decent estimate of
+the amount of time it will take to execute `factorial.py`. We could express
+this estimate as a linear equation:
+
+$$
+T = \frac{0.03}{5000} \cdot n + b
+$$
+
+Where $n$ is your input and $b$ represents the base amount of time it takes to
+complete the task. You can estimate $b$ by comparing a few trials with
+different values for $n$. In this case, $b$ is ~0.005 seconds.
+
+### RAM usage
+
+Estimating how much memory your script will take follows a similar pattern:
+incrementally scale your computations until you feel confident in your ability
+to make an informed guess. While there are third-party command line utilities
+available for measuring memory usage, `tmux` and `top` will do just fine. We
+will conclude by showing you the setup for such a test.
+
+The first screenshot below shows a `tmux` window split into two panes. On the
+left is an interactive Python environment. It uses NumPy to create a (1,000 x
+1,000) matrix of zeros. On the right, `top` has been opened with the following
+command:
+
+```
+$ top -cu <user>
+```
+
+`top` has had its memory displays altered with `e` and `Shift-e`. Additionally,
+`Shift-m` has sorted the processes so the one with the most memory sits at the
+top.
+
+![A two-pane `tmux` window with Python and `top` showing a small
+matrix](../img/np_small.png)
+
+The second screenshot shows the same setup, but this time the matrix is
+substantially larger: it's (100,000 x 100,000). Note the difference in virtual
+memory!
+
+![A two-pane `tmux` window with Python and `top` showing a large
+matrix](../img/np_large.png)
+
+Using a similar setup on the command line is also possible. Simply execute your
+script and monitor it as it runs with `top`. Scale up or down as necessary.
+
