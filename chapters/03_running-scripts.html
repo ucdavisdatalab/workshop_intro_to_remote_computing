@@ -614,11 +614,11 @@ typing <code class="docutils literal notranslate"><span class="pre">Ctrl+c</span
 the intent of having it run for a long time. Fitting a big model is one
 example; or perhaps you have a big file to download instead. Keeping your code
 running requires you to keep the <strong>session</strong> in which you started your script
-running as well. Note: in Unix-speak, a session is <em>not</em> the same thing as your
-<strong>terminal</strong>. The latter is what you use when you interact with your computer
-via the command line. By contrast, a session is created when you log in (start
-interacting) and it persists until you log out (stop interacting). It is
-comprised of a collection of <strong>processes</strong>. Each process is dedicated to a
+running as well. Importantly, in Unix-speak, a session is <em>not</em> the same thing
+as your <strong>terminal</strong>. The latter is what you use when you interact with your
+computer via the command line. By contrast, a session is created when you log
+in (start interacting) and it persists until you log out (stop interacting). It
+is comprised of a collection of <strong>processes</strong>. Each process is dedicated to a
 separate program in your session.</p>
 <p>Every time you open your terminal, you start a session. Various processes start
 as well; you start others whenever you interact with the command line. Closing
@@ -788,6 +788,7 @@ environment (IDE).</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">Ctrl+b</span> <span class="pre">&quot;</span></code>: do a vertical split</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">Ctrl+b</span> <span class="pre">%</span></code>: do a horizontal split</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Ctrl-b</span> <span class="pre">x</span></code>: close the current pane</p></li>
 </ul>
 <p>Navigate panes in command mode using your arrow keys:</p>
 <ul class="simple">
@@ -805,7 +806,10 @@ a <a class="reference external" href="https://devhints.io/tmux">cheat sheet</a> 
 <section id="monitoring-your-code">
 <h2><span class="section-number">3.3. </span>Monitoring Your Code<a class="headerlink" href="#monitoring-your-code" title="Permalink to this headline">#</a></h2>
 <p>As your work spreads across sessions, windows, and panes, it becomes
-increasingly necessary to track what is running, and where.</p>
+increasingly necessary to track what is running, and where. In the context of
+remote computing, tracking your work is not only essential but good etiquette.
+Resources can be limited, and you want to be sure you aren’t negatively
+affecting users’ work.</p>
 <section id="finding-a-process">
 <h3><span class="section-number">3.3.1. </span>Finding a process<a class="headerlink" href="#finding-a-process" title="Permalink to this headline">#</a></h3>
 <p>Recall that each program runs on its own process. Every time you interact with
@@ -893,11 +897,11 @@ Hello, DataLab
 Terminated
 </pre></div>
 </div>
-<p>This can be especially important if you’ve written a script that throws an
-error and causes your terminal to be unresponsive. For example, maybe your
-computer is getting bogged down because a script is taking up too many
-resources. You might notice that and want to terminate the script before it
-causes any problems and rethink how to implement your code.</p>
+<p>This can be especially important if you’ve written a script that causes your
+terminal to be unresponsive. For example, maybe your computer is getting bogged
+down because a script is taking up too many resources. You might notice this
+and want to terminate the script before it causes any further problems and
+rethink how to implement your code.</p>
 <p>But how would you know what resources are being used?</p>
 </section>
 <section id="monitoring-real-time-system-performance">
@@ -947,7 +951,7 @@ usage of these processes.</p>
 <li><p><code class="docutils literal notranslate"><span class="pre">%MEM</span></code>: amount of physical RAM a process uses</p></li>
 </ul>
 <p>Two other columns, <code class="docutils literal notranslate"><span class="pre">PR</span></code> and <code class="docutils literal notranslate"><span class="pre">NI</span></code> stand for process priority and a “nice value”
-(used for process scheduling), respectively).</p>
+(used for process scheduling), respectively.</p>
 <p>Right now the task list displays its values in kilobytes. That’s hard to read.
 Type <code class="docutils literal notranslate"><span class="pre">e</span></code> when <code class="docutils literal notranslate"><span class="pre">top</span></code> is active to toggle between kilobytes, megabytes,
 gigabytes, and so on. Use <code class="docutils literal notranslate"><span class="pre">Shift+e</span></code> to toggle the dashboard values.</p>
@@ -968,13 +972,102 @@ gigabytes, and so on. Use <code class="docutils literal notranslate"><span class
 <span class="mi">2015629</span> <span class="n">datalab</span>     <span class="mi">20</span>   <span class="mi">0</span>    <span class="mf">6.0</span><span class="n">m</span>   <span class="mf">1.8</span><span class="n">m</span>   <span class="mf">1.8</span><span class="n">m</span> <span class="n">S</span>   <span class="mf">0.0</span>   <span class="mf">0.0</span>   <span class="mi">0</span><span class="p">:</span><span class="mf">00.00</span> <span class="n">sleep</span>
 </pre></div>
 </div>
-<p>You can kill a process from <code class="docutils literal notranslate"><span class="pre">top</span></code> by entering <code class="docutils literal notranslate"><span class="pre">k</span></code> followed by the PID.</p>
+<p>You can end a process from <code class="docutils literal notranslate"><span class="pre">top</span></code> by entering <code class="docutils literal notranslate"><span class="pre">k</span></code> followed by the PID. Quit
+<code class="docutils literal notranslate"><span class="pre">top</span></code> by entering <code class="docutils literal notranslate"><span class="pre">q</span></code>.</p>
 <p>A newer version of <code class="docutils literal notranslate"><span class="pre">top</span></code>, <code class="docutils literal notranslate"><span class="pre">htop</span></code>, adds some nice interactivity to the display.
 We recommend it, though you may have to install it yourself. Visit the
 application’s <a class="reference external" href="https://github.com/htop-dev/htop">GitHub repository</a> for more information.</p>
+<p>You may have also noticed that <code class="docutils literal notranslate"><span class="pre">top</span></code> has not provided any information about
+GPUs. It usually doesn’t. GPU GPU manufacturers frequently provide their own
+utilities for system monitoring. For Nvidia GPUs, there is <code class="docutils literal notranslate"><span class="pre">nvidia-smi</span></code>. It’s a
+safe assumption to expect this utility to be installed on any computer with
+Nvidia GPU hardware.</p>
+<p>Set the <code class="docutils literal notranslate"><span class="pre">-l</span></code> flag with a number <code class="docutils literal notranslate"><span class="pre">&lt;N&gt;</span></code> to update the readout every <code class="docutils literal notranslate"><span class="pre">&lt;N&gt;</span></code>
+seconds.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ nvidia-smi -l 5
++---------------------------------------------------------------------------------------+
+| NVIDIA-SMI 535.104.12             Driver Version: 535.104.12   CUDA Version: 12.2     |
+|-----------------------------------------+----------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id        Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |         Memory-Usage | GPU-Util  Compute M. |
+|                                         |                      |               MIG M. |
+|=========================================+======================+======================|
+|   0  NVIDIA A100 80GB PCIe          On  | 00000000:C4:00.0 Off |                    0 |
+| N/A   36C    P0              45W / 300W |      4MiB / 81920MiB |      0%      Default |
+|                                         |                      |             Disabled |
++-----------------------------------------+----------------------+----------------------+
+
++---------------------------------------------------------------------------------------+
+| Processes:                                                                            |
+|  GPU   GI   CI        PID   Type   Process name                            GPU Memory |
+|        ID   ID                                                             Usage      |
+|=======================================================================================|
+|  No running processes found                                                           |
++---------------------------------------------------------------------------------------+
+</pre></div>
+</div>
+<p>Cells in the header will tell you information about your CUDA version, which
+GPU(s) you have, and memory usage. Below the header, the task list will show you
+any running processes.</p>
 </section>
 <section id="other-resource-information">
 <h3><span class="section-number">3.3.3. </span>Other resource information<a class="headerlink" href="#other-resource-information" title="Permalink to this headline">#</a></h3>
+<p>General disk usage information is available with <code class="docutils literal notranslate"><span class="pre">du</span></code>. This little command can
+be especially useful on remote systems, where there are usually more
+constraints around where users are allowed to store data and how much disk
+space they’ve been allocated.</p>
+<p><code class="docutils literal notranslate"><span class="pre">du</span></code> traverses the file tree, starting from your current position and going
+down to the bottom-most directory. Running it without any flags will display
+information about every single file, which tends to be too much information.
+Use the <code class="docutils literal notranslate"><span class="pre">-d</span></code> flag to set a maximum depth to display.</p>
+<p>Setting <code class="docutils literal notranslate"><span class="pre">-d</span></code> to <code class="docutils literal notranslate"><span class="pre">0</span></code> only shows the total disk space for a directory.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ du -d 0 .
+6788    .
+</pre></div>
+</div>
+<p>Setting it to <code class="docutils literal notranslate"><span class="pre">1</span></code> will show subdirectories directly beneath your target.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ du -d 1 .
+40      ./chapters
+4       ./_static
+300     ./img
+3628    ./_build
+2768    ./.git
+6788    .
+</pre></div>
+</div>
+<p>As with <code class="docutils literal notranslate"><span class="pre">top</span></code>, the disk space units default to kilobytes. Use <code class="docutils literal notranslate"><span class="pre">-h</span></code> to get unit
+subfixes.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$du -dh 1 .
+ 40K    ./chapters
+4.0K    ./_static
+300K    ./img
+3.5M    ./_build
+2.7M    ./.git
+6.6M    .
+</pre></div>
+</div>
+<p>Finally, <code class="docutils literal notranslate"><span class="pre">df</span></code> displays free disk space for all currently mounted file systems.
+As above, use it with <code class="docutils literal notranslate"><span class="pre">-h</span></code> to get more readable output.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ df -h
+Filesystem                 Size  Used Avail Use% Mounted on
+devtmpfs                   126G     0  126G   0% /dev
+tmpfs                      126G   14M  126G   1% /dev/shm
+tmpfs                      126G  4.1G  122G   4% /run
+tmpfs                      126G     0  126G   0% /sys/fs/cgroup
+/dev/mapper/VG0-LVRoot     9.8G  7.9G  1.8G  82% /
+/dev/mapper/VG0-LVUsr       16G   15G  1.5G  91% /usr
+/dev/sda1                  477M  240M  234M  51% /boot
+/dev/mapper/VG0-LVHome     502G  416G   87G  83% /home
+/dev/mapper/VG0-LVVar      8.8G  3.9G  4.9G  45% /var
+/dev/mapper/VG0-LVData     906G  843G   63G  94% /data_small
+/dev/mapper/VG0-LVOutput   463G   72M  463G   1% /output
+/dev/mapper/VG1-LVCoraid1  4.1T  231G  3.9T   6% /data
+/dev/mapper/VG3-LVCoraid2  174T   58T  117T  33% /dsl
+tmpfs                       26G     0   26G   0% /run/user/1027
+tmpfs                       26G     0   26G   0% /run/user/1031
+tmpfs                       26G     0   26G   0% /run/user/1032
+</pre></div>
+</div>
 </section>
 </section>
 </section>
