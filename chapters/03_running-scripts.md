@@ -578,7 +578,7 @@ were spawned by other processes. Look at the `PPID`, or process parent id,
 column below:
 
 ```
-$ps -u datalab -fj
+$ps -fju datalab
 UID            PID    PPID    PGID     SID  C STIME TTY          TIME CMD
 datalab    1989412       1 1989412 1989412  0 20:41 ?        00:00:00 /lib/systemd/systemd --user
 datalab    1989413 1989412 1989412 1989412  0 20:41 ?        00:00:00 (sd-pam)
@@ -588,7 +588,7 @@ datalab    1989587       1 1989587 1989587  0 20:41 ?        00:00:00 tmux new -
 datalab    1989588 1989587 1989588 1989588  0 20:41 pts/50   00:00:00 /bin/bash
 datalab    1990640 1989588 1990640 1989588  0 20:44 pts/50   00:00:01 bash ./beacon.sh DataLab
 datalab    2002776 1990640 1990640 1989588  0 21:12 pts/50   00:00:00 sleep 1
-datalab    2002783 1989437 2002783 1989437  0 21:12 pts/35   00:00:00 ps -u datalab -fj
+datalab    2002783 1989437 2002783 1989437  0 21:12 pts/35   00:00:00 ps -fju datalab
 ```
 
 See how `sleep 1` (2002776) has the parent 1990640, which is the PID of the
@@ -634,7 +634,7 @@ this chapter, it will be more useful to zero-in on a specific user.
 Running
 
 ```
-$top -u datalab
+$ top -u datalab
 ```
 
 Will take you to a screen like this:
@@ -705,18 +705,16 @@ You can end a process from `top` by entering `k` followed by the PID. Quit
 
 A newer version of `top`, `htop`, adds some nice interactivity to the display.
 We recommend it, though you may have to install it yourself. Visit the
-application's [GitHub repository][repo] for more information.
+application's [GitHub repository][repo] for more information. You may have also
+noticed that `top` has not provided any information about GPUs. It usually
+doesn't. GPU manufacturers frequently provide their own utilities for system
+monitoring. 
 
 [repo]: https://github.com/htop-dev/htop
 
-You may have also noticed that `top` has not provided any information about
-GPUs. It usually doesn't. GPU GPU manufacturers frequently provide their own
-utilities for system monitoring. For Nvidia GPUs, there is `nvidia-smi`. It's a
-safe assumption to expect this utility to be installed on any computer with
-Nvidia GPU hardware.
-
-Set the `-l` flag with a number `<N>` to update the readout every `<N>`
-seconds.
+For Nvidia GPUs, there is `nvidia-smi`. It's a safe assumption to expect this
+utility to be installed on any computer with Nvidia GPU hardware. Set the `-l`
+flag with a number `<N>` to update the readout every `<N>` seconds.
 
 ```
 $ nvidia-smi -l 5
