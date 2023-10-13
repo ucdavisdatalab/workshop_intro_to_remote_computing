@@ -13,9 +13,16 @@ kernelspec:
 Running Scripts
 ===============
 
+This chapter will show you how to write and run scripts on the command line.
+Scripts are like recipes, which your computer follows to complete a task.
+They're essential for automating workflows, working on remote systems, scaling
+processes, and doing reproducible research. In addition to writing and running
+scripts, this chapter will show you how to manage terminal sessions and monitor
+processes so that you can successfully do your work.
+
 :::{admonition} Learning Objectives
 + Write and run executable scripts from the command line
-+ Explain what processes, jobs, and sessions are
++ Explain what processes, process groups, sessions, and terminals are
 + Use a terminal multiplexer (`tmux`) to create multiple persistent sessions
 + Use various utilities (`ps`, `top`, `htop`) to monitor and manage processes
   and jobs as they run
@@ -38,7 +45,7 @@ external program to run.
 
 This chapter focuses on the third group of files: executable scripts.
 
-### Anatomy of an executable script
+### Using an executable script
 
 Using an executable script works very similarly to using command line programs
 like `ls`, `grep`, etc.: scripts have names and some can take optional
@@ -50,15 +57,22 @@ it.
 At a high level, that looks like the following:
 
 ```
-$ [interpreter] [script] [arg1, arg2, arg3, ...]
+$ <interpreter> <script> <arg1, arg2, arg3, ...>
 ```
 
 **Components**
 + Interpreter: a program that interprets and executes instructions written in a
   script; common examples include Bash, Python, and R
-+ Script: a plaintext file that contains your code
++ Script: a plaintext file that contains your code; typically its file
+  extension hints at the kind of instructions it contains
 + Arguments: extra commands that change the behavior of your script, point it
   to specific resources, etc.
+
+In practice, the above might look like so:
+
+```
+$ python3 script.py input.txt output.csv
+```
 
 ### Shebangs
 
@@ -66,7 +80,7 @@ It is, however, possible to execute a script without specifying the
 interpreter from the command line. Simply prepend the script with `./`:
 
 ```
-$ ./[script] [arg1, arg2, arg3, ...]
+$ ./<script> <arg1, arg2, arg3, ...>
 ```
 
 But this requires inserting a **shebang** into the script. A shebang is a
@@ -81,7 +95,7 @@ sequence is followed by an absolute path to your interpreter and any optional
 arguments.
 
 ```
-#![/path/to/interpreter] [arguments]
+#!</path/to/interpreter> <arguments>
 ```
 
 Often you'll have several interpreters to choose from (different versions of
@@ -176,7 +190,7 @@ line:
 
 ```
 $ ./beacon.sh DataLab
-zsh: permission denied: ./beacon.sh
+bash: permission denied: ./beacon.sh
 ```
 
 This will very likely throw an error. The default file permissions for creating
@@ -246,25 +260,28 @@ Managing Multiple Sessions
 --------------------------
 
 With no control flow to specify when the script should stop, `beacon.sh` will
-run indefinitely. With this is a toy example, which is easily stopped by typing
-`Ctrl+c`, there are many instances where you might write a script with the
-intent of having it run for a long time. Fitting a big model is one example; or
-perhaps you have a big file to download instead. Keeping your code running
-requires you to keep the **session** in which you started your script running
-as well. In Unix-speak, a session is a group of **processes**, which are
-associated with your terminal from the time you log in to the time you log out.
-Each process is dedicated to a separate program in your session, and your
-computer assigns them unique ids when those programs start.
+run indefinitely. While this is a toy example, which is easily stopped by
+typing `Ctrl+c`, there are many instances where you might write a script with
+the intent of having it run for a long time. Fitting a big model is one
+example; or perhaps you have a big file to download instead. Keeping your code
+running requires you to keep the **session** in which you started your script
+running as well. Note: in Unix-speak, a session is _not_ the same thing as your
+**terminal**. The latter is what you use when you interact with your computer
+via the command line. By contrast, a session is created when you log in (start
+interacting) and it persists until you log out (stop interacting). It is
+comprised of a collection of **processes**. Each process is dedicated to a
+separate program in your session.
 
-Every time you open your terminal application, you start a session. Various
-processes start as well. Closing your terminal application (even
-unintentionally, as in the case of a lost internet connection) terminates all
-processes associated with a session. That would "kill" `beacon.sh`. In this
-instance there's no harm in that, but if you have a script that you want to run
-for multiple hours, or even days, you will need a way to keep your session
-alive. One way to do this is with a **terminal multiplexer**. Multiplexers are
-applications that enable you to run one or more sessions at the same time and
-keep those sessions alive for as long as you'd like.
+Every time you open your terminal, you start a session. Various processes start
+as well; you start others whenever you interact with the command line. Closing
+your terminal (even unintentionally, as in the case of a lost internet
+connection) terminates all processes associated with a session, including those
+that are still running. That would "kill" `beacon.sh`. In this instance there's
+no harm in that, but if you have a script that you want to run for multiple
+hours, or even days, you will need a way to keep your session alive. One way to
+do this is with a **terminal multiplexer**. Multiplexers are applications that
+enable you to run one or more sessions at the same time and keep those sessions
+alive for as long as you'd like.
 
 ### The basics of `tmux`
 
@@ -276,7 +293,7 @@ than `screen` and it fits nicely with other work patterns associated with
 programs like `vim`.
 
 ````{dropdown} A note for MacOS + conda users
-MacOS has a path building utility that `tmux` calls twice when it initializes,
+MacOS has a path building utility that `tmux` calls twice when it initializes
 and this can throw off your conda environment. To fix this, you'll need to do a
 further bit of configuration.
 
@@ -459,11 +476,15 @@ to the above. Enter command mode with `Ctrl+b`, then enter:
 ```
 
 ...to split the window into two vertical panes. Use `-h` to split horizontally.
+The example below is a window with three panes, each of which is running a
+different process. As this example indicates, using `tmux` in concert with a
+program like `vim` can end up acting like a custom interactive development
+environment (IDE).
 
 ![A `tmux` window with three panes running multiple
 programs](../img/tmux_panes.png)
 
-As before, keybindings make this faster:
+As before, keybindings make creating panes faster:
 
 + `Ctrl+b "`: do a vertical split
 + `Ctrl+b %`: do a horizontal split
@@ -485,3 +506,202 @@ a [cheat sheet][cs] online.
 Monitoring Your Code
 --------------------
 
+As your work spreads across sessions, windows, and panes, it becomes
+increasingly necessary to track what is running, and where. 
+
+### Finding a process
+
+Recall that each program runs on its own process. Every time you interact with
+your computer, you spawn a process, or multiple processes. Your computer
+assigns a unique **process id** (PID) to each process, which enables you to
+monitor and manage it as necessary.
+
+`ps` will tell you which processes are currently running in a terminal.
+
+```
+$ tmux new -s "beacon"
+$ ps
+    PID TTY          TIME CMD
+1989588 pts/50   00:00:00 bash
+1990312 pts/50   00:00:00 ps
+```
+
+The output above contains the following:
+
++ `PID`: unique process ids
++ `TTY`: terminal associated with the process
++ `TIME`: CPU time a process has used
++ `CMD`: command that started the process
+
+Now start `beacon.sh` in `tmux` and detach from the session.
+
+```
+$ ./beacon.sh DataLab
+Hello, DataLab
+...
+```
+
+If you're on Linux, running `ps` outside `tmux` will show similar output to the
+above, but with different PIDs. MacOS's version of `ps` defaults to showing all
+processes associated with a user, not just those associated with the active
+terminal. This is equivalent to setting the `-u` flag and specifying a user in
+Linux.
+
+```
+$ ps -u datalab
+    PID TTY          TIME CMD
+1989412 ?        00:00:00 systemd
+1989413 ?        00:00:00 (sd-pam)
+1989436 ?        00:00:00 sshd
+1989437 pts/35   00:00:00 bash
+1989587 ?        00:00:00 tmux: server
+1989588 pts/50   00:00:00 bash
+1990640 pts/50   00:00:00 bash
+1995213 pts/50   00:00:00 sleep
+1995214 pts/35   00:00:00 ps
+```
+
+Now there are two instances of Bash running, one for the shell that called `ps`
+and one for the shell that started `beacon.sh`. There's another process for
+`tmux` itself and a separate one for `sleep`. Two terminals manage these
+processes, though not all processes have a terminal associated with them.
+Processes with `?` in the `TTY` column are system-level programs, which are
+included here because they are the **parents** of other processes. That is,
+these processes spawned other processes.
+
+Setting the `-f` (full format) and `-j` (jobs) flags will show which processes
+were spawned by other processes. Look at the `PPID`, or process parent id,
+column below:
+
+```
+$ps -u datalab -fj
+UID            PID    PPID    PGID     SID  C STIME TTY          TIME CMD
+datalab    1989412       1 1989412 1989412  0 20:41 ?        00:00:00 /lib/systemd/systemd --user
+datalab    1989413 1989412 1989412 1989412  0 20:41 ?        00:00:00 (sd-pam)
+datalab    1989436 1989378 1989378 1989378  0 20:41 ?        00:00:00 sshd: datalab@pts/35
+datalab    1989437 1989436 1989437 1989437  0 20:41 pts/35   00:00:00 -bash
+datalab    1989587       1 1989587 1989587  0 20:41 ?        00:00:00 tmux new -ds beacon
+datalab    1989588 1989587 1989588 1989588  0 20:41 pts/50   00:00:00 /bin/bash
+datalab    1990640 1989588 1990640 1989588  0 20:44 pts/50   00:00:01 bash ./beacon.sh DataLab
+datalab    2002776 1990640 1990640 1989588  0 21:12 pts/50   00:00:00 sleep 1
+datalab    2002783 1989437 2002783 1989437  0 21:12 pts/35   00:00:00 ps -u datalab -fj
+```
+
+See how `sleep 1` (2002776) has the parent 1990640, which is the PID of the
+process that executed `beacon.sh`? Both are in the same **process group**,
+which is reflected in the `PGID` column. (Note in passing `SID`, which is the
+session id column.)
+
+Calling `ps` on a single PID provides information about a single process.
+
+```
+$ ps -f 1990640
+UID            PID    PPID    PGID     SID  C STIME TTY      STAT   TIME CMD
+datalab    1990640 1989588 1990640 1989588  0 20:44 pts/50   S+     0:01 bash ./beacon.sh DataLab
+```
+
+If you'd like to terminate a process, note its PID and use `kill`.
+
+```
+$ kill 1990640
+$ tmux attach -t "beacon"
+...
+Hello, DataLab
+Hello, DataLab
+Terminated
+```
+
+This can be especially important if you've written a script that throws an
+error and causes your terminal to be unresponsive. For example, maybe your
+computer is getting bogged down because a script is taking up too many
+resources. You might notice that and want to terminate the script before it
+causes any problems and rethink how to implement your code.
+
+But how would you know what resources are being used?
+
+### Monitoring real-time system performance
+
+`top` will display real-time information about every process running on a
+computer. It's a great bird's-eye view of what is going on at any one point in
+your system. But for that reason it can also be overwhelming. Calling `top`
+with no arguments shows a giant, shifting wall of text; for the purposes of
+this chapter, it will be more useful to zero-in on a specific user.
+
+Running
+
+```
+$top -u datalab
+```
+
+Will take you to a screen like this:
+
+```
+top - 21:36:11 up 6 days, 11:49, 47 users,  load average: 2.77, 2.76, 3.28
+Tasks: 1834 total,   1 running, 1833 sleeping,   0 stopped,   0 zombie
+%Cpu(s):  0.5 us,  1.0 sy,  0.0 ni, 98.4 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
+MiB Mem :  64273.2 total,   8747.3 free,   6632.5 used,  48893.4 buff/cache
+MiB Swap:   8192.0 total,   6785.1 free,   1406.8 used.  56968.1 avail Mem
+
+    PID USER        PR  NI    VIRT    RES    SHR S  %CPU  %MEM     TIME+ COMMAND
+2012094 datalab     20   0   12936   5632   3072 R   1.6   0.0   0:00.35 top
+1989412 datalab     20   0   17840   9984   7936 S   0.0   0.0   0:00.56 systemd
+1989413 datalab     20   0  172916   8380   1536 S   0.0   0.0   0:00.00 (sd-pam)
+1989587 datalab     20   0    9124   3880   3072 S   0.0   0.0   0:00.64 tmux: server
+1989588 datalab     20   0   12748   7680   3328 S   0.0   0.0   0:00.07 bash
+2011773 datalab     20   0   17360   7672   5376 S   0.0   0.0   0:00.02 sshd
+2011775 datalab     20   0   11652   7680   3328 S   0.0   0.0   0:00.07 bash
+2011885 datalab     20   0    7900   3840   3328 S   0.0   0.0   0:00.03 bash
+2012182 datalab     20   0    6192   1792   1792 S   0.0   0.0   0:00.00 sleep
+```
+
+The header portion of `top`, or its **dashboard**, will tell you information
+about how long a computer has been running (`up...`), how many users are on the
+computer, the number of processes (`Tasks`), and so on. Below the header is
+information that's similar to what we saw with `ps`. It's called the **task
+list**. The PID and user for each process are listed here, as well as the
+command that started them.
+
+Sandwiched in between these columns is information about the memory and CPU
+usage of these processes.
+
++ `VIRT`: virtual memory used by a process
++ `RES`: resident (non-swap) memory used by a process
++ `SHR`: shared memory used by a process
++ `S`: status of a process (`R` for running, `S` for sleeping)
++ `%CPU`: amount of CPU a process uses
++ `%MEM`: amount of physical RAM a process uses
+
+Two other columns, `PR` and `NI` stand for process priority and a "nice value"
+(used for process scheduling), respectively).
+
+Right now the task list displays its values in kilobytes. That's hard to read.
+Type `e` when `top` is active to toggle between kilobytes, megabytes,
+gigabytes, and so on. Use `Shift+e` to toggle the dashboard values.
+
+```
+top - 21:50:22 up 6 days, 12:04, 46 users,  load average: 1.44, 1.60, 2.18
+Tasks: 1836 total,   2 running, 1834 sleeping,   0 stopped,   0 zombie
+%Cpu(s):  0.4 us,  0.4 sy,  0.0 ni, 98.9 id,  0.0 wa,  0.0 hi,  0.3 si,  0.0 st
+GiB Mem :     62.8 total,      9.0 free,      6.4 used,     47.4 buff/cache
+GiB Swap:      8.0 total,      6.6 free,      1.4 used.     55.7 avail Mem
+
+    PID USER.       PR  NI    VIRT    RES    SHR S  %CPU  %MEM     TIME+ COMMAND
+2015504 datalab     20   0   12.5m   5.5m   3.0m R   1.6   0.0   0:00.51 top
+1989412 datalab     20   0   17.4m   9.8m   7.8m S   0.0   0.0   0:00.60 systemd
+1989413 datalab     20   0  168.9m   8.2m   1.5m S   0.0   0.0   0:00.00 (sd-pam)
+1989587 datalab     20   0    9.1m   3.8m   3.0m S   0.0   0.0   0:00.84 tmux: server
+1989588 datalab     20   0   12.4m   7.5m   3.2m S   0.0   0.0   0:00.07 bash
+2011773 datalab     20   0   17.0m   7.5m   5.2m S   0.0   0.0   0:00.08 sshd
+2011885 datalab     20   0    7.7m   3.8m   3.2m S   0.0   0.0   0:00.51 bash
+2015629 datalab     20   0    6.0m   1.8m   1.8m S   0.0   0.0   0:00.00 sleep
+```
+
+You can kill a process from `top` by entering `k` followed by the PID.
+
+A newer version of `top`, `htop`, adds some nice interactivity to the display.
+We recommend it, though you may have to install it yourself. Visit the
+application's [GitHub repository][repo] for more information.
+
+[repo]: https://github.com/htop-dev/htop
+
+### Other resource information
