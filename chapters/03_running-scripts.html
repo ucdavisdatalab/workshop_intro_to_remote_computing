@@ -865,7 +865,7 @@ these processes spawned other processes.</p>
 <p>Setting the <code class="docutils literal notranslate"><span class="pre">-f</span></code> (full format) and <code class="docutils literal notranslate"><span class="pre">-j</span></code> (jobs) flags will show which processes
 were spawned by other processes. Look at the <code class="docutils literal notranslate"><span class="pre">PPID</span></code>, or process parent id,
 column below:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ps -u datalab -fj
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ps -fju datalab
 UID            PID    PPID    PGID     SID  C STIME TTY          TIME CMD
 datalab    1989412       1 1989412 1989412  0 20:41 ?        00:00:00 /lib/systemd/systemd --user
 datalab    1989413 1989412 1989412 1989412  0 20:41 ?        00:00:00 (sd-pam)
@@ -875,7 +875,7 @@ datalab    1989587       1 1989587 1989587  0 20:41 ?        00:00:00 tmux new -
 datalab    1989588 1989587 1989588 1989588  0 20:41 pts/50   00:00:00 /bin/bash
 datalab    1990640 1989588 1990640 1989588  0 20:44 pts/50   00:00:01 bash ./beacon.sh DataLab
 datalab    2002776 1990640 1990640 1989588  0 21:12 pts/50   00:00:00 sleep 1
-datalab    2002783 1989437 2002783 1989437  0 21:12 pts/35   00:00:00 ps -u datalab -fj
+datalab    2002783 1989437 2002783 1989437  0 21:12 pts/35   00:00:00 ps -fju datalab
 </pre></div>
 </div>
 <p>See how <code class="docutils literal notranslate"><span class="pre">sleep</span> <span class="pre">1</span></code> (2002776) has the parent 1990640, which is the PID of the
@@ -912,7 +912,7 @@ your system. But for that reason it can also be overwhelming. Calling <code clas
 with no arguments shows a giant, shifting wall of text; for the purposes of
 this chapter, it will be more useful to zero-in on a specific user.</p>
 <p>Running</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$top -u datalab
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ top -u datalab
 </pre></div>
 </div>
 <p>Will take you to a screen like this:</p>
@@ -976,14 +976,13 @@ gigabytes, and so on. Use <code class="docutils literal notranslate"><span class
 <code class="docutils literal notranslate"><span class="pre">top</span></code> by entering <code class="docutils literal notranslate"><span class="pre">q</span></code>.</p>
 <p>A newer version of <code class="docutils literal notranslate"><span class="pre">top</span></code>, <code class="docutils literal notranslate"><span class="pre">htop</span></code>, adds some nice interactivity to the display.
 We recommend it, though you may have to install it yourself. Visit the
-application’s <a class="reference external" href="https://github.com/htop-dev/htop">GitHub repository</a> for more information.</p>
-<p>You may have also noticed that <code class="docutils literal notranslate"><span class="pre">top</span></code> has not provided any information about
-GPUs. It usually doesn’t. GPU GPU manufacturers frequently provide their own
-utilities for system monitoring. For Nvidia GPUs, there is <code class="docutils literal notranslate"><span class="pre">nvidia-smi</span></code>. It’s a
-safe assumption to expect this utility to be installed on any computer with
-Nvidia GPU hardware.</p>
-<p>Set the <code class="docutils literal notranslate"><span class="pre">-l</span></code> flag with a number <code class="docutils literal notranslate"><span class="pre">&lt;N&gt;</span></code> to update the readout every <code class="docutils literal notranslate"><span class="pre">&lt;N&gt;</span></code>
-seconds.</p>
+application’s <a class="reference external" href="https://github.com/htop-dev/htop">GitHub repository</a> for more information. You may have also
+noticed that <code class="docutils literal notranslate"><span class="pre">top</span></code> has not provided any information about GPUs. It usually
+doesn’t. GPU manufacturers frequently provide their own utilities for system
+monitoring.</p>
+<p>For Nvidia GPUs, there is <code class="docutils literal notranslate"><span class="pre">nvidia-smi</span></code>. It’s a safe assumption to expect this
+utility to be installed on any computer with Nvidia GPU hardware. Set the <code class="docutils literal notranslate"><span class="pre">-l</span></code>
+flag with a number <code class="docutils literal notranslate"><span class="pre">&lt;N&gt;</span></code> to update the readout every <code class="docutils literal notranslate"><span class="pre">&lt;N&gt;</span></code> seconds.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ nvidia-smi -l 5
 +---------------------------------------------------------------------------------------+
 | NVIDIA-SMI 535.104.12             Driver Version: 535.104.12   CUDA Version: 12.2     |
