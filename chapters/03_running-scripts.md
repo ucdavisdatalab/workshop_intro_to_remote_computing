@@ -265,11 +265,11 @@ typing `Ctrl+c`, there are many instances where you might write a script with
 the intent of having it run for a long time. Fitting a big model is one
 example; or perhaps you have a big file to download instead. Keeping your code
 running requires you to keep the **session** in which you started your script
-running as well. Note: in Unix-speak, a session is _not_ the same thing as your
-**terminal**. The latter is what you use when you interact with your computer
-via the command line. By contrast, a session is created when you log in (start
-interacting) and it persists until you log out (stop interacting). It is
-comprised of a collection of **processes**. Each process is dedicated to a
+running as well. Importantly, in Unix-speak, a session is _not_ the same thing
+as your **terminal**. The latter is what you use when you interact with your
+computer via the command line. By contrast, a session is created when you log
+in (start interacting) and it persists until you log out (stop interacting). It
+is comprised of a collection of **processes**. Each process is dedicated to a
 separate program in your session.
 
 Every time you open your terminal, you start a session. Various processes start
@@ -488,6 +488,7 @@ As before, keybindings make creating panes faster:
 
 + `Ctrl+b "`: do a vertical split
 + `Ctrl+b %`: do a horizontal split
++ `Ctrl-b x`: close the current pane
 
 Navigate panes in command mode using your arrow keys:
 
@@ -507,7 +508,10 @@ Monitoring Your Code
 --------------------
 
 As your work spreads across sessions, windows, and panes, it becomes
-increasingly necessary to track what is running, and where. 
+increasingly necessary to track what is running, and where. In the context of
+remote computing, tracking your work is not only essential but good etiquette.
+Resources can be limited, and you want to be sure you aren't negatively
+affecting users' work.
 
 ### Finding a process
 
@@ -611,11 +615,11 @@ Hello, DataLab
 Terminated
 ```
 
-This can be especially important if you've written a script that throws an
-error and causes your terminal to be unresponsive. For example, maybe your
-computer is getting bogged down because a script is taking up too many
-resources. You might notice that and want to terminate the script before it
-causes any problems and rethink how to implement your code.
+This can be especially important if you've written a script that causes your
+terminal to be unresponsive. For example, maybe your computer is getting bogged
+down because a script is taking up too many resources. You might notice this
+and want to terminate the script before it causes any further problems and
+rethink how to implement your code.
 
 But how would you know what resources are being used?
 
@@ -672,7 +676,7 @@ usage of these processes.
 + `%MEM`: amount of physical RAM a process uses
 
 Two other columns, `PR` and `NI` stand for process priority and a "nice value"
-(used for process scheduling), respectively).
+(used for process scheduling), respectively.
 
 Right now the task list displays its values in kilobytes. That's hard to read.
 Type `e` when `top` is active to toggle between kilobytes, megabytes,
@@ -696,7 +700,8 @@ GiB Swap:      8.0 total,      6.6 free,      1.4 used.     55.7 avail Mem
 2015629 datalab     20   0    6.0m   1.8m   1.8m S   0.0   0.0   0:00.00 sleep
 ```
 
-You can kill a process from `top` by entering `k` followed by the PID.
+You can end a process from `top` by entering `k` followed by the PID. Quit
+`top` by entering `q`.
 
 A newer version of `top`, `htop`, adds some nice interactivity to the display.
 We recommend it, though you may have to install it yourself. Visit the
@@ -704,4 +709,105 @@ application's [GitHub repository][repo] for more information.
 
 [repo]: https://github.com/htop-dev/htop
 
+You may have also noticed that `top` has not provided any information about
+GPUs. It usually doesn't. GPU GPU manufacturers frequently provide their own
+utilities for system monitoring. For Nvidia GPUs, there is `nvidia-smi`. It's a
+safe assumption to expect this utility to be installed on any computer with
+Nvidia GPU hardware.
+
+Set the `-l` flag with a number `<N>` to update the readout every `<N>`
+seconds.
+
+```
+$ nvidia-smi -l 5
++---------------------------------------------------------------------------------------+
+| NVIDIA-SMI 535.104.12             Driver Version: 535.104.12   CUDA Version: 12.2     |
+|-----------------------------------------+----------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id        Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |         Memory-Usage | GPU-Util  Compute M. |
+|                                         |                      |               MIG M. |
+|=========================================+======================+======================|
+|   0  NVIDIA A100 80GB PCIe          On  | 00000000:C4:00.0 Off |                    0 |
+| N/A   36C    P0              45W / 300W |      4MiB / 81920MiB |      0%      Default |
+|                                         |                      |             Disabled |
++-----------------------------------------+----------------------+----------------------+
+
++---------------------------------------------------------------------------------------+
+| Processes:                                                                            |
+|  GPU   GI   CI        PID   Type   Process name                            GPU Memory |
+|        ID   ID                                                             Usage      |
+|=======================================================================================|
+|  No running processes found                                                           |
++---------------------------------------------------------------------------------------+
+```
+
+Cells in the header will tell you information about your CUDA version, which
+GPU(s) you have, and memory usage. Below the header, the task list will show you
+any running processes.
+
 ### Other resource information
+
+General disk usage information is available with `du`. This little command can
+be especially useful on remote systems, where there are usually more
+constraints around where users are allowed to store data and how much disk
+space they've been allocated.
+
+`du` traverses the file tree, starting from your current position and going
+down to the bottom-most directory. Running it without any flags will display
+information about every single file, which tends to be too much information.
+Use the `-d` flag to set a maximum depth to display.
+
+Setting `-d` to `0` only shows the total disk space for a directory.
+
+```
+$ du -d 0 .
+6788    .
+```
+Setting it to `1` will show subdirectories directly beneath your target.
+
+```
+$ du -d 1 .
+40      ./chapters
+4       ./_static
+300     ./img
+3628    ./_build
+2768    ./.git
+6788    .
+```
+
+As with `top`, the disk space units default to kilobytes. Use `-h` to get unit
+subfixes.
+
+```
+$du -dh 1 .
+ 40K    ./chapters
+4.0K    ./_static
+300K    ./img
+3.5M    ./_build
+2.7M    ./.git
+6.6M    .
+```
+
+Finally, `df` displays free disk space for all currently mounted file systems.
+As above, use it with `-h` to get more readable output.
+
+```
+$ df -h
+Filesystem                 Size  Used Avail Use% Mounted on
+devtmpfs                   126G     0  126G   0% /dev
+tmpfs                      126G   14M  126G   1% /dev/shm
+tmpfs                      126G  4.1G  122G   4% /run
+tmpfs                      126G     0  126G   0% /sys/fs/cgroup
+/dev/mapper/VG0-LVRoot     9.8G  7.9G  1.8G  82% /
+/dev/mapper/VG0-LVUsr       16G   15G  1.5G  91% /usr
+/dev/sda1                  477M  240M  234M  51% /boot
+/dev/mapper/VG0-LVHome     502G  416G   87G  83% /home
+/dev/mapper/VG0-LVVar      8.8G  3.9G  4.9G  45% /var
+/dev/mapper/VG0-LVData     906G  843G   63G  94% /data_small
+/dev/mapper/VG0-LVOutput   463G   72M  463G   1% /output
+/dev/mapper/VG1-LVCoraid1  4.1T  231G  3.9T   6% /data
+/dev/mapper/VG3-LVCoraid2  174T   58T  117T  33% /dsl
+tmpfs                       26G     0   26G   0% /run/user/1027
+tmpfs                       26G     0   26G   0% /run/user/1031
+tmpfs                       26G     0   26G   0% /run/user/1032
+```
