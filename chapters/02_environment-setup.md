@@ -523,7 +523,92 @@ command line frequently. Both can help you find files quickly.
 Editing Configurations
 ----------------------
 
+After installing software in your computing environment, you'll likely want to
+configure it. Many software, especially command-line software, read settings
+from a **configuration file** when they run. By editing configuration files,
+you can customize your computing environment to make it do what you want and
+make it more comfortable to use.
+
+
 ### Bash
+
+[Bash][] is a **shell**, a programming language and prompt that serves as a
+command line interface for computers. Bash is widely used, and is the default
+shell for many Linux distributions and for macOS from 10.3 to 10.15. On
+Windows, Bash is bundled with git as Git Bash. Knowing how to configure Bash
+can make it much easier to work in a terminal. Furthermore, the process of
+configuring Bash is similar to the process of configuring other shells,
+although some filenames and specific commands are different.
+
+[Bash]: https://en.wikipedia.org/wiki/Bash_(Unix_shell)
+
+You can configure Bash by editing the `.bashrc` file in your home directory .
+The `.bashrc` file is a Bash script, meaning it contains commands for Bash and
+its predecessor, the [Bourne shell][sh] (`sh`). Go ahead and open up
+`~/.bashrc` in a text editor.
+
+[sh]: https://en.wikipedia.org/wiki/Bourne_shell
+
+If the file is blank, Bash uses default settings. If the file already contains
+some commands, those may have been set up by your operating system or by your
+computer's administrator. Leave them intact until you have enough experience to
+know what they do---they might be important. Either way, you can add your own
+settings to the file.
+
+#### Aliases
+
+While learning about Micromamba, did you ever feel like typing out `micromamba`
+for every command was a little bit tedious? One way you can customize the shell 
+is by creating **aliases** for commands that are long or hard to remember.
+Let's create an alias `mm` for the `micromamba` command, so that you can just
+type `mm` instead of typing `micromamba`. You can create an alias with the
+`alias` command. Add this code to your `.bashrc`:
+
+```bash
+alias mm='micromamba'
+```
+
+The `alias` command is always followed by a space, the name of the alias, an
+equals sign, and then the aliased command in quotes.
+
+:::{warning}
+Be careful to match the spacing and quotes exactly. In Bash, spacing often
+matters and single quotes have a distinct meaning from double quotes.
+:::
+
+After adding the `alias` command to `.bashrc`, save and close the file. You can
+make Bash "reload" the settings file by running the file with this command:
+
+```sh
+source ~/.bashrc
+```
+
+Alternatively, you can restart or open a new terminal, since `.bashrc` runs
+every time you open a new interactive shell. Then try using the alias to
+list your conda environments:
+
+```sh
+mm env list
+```
+
+This should print a list of environments. Notice that you can add arguments as
+you would normally after the aliased command.
+
+:::{note}
+If the alias doesn't work, or the shell prints `mm: command not found`,
+double-check that your saved the `alias` command in `~/.bashrc` and that you
+ran the `source` command.
+:::
+
+
+There are two other files that are important for configuring Bash, called
+`.profile` and `.bash_profile`. Like `.bashrc`, both can be found in your home
+directory and both are shell scripts. The `.profile` file is actually a
+configuration file for the Bourne shell (`sh`), and can only contain `sh` code,
+but it runs every time you open a Bash shell.
+
+#### Environment Variables
+
 
 ### Shell Tips
 
