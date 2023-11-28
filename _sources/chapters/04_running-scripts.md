@@ -1,15 +1,3 @@
----
-jupytext:
-  formats: md:myst
-  text_representation:
-    extension: .md
-    format_name: myst
-kernelspec:
-  display_name: Python 3
-  language: Python
-  name: python3
----
-
 Running Scripts
 ===============
 
@@ -742,7 +730,7 @@ Cells in the header will tell you information about your CUDA version, which
 GPU(s) you have, and memory usage. Below the header, the task list will show you
 any running processes.
 
-### Disk usage
+### Other resource information
 
 General disk usage information is available with `du`. This little command can
 be especially useful on remote systems, where there are usually more
@@ -812,105 +800,37 @@ tmpfs                       26G     0   26G   0% /run/user/1032
 Estimating Resource Requirements
 --------------------------------
 
-Estimating how much resources your script requires can be difficult. In
-computer science, there is a whole sub-field dedicated to the problem, which is
-called [computational complexity theory][cct]. We will only cover the very
-basics of complexity in this section. Throughout, the focus will be on
-practical considerations.
-
-[cct]: https://en.wikipedia.org/wiki/Computational_complexity_theory
+Estimating how much time and memory your script requires is hard. It's hard for
+several reasons, some of which involve knowing formal principles from computer
+science. In this section we will limit ourselves to discussing practical
+considerations.
 
 If you take away anything from this section, it should be this: you should
-estimate resource usage by tiptoeing up from simple instances to more complex
+estimate resource usage by tip-toeing up from simple instances to more complex
 ones. There's no point in estimating resource usage by starting with hundreds
 of gigabytes of data. That will be time-intensive and probably misleading.
 Instead, start with a small amount of data and gradually scale your tests until
 you feel you're able to make a good estimate.
 
-### Complexity
-
-An algorithm's **complexity** is the amount of resources required to run it.
-Typically, these resources mean time and space. To predict them, you need to
-know the **growth rate** of your problem: how much more time or space does an
-algorithm use when the size of the problem grows by some factor?
-
-Many common problems fall into a few growth classes. In the table below, these
-classes are described with [Big O][bo] notation, which denotes the amount of
-resources (`n`) required for an algorithm when the size of the problem
-increases by a factor of 2.
-
-[bo]: https://en.wikipedia.org/wiki/Big_O_notation
-
-| Class       | Explanation | Example                          |
-| ----------- | ----------- | -------------------------------- |
-| Linear      | `O(n)`      | Summing elements in a vector     |
-| Quadratic   | `O(n^2)`    | Multiplying a matrix by a vector |
-| Cubic       | `O(n^3)`    | Multiplying two matrices         |
-| Exponential | `O(2^n)`    | Many recursive operations        |
-
-Formal methods in computer science offer a way to ascertain the complexity of
-an algorithm, but you can make rough estimations without them. One approach is
-to think about what your code is doing. For example, are you multiplying large
-matrices? Your code is probably cubic. Another approach is to observe resource
-behavior from test cases on a portion of your data. Does it take four times as
-long to run your code with twice the amount of data? Your code is probably
-quadratic.
-
-The next sections walk through examples of both approaches.
-
 ### Example script
 
-Consider the script `fibonacci.{sh,py,R}`. It finds the n-th number `n` in the
-Fibonacci sequence using one of two functions. The first, `exponential`, uses
-recursion, while the second, `linear`, uses a simple `for` loop. As the names
-of the functions suggest, the amount of time required to find number `n` is
-vastly different.
+Consider the script `factorial.{sh,py,R}`. It computes the factorial of a
+positive number `n` (e.g. $10!$).
 
 `````{tab-set}
 ````{tab-item} Bash
 ```{code-block} bash
 #!/usr/bin/env bash
 
-# Find the number at position `n` in the Fibonacci sequence with exponential
-# complexity.
-exponential() {
-    local n=$1
-    if [[ $n -eq 0 || $n -eq 1 ]]; then
-        echo $n
-    else
-        echo $(( $(exponential $((n-2))) + $(exponential $((n-1))) ))
-    fi
+factorial() {
+    # Compute the factorial of a positive number $1
+    local result=1
+    for ((i=1; i<=$1; i++)) do
+        result=$((result * i))
+    done
 }
 
-# Find the number at position `n` in the Fibonacci sequence with linear
-# complexity.
-linear() {
-    local n=$1
-    if [[ $n -eq 0 || $n -eq 1 ]]; then
-        echo $n
-    else
-        local prev=0
-        local fib=1
-        for (( i=2; i<=$n; i++ )); do
-            fib=$(( prev + fib ))
-            prev=$(( fib - prev ))
-        done
-        echo $fib
-    fi
-}
-
-v=$1
-n=$2
-if [[ $v -ne 1 && $v -ne 2 ]]; then
-    echo "Error: Invalid version. Select 1 or 2" 
-    exit 1
-fi
-
-if [[ $v -eq 1 ]]; then
-    echo $(exponential $n)
-else
-    echo $(linear $n)
-fi
+factorial "$1"
 ```
 ````
 
@@ -920,36 +840,17 @@ fi
 
 import sys
 
-def exponential(n):
-    """Find the number at position `n` in the Fibonacci sequence with
-    exponential complexity.
-    """
-    if n in {0, 1}:
-        return n
-
-    return exponential(n-2) + exponential(n-1)
-
-def linear(n):
-    """Find the number at position `n` in the Fibonacci sequence with linear
-    complexity.
-    """
-    if n in {0, 1}:
-        return n
-
-    prev, fib = 0, 1
-    for _ in range(2, n+1):
-        prev, fib = fib, prev + fib
-    return fib
+def factorial(n):
+    """Compute the factorial of a positive number `n`."""
+    result = 1
+    for i in range(1, n+1):
+        result *= i
 
 def main():
-    v, n = int(sys.argv[1]), int(sys.argv[2])
-    if v not in {1, 2}:
-        raise ValueError("Invalid version. Select 1 or 2")
+    n = int(sys.argv[1])
+    factorial(n)
 
-    func = exponential if v == 1 else linear
-    print(func(n))
-
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
 ```
 ````
@@ -958,41 +859,19 @@ if __name__ == '__main__':
 ```{code-block} R
 #!/usr/bin/env Rscript
 
-#' Find the number at position `n` in the Fibonacci sequence with exponential
-#' complexity.
-exponential = function(n) {
-  if (n %in% c(0, 1)) {
-    return(n)
-  }
+library(gmp)
 
-  return(exponential(n-2) + exponential(n-1))
-}
-
-#' Find the number at position `n` in the Fibonacci sequence with linear
-#' complexity.
-linear = function(n) {
-  if (n %in% c(0, 1)) {
-    return(n)
+factorial = function(n) {
+  # ' Compute the factorial of a postive number `n`
+  result = as.bigz(1)
+  for (i in 1:n) {
+    result = result * i
   }
-
-  prev = 0
-  fib = 1
-  for (i in 2:n) {
-    fib = prev + fib
-    prev = fib - prev
-  }
-  return(fib)
 }
 
 args = commandArgs(trailingOnly=TRUE)
-v = as.integer(args[1])
-n = as.integer(args[2])
-if (!v %in% c(1, 2)) {
-  stop("Invalid version. Select 1 or 2")
-}
-
-func = ifelse(v == 1, exponential, linear)
-cat(func(n), "\n")
+n = as.integer(args[1])
+factorial(n)
 ```
 ````
 `````
@@ -1002,120 +881,82 @@ cat(func(n), "\n")
 Python and R both have libraries for timing this code, but there are also
 utilities like `time`. Call `time` before any other command and it will show
 you how long it took to execute that command. Below, we use the Python version
-of this code to find three numbers in the Fibonacci sequence using the first
-function.
+of this code to compute factorials for three numbers.
 
 ```
-$ time ./fibonacci.py 1 20
-55
-
-real    0m0.050s
-user    0m0.041s
-sys     0m0.009s
-
-$ time ./fibonacci.py 1 30
-832040
-
-real    0m0.054s
-user    0m0.044s
-sys     0m0.010s
-
-$ time ./fibonacci.py 1 40
-102334155
-
-real    0m30.759s
-user    0m30.748s
-sys     0m0.009s
+$ time ./factorial.py 5000
+./factorial.py 5000  0.02s user 0.01s system 92% cpu 0.037 total
+$ time ./factorial.py 10000
+./factorial.py 10000  0.04s user 0.01s system 94% cpu 0.058 total
+$ time ./factorial.py 15000
+./factorial.py 15000  0.08s user 0.01s system 96% cpu 0.091 total
 ```
 
-`time` outputs three metrics:
+`time` outputs four metrics:
 
-+ `real`: total time for the execution
-+ `user`: time spent executing the script itself
-+ `sys`: time spent on system-level processes (e.g. calls to the kernel)
++ `user`: time spent executing the actual script instructions
++ `system`: time spent on system-level processes (e.g. loading data into a
+  script, calls to the kernel)
++ `cpu`: percentage of CPU time spent on the command, relative to the total
+  time available
++ `total`, or `real`: actual elapsed time for the entire process
 
-It takes a half second to find the 20th Fibonacci number, and it takes about
-the same to find the 30th. But look at how much more time it takes to find the
-40th one. We're beginning to see the effects of exponential complexity. After
-40, incrementing our number up by just _one_ will really show these effects in
-action.
+Calculating the factorial of a number runs in **linear** time. That is, the
+time it takes to run this process increases linearly with the size of its
+input. This is evident from the steady rise in the `total` time value:
+increasing `n` by `50000` takes an additional ~0.03 seconds.
 
-```
-$ time ./fibonacci.py 1 41
-165580141
-
-real    0m50.509s
-user    0m50.496s
-sys     0m0.010s
-```
-
-This conveys an important point: _how you implement your problem directly
-impacts resource usage_. If you find that your script takes up too much
-resources, you may need to rethink how you've written it.
-
-In the case of calculating a Fibonacci number, the second implementation,
-`linear`, is much more efficient:
+Will that hold for the next number in our series?
 
 ```
-$ time ./fibonacci.py 40
-102334155
-
-real    0m0.049s
-user    0m0.043s
-sys     0m0.006s
-
-$ time ./fibonacci.py 400
-176023680645013966468226945392411250770384383304492191886725992896575345044216019675
-
-real    0m0.052s
-user    0m0.041s
-sys     0m0.011s
+$ time ./factorial.py 20000
+./factorial.py 20000  0.12s user 0.01s system 97% cpu 0.129 total
 ```
 
-### A time test
-
-We will conclude by using timing observations in a more systematic way. Imagine
-that you do not know that `linear` has linear time complexity. One way to
-ascertain its complexity would be to run a series of tests, which starts with
-small samples and gradually works its way up to larger ones. Typically you
-would run these tests a few time and take their average, but the table below
-records just a single run of the `linear` implementation in `fibonacci.py`.
-
-| N       | Time (seconds) |
-| ------- | -------------- |
-| 6250    | 0.029          |
-| 12500   | 0.034          |
-| 25000   | 0.045          |
-| 50000   | 0.058          |
-| 100000  | 0.115          |
-| 200000  | 0.380          |
-| 400000  | 1.606          |
-| 800000  | 6.423          |
-| 1600000 | 25.309         |
-| 3200000 | 96.344         |
-
-With these 10 observations, we can fit a small linear regression and plug its
-coefficients into the following equation:
+Roughly, yes. A true time test will take the average of multiple runs to
+account for variances in your system, but this is already a decent estimate of
+the amount of time it will take to execute `factorial.py`. We could express
+this estimate as a linear equation:
 
 $$
-Time = a \cdot log_2{N} + b
+T = \frac{0.03}{5000} \cdot n + b
 $$
 
-Where $a$ is the intercept and $b$ is the slope. The slope will be a rough
-approximation of the running time.
+Where $n$ is your input and $b$ represents the base amount of time it takes to
+complete the task. You can estimate $b$ by comparing a few trials with
+different values for $n$. In this case, $b$ is ~0.005 seconds.
 
-With these 10 observations, we can fit a small linear regression, for example
-in R:
+### RAM usage
 
-```R
-data = read.csv('data.csv')
-lm(time ~ size, log(data)
+Estimating how much memory your script will take follows a similar pattern:
+incrementally scale your computations until you feel confident in your ability
+to make an informed guess. While there are third-party command line utilities
+available for measuring memory usage, `tmux` and `top` will do just fine. We
+will conclude by showing you the setup for such a test.
 
-Call:
-lm(formula = time ~ size, data = log(data))
+The first screenshot below shows a `tmux` window split into two panes. On the
+left is an interactive Python environment. It uses NumPy to create a (1,000 x
+1,000) matrix of zeros. On the right, `top` has been opened with the following
+command:
 
-Coefficients:
-(Intercept)         size
-    -16.683        1.357
 ```
+$ top -cu <user>
+```
+
+`top` has had its memory displays altered with `e` and `Shift-e`. Additionally,
+`Shift-m` has sorted the processes so the one with the most memory sits at the
+top.
+
+![A two-pane `tmux` window with Python and `top` showing a small
+matrix](../img/np_small.png)
+
+The second screenshot shows the same setup, but this time the matrix is
+substantially larger: it's (100,000 x 100,000). Note the difference in virtual
+memory!
+
+![A two-pane `tmux` window with Python and `top` showing a large
+matrix](../img/np_large.png)
+
+Using a similar setup on the command line is also possible. Simply execute your
+script and monitor it as it runs with `top`. Scale up or down as necessary.
 

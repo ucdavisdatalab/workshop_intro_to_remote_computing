@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>3. Running Scripts &#8212; Introduction to Remote Computing</title>
+    <title>4. Running Scripts &#8212; Introduction to Remote Computing</title>
   
   
   
@@ -63,10 +63,11 @@ const thebe_selector_output = ".output, .cell_output"
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/03_running-scripts';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/04_running-scripts';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="prev" title="2. Setting Up Your Remote Computing Environment" href="02_environment-setup.html" />
+    <link rel="next" title="5. Cluster Computing" href="05_cluster-computing.html" />
+    <link rel="prev" title="3. Setting Up Software" href="03_environment-setup.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en-us"/>
   </head>
@@ -159,8 +160,10 @@ const thebe_selector_output = ".output, .cell_output"
         </ul>
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="01_introduction.html">1. Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="02_environment-setup.html">2. Setting Up Your Remote Computing Environment</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">3. Running Scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02_connecting-to-a-server.html">2. Connecting to a Server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03_environment-setup.html">3. Setting Up Software</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">4. Running Scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05_cluster-computing.html">5. Cluster Computing</a></li>
 </ul>
 
     </div>
@@ -232,7 +235,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="https://github.com/ucdavisdatalab/workshop_intro_to_remote_computing/issues/new?title=Issue%20on%20page%20%2Fchapters/03_running-scripts.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/ucdavisdatalab/workshop_intro_to_remote_computing/issues/new?title=Issue%20on%20page%20%2Fchapters/04_running-scripts.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -262,7 +265,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="../_sources/chapters/03_running-scripts.md" target="_blank"
+      <li><a href="../_sources/chapters/04_running-scripts.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -354,29 +357,28 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#executable-scripts">3.1. Executable Scripts</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-an-executable-script">3.1.1. Using an executable script</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#shebangs">3.1.2. Shebangs</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-script">3.1.3. Example script</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#file-permissions">3.1.4. File permissions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#executable-scripts">4.1. Executable Scripts</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-an-executable-script">4.1.1. Using an executable script</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#shebangs">4.1.2. Shebangs</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-script">4.1.3. Example script</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#file-permissions">4.1.4. File permissions</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#managing-multiple-sessions">3.2. Managing Multiple Sessions</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-basics-of-tmux">3.2.1. The basics of <code class="docutils literal notranslate"><span class="pre">tmux</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#windows-and-panes">3.2.2. Windows and panes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#managing-multiple-sessions">4.2. Managing Multiple Sessions</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-basics-of-tmux">4.2.1. The basics of <code class="docutils literal notranslate"><span class="pre">tmux</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#windows-and-panes">4.2.2. Windows and panes</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#monitoring-your-code">3.3. Monitoring Your Code</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#finding-a-process">3.3.1. Finding a process</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#monitoring-real-time-system-performance">3.3.2. Monitoring real-time system performance</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#disk-usage">3.3.3. Disk usage</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#monitoring-your-code">4.3. Monitoring Your Code</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#finding-a-process">4.3.1. Finding a process</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#monitoring-real-time-system-performance">4.3.2. Monitoring real-time system performance</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#other-resource-information">4.3.3. Other resource information</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#estimating-resource-requirements">3.4. Estimating Resource Requirements</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#complexity">3.4.1. Complexity</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">3.4.2. Example script</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#timing-code">3.4.3. Timing code</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-time-test">3.4.4. A time test</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#estimating-resource-requirements">4.4. Estimating Resource Requirements</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">4.4.1. Example script</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#timing-code">4.4.2. Timing code</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ram-usage">4.4.3. RAM usage</a></li>
 </ul>
 </li>
 </ul>
@@ -391,7 +393,7 @@ document.write(`
                 <article class="bd-article" role="main">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="running-scripts">
-<h1><span class="section-number">3. </span>Running Scripts<a class="headerlink" href="#running-scripts" title="Permalink to this headline">#</a></h1>
+<h1><span class="section-number">4. </span>Running Scripts<a class="headerlink" href="#running-scripts" title="Permalink to this headline">#</a></h1>
 <p>This chapter will show you how to write and run scripts on the command line.
 Scripts are like recipes, which your computer follows to complete a task.
 They’re essential for automating workflows, working on remote systems, scaling
@@ -411,7 +413,7 @@ and jobs as they run</p></li>
 </ul>
 </div>
 <section id="executable-scripts">
-<h2><span class="section-number">3.1. </span>Executable Scripts<a class="headerlink" href="#executable-scripts" title="Permalink to this headline">#</a></h2>
+<h2><span class="section-number">4.1. </span>Executable Scripts<a class="headerlink" href="#executable-scripts" title="Permalink to this headline">#</a></h2>
 <p><strong>Executable</strong> files contain a set of instructions that your computer
 interprets and follows to perform a task. Here, “instruction” covers a wide
 scope of formats: certain files contain machine or binary code, while others
@@ -422,7 +424,7 @@ written in high-level scripting languages (like Python and R), which require an
 external program to run.</p>
 <p>This chapter focuses on the third group of files: executable scripts.</p>
 <section id="using-an-executable-script">
-<h3><span class="section-number">3.1.1. </span>Using an executable script<a class="headerlink" href="#using-an-executable-script" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">4.1.1. </span>Using an executable script<a class="headerlink" href="#using-an-executable-script" title="Permalink to this headline">#</a></h3>
 <p>Using an executable script works very similarly to using command line programs
 like <code class="docutils literal notranslate"><span class="pre">ls</span></code>, <code class="docutils literal notranslate"><span class="pre">grep</span></code>, etc.: scripts have names and some can take optional
 arguments. The biggest difference is that there is no preset <strong>interpreter</strong>
@@ -448,7 +450,7 @@ to specific resources, etc.</p></li>
 </div>
 </section>
 <section id="shebangs">
-<h3><span class="section-number">3.1.2. </span>Shebangs<a class="headerlink" href="#shebangs" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">4.1.2. </span>Shebangs<a class="headerlink" href="#shebangs" title="Permalink to this headline">#</a></h3>
 <p>It is, however, possible to execute a script without specifying the
 interpreter from the command line. Simply prepend the script with <code class="docutils literal notranslate"><span class="pre">./</span></code>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./&lt;script&gt; &lt;arg1, arg2, arg3, ...&gt;
@@ -499,7 +501,7 @@ R</label><div class="sd-tab-content docutils">
 <p>This will direct your computer to use the environment variables set in <code class="docutils literal notranslate"><span class="pre">env</span></code>.</p>
 </section>
 <section id="example-script">
-<h3><span class="section-number">3.1.3. </span>Example script<a class="headerlink" href="#example-script" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">4.1.3. </span>Example script<a class="headerlink" href="#example-script" title="Permalink to this headline">#</a></h3>
 <p>Now that you know the anatomy of an executable script, you can write one
 yourself. There are three versions of such a script below, one for Bash,
 Python, and R, respectively. The script, <code class="docutils literal notranslate"><span class="pre">beacon.{sh,py,R}</span></code>, accepts one
@@ -556,7 +558,7 @@ R</label><div class="sd-tab-content docutils">
 </div>
 </section>
 <section id="file-permissions">
-<h3><span class="section-number">3.1.4. </span>File permissions<a class="headerlink" href="#file-permissions" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">4.1.4. </span>File permissions<a class="headerlink" href="#file-permissions" title="Permalink to this headline">#</a></h3>
 <p>To use your script (in this case, the Bash version), call it from the command
 line:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./beacon.sh DataLab
@@ -615,7 +617,7 @@ Hello, DataLab
 </section>
 </section>
 <section id="managing-multiple-sessions">
-<h2><span class="section-number">3.2. </span>Managing Multiple Sessions<a class="headerlink" href="#managing-multiple-sessions" title="Permalink to this headline">#</a></h2>
+<h2><span class="section-number">4.2. </span>Managing Multiple Sessions<a class="headerlink" href="#managing-multiple-sessions" title="Permalink to this headline">#</a></h2>
 <p>With no control flow to specify when the script should stop, <code class="docutils literal notranslate"><span class="pre">beacon.sh</span></code> will
 run indefinitely. While this is a toy example, which is easily stopped by
 typing <code class="docutils literal notranslate"><span class="pre">Ctrl+c</span></code>, there are many instances where you might write a script with
@@ -639,7 +641,7 @@ do this is with a <strong>terminal multiplexer</strong>. Multiplexers are applic
 enable you to run one or more sessions at the same time and keep those sessions
 alive for as long as you’d like.</p>
 <section id="the-basics-of-tmux">
-<h3><span class="section-number">3.2.1. </span>The basics of <code class="docutils literal notranslate"><span class="pre">tmux</span></code><a class="headerlink" href="#the-basics-of-tmux" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">4.2.1. </span>The basics of <code class="docutils literal notranslate"><span class="pre">tmux</span></code><a class="headerlink" href="#the-basics-of-tmux" title="Permalink to this headline">#</a></h3>
 <p>The two most popular multiplexers are <code class="docutils literal notranslate"><span class="pre">screen</span></code> and <code class="docutils literal notranslate"><span class="pre">tmux</span></code>. Most computers will
 come with one or both of these applications installed, though you can also
 install them separately with a package manager like Homebrew and even conda.
@@ -750,7 +752,7 @@ from the session, and log off the remote computer altogether. All the while,
 the script will continue running until you log in again.</p>
 </section>
 <section id="windows-and-panes">
-<h3><span class="section-number">3.2.2. </span>Windows and panes<a class="headerlink" href="#windows-and-panes" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">4.2.2. </span>Windows and panes<a class="headerlink" href="#windows-and-panes" title="Permalink to this headline">#</a></h3>
 <p>In <code class="docutils literal notranslate"><span class="pre">tmux</span></code>, a window is not the same thing as a session. The latter is a
 container for the former, and you can have multiple windows. Think of them like
 tabs in a web browser.</p>
@@ -812,14 +814,14 @@ a <a class="reference external" href="https://devhints.io/tmux">cheat sheet</a> 
 </section>
 </section>
 <section id="monitoring-your-code">
-<h2><span class="section-number">3.3. </span>Monitoring Your Code<a class="headerlink" href="#monitoring-your-code" title="Permalink to this headline">#</a></h2>
+<h2><span class="section-number">4.3. </span>Monitoring Your Code<a class="headerlink" href="#monitoring-your-code" title="Permalink to this headline">#</a></h2>
 <p>As your work spreads across sessions, windows, and panes, it becomes
 increasingly necessary to track what is running, and where. In the context of
 remote computing, tracking your work is not only essential but good etiquette.
 Resources can be limited, and you want to be sure you aren’t negatively
 affecting users’ work.</p>
 <section id="finding-a-process">
-<h3><span class="section-number">3.3.1. </span>Finding a process<a class="headerlink" href="#finding-a-process" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">4.3.1. </span>Finding a process<a class="headerlink" href="#finding-a-process" title="Permalink to this headline">#</a></h3>
 <p>Recall that each program runs on its own process. Every time you interact with
 your computer, you spawn a process, or multiple processes. Your computer
 assigns a unique <strong>process id</strong> (PID) to each process, which enables you to
@@ -913,7 +915,7 @@ rethink how to implement your code.</p>
 <p>But how would you know what resources are being used?</p>
 </section>
 <section id="monitoring-real-time-system-performance">
-<h3><span class="section-number">3.3.2. </span>Monitoring real-time system performance<a class="headerlink" href="#monitoring-real-time-system-performance" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">4.3.2. </span>Monitoring real-time system performance<a class="headerlink" href="#monitoring-real-time-system-performance" title="Permalink to this headline">#</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">top</span></code> will display real-time information about every process running on a
 computer. It’s a great bird’s-eye view of what is going on at any one point in
 your system. But for that reason it can also be overwhelming. Calling <code class="docutils literal notranslate"><span class="pre">top</span></code>
@@ -1017,8 +1019,8 @@ flag with a number <code class="docutils literal notranslate"><span class="pre">
 GPU(s) you have, and memory usage. Below the header, the task list will show you
 any running processes.</p>
 </section>
-<section id="disk-usage">
-<h3><span class="section-number">3.3.3. </span>Disk usage<a class="headerlink" href="#disk-usage" title="Permalink to this headline">#</a></h3>
+<section id="other-resource-information">
+<h3><span class="section-number">4.3.3. </span>Other resource information<a class="headerlink" href="#other-resource-information" title="Permalink to this headline">#</a></h3>
 <p>General disk usage information is available with <code class="docutils literal notranslate"><span class="pre">du</span></code>. This little command can
 be especially useful on remote systems, where there are usually more
 constraints around where users are allowed to store data and how much disk
@@ -1078,116 +1080,36 @@ tmpfs                       26G     0   26G   0% /run/user/1032
 </section>
 </section>
 <section id="estimating-resource-requirements">
-<h2><span class="section-number">3.4. </span>Estimating Resource Requirements<a class="headerlink" href="#estimating-resource-requirements" title="Permalink to this headline">#</a></h2>
-<p>Estimating how much resources your script requires can be difficult. In
-computer science, there is a whole sub-field dedicated to the problem, which is
-called <a class="reference external" href="https://en.wikipedia.org/wiki/Computational_complexity_theory">computational complexity theory</a>. We will only cover the very
-basics of complexity in this section. Throughout, the focus will be on
-practical considerations.</p>
+<h2><span class="section-number">4.4. </span>Estimating Resource Requirements<a class="headerlink" href="#estimating-resource-requirements" title="Permalink to this headline">#</a></h2>
+<p>Estimating how much time and memory your script requires is hard. It’s hard for
+several reasons, some of which involve knowing formal principles from computer
+science. In this section we will limit ourselves to discussing practical
+considerations.</p>
 <p>If you take away anything from this section, it should be this: you should
-estimate resource usage by tiptoeing up from simple instances to more complex
+estimate resource usage by tip-toeing up from simple instances to more complex
 ones. There’s no point in estimating resource usage by starting with hundreds
 of gigabytes of data. That will be time-intensive and probably misleading.
 Instead, start with a small amount of data and gradually scale your tests until
 you feel you’re able to make a good estimate.</p>
-<section id="complexity">
-<h3><span class="section-number">3.4.1. </span>Complexity<a class="headerlink" href="#complexity" title="Permalink to this headline">#</a></h3>
-<p>An algorithm’s <strong>complexity</strong> is the amount of resources required to run it.
-Typically, these resources mean time and space. To predict them, you need to
-know the <strong>growth rate</strong> of your problem: how much more time or space does an
-algorithm use when the size of the problem grows by some factor?</p>
-<p>Many common problems fall into a few growth classes. In the table below, these
-classes are described with <a class="reference external" href="https://en.wikipedia.org/wiki/Big_O_notation">Big O</a> notation, which denotes the amount of
-resources (<code class="docutils literal notranslate"><span class="pre">n</span></code>) required for an algorithm when the size of the problem
-increases by a factor of 2.</p>
-<table class="colwidths-auto table">
-<thead>
-<tr class="row-odd"><th class="head"><p>Class</p></th>
-<th class="head"><p>Explanation</p></th>
-<th class="head"><p>Example</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>Linear</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">O(n)</span></code></p></td>
-<td><p>Summing elements in a vector</p></td>
-</tr>
-<tr class="row-odd"><td><p>Quadratic</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">O(n^2)</span></code></p></td>
-<td><p>Multiplying a matrix by a vector</p></td>
-</tr>
-<tr class="row-even"><td><p>Cubic</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">O(n^3)</span></code></p></td>
-<td><p>Multiplying two matrices</p></td>
-</tr>
-<tr class="row-odd"><td><p>Exponential</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">O(2^n)</span></code></p></td>
-<td><p>Many recursive operations</p></td>
-</tr>
-</tbody>
-</table>
-<p>Formal methods in computer science offer a way to ascertain the complexity of
-an algorithm, but you can make rough estimations without them. One approach is
-to think about what your code is doing. For example, are you multiplying large
-matrices? Your code is probably cubic. Another approach is to observe resource
-behavior from test cases on a portion of your data. Does it take four times as
-long to run your code with twice the amount of data? Your code is probably
-quadratic.</p>
-<p>The next sections walk through examples of both approaches.</p>
-</section>
 <section id="id1">
-<h3><span class="section-number">3.4.2. </span>Example script<a class="headerlink" href="#id1" title="Permalink to this headline">#</a></h3>
-<p>Consider the script <code class="docutils literal notranslate"><span class="pre">fibonacci.{sh,py,R}</span></code>. It finds the n-th number <code class="docutils literal notranslate"><span class="pre">n</span></code> in the
-Fibonacci sequence using one of two functions. The first, <code class="docutils literal notranslate"><span class="pre">exponential</span></code>, uses
-recursion, while the second, <code class="docutils literal notranslate"><span class="pre">linear</span></code>, uses a simple <code class="docutils literal notranslate"><span class="pre">for</span></code> loop. As the names
-of the functions suggest, the amount of time required to find number <code class="docutils literal notranslate"><span class="pre">n</span></code> is
-vastly different.</p>
+<h3><span class="section-number">4.4.1. </span>Example script<a class="headerlink" href="#id1" title="Permalink to this headline">#</a></h3>
+<p>Consider the script <code class="docutils literal notranslate"><span class="pre">factorial.{sh,py,R}</span></code>. It computes the factorial of a
+positive number <code class="docutils literal notranslate"><span class="pre">n</span></code> (e.g. <span class="math notranslate nohighlight">\(10!\)</span>).</p>
 <div class="sd-tab-set docutils">
 <input checked="checked" id="sd-tab-item-6" name="sd-tab-set-2" type="radio">
 </input><label class="sd-tab-label" for="sd-tab-item-6">
 Bash</label><div class="sd-tab-content docutils">
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env bash</span>
 
-<span class="c1"># Find the number at position `n` in the Fibonacci sequence with exponential</span>
-<span class="c1"># complexity.</span>
-exponential<span class="o">()</span><span class="w"> </span><span class="o">{</span>
-<span class="w">    </span><span class="nb">local</span><span class="w"> </span><span class="nv">n</span><span class="o">=</span><span class="nv">$1</span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="nv">$n</span><span class="w"> </span>-eq<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nv">$n</span><span class="w"> </span>-eq<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="o">]]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
-<span class="w">        </span><span class="nb">echo</span><span class="w"> </span><span class="nv">$n</span>
-<span class="w">    </span><span class="k">else</span>
-<span class="w">        </span><span class="nb">echo</span><span class="w"> </span><span class="k">$((</span><span class="w"> </span><span class="k">$(</span>exponential<span class="w"> </span><span class="k">$((</span><span class="nv">n</span><span class="o">-</span><span class="m">2</span><span class="k">)))</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="k">$(</span>exponential<span class="w"> </span><span class="k">$((</span><span class="nv">n</span><span class="o">-</span><span class="m">1</span><span class="k">)))</span><span class="w"> </span><span class="k">))</span>
-<span class="w">    </span><span class="k">fi</span>
+factorial<span class="o">()</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="c1"># Compute the factorial of a positive number $1</span>
+<span class="w">    </span><span class="nb">local</span><span class="w"> </span><span class="nv">result</span><span class="o">=</span><span class="m">1</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="o">((</span><span class="nv">i</span><span class="o">=</span><span class="m">1</span><span class="p">;</span><span class="w"> </span>i&lt;<span class="o">=</span><span class="nv">$1</span><span class="p">;</span><span class="w"> </span>i++<span class="o">))</span><span class="w"> </span><span class="k">do</span>
+<span class="w">        </span><span class="nv">result</span><span class="o">=</span><span class="k">$((</span><span class="nv">result</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nv">i</span><span class="k">))</span>
+<span class="w">    </span><span class="k">done</span>
 <span class="o">}</span>
 
-<span class="c1"># Find the number at position `n` in the Fibonacci sequence with linear</span>
-<span class="c1"># complexity.</span>
-linear<span class="o">()</span><span class="w"> </span><span class="o">{</span>
-<span class="w">    </span><span class="nb">local</span><span class="w"> </span><span class="nv">n</span><span class="o">=</span><span class="nv">$1</span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="nv">$n</span><span class="w"> </span>-eq<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nv">$n</span><span class="w"> </span>-eq<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="o">]]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
-<span class="w">        </span><span class="nb">echo</span><span class="w"> </span><span class="nv">$n</span>
-<span class="w">    </span><span class="k">else</span>
-<span class="w">        </span><span class="nb">local</span><span class="w"> </span><span class="nv">prev</span><span class="o">=</span><span class="m">0</span>
-<span class="w">        </span><span class="nb">local</span><span class="w"> </span><span class="nv">fib</span><span class="o">=</span><span class="m">1</span>
-<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="o">((</span><span class="w"> </span><span class="nv">i</span><span class="o">=</span><span class="m">2</span><span class="p">;</span><span class="w"> </span>i&lt;<span class="o">=</span><span class="nv">$n</span><span class="p">;</span><span class="w"> </span>i++<span class="w"> </span><span class="o">))</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
-<span class="w">            </span><span class="nv">fib</span><span class="o">=</span><span class="k">$((</span><span class="w"> </span><span class="nv">prev</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nv">fib</span><span class="w"> </span><span class="k">))</span>
-<span class="w">            </span><span class="nv">prev</span><span class="o">=</span><span class="k">$((</span><span class="w"> </span><span class="nv">fib</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nv">prev</span><span class="w"> </span><span class="k">))</span>
-<span class="w">        </span><span class="k">done</span>
-<span class="w">        </span><span class="nb">echo</span><span class="w"> </span><span class="nv">$fib</span>
-<span class="w">    </span><span class="k">fi</span>
-<span class="o">}</span>
-
-<span class="nv">v</span><span class="o">=</span><span class="nv">$1</span>
-<span class="nv">n</span><span class="o">=</span><span class="nv">$2</span>
-<span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="nv">$v</span><span class="w"> </span>-ne<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nv">$v</span><span class="w"> </span>-ne<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="o">]]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
-<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Error: Invalid version. Select 1 or 2&quot;</span><span class="w"> </span>
-<span class="w">    </span><span class="nb">exit</span><span class="w"> </span><span class="m">1</span>
-<span class="k">fi</span>
-
-<span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="nv">$v</span><span class="w"> </span>-eq<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="o">]]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
-<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="k">$(</span>exponential<span class="w"> </span><span class="nv">$n</span><span class="k">)</span>
-<span class="k">else</span>
-<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="k">$(</span>linear<span class="w"> </span><span class="nv">$n</span><span class="k">)</span>
-<span class="k">fi</span>
+factorial<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span>
 </pre></div>
 </div>
 </div>
@@ -1198,36 +1120,17 @@ Python</label><div class="sd-tab-content docutils">
 
 <span class="kn">import</span> <span class="nn">sys</span>
 
-<span class="k">def</span> <span class="nf">exponential</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Find the number at position `n` in the Fibonacci sequence with</span>
-<span class="sd">    exponential complexity.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">n</span> <span class="ow">in</span> <span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">}:</span>
-        <span class="k">return</span> <span class="n">n</span>
-
-    <span class="k">return</span> <span class="n">exponential</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">exponential</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-
-<span class="k">def</span> <span class="nf">linear</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Find the number at position `n` in the Fibonacci sequence with linear</span>
-<span class="sd">    complexity.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">n</span> <span class="ow">in</span> <span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">}:</span>
-        <span class="k">return</span> <span class="n">n</span>
-
-    <span class="n">prev</span><span class="p">,</span> <span class="n">fib</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span>
-    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
-        <span class="n">prev</span><span class="p">,</span> <span class="n">fib</span> <span class="o">=</span> <span class="n">fib</span><span class="p">,</span> <span class="n">prev</span> <span class="o">+</span> <span class="n">fib</span>
-    <span class="k">return</span> <span class="n">fib</span>
+<span class="k">def</span> <span class="nf">factorial</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute the factorial of a positive number `n`.&quot;&quot;&quot;</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+        <span class="n">result</span> <span class="o">*=</span> <span class="n">i</span>
 
 <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
-    <span class="n">v</span><span class="p">,</span> <span class="n">n</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="nb">int</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
-    <span class="k">if</span> <span class="n">v</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">}:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Invalid version. Select 1 or 2&quot;</span><span class="p">)</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">factorial</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
 
-    <span class="n">func</span> <span class="o">=</span> <span class="n">exponential</span> <span class="k">if</span> <span class="n">v</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="n">linear</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">func</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
-
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="n">main</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -1237,183 +1140,92 @@ Python</label><div class="sd-tab-content docutils">
 R</label><div class="sd-tab-content docutils">
 <div class="highlight-R notranslate"><div class="highlight"><pre><span></span><span class="c1">#!/usr/bin/env Rscript</span>
 
-<span class="c1">#&#39; Find the number at position `n` in the Fibonacci sequence with exponential</span>
-<span class="c1">#&#39; complexity.</span>
-<span class="n">exponential</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">function</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="nf">if </span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">%in%</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nf">return</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
-<span class="w">  </span><span class="p">}</span>
+<span class="nf">library</span><span class="p">(</span><span class="n">gmp</span><span class="p">)</span>
 
-<span class="w">  </span><span class="nf">return</span><span class="p">(</span><span class="nf">exponential</span><span class="p">(</span><span class="n">n</span><span class="m">-2</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nf">exponential</span><span class="p">(</span><span class="n">n</span><span class="m">-1</span><span class="p">))</span>
-<span class="p">}</span>
-
-<span class="c1">#&#39; Find the number at position `n` in the Fibonacci sequence with linear</span>
-<span class="c1">#&#39; complexity.</span>
-<span class="n">linear</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">function</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="nf">if </span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">%in%</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nf">return</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+<span class="n">factorial</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">function</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1"># &#39; Compute the factorial of a postive number `n`</span>
+<span class="w">  </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">as.bigz</span><span class="p">(</span><span class="m">1</span><span class="p">)</span>
+<span class="w">  </span><span class="nf">for </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">i</span>
 <span class="w">  </span><span class="p">}</span>
-
-<span class="w">  </span><span class="n">prev</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span>
-<span class="w">  </span><span class="n">fib</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span>
-<span class="w">  </span><span class="nf">for </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="m">2</span><span class="o">:</span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">fib</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">prev</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">fib</span>
-<span class="w">    </span><span class="n">prev</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fib</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">prev</span>
-<span class="w">  </span><span class="p">}</span>
-<span class="w">  </span><span class="nf">return</span><span class="p">(</span><span class="n">fib</span><span class="p">)</span>
 <span class="p">}</span>
 
 <span class="n">args</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">commandArgs</span><span class="p">(</span><span class="n">trailingOnly</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">)</span>
-<span class="n">v</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">as.integer</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="m">1</span><span class="p">])</span>
-<span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">as.integer</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="m">2</span><span class="p">])</span>
-<span class="nf">if </span><span class="p">(</span><span class="o">!</span><span class="n">v</span><span class="w"> </span><span class="o">%in%</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">2</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="nf">stop</span><span class="p">(</span><span class="s">&quot;Invalid version. Select 1 or 2&quot;</span><span class="p">)</span>
-<span class="p">}</span>
-
-<span class="n">func</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">ifelse</span><span class="p">(</span><span class="n">v</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">exponential</span><span class="p">,</span><span class="w"> </span><span class="n">linear</span><span class="p">)</span>
-<span class="nf">cat</span><span class="p">(</span><span class="nf">func</span><span class="p">(</span><span class="n">n</span><span class="p">),</span><span class="w"> </span><span class="s">&quot;\n&quot;</span><span class="p">)</span>
+<span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">as.integer</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="m">1</span><span class="p">])</span>
+<span class="nf">factorial</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 </section>
 <section id="timing-code">
-<h3><span class="section-number">3.4.3. </span>Timing code<a class="headerlink" href="#timing-code" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">4.4.2. </span>Timing code<a class="headerlink" href="#timing-code" title="Permalink to this headline">#</a></h3>
 <p>Python and R both have libraries for timing this code, but there are also
 utilities like <code class="docutils literal notranslate"><span class="pre">time</span></code>. Call <code class="docutils literal notranslate"><span class="pre">time</span></code> before any other command and it will show
 you how long it took to execute that command. Below, we use the Python version
-of this code to find three numbers in the Fibonacci sequence using the first
-function.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ time ./fibonacci.py 1 20
-55
-
-real    0m0.050s
-user    0m0.041s
-sys     0m0.009s
-
-$ time ./fibonacci.py 1 30
-832040
-
-real    0m0.054s
-user    0m0.044s
-sys     0m0.010s
-
-$ time ./fibonacci.py 1 40
-102334155
-
-real    0m30.759s
-user    0m30.748s
-sys     0m0.009s
+of this code to compute factorials for three numbers.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ time ./factorial.py 5000
+./factorial.py 5000  0.02s user 0.01s system 92% cpu 0.037 total
+$ time ./factorial.py 10000
+./factorial.py 10000  0.04s user 0.01s system 94% cpu 0.058 total
+$ time ./factorial.py 15000
+./factorial.py 15000  0.08s user 0.01s system 96% cpu 0.091 total
 </pre></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">time</span></code> outputs three metrics:</p>
+<p><code class="docutils literal notranslate"><span class="pre">time</span></code> outputs four metrics:</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">real</span></code>: total time for the execution</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">user</span></code>: time spent executing the script itself</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">sys</span></code>: time spent on system-level processes (e.g. calls to the kernel)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">user</span></code>: time spent executing the actual script instructions</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">system</span></code>: time spent on system-level processes (e.g. loading data into a
+script, calls to the kernel)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cpu</span></code>: percentage of CPU time spent on the command, relative to the total
+time available</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">total</span></code>, or <code class="docutils literal notranslate"><span class="pre">real</span></code>: actual elapsed time for the entire process</p></li>
 </ul>
-<p>It takes a half second to find the 20th Fibonacci number, and it takes about
-the same to find the 30th. But look at how much more time it takes to find the
-40th one. We’re beginning to see the effects of exponential complexity. After
-40, incrementing our number up by just <em>one</em> will really show these effects in
-action.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ time ./fibonacci.py 1 41
-165580141
-
-real    0m50.509s
-user    0m50.496s
-sys     0m0.010s
+<p>Calculating the factorial of a number runs in <strong>linear</strong> time. That is, the
+time it takes to run this process increases linearly with the size of its
+input. This is evident from the steady rise in the <code class="docutils literal notranslate"><span class="pre">total</span></code> time value:
+increasing <code class="docutils literal notranslate"><span class="pre">n</span></code> by <code class="docutils literal notranslate"><span class="pre">50000</span></code> takes an additional ~0.03 seconds.</p>
+<p>Will that hold for the next number in our series?</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ time ./factorial.py 20000
+./factorial.py 20000  0.12s user 0.01s system 97% cpu 0.129 total
 </pre></div>
 </div>
-<p>This conveys an important point: <em>how you implement your problem directly
-impacts resource usage</em>. If you find that your script takes up too much
-resources, you may need to rethink how you’ve written it.</p>
-<p>In the case of calculating a Fibonacci number, the second implementation,
-<code class="docutils literal notranslate"><span class="pre">linear</span></code>, is much more efficient:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ time ./fibonacci.py 40
-102334155
-
-real    0m0.049s
-user    0m0.043s
-sys     0m0.006s
-
-$ time ./fibonacci.py 400
-176023680645013966468226945392411250770384383304492191886725992896575345044216019675
-
-real    0m0.052s
-user    0m0.041s
-sys     0m0.011s
-</pre></div>
-</div>
-</section>
-<section id="a-time-test">
-<h3><span class="section-number">3.4.4. </span>A time test<a class="headerlink" href="#a-time-test" title="Permalink to this headline">#</a></h3>
-<p>We will conclude by using timing observations in a more systematic way. Imagine
-that you do not know that <code class="docutils literal notranslate"><span class="pre">linear</span></code> has linear time complexity. One way to
-ascertain its complexity would be to run a series of tests, which starts with
-small samples and gradually works its way up to larger ones. Typically you
-would run these tests a few time and take their average, but the table below
-records just a single run of the <code class="docutils literal notranslate"><span class="pre">linear</span></code> implementation in <code class="docutils literal notranslate"><span class="pre">fibonacci.py</span></code>.</p>
-<table class="colwidths-auto table">
-<thead>
-<tr class="row-odd"><th class="head"><p>N</p></th>
-<th class="head"><p>Time (seconds)</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>6250</p></td>
-<td><p>0.029</p></td>
-</tr>
-<tr class="row-odd"><td><p>12500</p></td>
-<td><p>0.034</p></td>
-</tr>
-<tr class="row-even"><td><p>25000</p></td>
-<td><p>0.045</p></td>
-</tr>
-<tr class="row-odd"><td><p>50000</p></td>
-<td><p>0.058</p></td>
-</tr>
-<tr class="row-even"><td><p>100000</p></td>
-<td><p>0.115</p></td>
-</tr>
-<tr class="row-odd"><td><p>200000</p></td>
-<td><p>0.380</p></td>
-</tr>
-<tr class="row-even"><td><p>400000</p></td>
-<td><p>1.606</p></td>
-</tr>
-<tr class="row-odd"><td><p>800000</p></td>
-<td><p>6.423</p></td>
-</tr>
-<tr class="row-even"><td><p>1600000</p></td>
-<td><p>25.309</p></td>
-</tr>
-<tr class="row-odd"><td><p>3200000</p></td>
-<td><p>96.344</p></td>
-</tr>
-</tbody>
-</table>
-<p>With these 10 observations, we can fit a small linear regression and plug its
-coefficients into the following equation:</p>
+<p>Roughly, yes. A true time test will take the average of multiple runs to
+account for variances in your system, but this is already a decent estimate of
+the amount of time it will take to execute <code class="docutils literal notranslate"><span class="pre">factorial.py</span></code>. We could express
+this estimate as a linear equation:</p>
 <div class="math notranslate nohighlight">
 \[
-Time = a \cdot log_2{N} + b
+T = \frac{0.03}{5000} \cdot n + b
 \]</div>
-<p>Where <span class="math notranslate nohighlight">\(a\)</span> is the intercept and <span class="math notranslate nohighlight">\(b\)</span> is the slope. The slope will be a rough
-approximation of the running time.</p>
-<p>With these 10 observations, we can fit a small linear regression, for example
-in R:</p>
-<div class="highlight-R notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">read.csv</span><span class="p">(</span><span class="s">&#39;data.csv&#39;</span><span class="p">)</span>
-<span class="nf">lm</span><span class="p">(</span><span class="n">time</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">size</span><span class="p">,</span><span class="w"> </span><span class="nf">log</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-
-<span class="n">Call</span><span class="o">:</span>
-<span class="nf">lm</span><span class="p">(</span><span class="n">formula</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">time</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">size</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">log</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
-
-<span class="n">Coefficients</span><span class="o">:</span>
-<span class="p">(</span><span class="n">Intercept</span><span class="p">)</span><span class="w">         </span><span class="n">size</span>
-<span class="w">    </span><span class="m">-16.683</span><span class="w">        </span><span class="m">1.357</span>
+<p>Where <span class="math notranslate nohighlight">\(n\)</span> is your input and <span class="math notranslate nohighlight">\(b\)</span> represents the base amount of time it takes to
+complete the task. You can estimate <span class="math notranslate nohighlight">\(b\)</span> by comparing a few trials with
+different values for <span class="math notranslate nohighlight">\(n\)</span>. In this case, <span class="math notranslate nohighlight">\(b\)</span> is ~0.005 seconds.</p>
+</section>
+<section id="ram-usage">
+<h3><span class="section-number">4.4.3. </span>RAM usage<a class="headerlink" href="#ram-usage" title="Permalink to this headline">#</a></h3>
+<p>Estimating how much memory your script will take follows a similar pattern:
+incrementally scale your computations until you feel confident in your ability
+to make an informed guess. While there are third-party command line utilities
+available for measuring memory usage, <code class="docutils literal notranslate"><span class="pre">tmux</span></code> and <code class="docutils literal notranslate"><span class="pre">top</span></code> will do just fine. We
+will conclude by showing you the setup for such a test.</p>
+<p>The first screenshot below shows a <code class="docutils literal notranslate"><span class="pre">tmux</span></code> window split into two panes. On the
+left is an interactive Python environment. It uses NumPy to create a (1,000 x
+1,000) matrix of zeros. On the right, <code class="docutils literal notranslate"><span class="pre">top</span></code> has been opened with the following
+command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ top -cu &lt;user&gt;
 </pre></div>
 </div>
+<p><code class="docutils literal notranslate"><span class="pre">top</span></code> has had its memory displays altered with <code class="docutils literal notranslate"><span class="pre">e</span></code> and <code class="docutils literal notranslate"><span class="pre">Shift-e</span></code>. Additionally,
+<code class="docutils literal notranslate"><span class="pre">Shift-m</span></code> has sorted the processes so the one with the most memory sits at the
+top.</p>
+<p><img alt="A two-pane  window with Python and  showing a smallmatrix" src="../_images/np_small.png" /></p>
+<p>The second screenshot shows the same setup, but this time the matrix is
+substantially larger: it’s (100,000 x 100,000). Note the difference in virtual
+memory!</p>
+<p><img alt="A two-pane  window with Python and  showing a largematrix" src="../_images/np_large.png" /></p>
+<p>Using a similar setup on the command line is also possible. Simply execute your
+script and monitor it as it runs with <code class="docutils literal notranslate"><span class="pre">top</span></code>. Scale up or down as necessary.</p>
 </section>
 </section>
 </section>
@@ -1450,13 +1262,22 @@ in R:</p>
     <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
-       href="02_environment-setup.html"
+       href="03_environment-setup.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title"><span class="section-number">2. </span>Setting Up Your Remote Computing Environment</p>
+        <p class="prev-next-title"><span class="section-number">3. </span>Setting Up Software</p>
       </div>
+    </a>
+    <a class="right-next"
+       href="05_cluster-computing.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">5. </span>Cluster Computing</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div></div>
   
@@ -1476,29 +1297,28 @@ in R:</p>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#executable-scripts">3.1. Executable Scripts</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-an-executable-script">3.1.1. Using an executable script</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#shebangs">3.1.2. Shebangs</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-script">3.1.3. Example script</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#file-permissions">3.1.4. File permissions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#executable-scripts">4.1. Executable Scripts</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-an-executable-script">4.1.1. Using an executable script</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#shebangs">4.1.2. Shebangs</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-script">4.1.3. Example script</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#file-permissions">4.1.4. File permissions</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#managing-multiple-sessions">3.2. Managing Multiple Sessions</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-basics-of-tmux">3.2.1. The basics of <code class="docutils literal notranslate"><span class="pre">tmux</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#windows-and-panes">3.2.2. Windows and panes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#managing-multiple-sessions">4.2. Managing Multiple Sessions</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-basics-of-tmux">4.2.1. The basics of <code class="docutils literal notranslate"><span class="pre">tmux</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#windows-and-panes">4.2.2. Windows and panes</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#monitoring-your-code">3.3. Monitoring Your Code</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#finding-a-process">3.3.1. Finding a process</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#monitoring-real-time-system-performance">3.3.2. Monitoring real-time system performance</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#disk-usage">3.3.3. Disk usage</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#monitoring-your-code">4.3. Monitoring Your Code</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#finding-a-process">4.3.1. Finding a process</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#monitoring-real-time-system-performance">4.3.2. Monitoring real-time system performance</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#other-resource-information">4.3.3. Other resource information</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#estimating-resource-requirements">3.4. Estimating Resource Requirements</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#complexity">3.4.1. Complexity</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">3.4.2. Example script</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#timing-code">3.4.3. Timing code</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-time-test">3.4.4. A time test</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#estimating-resource-requirements">4.4. Estimating Resource Requirements</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">4.4.1. Example script</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#timing-code">4.4.2. Timing code</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ram-usage">4.4.3. RAM usage</a></li>
 </ul>
 </li>
 </ul>
