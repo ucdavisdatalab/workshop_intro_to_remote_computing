@@ -156,7 +156,7 @@ flexibility and reproducibility.
 
 ### Farm Modules
 
-:::{note}
+:::{important}
 This section is specific to Farm. While some other servers and clusters may
 have a similar module system, many do not.
 :::
@@ -369,7 +369,7 @@ fixes are to run the install script again or to edit the shell configuration
 files (and check the `PATH` environment variable).
 
 
-#### Using Micromamba
+#### Creating Environments
 
 The [Micromamba documentation][mm] appears to be aimed at users already
 familiar with Conda. If you're new to environment management or the Conda
@@ -453,12 +453,12 @@ deactivate`. It is *not* necessary to do this before activating a different
 environment.
 :::
 
-Let's install two file search tools, `ripgrep` and `fd`, in the `utils`
-environment. The `ripgrep` tool searches text within files, while the `fd` tool
-searches for files by name. You can use the `install` subcommand to install
-packages. The default is to install packages into the active environment. You
-can list any number of packages after `install`. For instance, to install
-`ripgrep` and `fd`:
+Let's install two file search tools, ripgrep and `fd`, in the `utils`
+environment. The ripgrep (`rg`) tool searches text within files, while the `fd`
+tool searches for files by name. You can use the `install` subcommand to
+install packages. The default is to install packages into the active
+environment. You can list any number of packages after `install`. For instance,
+to install ripgrep and `fd`:
 
 ```sh
 micromamba install ripgrep fd
@@ -468,23 +468,24 @@ The subcommand will list the packages that will be installed and prompt you to
 confirm. If you see more than just the requested packages in the listing, it's
 because the requested packages have dependencies.
 
-:::{warning}
+:::{caution}
 Whenever you run the `install` subcommand, it will also try to update packages
-that are already installed. Occasionally, 
+that are already installed. This is good for keeping your software up-to-date,
+but a problem if your project requires specific versions. You can use the
+`--freeze-installed` flag to prevent updates to packages that are already
+installed.
 :::
 
-:::{note}
-Micromamba will automatically cache installed packages and share them between
-environments when possible. This helps to cut down on how much storage
-Micromamba uses.
-
-It's also a good idea to periodically clean up Micromamba's cache to remove
-old, unused packages. To do this, run:
+:::{tip}
+You can install a specific version of a package by quoting the name of the
+package and using `=`, `<`, `<=`, `>`, or `>=` to indicate the version. For
+instance, to install Python 3.9:
 
 ```sh
-micromamba clean --all
+micromamba install 'python=3.9'
 ```
 :::
+
 
 After the installation is complete, try out one of the commands. For example,
 create a file called `foo.txt` and then try finding it with `fd`:
@@ -501,23 +502,165 @@ You can list all of the packages installed in a virtual environment with the
 micromamba list
 ```
 
+```
+List of packages in environment: "/home/nick/micromamba/envs/utils"
+
+  Name            Version  Build               Channel
+────────────────────────────────────────────────────────────
+  _libgcc_mutex   0.1      conda_forge         conda-forge
+  _openmp_mutex   4.5      2_gnu               conda-forge
+  cfg             10.5.5   h59595ed_0          conda-forge
+  cm              10.3.7   h59595ed_0          conda-forge
+  fd              8.43.7   h166bdaf_0          conda-forge
+  fftw            3.3.10   nompi_hc118613_108  conda-forge
+  frv             4.36.0   hbea9962_0          conda-forge
+  libframel       8.46.1   hd590300_0          conda-forge
+  libgcc-ng       13.2.0   h807b86a_3          conda-forge
+  libgfortran-ng  13.2.0   h69a702a_3          conda-forge
+  libgfortran5    13.2.0   ha4646dd_3          conda-forge
+  libgomp         13.2.0   h807b86a_3          conda-forge
+  libstdcxx-ng    13.2.0   h7e041cc_3          conda-forge
+  ripgrep         13.0.0   he8a937b_3          conda-forge
+```
+
+The list might differ slightly on your computer because of different operating
+systems and new versions of packages released since this was written. However,
+you should see ripgrep and `fd` in the list. All of the other packages---which
+we did not request directly---are dependencies.
+
 The `create`, `activate`, and `install` subcommands are fundamental to using
 Micromamba. There are many other subcommands, which you can learn about by
 reading the [Conda documentation][conda-docs].
 
 :::{note}
-You can remove an environment with the `env remove` subcommand. For instance,
-to remove the `utils` environment, run:
+The ripgrep and `fd` search tools are worth knowing about if you work in the
+command line frequently. Both can help you find files quickly.
+:::
+
+
+#### Exporting Environments
+
+One of the benefits of using conda environments is that they can be exported
+and then recreated later, possibly by other people or on other computers.
+You can export a conda environment with the `env export` subcommand. In most
+cases, you should also use the `--from-history` flag, which exports only the
+packages you installed directly. For example, run this command in the `utils`
+environment:
+
+```sh
+micromamba env export --from-history
+```
+
+```yaml
+name: utils
+channels:
+- conda-forge
+- pkgs/main
+dependencies:
+- fd
+- ripgrep
+```
+
+The subcommand prints out the environment specification in [YAML][yaml], a
+human-readable markup language. The `dependencies` section lists the packages
+as you installed them, so each package's version is omitted unless you
+installed a specific version. The `channels` section lists the channels
+(package repositories) from which you downloaded the packages.
+
+[yaml]: https://en.wikipedia.org/wiki/YAML
+
+You'll probably want to save the environment specification rather than just
+print it out. You can use the shell `>` command to pipe the output to a file,
+to save or share with others. It's a good idea to include the environment name
+in the name of the file, and to use a `.yml` or `.yaml` extension. So for the
+`utils` environment:
+
+```sh
+micromamba env export --from-history > utils.yml
+```
+
+After running the command, there will be a `utils.yml` file in your working
+directory. You can use a text editor to check its contents.
+
+You can recreate an environment from a specification file with the `env create`
+subcommand and the `--file` flag. Let's remove the `utils` environment from
+Micromamba, so that we can recreate it from the `utils.yml` file. To remove the
+environment, run this command:
 
 ```sh
 micromamba env remove --name utils
 ```
-:::
+
+Then recreate the environment from `utils.yml`:
+
+```sh
+micromamba env create --file utils.yml
+```
+
+After the packages finish installing, activate the environment and test that
+ripgrep (`rg`) and `fd` are there.
+
+Keep environment specification files with the code for the project to which
+they belong. For instance, if you version your code with git, version your
+environment file(s) too. Share the environment specification files with anyone
+who needs to work on your project, so that you can make sure their environment
+is set up with the same software as yours.
+
+The environment specification files produced by `env export` with the
+`--from-history` flag do not include version info for most packages. This is by
+design: the format is meant to be cross-platform, and sometimes specific
+versions are not available on all platforms. The tradeoff is that when the
+environment is recreated, Micromamba might install newer versions of packages,
+which might cause compatibility issues. If you know your project depends on
+specific versions of packages, make sure to specify the versions when you
+install the packages. Alternatively, you can export to a specification format
+that has complete version information but is *not* cross-platform by omitting
+the `--from-history` flag. The command to recreate an environment from a
+specification file in this format is the same.
 
 :::{note}
-The `ripgrep` and `fd` search tools are worth knowing about if you work in the
-command line frequently. Both can help you find files quickly.
+Environment export is still under development in both the Conda and Mamba
+(which includes Micromamba) projects, and there's no consensus yet. As of
+writing:
+
+* The [conda-lock][] subproject is a relatively mature tool for exporting
+  environments.
+* The Conda developers [might add an option to include version information in
+  the cross-platform format][conda-issue-10345].
+* The Mamba developers [might create a new format][mamba-issue-1209].
+
+Unless you know you need to track versions, the `--from-history` export is
+probably fine from a reproducibility perspective. If you do need to track
+versions, 
 :::
+
+[conda-lock]: https://github.com/conda/conda-lock
+[conda-issue-10345]: https://github.com/conda/conda/issues/10345
+[mamba-issue-1209]: https://github.com/mamba-org/mamba/issues/1209
+
+
+#### Managing Storage
+
+Depending on which packages you install, conda environments can potentially use
+10s of gigabytes of storage. Micromamba automatically caches installed packages
+and shares them between environments when possible, but there are also a few
+things you can do to keep storage usage under control.
+
+First, make sure you use `env remove` to remove old environments that you no
+longer use. If you export these environments before removing them, you can
+recreate them if you need them again later.
+
+Second, periodically clean up Micromamba's cache to remove old, unused
+packages. To do this, run:
+
+```sh
+micromamba clean --all
+```
+
+This will remove all packages from the cache that are not installed in any
+environments. Unless you install packages via symlinks, which is beyond the
+scope of this reader, then this is a safe command and will not break your
+environments.
 
 
 Editing Configurations
@@ -554,6 +697,13 @@ some commands, those may have been set up by your operating system or by your
 computer's administrator. Leave them intact until you have enough experience to
 know what they do---they might be important. Either way, you can add your own
 settings to the file.
+
+There are two other files that are important for configuring Bash, called
+`.profile` and `.bash_profile`. Like `.bashrc`, both can be found in your home
+directory and both are shell scripts. The `.profile` file is actually a
+configuration file for the Bourne shell (`sh`), and can only contain `sh` code,
+but it runs every time you open a Bash shell.
+
 
 #### Aliases
 
@@ -600,12 +750,6 @@ double-check that your saved the `alias` command in `~/.bashrc` and that you
 ran the `source` command.
 :::
 
-
-There are two other files that are important for configuring Bash, called
-`.profile` and `.bash_profile`. Like `.bashrc`, both can be found in your home
-directory and both are shell scripts. The `.profile` file is actually a
-configuration file for the Bourne shell (`sh`), and can only contain `sh` code,
-but it runs every time you open a Bash shell.
 
 #### Environment Variables
 
