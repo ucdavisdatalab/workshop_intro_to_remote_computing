@@ -628,10 +628,6 @@ writing:
 * The Conda developers [might add an option to include version information in
   the cross-platform format][conda-issue-10345].
 * The Mamba developers [might create a new format][mamba-issue-1209].
-
-Unless you know you need to track versions, the `--from-history` export is
-probably fine from a reproducibility perspective. If you do need to track
-versions, 
 :::
 
 [conda-lock]: https://github.com/conda/conda-lock
