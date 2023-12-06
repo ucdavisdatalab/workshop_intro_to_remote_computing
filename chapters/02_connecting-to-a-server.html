@@ -19,12 +19,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
 
   
-  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -39,14 +39,12 @@
     <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
-  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
 
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
@@ -78,15 +76,6 @@ const thebe_selector_output = ".output, .cell_output"
   
   
   <a class="skip-link" href="#main-content">Skip to main content</a>
-  
-  <div id="pst-scroll-pixel-helper"></div>
-
-  
-  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
-    <i class="fa-solid fa-arrow-up"></i>
-    Back to top
-  </button>
-
   
   <input type="checkbox"
           class="sidebar-toggle"
@@ -328,10 +317,10 @@ const thebe_selector_output = ".output, .cell_output"
 
 <script>
 document.write(`
-  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
   </button>
 `);
 </script>
@@ -339,11 +328,13 @@ document.write(`
 <script>
 document.write(`
   <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+    <i class="fa-solid fa-magnifying-glass"></i>
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -359,6 +350,39 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-a-server">2.1. What Is A Server?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-connect-to-a-server">2.2. How To Connect To A Server</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#opening-a-connection">2.2.1. Opening a Connection</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-server-etiquette">2.2.2. Basic Server Etiquette</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ssh-passwords">2.2.3. SSH Passwords</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ssh-keys">2.2.4. SSH Keys</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-ssh-configuration-directory">2.2.5. The <code class="docutils literal notranslate"><span class="pre">.ssh</span></code> Configuration Directory</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#known-hosts">2.2.6. Known Hosts</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ssh-config">2.2.7. SSH Config</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#moving-data-between-a-local-computer-the-internet-and-a-server">2.3. Moving Data Between A Local Computer, The Internet, And A Server</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#download-files-from-the-internet">2.3.1. Download Files From The Internet</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#wget">2.3.2. <code class="docutils literal notranslate"><span class="pre">wget</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#curl">2.3.3. <code class="docutils literal notranslate"><span class="pre">curl</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#transfer-files-between-a-local-computer-and-a-server">2.3.4. Transfer Files Between A Local Computer And A Server</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scp">2.3.5. <code class="docutils literal notranslate"><span class="pre">scp</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sftp">2.3.6. <code class="docutils literal notranslate"><span class="pre">sftp</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-posix-directory-structure-and-permissions">2.4. The POSIX Directory Structure And Permissions</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#system-directories">2.4.1. System Directories</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#user-home-directories">2.4.2. User Home Directories</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#other-directories">2.4.3. Other Directories</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -369,13 +393,714 @@ document.write(`
                 <article class="bd-article" role="main">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="connecting-to-a-server">
-<h1><span class="section-number">2. </span>Connecting To A Server<a class="headerlink" href="#connecting-to-a-server" title="Permalink to this heading">#</a></h1>
+<h1><span class="section-number">2. </span>Connecting To A Server<a class="headerlink" href="#connecting-to-a-server" title="Permalink to this headline">#</a></h1>
+<p>This chapter will show you how to connect to a server using the SSH (“secure
+shell”) protocol, how to interact with that server through a remote shell, and
+how to move data and code between your local computer, the Internet, and the
+server. Along the way, you will learn about how SSH proves your identity to a
+server, how to configure your local computer to make using SSH more
+comfortable, and about basic server etiquette.</p>
 <div class="admonition-learning-objectives admonition">
 <p class="admonition-title">Learning Objectives</p>
 <ul class="simple">
-<li><p>Objective 1…</p></li>
+<li><p>Learn how to connect to a remote server using the SSH protocol</p></li>
+<li><p>Learn how to co-exist with other users on the same server</p></li>
+<li><p>Learn about SSH passwords and keys</p></li>
+<li><p>Learn how to move data between your local PC, the Internet, and a server
+using <code class="docutils literal notranslate"><span class="pre">wget</span></code>/<code class="docutils literal notranslate"><span class="pre">curl</span></code>, <code class="docutils literal notranslate"><span class="pre">sftp</span></code>, and <code class="docutils literal notranslate"><span class="pre">scp</span></code></p></li>
+<li><p>Learn about the POSIX directory structure and access permissions</p></li>
 </ul>
 </div>
+<section id="what-is-a-server">
+<h2><span class="section-number">2.1. </span>What Is A Server?<a class="headerlink" href="#what-is-a-server" title="Permalink to this headline">#</a></h2>
+<p>Generally, a server is just some computer that can be accessed over a network,
+typically the Internet. In this context, a computing server is, more
+specifically, a computer that gives users access to a remote command line from
+where they can run programs on that computer. The reason to run programs on a
+server is that servers typically offer more memory and disk space and more
+computing performance than any user’s local computer, and can therefore work on
+bigger problems.</p>
+<p>Unlike users’ local computers, servers typically run some UNIX-like operating
+system, which in almost all cases is Linux, they are typically controlled
+exclusively via the command line, they are typically shared by multiple users,
+often multiple users at the same time, and they are operated and maintained by
+dedicated people, called system administrators or system operators (SysOps for
+short).</p>
+</section>
+<section id="how-to-connect-to-a-server">
+<h2><span class="section-number">2.2. </span>How To Connect To A Server<a class="headerlink" href="#how-to-connect-to-a-server" title="Permalink to this headline">#</a></h2>
+<p>Users typically connect to a server using the SSH (“secure shell”) protocol, by
+using the <code class="docutils literal notranslate"><span class="pre">ssh</span></code> command installed on their local computers (in the following,
+we will use “SSH” to refer to the SSH protocol, i.e., the language spoken
+between a local computer and a server to establish and maintain secure
+connections, and <code class="docutils literal notranslate"><span class="pre">ssh</span></code> to refer to the command line program that implements the
+client side of the SSH protocol). The “secure” in SSH denotes the fact that the
+entirety of the connection between a user’s local computer and the remote
+server is encrypted using strong cryptography, meaning that it is practically
+impossible for a third party (anybody besides the user, the user’s local
+computer, the server, and the server’s administrators) to read any of the data
+sent over the connection.</p>
+<p>In order to be able to connect to a server over SSH, users need to have an
+account on that server. Unlike most web-based services, where users who visit a
+site for the first time can usually sign up by filling out an online form and
+then use the service immediately, computing servers in this context typically
+have some special procedure for requesting an account. A new user typically has
+to contact a system administrator or fill out some online form to request an
+account, and if the administrators accept the request, they will typically
+assign the new user an account name and some way to authenticate themselves to
+the server.</p>
+<p>“Authentication” here means some way for the user to prove that they really are
+who they claim they are, and that they have permission to access the server. In
+the SSH protocol, there are two main authentication methods: SSH passwords and
+SSH keys. We will discuss these in detail in the following sections.</p>
+<section id="opening-a-connection">
+<h3><span class="section-number">2.2.1. </span>Opening a Connection<a class="headerlink" href="#opening-a-connection" title="Permalink to this headline">#</a></h3>
+<p>With that in mind, once a new user has an account on a server and a way to
+authenticate themselves, they can log in to the server using the aforementioned
+<code class="docutils literal notranslate"><span class="pre">ssh</span></code> command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ssh</span> <span class="o">-</span><span class="n">l</span> <span class="o">&lt;</span><span class="n">account</span> <span class="n">name</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">server</span> <span class="n">name</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>where <code class="docutils literal notranslate"><span class="pre">&lt;account</span> <span class="pre">name&gt;</span></code> is the name of the account that was assigned to the
+user, and <code class="docutils literal notranslate"><span class="pre">&lt;server</span> <span class="pre">name&gt;</span></code> is the Internet host name or IP address of the
+server. An alternative formulation of the same command is</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ssh</span> <span class="o">&lt;</span><span class="n">account</span> <span class="n">name</span><span class="o">&gt;@&lt;</span><span class="n">server</span> <span class="n">hame</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>which uses the “&#64;” notation familiar from email addresses.</p>
+<p>Running either one of these commands will establish a connection between the
+user’s local computer and the remote server, and start a new shell session on
+the remote computer. As part of setting up that connection, the <code class="docutils literal notranslate"><span class="pre">ssh</span></code> command
+might ask for the user’s password, in which case the user will have to enter
+the password that was assigned to them by the server’s administrator. After the
+SSH connection has been established and while it remains active, anything typed
+into the terminal on which the <code class="docutils literal notranslate"><span class="pre">ssh</span></code> command was run will be forwarded to the
+shell on the remote server, and any output from that remote shell or programs
+run within it will be forwarded to, and printed by, the terminal on the user’s
+local computer. In other words, users can interact with the remote shell
+running on the remote server in the same way as with the local shell on their
+local computer, but any commands executed in that shell will be run on the
+remote server. Finally, when the user shuts down the remote shell, for example
+via the <code class="docutils literal notranslate"><span class="pre">exit</span></code> command, the SSH connection will be closed, and the terminal on
+the user’s local computer will control the local shell again.</p>
+<p>An example SSH session might proceed like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>me@mypc$ ssh testuser@testserver
+Last login: Mon Dec  4 12:00:59 2023 from 192.168.2.109
+testuser@testserver$ date
+Tue Dec  5 09:03:13 PST 2023
+testuser@testserver$ ls ~
+src data Documents Downloads Temp ToDoList.txt
+testuser@testserver$ exit
+logout
+Connection to testserver closed.
+me@mypc$ 
+</pre></div>
+</div>
+<p>In this example, the user first ran the <code class="docutils literal notranslate"><span class="pre">date</span></code> command, which printed the
+current time, then ran <code class="docutils literal notranslate"><span class="pre">ls</span> <span class="pre">~</span></code> to see the list of files in their home directory,
+and finally returned control to their local PC by <code class="docutils literal notranslate"><span class="pre">exit</span></code>ing from the remote
+shell. Importantly, the <code class="docutils literal notranslate"><span class="pre">date</span></code> command printed the current time <em>on the remote
+server,</em> not on the user’s local computer, and the <code class="docutils literal notranslate"><span class="pre">ls</span> <span class="pre">~</span></code> command listed the
+files in the user’s home directory <em>on the remote server,</em> not on the user’s
+local computer, because both of those commands were <em>executed</em> on the remote
+server. It is only the <em>output</em> from running those commands on the remote
+server that are forwarded to and printed on the user’s local computer.</p>
+<p>There is a second way to use <code class="docutils literal notranslate"><span class="pre">ssh</span></code> to quickly execute a single command on a
+remote server without entering an interactive shell. This is done by appending
+the command line that should be executed on the remote server to the <code class="docutils literal notranslate"><span class="pre">ssh</span></code>
+command itself, like so:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>me@mypc$ ssh testuser@testserver date
+Tue Dec  5 09:10:14 PST 2023
+me@mypc$ 
+</pre></div>
+</div>
+<p>This example connected to the same account on the same server as before,
+executed the <code class="docutils literal notranslate"><span class="pre">date</span></code> command on the server to print <em>the server’s</em> current time,
+and then immediately returned control to the user’s local computer.</p>
+</section>
+<section id="basic-server-etiquette">
+<h3><span class="section-number">2.2.2. </span>Basic Server Etiquette<a class="headerlink" href="#basic-server-etiquette" title="Permalink to this headline">#</a></h3>
+<p>Don’t forkbomb a server the first time you log in! (or the second, third, …
+time, either) (J/K, obviously not written yet.)</p>
+</section>
+<section id="ssh-passwords">
+<h3><span class="section-number">2.2.3. </span>SSH Passwords<a class="headerlink" href="#ssh-passwords" title="Permalink to this headline">#</a></h3>
+<p>One of the main ways how SSH establishes a user’s identity on a remote server
+is via passwords. SSH passwords work identically to the passwords used to log
+in to local computers or to access web services like Google. Importantly, SSH
+passwords are <em>not</em> managed by the SSH protocol itself. They are, in fact,
+standard passwords in the server’s operating system (typically Linux). This
+means they follow the same rules as standard passwords, and have the same
+drawbacks and caveats.</p>
+<p>If a server uses SSH passwords for authentication, that server’s administrators
+will typically assign some random password to a new user and communicate that
+password to them through some insecure channel, usually email. As a result, a
+new user is usually expected to change their initial password the first time
+they log into their new account. As SSH passwords are simply operating
+system-level passwords on the server, they can be changed in the same way as
+local passwords, using the <code class="docutils literal notranslate"><span class="pre">passwd</span></code> command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>me@mypc$ ssh testuser@testserver
+Last login: Tue Dec  5 09:02:20 2023 from 192.168.2.109
+testuser@testserver$ passwd
+Changing password for user testuser.
+Current password: 
+New password:
+Retype new password:
+passwd: all authentication tokens updated successfully.
+testuser@testserver$ 
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">passwd</span></code> command will first ask for the user’s current password, i.e., the
+one that was assigned during account creation. It will then ask for the new
+password, check that password against its internal password rules, whatever
+they may be, and then ask for the new password for a second time to catch
+typos. If the new password passes the internal checks and is entered
+identically for the second time, the <code class="docutils literal notranslate"><span class="pre">passwd</span></code> command will print a confirmation
+message. If something went wrong, <code class="docutils literal notranslate"><span class="pre">passwd</span></code> will print an error message like
+this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">passwd</span><span class="p">:</span> <span class="n">Authentication</span> <span class="n">token</span> <span class="n">manipulation</span> <span class="n">error</span>
+</pre></div>
+</div>
+<p>If <code class="docutils literal notranslate"><span class="pre">passwd</span></code> printed a confirmation message, the new password is immediately
+activated and must be used on the next login. If it printed an error message,
+the current password is not changed and must continue to be used, and <code class="docutils literal notranslate"><span class="pre">passwd</span></code>
+must be run again to actually change it.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>SSH Password Hygiene</p>
+<p>Due to SSH passwords being standard passwords stored on a remote server, users
+should <strong>always:</strong></p>
+<ul class="simple">
+<li><p>Assume that their password on any given server <strong>will</strong> be leaked or stolen
+at some point</p></li>
+<li><p>Use different passwords for different servers, to minimize the damage when
+one server they use will inevitably be hacked, and their password for that
+server will be stolen. By using different passwords for different servers,
+hackers will not be able to use the password they stole from one server to
+access the same user’s accounts on other servers</p></li>
+</ul>
+</div>
+</section>
+<section id="ssh-keys">
+<h3><span class="section-number">2.2.4. </span>SSH Keys<a class="headerlink" href="#ssh-keys" title="Permalink to this headline">#</a></h3>
+<p>The second main way how SSH establishes a user’s identity on a remote server is
+via SSH keys. SSH keys are specific to the SSH protocol, and much more secure
+than SSH passwords, both for the user and the server, to the point that many
+servers no longer allow SSH passwords for login and require SSH keys.</p>
+<p>Unlike SSH passwords, which are just strings of characters, SSH keys are
+cryptographic keys, typically based on the RSA algorithm, which is a super
+<a class="reference external" href="https://en.wikipedia.org/wiki/RSA_cryptosystem">interesting topic</a> for another day. RSA uses a two-part asymmetric
+scheme consisting of a <em>private key</em> and a <em>public key.</em> Without going into the
+details of how RSA cryptography works, a public key is used to <em>encrypt</em> data,
+and the associated private key is used to <em>decrypt</em> data. Unlike in <em>symmetric</em>
+cryptography systems, in asymmetric systems like RSA public keys can be shared
+<em>freely, with anyone,</em> without impacting security. In fact, many people append
+their public keys to their email signatures, or post them on their personal web
+pages. Also unlike SSH passwords, SSH keys are not generated on or assigned by
+the server, but are property of the user, are generated and stored on the
+user’s own computer, and a user’s private keys are not shared with a server as
+part of establishing a connection to that server.</p>
+<p>In the context of SSH authentication, RSA keys are used to establish a user’s
+identity. First, the server’s administrators associate the user’s <strong>public</strong>
+key with the user’s account (typically by asking the user to send them their
+public key via email or an online form, which is safe to do because public SSH
+keys can be freely shared with anyone). Then, when the user attempts to connect
+to the server over SSH, the server takes a small piece of data, encrypts it
+with the user’s <strong>public</strong> key, and sends it to the <code class="docutils literal notranslate"><span class="pre">ssh</span></code> client program
+running on the user’s computer. The <code class="docutils literal notranslate"><span class="pre">ssh</span></code> program will then decrypt the
+server’s message using the user’s <strong>private</strong> key, which is stored on the local
+computer, and subsequently prove to the server that it was able to decode the
+message (the details of how this proof works are very interesting, but beyond
+the scope of this reader). Being able to decode the server’s message, in turn,
+proves to the server that the user knows the private key associated with the
+public key stored with the user’s account, and is therefore who they claim to
+be. As a result of the assumption that anyone who knows a user’s <strong>private</strong>
+SSH key <em>is</em> that user, while <strong>public</strong> SSH keys can be shared freely,
+<strong>private</strong> SSH keys <em>must</em> be kept private and safe. If a user’s <strong>private</strong>
+SSH key(s) get accessed by hackers, those hackers will be able to access any of
+that user’s accounts using those keys. It is therefore a good idea to protect
+one’s SSH keys with passwords (more on that later).</p>
+<p>SSH keys are created by running the <code class="docutils literal notranslate"><span class="pre">ssh-keygen</span></code> command on a user’s local
+computer:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>me@mypc$ ssh-keygen -t rsa
+Generating public/private rsa key pair.
+Enter file in which to save the key (/home/me/.ssh/id_rsa): /home/me/.ssh/newkey
+Enter passphrase (empty for no passphrase):
+Enter same passphrase again: 
+Your identification has been saved in /home/me/.ssh/newkey
+Your public key has been saved in /home/me/.ssh/newkey.pub
+The key fingerprint is:
+SHA256:dhJNxMNE02Gfe4IQuk64/v7wj/fcYc+LdxOZufF/rnU me@mypc
+The key&#39;s randomart image is:
++---[RSA 3072]----+
+|         o=*+.   |
+|  .      o+oo    |
+| . .    ..o.     |
+|. .    S..       |
+|.. . .  So. +    |
+|o.  . .+oo *     |
+|o. .. +.+   =   E|
+|..  oooo.+ + . .o|
+|..oo.+.o..o . o+o|
++----[SHA256]-----+
+me@mypc$ 
+</pre></div>
+</div>
+<p>These are the steps of the above procedure in detail:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ssh-keygen</span> <span class="pre">-t</span> <span class="pre">rsa</span></code> executes the SSH key generation program and instructs it
+to generate an SSH key using the RSA algorithm (<code class="docutils literal notranslate"><span class="pre">-t</span> <span class="pre">rsa</span></code>). There are several
+different key algorithms, and servers may require or recommend specific ones,
+but the most common key algorithm is RSA</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ssh-keygen</span></code> asks for the name of a file in which to store the <strong>private</strong>
+key. By default, as indicated in the prompt, private RSA keys will be stored
+in a file named id_rsa in a hidden <code class="docutils literal notranslate"><span class="pre">.ssh</span></code> directory in the user’s home
+directory (<code class="docutils literal notranslate"><span class="pre">/home/me</span></code>). If the user simply presses the Enter key at this
+prompt, <code class="docutils literal notranslate"><span class="pre">ssh-keygen</span></code> will use the default file name, which is fine unless the
+user wants to maintain multiple keys</p></li>
+<li><p>Next, <code class="docutils literal notranslate"><span class="pre">ssh-keygen</span></code> asks for an optional passphrase to protect the new private
+key. As mentioned above, it is crucial that <strong>private</strong> SSH keys be kept
+private and safe. As such, it is a good idea to protect them with a
+passphrase (which is just another term for password) that will prevent
+hackers from using the private key in case they get access to it somehow.
+This passphrase is not stored anywhere, and <strong>must never be given to
+anyone.</strong> When the <code class="docutils literal notranslate"><span class="pre">ssh</span></code> program needs to access a private key to connect to
+a server, it will ask the user for the passphrase, use it to access the
+private key, and then immediately forget it again</p></li>
+<li><p>Then, <code class="docutils literal notranslate"><span class="pre">ssh-keygen</span></code> prints the name of file containing the <strong>public</strong> SSH key
+associated with the new private SSH key, which is just the name of the
+private SSH key file with “.pub” appended to it</p></li>
+<li><p>Finally, <code class="docutils literal notranslate"><span class="pre">ssh-keygen</span></code> will print the new key’s hash “fingerprint” and the
+key’s “randomart,” which are both unimportant to anyone who is not a
+cryptography nerd</p></li>
+</ul>
+<p>From a practical perspective, key-based authentication has a number of
+important differences to password-based authentication:</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>SSH Key Hygiene</p>
+<ul class="simple">
+<li><p><strong>Public</strong> SSH keys can be freely shared with anyone, without concern. They
+could be published via email, on web pages, or in phone books</p></li>
+<li><p><strong>Private</strong> SSH keys, unlike SSH passwords, are only stored on the user’s
+local computer, and are <em>not</em> shared with a server while an SSH connection is
+established</p></li>
+<li><p>Because <strong>public</strong> SSH keys are safe to share, and <strong>private</strong> SSH keys are
+not shared with servers during connection establishment, it is safe to use
+the same SSH public/private key pair for any number of different servers.
+Even if one server gets hacked, the information that hackers could
+potentially glean would <em>not</em> allow them to log into the same user’s account
+on other servers</p></li>
+<li><p><strong>Private</strong> SSH keys <strong>must be kept private</strong></p></li>
+<li><p>SSH keys are only as secure as the user’s local computer. If a user’s
+computer gets stolen or hacked, thieves or hackers could potentially gain
+access to that user’s accounts on all servers for which the user has SSH
+keys, unless the keys themselves are protected by strong passphrases</p></li>
+<li><p><strong>NEVER EVER AT ABSOLUTELY NO TIME GIVE ANYONE YOUR PRIVATE SSH KEY EVER!</strong></p></li>
+<li><p>If an SSH key is protected by a strong passphrase, it is practically
+impossible to use by a hacker even if said hacker were able to access the key
+files on a user’s computer somehow</p></li>
+<li><p><strong>NEVER EVER AT ABSOLUTELY NO TIME GIVE ANYONE YOUR SSH KEY PASSPHRASE EVER!</strong></p></li>
+</ul>
+</div>
+</section>
+<section id="the-ssh-configuration-directory">
+<h3><span class="section-number">2.2.5. </span>The <code class="docutils literal notranslate"><span class="pre">.ssh</span></code> Configuration Directory<a class="headerlink" href="#the-ssh-configuration-directory" title="Permalink to this headline">#</a></h3>
+<p>The SSH protocol suite stores configuration data in a hidden <code class="docutils literal notranslate"><span class="pre">.ssh</span></code> directory
+in a user’s home directory. Because this directory contains some data that is
+private to the user, such as private SSH keys, many SSH programs will refuse to
+operate if this directory or its contents have incorrect sets of permissions,
+i.e., access privileges.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Access privileges for the <code class="docutils literal notranslate"><span class="pre">.ssh</span></code> directory</p>
+<ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">.ssh</span></code> directory <strong>must</strong> be readable, writable, and executable by the
+user</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">.ssh</span></code> directory <strong>should not</strong> be readable, writable, or executable by
+the user’s group and by other users</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">.ssh</span></code> directory’s permissions, as printed by <code class="docutils literal notranslate"><span class="pre">ls</span> <span class="pre">-l</span></code>, <strong>should</strong> be
+<code class="docutils literal notranslate"><span class="pre">drwx------.</span></code></p></li>
+<li><p>In case of doubt, one should set the <code class="docutils literal notranslate"><span class="pre">.ssh</span></code> directory’s permissions via
+<code class="docutils literal notranslate"><span class="pre">chmod</span> <span class="pre">u+rwx,go-rwx</span> <span class="pre">~/.ssh</span></code>, or, equivalently, <code class="docutils literal notranslate"><span class="pre">chmod</span> <span class="pre">0700</span> <span class="pre">~/.ssh</span></code>.</p></li>
+<li><p><strong>Public</strong> key files (<code class="docutils literal notranslate"><span class="pre">id_rsa.pub</span></code> etc.) <strong>must</strong> be readable and writable by
+the user, and <strong>may</strong> be readable, but <strong>must not</strong> be writable, by the
+user’s group and by other users. In short, their permissions <strong>should</strong> be
+<code class="docutils literal notranslate"><span class="pre">-rw-r--r--.</span></code>. To set, <code class="docutils literal notranslate"><span class="pre">chmod</span> <span class="pre">u+rw,go+r,go-w</span> <span class="pre">~/.ssh/&lt;key</span> <span class="pre">file&gt;.pub</span></code></p></li>
+<li><p><strong>Private</strong> key files (<code class="docutils literal notranslate"><span class="pre">id_rsa</span></code> etc.) <strong>must</strong> be readable and writable by
+the user, and <strong>must not</strong> be readable or writable by the user’s group or
+other users. In short, their permissions <strong>must</strong> be <code class="docutils literal notranslate"><span class="pre">-rw-------.</span></code>. To set,
+<code class="docutils literal notranslate"><span class="pre">chmod</span> <span class="pre">u+rw,go-rw</span> <span class="pre">~/.ssh/&lt;key</span> <span class="pre">file&gt;.pub</span></code></p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">~/.ssh/config</span></code> file <strong>must</strong> be readable and writable by the user, and
+<strong>must not</strong> be readable or writable by the user’s group or other users. In
+short, its permissions <strong>must</strong> be <code class="docutils literal notranslate"><span class="pre">-rw-------.</span></code>. To set, <code class="docutils literal notranslate"><span class="pre">chmod</span> <span class="pre">u+rw,go-rw</span> <span class="pre">~/.ssh/config</span></code></p></li>
+<li><p>Other files (<code class="docutils literal notranslate"><span class="pre">known_hosts</span></code>, <code class="docutils literal notranslate"><span class="pre">authorized_keys</span></code>, etc.) <strong>must</strong> be readable and
+writable by the user, and <strong>should not</strong> be readable or writable by the
+user’s group or other users. In short, their permissions <strong>should</strong> be
+<code class="docutils literal notranslate"><span class="pre">-rw-------.</span></code>. To set, <code class="docutils literal notranslate"><span class="pre">chmod</span> <span class="pre">u+rw,go-rw</span> <span class="pre">~/.ssh/&lt;file&gt;</span></code></p></li>
+</ul>
+</div>
+</section>
+<section id="known-hosts">
+<h3><span class="section-number">2.2.6. </span>Known Hosts<a class="headerlink" href="#known-hosts" title="Permalink to this headline">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">~/.ssh/known_hosts</span></code> contains the public SSH keys of servers to which the user
+has connected in the past. These are stored to prevent so-called
+“man-in-the-middle” attacks, where a third party attempts to intercept SSH
+connection traffic by pretending to be a server to which a user wants to
+connect, accepting incoming SSH connections from such a user, and then
+transparently forwarding those connections and their content to the actual
+server. While SSH connections are secure between the two ends of the
+connection, this setup would allow a third party to see unencrypted data
+traveling across the connection.</p>
+<p>When a user connects to a server to which they have connected in the past, the
+<code class="docutils literal notranslate"><span class="pre">ssh</span></code> program compares that server’s public SSH key to the one in the
+<code class="docutils literal notranslate"><span class="pre">known_hosts</span></code> file. If the keys do not match, <code class="docutils literal notranslate"><span class="pre">ssh</span></code> refuses to establish the
+connection, because it can not prove that the server is the same one to which
+it connected before, meaning that the server is potentially being impersonated.</p>
+<p>In rare circumstances, servers may legitimately change their SSH keys. If <code class="docutils literal notranslate"><span class="pre">ssh</span></code>
+indicates a server key mismatch, the best approach is to directly contact the
+administrators of that server to confirm that the key was legitimately changed.
+If that is the case, the old key must manually be removed from the
+<code class="docutils literal notranslate"><span class="pre">known_hosts</span></code> file by opening that file with a text editor such as <code class="docutils literal notranslate"><span class="pre">vim</span></code>,
+finding the outdated server key (<code class="docutils literal notranslate"><span class="pre">ssh</span></code> will print the number of the line
+containing the mismatching key), delete it, and then save the edited file. Upon
+running <code class="docutils literal notranslate"><span class="pre">ssh</span></code> again, the program will not find the previous key, and accept the
+server’s new key and add it to the <code class="docutils literal notranslate"><span class="pre">known_hosts</span></code> file.</p>
+</section>
+<section id="ssh-config">
+<h3><span class="section-number">2.2.7. </span>SSH Config<a class="headerlink" href="#ssh-config" title="Permalink to this headline">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">~/.ssh/config</span></code> contains local configuration data for SSH tools, such as the
+<code class="docutils literal notranslate"><span class="pre">ssh</span></code> program. The most useful settings in that file are per-server settings
+that associate account names and potentially SSH key files with server names,
+to simplify managing different user identities on different servers. For
+example, if a user’s <code class="docutils literal notranslate"><span class="pre">~/.ssh/config</span></code> file contains the following text:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Host</span> <span class="n">testserver</span>
+<span class="n">User</span> <span class="n">testuser</span>
+<span class="n">IdentityFile</span> <span class="o">~/.</span><span class="n">ssh</span><span class="o">/</span><span class="n">id_rsa</span>
+
+<span class="n">Host</span> <span class="n">anotherserver</span>
+<span class="n">User</span> <span class="n">m34754_a2</span>
+<span class="n">IdentityFile</span> <span class="o">~/.</span><span class="n">ssh</span><span class="o">/</span><span class="n">anotherserver_rsa</span>
+</pre></div>
+</div>
+<p>then it is no longer necessary to specify the testuser account name when
+logging into server testserver, and specifying the (non-standard)
+<code class="docutils literal notranslate"><span class="pre">~/.ssh/anotherserver_rsa</span></code> SSH key file and the m34754_a2 account name when
+logging into server another server. In other words, instead of</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>me@mypc$ ssh testuser@testserver
+</pre></div>
+</div>
+<p>and</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>me@mypc$ ssh -i ~/.ssh/anotherserver_rsa m34754_a2@anotherserver
+</pre></div>
+</div>
+<p>the user can simply log into these two servers via</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>me@mypc$ ssh testserver
+</pre></div>
+</div>
+<p>and</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>me@mypc$ ssh anotherserver
+</pre></div>
+</div>
+</section>
+</section>
+<section id="moving-data-between-a-local-computer-the-internet-and-a-server">
+<h2><span class="section-number">2.3. </span>Moving Data Between A Local Computer, The Internet, And A Server<a class="headerlink" href="#moving-data-between-a-local-computer-the-internet-and-a-server" title="Permalink to this headline">#</a></h2>
+<p>An established SSH connection between a user’s local computer and remote server
+sends the user’s input to the remote server, and sends the output of the shell
+running on the remote server to the user’s local computer, but it does not
+otherwise send data or code between those two ends. Therefore, uploading data
+from a user’s local computer to a server, downloading data from the Internet to
+a server, and downloading data from a server to a user’s local computer require
+additional tools.</p>
+<section id="download-files-from-the-internet">
+<h3><span class="section-number">2.3.1. </span>Download Files From The Internet<a class="headerlink" href="#download-files-from-the-internet" title="Permalink to this headline">#</a></h3>
+<p>The first pair of commands to download data from the Internet to <em>any</em>
+computer, including a user’s local computer and a server to which a user is
+connected via SSH, are <code class="docutils literal notranslate"><span class="pre">wget</span></code> and <code class="docutils literal notranslate"><span class="pre">curl</span></code>. Both of these commands do basically
+the same thing, but for historical reasons, one or the other (or sometimes
+both) may be installed on any specific computer. It is therefore important to
+know the basics of using both of them.</p>
+</section>
+<section id="wget">
+<h3><span class="section-number">2.3.2. </span><code class="docutils literal notranslate"><span class="pre">wget</span></code><a class="headerlink" href="#wget" title="Permalink to this headline">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">wget</span></code> (as in “web get”) is the simpler of the two. It can be used to copy one
+or more files, entire directories, or even entire directory hierarchies, from
+the Internet via a multiple protocols including HTTP and HTTPS. Its most common
+use is to download files from web servers. Usually, one downloads a file from a
+web server via a web browser, by right-clicking on a hyperlink in a web page
+and selecting “Save Link As…” from the menu that pops up in response. In its
+simplest form, <code class="docutils literal notranslate"><span class="pre">wget</span></code> does the same, but from the command line and without
+requiring further user input. To download the file referenced by a given URL,
+one simply passes that URL on <code class="docutils literal notranslate"><span class="pre">wget</span></code>’s command line:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>me@mypc$ wget https://www.google.com
+--2023-12-05 11:17:29--  https://www.google.com/
+Resolving www.google.com (www.google.com)... 142.251.46.196, 2607:f8b0:4005:812::2004
+Connecting to www.google.com (www.google.com)|142.251.46.196|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: unspecified [text/html]
+Saving to: ‘index.html’
+
+index.html                        [ &lt;=&gt;                                              ]  18.89K  --.-KB/s    in 0.001s  
+
+2023-12-05 11:17:30 (22.5 MB/s) - ‘index.html’ saved [19348]
+
+me@mypc$ ls -l index.html
+-rw-r--r--. 1 me me 19348 Dec  5 11:17 index.html
+me@mypc$ 
+</pre></div>
+</div>
+<p>The above command will download the entirety of the Internet and store it on
+the user’s local computer.</p>
+<p>No, just kidding, it will download <code class="docutils literal notranslate"><span class="pre">index.html</span></code>, the HTML file that renders
+Google’s frontpage, the one that is shown when visiting the
+<a class="reference external" href="https://www.google.com">https://www.google.com</a> URL with a web browser. It’s a surprisingly small file,
+and fun to look at.</p>
+<p>In the same way, <code class="docutils literal notranslate"><span class="pre">wget</span></code> can download files referenced by any other URLs. A
+common practical way to do this is to visit the web site hosting a desired file
+using a web browser, to locate a hyperlink for the file one wants to download,
+then to right-click on that hyperlink and select “Copy Link” in the pop-up
+menu, and finally to paste the copied link into <code class="docutils literal notranslate"><span class="pre">wget</span></code>’s command line. And
+because <code class="docutils literal notranslate"><span class="pre">wget</span></code> is command line-based, this can be used to download a file to a
+server by executing <code class="docutils literal notranslate"><span class="pre">wget</span></code> on that server via an SSH connection:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>me@mypc$ ssh testuser@testserver
+Last login: Tue Dec  5 10:32:57 2023 from 192.168.2.109
+testuser@testserver$ wget https://www.nasa.gov/wp-content/uploads/2023/03/135918main_bm1_high.jpg
+--2023-12-05 11:27:28--  https://www.nasa.gov/wp-content/uploads/2023/03/135918main_bm1_high.jpg
+Resolving www.nasa.gov (www.nasa.gov)... 192.0.66.108, 2a04:fa87:fffd::c000:426c
+Connecting to www.nasa.gov (www.nasa.gov)|192.0.66.108|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 195439 (191K) [image/jpeg]
+Saving to: ‘135918main_bm1_high.jpg’
+
+135918main_bm1_high.jpg       100%[=================================================&gt;] 190.86K  --.-KB/s    in 0.007s  
+
+2023-12-05 11:27:28 (27.9 MB/s) - ‘135918main_bm1_high.jpg’ saved [195439/195439]
+
+testuser@testserver$ 
+</pre></div>
+</div>
+<p>When downloading a URL, <code class="docutils literal notranslate"><span class="pre">wget</span></code> will store the file referenced by that URL in
+the current directory from which <code class="docutils literal notranslate"><span class="pre">wget</span></code> was run, using the same file name as
+the file on the server (in the above example, <code class="docutils literal notranslate"><span class="pre">135918main_bm1_high.jpg</span></code>). This
+is often not useful, because the names of files on web servers are commonly
+auto-generated and non-descriptive. Instead, it is possible to specify a
+desired location and name for the downloaded file via the <code class="docutils literal notranslate"><span class="pre">-O</span> <span class="pre">&lt;file</span> <span class="pre">name&gt;</span></code>
+(that is <em>uppercase</em> O for “output file name”) command line option for <code class="docutils literal notranslate"><span class="pre">wget</span></code>.
+The <code class="docutils literal notranslate"><span class="pre">-O</span> <span class="pre">&lt;file</span> <span class="pre">name&gt;</span></code> option must appear <em>before</em> the URL of the file to be
+downloaded. While at it, one can also reduce the amount of extra information
+<code class="docutils literal notranslate"><span class="pre">wget</span></code> prints while downloading via the <code class="docutils literal notranslate"><span class="pre">-q</span></code> (for “quiet”) command line option:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>testuser@testserver$ wget -q -O BlueMarble1972.jpg https://www.nasa.gov/wp-content/uploads/2023/03/135918main_bm1_high.jpg
+testuser@testserver$ ls -l BlueMarble.jpg
+-rw-rw-r-- 1 testuser testuser 195439 Apr  6  2023 BlueMarble1972.jpg
+testuser@testserver$ 
+</pre></div>
+</div>
+<p>True to form for a UNIX utility, <code class="docutils literal notranslate"><span class="pre">wget</span></code> will print <em>absolutely nothing</em> in
+quiet mode unless there is an error. The output file name specified via <code class="docutils literal notranslate"><span class="pre">-O</span></code>
+can contain absolute or relative paths, such as <code class="docutils literal notranslate"><span class="pre">Images/BlueMarble1972.jpg</span></code>, or
+<code class="docutils literal notranslate"><span class="pre">/home/testuser/Images/BlueMarble1972.jpg</span></code> or <code class="docutils literal notranslate"><span class="pre">~/Images/BlueMarble1972.jpg</span></code> for
+short.</p>
+<p><code class="docutils literal notranslate"><span class="pre">wget</span></code> can download multiple files in one go by using wildcards in the URL,
+such as</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">wget</span> <span class="o">-</span><span class="n">q</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">www</span><span class="o">.</span><span class="n">nasa</span><span class="o">.</span><span class="n">gov</span><span class="o">/</span><span class="n">wp</span><span class="o">-</span><span class="n">content</span><span class="o">/</span><span class="n">uploads</span><span class="o">/</span><span class="mi">2023</span><span class="o">/</span><span class="mi">03</span><span class="o">/*.</span><span class="n">jpg</span>
+</pre></div>
+</div>
+<p>which will download all JPEG image files in the March 2023 upload section of
+NASA’s main web site (which is probably not a good idea!), or by referencing
+the name of a directory instead of a file, as in</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">wget</span> <span class="o">-</span><span class="n">q</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">www</span><span class="o">.</span><span class="n">nasa</span><span class="o">.</span><span class="n">gov</span><span class="o">/</span><span class="n">wp</span><span class="o">-</span><span class="n">content</span><span class="o">/</span><span class="n">uploads</span><span class="o">/</span><span class="mi">2023</span><span class="o">/</span><span class="mi">03</span><span class="o">/</span>
+</pre></div>
+</div>
+<p>(<em>also</em> not a good idea!). <code class="docutils literal notranslate"><span class="pre">wget</span></code> can even download an entire directory
+hierarchy via the <code class="docutils literal notranslate"><span class="pre">-r</span></code> (for “recursive”) command line option:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">wget</span> <span class="o">-</span><span class="n">q</span> <span class="o">-</span><span class="n">r</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">www</span><span class="o">.</span><span class="n">nasa</span><span class="o">.</span><span class="n">gov</span><span class="o">/</span><span class="n">wp</span><span class="o">-</span><span class="n">content</span><span class="o">/</span><span class="n">uploads</span><span class="o">/</span>
+</pre></div>
+</div>
+<p>which will download all media files NASA ever uploaded to their web site (now
+this is an outright <em>terrible</em> idea!), and recreate the directory hierarchy of
+the web site on the user’s local computer, i.e., the Blue Marble image would be
+stored in <code class="docutils literal notranslate"><span class="pre">www.nasa.gov/wp-content/uploads/2023/03/135918main_bm1_high.jpg</span></code>.</p>
+<p>By default, <code class="docutils literal notranslate"><span class="pre">wget</span></code> stores downloaded files or directories in the current
+directory. This can be changed via the <code class="docutils literal notranslate"><span class="pre">-P</span> <span class="pre">&lt;root</span> <span class="pre">directory&gt;</span></code> option (for
+“directory prefix”). If given, directories and files will be created underneath
+the given directory, which can be identified by an absolute or relative path.</p>
+</section>
+<section id="curl">
+<h3><span class="section-number">2.3.3. </span><code class="docutils literal notranslate"><span class="pre">curl</span></code><a class="headerlink" href="#curl" title="Permalink to this headline">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">curl</span></code> (as in “copy URL”) is another command line utility that can download
+files from the Internet. <code class="docutils literal notranslate"><span class="pre">curl</span></code> supports even more remote file access protocols
+than <code class="docutils literal notranslate"><span class="pre">wget</span></code>, and, according to its own documentation (<code class="docutils literal notranslate"><span class="pre">man</span> <span class="pre">curl</span></code>), “[its]
+number of features will make your head spin.”</p>
+<p>In its simplest invocation, <code class="docutils literal notranslate"><span class="pre">curl</span></code> will download the file referenced by a given
+URL and print its contents to the terminal. Instead of printing to the
+terminal, which is typically not useful, output redirection can then be used to
+save <code class="docutils literal notranslate"><span class="pre">curl</span></code>’s output to a file, or to pipe it as input into another program:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>testuser@testserver$ curl https://www.nasa.gov/wp-content/uploads/2023/03/135918main_bm1_high.jpg &gt; BlueMarble1972.jpg
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100 19206    0 19206    0     0   137k      0 --:--:-- --:--:-- --:--:--  137k
+testuser@testserver$ 
+</pre></div>
+</div>
+<p>Instead of redirecting output to a file, <code class="docutils literal notranslate"><span class="pre">curl</span></code> can also be instructed to write
+to a file directly by using the <code class="docutils literal notranslate"><span class="pre">-o</span></code> or <code class="docutils literal notranslate"><span class="pre">-O</span></code> command line options. <code class="docutils literal notranslate"><span class="pre">-o</span></code>
+(<em>lowercase</em> o) needs a file name, while <code class="docutils literal notranslate"><span class="pre">-O</span></code> (<em>uppercase</em> O) uses the file
+name component of the given URL. In other words, <code class="docutils literal notranslate"><span class="pre">curl</span> <span class="pre">-O</span> <span class="pre">&lt;URL&gt;</span></code> aligns with
+the default behavior of <code class="docutils literal notranslate"><span class="pre">wget</span> <span class="pre">&lt;URL&gt;</span></code>, and <code class="docutils literal notranslate"><span class="pre">curl</span> <span class="pre">-o</span> <span class="pre">&lt;file</span> <span class="pre">name&gt;</span> <span class="pre">&lt;URL&gt;</span></code> aligns
+with <code class="docutils literal notranslate"><span class="pre">wget</span> <span class="pre">-O</span> <span class="pre">&lt;file</span> <span class="pre">name&gt;</span> <span class="pre">&lt;URL&gt;</span></code>. There is one big difference, however: unlike
+<code class="docutils literal notranslate"><span class="pre">wget</span></code>, <code class="docutils literal notranslate"><span class="pre">curl</span></code>’s <code class="docutils literal notranslate"><span class="pre">-o</span></code> option only accepts file names and does not support
+paths. To create the named file in a directory other than the current
+directory, one has to add the <code class="docutils literal notranslate"><span class="pre">--output-dir</span></code> (notice two dashes!) option. This
+behavior means that it is often easier to ignore the <code class="docutils literal notranslate"><span class="pre">-o</span></code> option, and use
+output redirection instead.</p>
+<p>Like <code class="docutils literal notranslate"><span class="pre">wget</span></code>, <code class="docutils literal notranslate"><span class="pre">curl</span></code> will print continuous status updates while downloading, and
+write download statistics when done. Also like <code class="docutils literal notranslate"><span class="pre">wget</span></code>, these updates can be
+disabled, but unlike <code class="docutils literal notranslate"><span class="pre">wget</span></code>, the associated command line option is <code class="docutils literal notranslate"><span class="pre">-s</span></code> (for
+“silent”), and <code class="docutils literal notranslate"><span class="pre">curl</span></code> in silent mode will not even print a message if there is
+an error while downloading a file, unless error messages are re-enabled by
+adding <code class="docutils literal notranslate"><span class="pre">-S</span></code> (<em>uppercase</em> S, for “not so silent”) after <code class="docutils literal notranslate"><span class="pre">-s</span></code>.</p>
+</section>
+<section id="transfer-files-between-a-local-computer-and-a-server">
+<h3><span class="section-number">2.3.4. </span>Transfer Files Between A Local Computer And A Server<a class="headerlink" href="#transfer-files-between-a-local-computer-and-a-server" title="Permalink to this headline">#</a></h3>
+<p>Unlike <code class="docutils literal notranslate"><span class="pre">wget</span></code> and <code class="docutils literal notranslate"><span class="pre">curl</span></code>, the next pair of commands can be used to transfer
+files between a user’s local computer and a remote server. The first, <code class="docutils literal notranslate"><span class="pre">scp</span></code>, is
+non-interactive and behaves similar to the standard UNIX <code class="docutils literal notranslate"><span class="pre">cp</span></code> command, but with
+the added ability to access files on remote servers. The second command,
+<code class="docutils literal notranslate"><span class="pre">sftp</span></code>, creates an interactive session on the remote server, similar to <code class="docutils literal notranslate"><span class="pre">ssh</span></code>,
+but unlike <code class="docutils literal notranslate"><span class="pre">ssh</span></code>, it does not connect to a standard UNIX shell, but to a custom
+shell that supports local and remote file operations and transfers. While <code class="docutils literal notranslate"><span class="pre">scp</span></code>
+can only transfer files between computers, <code class="docutils literal notranslate"><span class="pre">sftp</span></code> additionally supports file
+management operations like creating and removing directories, moving, renaming,
+and deleting files, etc.</p>
+</section>
+<section id="scp">
+<h3><span class="section-number">2.3.5. </span><code class="docutils literal notranslate"><span class="pre">scp</span></code><a class="headerlink" href="#scp" title="Permalink to this headline">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">scp</span></code> is straightforward to use. Just like <code class="docutils literal notranslate"><span class="pre">cp</span></code>, it takes the name of a source
+file, and the name of a destination file or the name of a directory into which
+to copy the source file. Unlike <code class="docutils literal notranslate"><span class="pre">cp</span></code>, the source file and/or destination file
+or directory can exist on different computers. This is indicated by prefixing a
+regular path with the name of a server followed by a colon, as in <code class="docutils literal notranslate"><span class="pre">&lt;server</span> <span class="pre">name&gt;:&lt;path&gt;</span></code>, which will then refer to the path of the given name on the
+indicated remote computer. The server name can additionally be prefixed with an
+account name followed by an “&#64;” sign, as in <code class="docutils literal notranslate"><span class="pre">&lt;account</span> <span class="pre">name&gt;&#64;&lt;server</span> <span class="pre">name&gt;:&lt;path&gt;</span></code>. For example,</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>me@mypc$ scp BlueMarble1972.jpg testuser@testserver:Images/
+</pre></div>
+</div>
+<p>will copy a <code class="docutils literal notranslate"><span class="pre">BlueMarble1972.jpg</span></code> file from the current directory on the local
+computer into the <code class="docutils literal notranslate"><span class="pre">Images</span></code> directory in the testuser account on the testserver
+server. Remote paths start from the remote user’s home directory, unless they
+start with a <code class="docutils literal notranslate"><span class="pre">/</span></code>, which indicates that they start from the root directory of
+the remote server’s file system. When a local or remote destination path
+identifies a directory, the destination file will be created in that
+destination directory with the same name as the source file. In that case, the
+destination directory must already exist, or the copy operation will fail. The
+command</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>me@mypc$ scp testuser@testserver:Images/BlueMarble1972.jpg .
+</pre></div>
+</div>
+<p>will do the exact opposite, copying <code class="docutils literal notranslate"><span class="pre">BlueMarble1972.jpg</span></code> from the <code class="docutils literal notranslate"><span class="pre">Images</span></code>
+directory under the testuser account’s home directory on server testserver to
+the current directory on the local computer. The <code class="docutils literal notranslate"><span class="pre">.</span></code> at the end of the command
+line is UNIX shorthand for the current directory, and thus tells <code class="docutils literal notranslate"><span class="pre">scp</span></code> to give
+the destination file the same name as the source file, and to store it in the
+current directory on the local computer. Equivalently, one could have specified
+the name of the destination file explicitly:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>me@mypc$ scp testuser@testserver:Images/BlueMarble1972.jpg BlueMarble1972.jpg
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">scp</span></code> also supports wildcards in source paths to copy more than one file at a
+time. For example,</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>me@mypc$ scp testuser@testserver:Images/*.jpeg Images
+</pre></div>
+</div>
+<p>will copy all JPEG files (or, rather, files whose names end in <code class="docutils literal notranslate"><span class="pre">.jpeg</span></code>)
+contained in testuser’s <code class="docutils literal notranslate"><span class="pre">Images</span></code> directory on the remote server to the <code class="docutils literal notranslate"><span class="pre">Images</span></code>
+directory on the local computer.</p>
+<p>Like <code class="docutils literal notranslate"><span class="pre">cp</span></code>, <code class="docutils literal notranslate"><span class="pre">scp</span></code> supports recursive copying of entire directory hierarchies
+using the <code class="docutils literal notranslate"><span class="pre">-r</span></code> (<em>lowercase</em> r for “recursive”) option. Note that the equivalent
+option for <code class="docutils literal notranslate"><span class="pre">cp</span></code> is <code class="docutils literal notranslate"><span class="pre">-R</span></code> (<em>uppercase</em> R). When used with <code class="docutils literal notranslate"><span class="pre">-r</span></code>, both the source
+and destination paths specified on <code class="docutils literal notranslate"><span class="pre">scp</span></code>’s command line must be directories.</p>
+</section>
+<section id="sftp">
+<h3><span class="section-number">2.3.6. </span><code class="docutils literal notranslate"><span class="pre">sftp</span></code><a class="headerlink" href="#sftp" title="Permalink to this headline">#</a></h3>
+<p>Talk about <code class="docutils literal notranslate"><span class="pre">sftp</span></code> here.</p>
+</section>
+</section>
+<section id="the-posix-directory-structure-and-permissions">
+<h2><span class="section-number">2.4. </span>The POSIX Directory Structure And Permissions<a class="headerlink" href="#the-posix-directory-structure-and-permissions" title="Permalink to this headline">#</a></h2>
+<p>As servers are typically UNIX machines, the layout of their filesystems
+typically follow the POSIX Filesystem Hierarchy Standard. This means the file
+system is generally split between system directories, user home directories,
+and “other” directories. System directories contain programs and data shared by
+all users on the server, while user home directories contain programs and data
+private to each user. “Other” directories can contain a mix of these two.</p>
+<section id="system-directories">
+<h3><span class="section-number">2.4.1. </span>System Directories<a class="headerlink" href="#system-directories" title="Permalink to this headline">#</a></h3>
+<p>As system directories contain data and programs that are shared by all users,
+their contents are typically readable by all users, but can only be modified by
+the superuser (root). In other words, their permissions are typically
+<code class="docutils literal notranslate"><span class="pre">drwxr-xr-x.</span></code>, and the permissions of the files contained within them are
+typically <code class="docutils literal notranslate"><span class="pre">-rw-r--r--.</span></code> for data files and <code class="docutils literal notranslate"><span class="pre">-rwxr-xr-x.</span></code> for program files. The
+most relevant system directories are:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">/bin</span></code> and <code class="docutils literal notranslate"><span class="pre">/sbin</span></code> contain programs that are essential for operating a UNIX
+<code class="docutils literal notranslate"><span class="pre">system,</span> <span class="pre">such</span> <span class="pre">as</span> </code>ls<code class="docutils literal notranslate"><span class="pre">,</span> </code>cat<code class="docutils literal notranslate"><span class="pre">,</span> </code>cp<code class="docutils literal notranslate"><span class="pre">,</span> <span class="pre">etc.</span> </code>sbin<code class="docutils literal notranslate"><span class="pre">contains</span> <span class="pre">user-level</span> <span class="pre">programs;</span></code>/sbin` contains programs that are only meant to be used by administrators</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/lib</span></code> and <code class="docutils literal notranslate"><span class="pre">/lib&lt;arch&gt;</span></code> (e.g., <code class="docutils literal notranslate"><span class="pre">/lib64</span></code>) contain library files (libraries are
+bundles of common code shared by multiple programs) essential to programs in
+<code class="docutils literal notranslate"><span class="pre">/bin</span></code> and <code class="docutils literal notranslate"><span class="pre">/sbin</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/usr</span></code> is a second-level hierarchy containing the majority of utilities and
+applications installed on a UNIX system</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/usr/bin</span></code>, <code class="docutils literal notranslate"><span class="pre">/usr/sbin</span></code>, <code class="docutils literal notranslate"><span class="pre">/usr/lib</span></code>, <code class="docutils literal notranslate"><span class="pre">/usr/lib&lt;arch&gt;</span></code> contain programs,
+administrator-level programs, and libraries shared by those programs,
+respectively</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/usr/include</span></code> contains <em>include files</em> that are used by developers to create
+and build applications on the server, primarily using the libraries in
+<code class="docutils literal notranslate"><span class="pre">/usr/lib</span></code> and <code class="docutils literal notranslate"><span class="pre">/usr/lib&lt;arch&gt;</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/usr/local</span></code> is a third-level hierarchy containing utilities and applications
+that have been built specifically for one server, i.e., are not part of the
+“standard” operating system. It in turn contains <code class="docutils literal notranslate"><span class="pre">bin</span></code>, <code class="docutils literal notranslate"><span class="pre">sbin</span></code>, <code class="docutils literal notranslate"><span class="pre">lib</span></code>,
+<code class="docutils literal notranslate"><span class="pre">lib&lt;arch&gt;</span></code>, <code class="docutils literal notranslate"><span class="pre">include</span></code>, etc. directories</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/etc</span></code> contains host-specific system-wide configuration files. According to
+UNIX lore, “etc” <em>does not</em> stand for “etcetera,” and is pronounced “etsy” or
+sometimes “ee-tee-cee”</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/opt</span></code> contains optional software packages accessible to all users on a
+system</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/media</span></code> contains mount points for removable media like CD-ROMs. In some UNIX
+versions, <code class="docutils literal notranslate"><span class="pre">/media</span></code> also contains mount points for temporary storage devices
+such as USB drives</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/mnt</span></code> contains mount points for temporary storage devices such as USB
+drives. In some UNIX versions, these appear in <code class="docutils literal notranslate"><span class="pre">/media</span></code> instead</p></li>
+</ul>
+</section>
+<section id="user-home-directories">
+<h3><span class="section-number">2.4.2. </span>User Home Directories<a class="headerlink" href="#user-home-directories" title="Permalink to this headline">#</a></h3>
+<p>Users’ home directories appear inside the <code class="docutils literal notranslate"><span class="pre">/home</span></code> hierarchy, and are named by
+each user’s account name, such as <code class="docutils literal notranslate"><span class="pre">/home/me</span></code> or <code class="docutils literal notranslate"><span class="pre">/home/testuser</span></code>. As home
+directories are supposed to be private to each user, they can typically be read
+and written by the user owning them, can be read but not written by the user’s
+group, and are neither readable nor writable by other users. In short, their
+permissions are typically <code class="docutils literal notranslate"><span class="pre">drwxr-x---.</span></code>.</p>
+<p>Sometimes a user might accidentally misconfigure their home directory’s
+permissions to allow read or even write access by other users. Exploiting such
+a mistake by snooping in other user’s home directories is considered a serious
+invasion of privacy, and <em>changing</em> files in other users’ home directories is
+considered a capital offense and will most probably result in a lifetime ban
+from the server.</p>
+</section>
+<section id="other-directories">
+<h3><span class="section-number">2.4.3. </span>Other Directories<a class="headerlink" href="#other-directories" title="Permalink to this headline">#</a></h3>
+<p>Other directories are a mixed bag. The most relevant one is <code class="docutils literal notranslate"><span class="pre">/tmp</span></code>, which holds
+temporary files that are not meant to exist beyond the lifetime of whichever
+program created them. Many programs that need to create temporary files to
+operate create them here, and as such, the <code class="docutils literal notranslate"><span class="pre">/tmp</span></code> directory is typically
+readable and writable by all users. The files contained within it, on the other
+hand, are owned by the users who created them, respectively, and are typically
+readable and writable by those users, and neither readable nor writable by
+other users. A server’s operating system or administrators might start deleting
+files in <code class="docutils literal notranslate"><span class="pre">/tmp</span></code> without warning if the server’s file system starts to run out
+of space – or for any other reason, really.</p>
+</section>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -403,10 +1128,11 @@ document.write(`
 
               
               
-              
-              
-                <footer class="prev-next-footer">
-                  <!-- Previous / next buttons -->
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
        href="01_introduction.html"
@@ -426,12 +1152,54 @@ document.write(`
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
+</div></div>
+  
 </div>
+
                 </footer>
               
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-a-server">2.1. What Is A Server?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-connect-to-a-server">2.2. How To Connect To A Server</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#opening-a-connection">2.2.1. Opening a Connection</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-server-etiquette">2.2.2. Basic Server Etiquette</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ssh-passwords">2.2.3. SSH Passwords</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ssh-keys">2.2.4. SSH Keys</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-ssh-configuration-directory">2.2.5. The <code class="docutils literal notranslate"><span class="pre">.ssh</span></code> Configuration Directory</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#known-hosts">2.2.6. Known Hosts</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ssh-config">2.2.7. SSH Config</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#moving-data-between-a-local-computer-the-internet-and-a-server">2.3. Moving Data Between A Local Computer, The Internet, And A Server</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#download-files-from-the-internet">2.3.1. Download Files From The Internet</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#wget">2.3.2. <code class="docutils literal notranslate"><span class="pre">wget</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#curl">2.3.3. <code class="docutils literal notranslate"><span class="pre">curl</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#transfer-files-between-a-local-computer-and-a-server">2.3.4. Transfer Files Between A Local Computer And A Server</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scp">2.3.5. <code class="docutils literal notranslate"><span class="pre">scp</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sftp">2.3.6. <code class="docutils literal notranslate"><span class="pre">sftp</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-posix-directory-structure-and-permissions">2.4. The POSIX Directory Structure And Permissions</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#system-directories">2.4.1. System Directories</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#user-home-directories">2.4.2. User Home Directories</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#other-directories">2.4.3. Other Directories</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
@@ -474,8 +1242,8 @@ By Oliver Kreylos, Tyler Shoemaker, Nick Ulle
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
 
   <footer class="bd-footer">
   </footer>
