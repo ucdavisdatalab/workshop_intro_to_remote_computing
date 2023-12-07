@@ -58,12 +58,10 @@ have some special procedure for requesting an account. A new user typically has
 to contact a system administrator or fill out some online form to request an
 account, and if the administrators accept the request, they will typically
 assign the new user an account name and some way to authenticate themselves to
-the server.
-
-"Authentication" here means some way for the user to prove that they really are
-who they claim they are, and that they have permission to access the server. In
-the SSH protocol, there are two main authentication methods: SSH passwords and
-SSH keys. We will discuss these in detail in the following sections.
+the server. "Authentication" here means some way for the user to prove that they
+really are who they claim they are, and that they have permission to access the
+server. In the SSH protocol, there are two main authentication methods: SSH
+passwords and SSH keys. We will discuss these in detail in the following sections.
 
 ### Opening a Connection
 
@@ -182,17 +180,19 @@ password, check that password against its internal password rules, whatever
 they may be, and then ask for the new password for a second time to catch
 typos. If the new password passes the internal checks and is entered
 identically for the second time, the `passwd` command will print a confirmation
-message. If something went wrong, `passwd` will print an error message like
-this:
+message and immediately activate the new password, meaning the user must use it
+the next time they log into the server.
+
+If, on the other hand, something went wrong, `passwd` will print an error message
+like this:
 
 ````
 passwd: Authentication token manipulation error
 ````
 
-If `passwd` printed a confirmation message, the new password is immediately
-activated and must be used on the next login. If it printed an error message,
-the current password is not changed and must continue to be used, and `passwd`
-must be run again to actually change it.
+and *not* activate the new password, meaning the user must continue to use the old
+password, whether to log into the server or attempt to change the password using
+`passwd` again.
 
 :::{important} SSH Password Hygiene
 
@@ -200,12 +200,12 @@ Due to SSH passwords being standard passwords stored on a remote server, users
 should **always:**
 
 + Assume that their password on any given server **will** be leaked or stolen
-  at some point
+  at some point.
 + Use different passwords for different servers, to minimize the damage when
   one server they use will inevitably be hacked, and their password for that
   server will be stolen. By using different passwords for different servers,
   hackers will not be able to use the password they stole from one server to
-  access the same user's accounts on other servers
+  access the same user's accounts on other servers.
 :::
 
 ### SSH Keys
@@ -216,8 +216,8 @@ than SSH passwords, both for the user and the server, to the point that many
 servers no longer allow SSH passwords for login and require SSH keys.
 
 Unlike SSH passwords, which are just strings of characters, SSH keys are
-cryptographic keys, typically based on the RSA algorithm, which is a super
-[interesting topic][topic] for another day. RSA uses a two-part asymmetric
+cryptographic keys, typically based on the RSA algorithm, which is a
+[super interesting topic][topic] for another day. RSA uses a two-part asymmetric
 scheme consisting of a *private key* and a *public key.* Without going into the
 details of how RSA cryptography works, a public key is used to *encrypt* data,
 and the associated private key is used to *decrypt* data. Unlike in *symmetric*
@@ -226,7 +226,7 @@ cryptography systems, in asymmetric systems like RSA public keys can be shared
 their public keys to their email signatures, or post them on their personal web
 pages. Also unlike SSH passwords, SSH keys are not generated on or assigned by
 the server, but are property of the user, are generated and stored on the
-user's own computer, and a user's private keys are not shared with a server as
+user's own computer, and a user's private keys are *not* shared with a server as
 part of establishing a connection to that server.
 
 [topic]: https://en.wikipedia.org/wiki/RSA_cryptosystem
@@ -285,13 +285,13 @@ These are the steps of the above procedure in detail:
 * `ssh-keygen -t rsa` executes the SSH key generation program and instructs it
   to generate an SSH key using the RSA algorithm (`-t rsa`). There are several
   different key algorithms, and servers may require or recommend specific ones,
-  but the most common key algorithm is RSA
+  but the most common key algorithm is RSA.
 * `ssh-keygen` asks for the name of a file in which to store the **private**
   key. By default, as indicated in the prompt, private RSA keys will be stored
   in a file named id_rsa in a hidden `.ssh` directory in the user's home
   directory (`/home/me`). If the user simply presses the Enter key at this
   prompt, `ssh-keygen` will use the default file name, which is fine unless the
-  user wants to maintain multiple keys
+  user wants to maintain multiple keys.
 * Next, `ssh-keygen` asks for an optional passphrase to protect the new private
   key. As mentioned above, it is crucial that **private** SSH keys be kept
   private and safe. As such, it is a good idea to protect them with a
@@ -300,38 +300,38 @@ These are the steps of the above procedure in detail:
   This passphrase is not stored anywhere, and **must never be given to
   anyone.** When the `ssh` program needs to access a private key to connect to
   a server, it will ask the user for the passphrase, use it to access the
-  private key, and then immediately forget it again
-* Then, `ssh-keygen` prints the name of file containing the **public** SSH key
-  associated with the new private SSH key, which is just the name of the
-  private SSH key file with ".pub" appended to it
+  private key, and then immediately forget it again.
+* Then, `ssh-keygen` prints the name of the file containing the **public** SSH
+  key associated with the new private SSH key, which is just the name of the
+  private SSH key file with ".pub" appended to it.
 * Finally, `ssh-keygen` will print the new key's hash "fingerprint" and the
   key's "randomart," which are both unimportant to anyone who is not a
-  cryptography nerd
+  cryptography nerd.
 
 From a practical perspective, key-based authentication has a number of
 important differences to password-based authentication:
 
 :::{important} SSH Key Hygiene
 + **Public** SSH keys can be freely shared with anyone, without concern. They
-  could be published via email, on web pages, or in phone books
+  could be published via email, on web pages, or in phone books.
 + **Private** SSH keys, unlike SSH passwords, are only stored on the user's
   local computer, and are *not* shared with a server while an SSH connection is
-  established
+  established.
 + Because **public** SSH keys are safe to share, and **private** SSH keys are
   not shared with servers during connection establishment, it is safe to use
   the same SSH public/private key pair for any number of different servers.
   Even if one server gets hacked, the information that hackers could
   potentially glean would *not* allow them to log into the same user's account
-  on other servers
-+ **Private** SSH keys **must be kept private**
+  on other servers.
++ **Private** SSH keys **must be kept private.**
 + SSH keys are only as secure as the user's local computer. If a user's
   computer gets stolen or hacked, thieves or hackers could potentially gain
   access to that user's accounts on all servers for which the user has SSH
-  keys, unless the keys themselves are protected by strong passphrases
+  keys, unless the keys themselves are protected by strong passphrases.
 + **NEVER EVER AT ABSOLUTELY NO TIME GIVE ANYONE YOUR PRIVATE SSH KEY EVER!**
 + If an SSH key is protected by a strong passphrase, it is practically
   impossible to use by a hacker even if said hacker were able to access the key
-  files on a user's computer somehow
+  files on a user's computer somehow.
 + **NEVER EVER AT ABSOLUTELY NO TIME GIVE ANYONE YOUR SSH KEY PASSPHRASE EVER!**
 :::
 
@@ -345,66 +345,70 @@ i.e., access privileges.
 
 :::{important} Access privileges for the `.ssh` directory
 + The `.ssh` directory **must** be readable, writable, and executable by the
-  user
+  user.
 + The `.ssh` directory **should not** be readable, writable, or executable by
-  the user's group and by other users
-+ The `.ssh` directory's permissions, as printed by `ls -l`, **should** be
-  `drwx------.`
+  the user's group and by other users.
++ The `.ssh` directory's permissions, as printed by `ls -l ~/.ssh`, **should**
+  be `drwx------.`
 + In case of doubt, one should set the `.ssh` directory's permissions via
   `chmod u+rwx,go-rwx ~/.ssh`, or, equivalently, `chmod 0700 ~/.ssh`.
 + **Public** key files (`id_rsa.pub` etc.) **must** be readable and writable by
   the user, and **may** be readable, but **must not** be writable, by the
   user's group and by other users. In short, their permissions **should** be
-  `-rw-r--r--.`. To set, `chmod u+rw,go+r,go-w ~/.ssh/<key file>.pub`
+  `-rw-r--r--.`. To set the recommended permissions, one runs
+  `chmod u+rw,go+r,go-w ~/.ssh/<key file>.pub`
 + **Private** key files (`id_rsa` etc.) **must** be readable and writable by
   the user, and **must not** be readable or writable by the user's group or
-  other users. In short, their permissions **must** be `-rw-------.`. To set,
-  `chmod u+rw,go-rw ~/.ssh/<key file>.pub`
+  other users. In short, their permissions **must** be `-rw-------.`. To set
+  the required permissions, one runs `chmod u+rw,go-rw ~/.ssh/<key file>`
 + The `~/.ssh/config` file **must** be readable and writable by the user, and
   **must not** be readable or writable by the user's group or other users. In
-  short, its permissions **must** be `-rw-------.`. To set, `chmod u+rw,go-rw
-  ~/.ssh/config`
+  short, its permissions **must** be `-rw-------.`. To set the required
+  permissions, one runs `chmod u+rw,go-rw ~/.ssh/config`
 + Other files (`known_hosts`, `authorized_keys`, etc.) **must** be readable and
-  writable by the user, and **should not** be readable or writable by the
-  user's group or other users. In short, their permissions **should** be
-  `-rw-------.`. To set, `chmod u+rw,go-rw ~/.ssh/<file>`
+  writable by the user, **must not** be writable by the user's group or other
+  users, and **should not** be readable by the user's group or other users. In
+  short, their permissions **should** be `-rw-------.`. To set the recommended
+  permissions, one runs `chmod u+rw,go-rw ~/.ssh/<file>`
 :::
 
 ### Known Hosts
 
-`~/.ssh/known_hosts` contains the public SSH keys of servers to which the user
-has connected in the past. These are stored to prevent so-called
+`~/.ssh/known_hosts` contains the **public** SSH keys of servers to which the
+user has connected in the past. These are stored to prevent so-called
 "man-in-the-middle" attacks, where a third party attempts to intercept SSH
 connection traffic by pretending to be a server to which a user wants to
 connect, accepting incoming SSH connections from such a user, and then
 transparently forwarding those connections and their content to the actual
-server. While SSH connections are secure between the two ends of the
+server. While SSH connections are secure between the two ends of a
 connection, this setup would allow a third party to see unencrypted data
-traveling across the connection.
+traveling between the user and the intended remote server because there are now
+*two* encrypted connections: one between the user and the man-in-the-middle, and
+one between the man-in-the-middle and the intended remote server.
 
 When a user connects to a server to which they have connected in the past, the
 `ssh` program compares that server's public SSH key to the one in the
 `known_hosts` file. If the keys do not match, `ssh` refuses to establish the
 connection, because it can not prove that the server is the same one to which
-it connected before, meaning that the server is potentially being impersonated.
+it connected before, meaning that the server is potentially being impersonated
+by a malicious third party.
 
 In rare circumstances, servers may legitimately change their SSH keys. If `ssh`
-indicates a server key mismatch, the best approach is to directly contact the
-administrators of that server to confirm that the key was legitimately changed.
-If that is the case, the old key must manually be removed from the
-`known_hosts` file by opening that file with a text editor such as `vim`,
-finding the outdated server key (`ssh` will print the number of the line
-containing the mismatching key), delete it, and then save the edited file. Upon
-running `ssh` again, the program will not find the previous key, and accept the
-server's new key and add it to the `known_hosts` file.
+indicates a server key mismatch, the secure approach is to directly contact the
+administrators of that server to confirm that the key was legitimately changed,
+and, if that is the case, ask to receive a copy of the server's new public SSH
+key. The server's key must then manually be replaced in the `known_hosts` file
+by opening that file with a text editor such as `vim`, finding the old server
+key (`ssh` will print the number of the line containing the mismatching key),
+replacing it with the new key, and then saving the edited file.
 
 ### SSH Config
 
-`~/.ssh/config` contains local configuration data for SSH tools, such as the
-`ssh` program. The most useful settings in that file are per-server settings
-that associate account names and potentially SSH key files with server names,
-to simplify managing different user identities on different servers. For
-example, if a user's `~/.ssh/config` file contains the following text:
+`~/.ssh/config` contains local configuration data for SSH programs like `ssh`.
+The most useful settings in that file are per-server settings that associate
+account names and potentially SSH key files with server names, to simplify
+managing different user identities on different servers. For example, if a
+user's `~/.ssh/config` file contains the following text:
 
 ````
 Host testserver
@@ -573,24 +577,32 @@ wget -q -r https://www.nasa.gov/wp-content/uploads/
 
 which will download all media files NASA ever uploaded to their web site (now
 this is an outright *terrible* idea!), and recreate the directory hierarchy of
-the web site on the user's local computer, i.e., the Blue Marble image would be
-stored in `www.nasa.gov/wp-content/uploads/2023/03/135918main_bm1_high.jpg`.
+the web site on the user's local computer, i.e., the 1972 Blue Marble image
+from before would be stored in
+`www.nasa.gov/wp-content/uploads/2023/03/135918main_bm1_high.jpg`.
 
 By default, `wget` stores downloaded files or directories in the current
 directory. This can be changed via the `-P <root directory>` option (for
 "directory prefix"). If given, directories and files will be created underneath
-the given directory, which can be identified by an absolute or relative path.
+the given directory, which can be identified by an absolute or relative path:
+
+````
+me@mypc$ wget -q -P ~/Images https://www.nasa.gov/wp-content/uploads/2023/03/135918main_bm1_high.jpg
+````
+
+will store the downloaded image in the user's `Images` directory, under the name
+`135918main_bm1_high.jpg`.
 
 ### `curl`
 
 `curl` (as in "copy URL") is another command line utility that can download
 files from the Internet. `curl` supports even more remote file access protocols
-than `wget`, and, according to its own documentation (`man curl`), "[its]
-number of features will make your head spin."
+than `wget`, and, according to its documentation (`man curl`), "[its] number of
+features will make your head spin."
 
 In its simplest invocation, `curl` will download the file referenced by a given
 URL and print its contents to the terminal. Instead of printing to the
-terminal, which is typically not useful, output redirection can then be used to
+terminal, which is often not very useful, output redirection can then be used to
 save `curl`'s output to a file, or to pipe it as input into another program:
 
 ````
@@ -618,7 +630,7 @@ write download statistics when done. Also like `wget`, these updates can be
 disabled, but unlike `wget`, the associated command line option is `-s` (for
 "silent"), and `curl` in silent mode will not even print a message if there is
 an error while downloading a file, unless error messages are re-enabled by
-adding `-S` (*uppercase* S, for "not so silent") after `-s`.
+adding `-S` (*uppercase* S, for "not quite so silent") after `-s`.
 
 ### Transfer Files Between A Local Computer And A Server
 
@@ -626,24 +638,23 @@ Unlike `wget` and `curl`, the next pair of commands can be used to transfer
 files between a user's local computer and a remote server. The first, `scp`, is
 non-interactive and behaves similar to the standard UNIX `cp` command, but with
 the added ability to access files on remote servers. The second command,
-`sftp`, creates an interactive session on the remote server, similar to `ssh`,
-but unlike `ssh`, it does not connect to a standard UNIX shell, but to a custom
-shell that supports local and remote file operations and transfers. While `scp`
-can only transfer files between computers, `sftp` additionally supports file
-management operations like creating and removing directories, moving, renaming,
-and deleting files, etc.
+`sftp`, is an interactive terminal application like `vi`, in the sense that it
+opens a custom "shell" in which the user can run commands that enable local and
+remote file operations and transfers. While `scp` can only transfer files between
+computers, `sftp` additionally supports file management operations like creating
+and removing directories, moving, renaming, and deleting files, etc.
 
 ### `scp`
 
-`scp` is straightforward to use. Just like `cp`, it takes the name of a source
-file, and the name of a destination file or the name of a directory into which
-to copy the source file. Unlike `cp`, the source file and/or destination file
-or directory can exist on different computers. This is indicated by prefixing a
-regular path with the name of a server followed by a colon, as in `<server
-name>:<path>`, which will then refer to the path of the given name on the
-indicated remote computer. The server name can additionally be prefixed with an
-account name followed by an "@" sign, as in `<account name>@<server
-name>:<path>`. For example,
+`scp` (as in "secure copy") is straightforward to use. Just like `cp`, it takes
+the name of a source file, and the name of a destination file or the name of a
+directory into which to copy the source file. Unlike `cp`, the source file and/or
+destination file or directory can exist on different computers. Remote files or
+directories are indicated by prefixing a regular path with the name of a server
+followed by a colon, as in `<server name>:<path>`, which will then refer to the
+path of the given name on the indicated remote computer. Additionally, the server
+name can be prefixed with an account name followed by an "@" sign, as in
+`<account name>@<server name>:<path>`. For example,
 
 ````
 me@mypc$ scp BlueMarble1972.jpg testuser@testserver:Images/
@@ -655,9 +666,7 @@ server. Remote paths start from the remote user's home directory, unless they
 start with a `/`, which indicates that they start from the root directory of
 the remote server's file system. When a local or remote destination path
 identifies a directory, the destination file will be created in that
-destination directory with the same name as the source file. In that case, the
-destination directory must already exist, or the copy operation will fail. The
-command
+destination directory with the same name as the source file. The command
 
 ````
 me@mypc$ scp testuser@testserver:Images/BlueMarble1972.jpg .
@@ -679,7 +688,7 @@ me@mypc$ scp testuser@testserver:Images/BlueMarble1972.jpg BlueMarble1972.jpg
 time. For example,
 
 ````
-me@mypc$ scp testuser@testserver:Images/*.jpeg Images
+me@mypc$ scp testuser@testserver:Images/*.jpeg Images/
 ````
 
 will copy all JPEG files (or, rather, files whose names end in `.jpeg`)
@@ -687,13 +696,100 @@ contained in testuser's `Images` directory on the remote server to the `Images`
 directory on the local computer.
 
 Like `cp`, `scp` supports recursive copying of entire directory hierarchies
-using the `-r` (*lowercase* r for "recursive") option. Note that the equivalent
-option for `cp` is `-R` (*uppercase* R). When used with `-r`, both the source
-and destination paths specified on `scp`'s command line must be directories.
+using the `-r` (*lowercase* r for "recursive") option (note that the equivalent
+option for `cp` is `-R` with an *uppercase* R). When used with `-r`, both the
+source and destination paths specified on `scp`'s command line must be directories.
 
 ### `sftp`
 
-Talk about `sftp` here.
+`sftp` (as in "secure file transfer protocol") is an interactive terminal
+application to transfer files between a local computer and a server, and to perform
+file management (creating/deleting directories, moving/renaming/deleting files, etc.)
+on both ends of an SSH connection. `sftp` is invoked similarly to `ssh`:
+
+````
+sftp <account name>@<server name>
+````
+
+The above command instructs `sftp` to connect to server `<server name>` using account
+`<account name>`. Being an interactive application, `sftp` will then enter a command
+loop where it prints an `sftp> ` prompt, waits for user input, reads a command from the
+user, executes that command, and repeats. The `bye`, `exit`, or `quit` commands tell
+`sftp` to close the connection to the server, exit the program, and return the user back
+to the local shell.
+
+### Current Directories
+
+Because `sftp`'s purpose is file transfer and management, it has the same concept of a *current directory* as a regular shell, to relieve the user from always having to enter absolute paths to identify the file(s) on which they want to operate. Unlike a regular shell, however, `sftp` has *two* current directories: one on the local computer, and one on the server. Consequently, the commands to query or alter those current directories also come in pairs, where the command referring to the local current directory has an "l" prefix, and the other one works exactly like the shell command of the same name:
+* `pwd` and `lpwd` ("(local) print working directory") print the paths of the remote or local current directory, respectively.
+* `cd <path>` and `lcd <path>` ("(local) change directory") set the path of the remote or local current directory to the given path, respectively.
+* `ls <path>` and `lls <path>` ("(local) list) list the contents of the given remote or local path, respectively. These commands work the same, and have most of the same options as, a regular shell's `ls` command. Remote and local paths are relative to the current remote or local directories, respectively.
+
+The following is an example `sftp` session:
+````
+me@mypc$ sftp testuser@testserver
+Connected to testserver.
+sftp> lpwd
+Local working directory: /home/me
+sftp> lls
+Documents    Downloads    Images    src    ToDoList.txt
+sftp> lls -la
+drwx------   19 me   me       4096 Dec  7 09:45 .
+drwxr-xr-x    6 root root     4096 Nov  4  2021 ..
+-rw-r--r--    1 me   me       1164 Nov 12  2021 .bashrc
+drwx------    2 me   me       4096 Oct 20  2022 .ssh
+drwxr-xr-x    3 me   me       4096 Oct 20  2022 Documents
+drwxr-xr-x    3 me   me       4096 Oct 20  2022 Downloads
+drwxr-xr-x    2 me   me      16384 Dec  6  2023 Images
+drwxr-xr-x    3 me   me       8192 Mar 16  2023 src
+-rw-------    1 me   me    2158216 Dec  7 09:31 ToDoList.txt
+sftp> pwd
+Remote working directory: /home/testuser
+sftp> ls -l
+drwxr-xr-x    3 testuser testuser     8192 Dec  6  2023 Images
+drwxr-xr-x    3 testuser testuser     8192 Mar 17  2023 src
+-rw-------    1 testuser testuser  2158139 Dec  7 09:21 ToDoList.txt
+sftp> cd Images
+sftp> pwd
+Remote working directory: /home/testuser/Images
+sftp> ls -l
+-rw-r--r-- 1 testuser testuser 195439 Apr  6  2023 BlueMarble1972.jpg
+sftp> exit
+me@mypc$
+````
+
+When `sftp` starts, the local current directory is initialized to the shell's current directory, and the remote current directory is set to the home directory of the given account on the server. It is also possible to start with a different remote current directory by appending that directory's path to the server name given on `sftp`'s command line, separated by a colon:
+
+````
+sftp <account name>@<server name>:<path>
+````
+
+### Uploading And Downloading Files
+
+The `get <remote path> [local path]` command downloads one or more files from the remote server to the local computer. The `<remote path>` argument identifies the remote file(s) to download. If `<remote path>` refers to a directory, all files in that directory will be downloaded. If `<remote path>` contains wildcards such as "*", all files whose names match the given pattern will be downloaded.
+
+The optional `[local path]` argument specifies the path to which to download the remote file(s). If it is omitted, `get` will operate as if `[local path]` were the current local directory. If `[local path]` refers to a directory, the remote files will be downloaded to that directory retaining their remote names. If `<remote path>` matches more than one file, `[local path]` *must* refer to a directory.
+
+Example of downloading a file using `sftp`:
+
+````
+me@mypc$ sftp testuser@testserver
+Connected to testserver.
+sftp> get Images/BlueMarble1972.jpg Images/
+Fetching Images/BlueMarble1972.jpg to Images/BlueMarble1972.jpg
+BlueMarble1972.jpg                                     100%  195439   266.3KB/s   00:00    
+sftp> lls -l Images
+-rw-r--r-- 1 me   me   195439 Dec  7 09:57 BlueMarble1972.jpg
+sftp> exit
+me@mypc$
+````
+
+Common `get` options:
+* `-R` (*uppercase* R for "recursive"): Downloads an entire directory hierarchy starting from the given remote path. The local path, if provided, must be a directory.
+* `-a` (for "append"): Attempts to resume a download that was previously interrupted. `sftp` will use the size of the existing local file to skip downloading the initial portion of that size of the remote file, but it will not check whether the existing local file differs from that initial portion. In other words, if either the local or remote file were changed since the initial interrupted download, the resulting local file will be corrupted.
+* `-p` (for "permissions"): `sftp` will also copy the full set of file permissions and the access time of the remote file.
+
+The `put <local path> [remote path]` command uploads one or files from the local computer to the remote server. **TBC**
 
 The POSIX Directory Structure And Permissions
 ---------------------------------------------
@@ -711,11 +807,11 @@ As system directories contain data and programs that are shared by all users,
 their contents are typically readable by all users, but can only be modified by
 the superuser (root). In other words, their permissions are typically
 `drwxr-xr-x.`, and the permissions of the files contained within them are
-typically `-rw-r--r--.` for data files and `-rwxr-xr-x.` for program files. The
-most relevant system directories are:
+typically `-rw-r--r--.` for data files and `-rwxr-xr-x.` for program and library
+files. The most relevant system directories are:
 
 * `/bin` and `/sbin` contain programs that are essential for operating a UNIX
-  `system, such as `ls`, `cat`, `cp`, etc. `sbin` contains user-level programs;
+  system, such as `ls`, `cat`, `cp`, etc. `sbin` contains user-level programs;
   `/sbin` contains programs that are only meant to be used by administrators
 * `/lib` and `/lib<arch>` (e.g., `/lib64`) contain library files (libraries are
   bundles of common code shared by multiple programs) essential to programs in
