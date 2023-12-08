@@ -78,8 +78,8 @@ To make alterations to the reader:
     repo, which contains source materials for the web page (but not the web
     page itself).
 
-6.  Run the command the following command in a shell at the top level of the
-    repo to update the `gh-pages` branch:
+6.  Run the following command in a shell at the top level of the repo to update
+    the `gh-pages` branch:
     ```
     ghp-import -n -p -f _build/html
     ```
