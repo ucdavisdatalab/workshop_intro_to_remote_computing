@@ -30,13 +30,13 @@ typically the Internet. In this context, a computing server is, more
 specifically, a computer that gives users access to a remote command line from
 where they can run programs on that computer. The reason to run programs on a
 server is that servers typically offer more memory and disk space and more
-computing performance than any user's local computer, and can therefore work on
-bigger problems.
+computing performance than any user's personal computer, and can therefore work
+on bigger problems.
 
-Unlike users' local computers, servers typically run some UNIX-like operating
-system, which in almost all cases is Linux, they are typically controlled
-exclusively via the command line, they are typically shared by multiple users,
-often multiple users at the same time, and they are operated and maintained by
+Unlike users' personal computers, servers typically run some UNIX-like operating
+system, which in almost all cases is Linux; they are typically controlled
+exclusively via the command line; they are typically shared by multiple users,
+often multiple users at the same time; and they are operated and maintained by
 dedicated people, called system administrators or system operators (SysOps for
 short).
 
@@ -66,14 +66,14 @@ assign the new user an account name and some way to authenticate themselves to
 the server. "Authentication" here means some way for the user to prove that they
 really are who they claim they are, and that they have permission to access the
 server. In the SSH protocol, there are two main authentication methods: SSH
-passwords and SSH keys. We will discuss these in detail in the following
+passwords and SSH keys. We will discuss those in detail in the following
 sections.
 
 ### Opening a Connection
 
-With that in mind, once a new user has an account on a server and a way to
-authenticate themselves, they can log in to the server using the aforementioned
-`ssh` command:
+With that in mind, once a new user has obtained an account on a server and a way
+to authenticate themselves, they can log in to the server using the
+aforementioned `ssh` command:
 
 ````
 ssh -l <account name> <server name>
@@ -100,12 +100,12 @@ shell on the remote server, and any output from that remote shell or programs
 run within it will be forwarded to, and printed by, the terminal on the user's
 local computer. In other words, users can interact with the remote shell
 running on the remote server in the same way as with the local shell on their
-local computer, but any commands executed in that shell will be run on the
-remote server. Finally, when the user shuts down the remote shell, for example
-via the `exit` command, the SSH connection will be closed, and the terminal on
-the user's local computer will control the local shell again.
+local computer, but any commands executed in that remote shell will be run on
+the remote server. Finally, when the user shuts down the remote shell, for
+example via the `exit` command, the SSH connection will be closed, and the
+terminal on the user's local computer will control the local shell again.
 
-An example SSH session might proceed like this:
+A brief SSH session might proceed like this:
 
 ````
 me@mypc$ ssh testuser@testserver
@@ -204,18 +204,18 @@ Server resources broadly fall into four categories:
   will roughly slow down by a factor of X. If available memory is exceeded, on 
   the other hand, the operating system will respond by "swapping" memory to and 
   from the server's hard drives, which is *several orders of magnitude* slower 
-  than system memory, and can grind a server to a virtual stand-still.
+  than system memory, and excessive swapping can grind even a very powerful
+  server to a virtual stand-still.
 
 * Hard drive space: While again much larger than the hard drive space available 
-  on typical personal computers, this resource has a *hard* limit. Once the 
-  server's hard drives are full, they are full, and no further data can be 
+  on typical personal computers, this resource has a *hard* limit. Once a 
+  server's hard drives are full, they are *full,* and no further data can be 
   written to them. This will usually crash running operations of *all* active 
   users, not just those started by the user who filled the hard drive, and thus
   cause significant losses. To avoid this cricital problem, servers typically
-  limit the amount of hard drive space available to each users so that total 
-  usage can never exceed available space, meaning that if a user's operation 
-  tries to use more than available hard drive space, only that user's operation 
-  crashes.
+  limit the amount of hard drive space available to each user such that total 
+  usage can never exceed available space, meaning that if a user's program tries
+  to use more than available hard drive space, only that user's program crashes.
 
 * Hard drive bandwidth: Writing data to or reading data from hard drives is
   *several orders of magnitude* slower than writing or reading data from 
@@ -225,14 +225,14 @@ Server resources broadly fall into four categories:
 
 To ensure smooth operation and fair allocation of the above resources, many 
 servers implement job scheduling systems that let users submit operations they 
-want to run ahead of time, and then selects which jobs to run in which order to 
+want to run ahead of time, and then select which jobs to run in which order to 
 maximize total performance and minimize slow-downs due to contention. The later 
-chapters of these workshop talk about those systems in detail.
+chapters of this workshop discuss common scheduling systems in detail.
 
 The later chapters will also introduce strategies to estimate the resource 
 needs of a particular operation *before* running the operation, to be able to 
 plan ahead and ideally coordinate with a server's administrators before 
-submitting an exceedingly large job.
+submitting an exceedingly resource-intensive job.
 
 ### User Privacy
 
@@ -243,8 +243,8 @@ name>`. While home directories are typically shielded from other users via
 access privileges, this shielding is not always perfect, and it is considered 
 *extremely rude* to poke around in accidentally mis-configured home directories 
 belonging to other users. The same holds for inspecting files belonging to 
-individual users that might appear outside their home directories, for example 
-in the `/tmp` directory hierarchy.
+individual users that might appear outside of their home directories, for
+example in the `/tmp` temporary storage directory.
 
 ### Administrators Are People
 
@@ -254,14 +254,14 @@ faceless cogs in some giant machine. It is therefore always a good idea to treat
 system administrators or other IT support staff in the same way as one would
 like to be treated by them:
 
-* Users should make an honest effort to try and fix problems they run into, for 
-  example by searching for solutions to their problems on the Internet or on a 
-  server's support web site, before directly contacting administrators or IT
-  support for help.
+* Users should make an honest effort to try and fix problems they run into on
+  their own, for example by searching for solutions to their problems on the
+  Internet or on a server's support web site, before directly contacting
+  administrators or IT support for help.
 
 * Users should remember that administrators and support staff are often
-  overworked, and might not be able to respond to questions or fix problems on a
-  moment's notice. It is always a good idea to plan ahead to ensure that a
+  overworked, and might not be able to respond to questions or to fix problems
+  on a moment's notice. It is always a good idea to plan ahead to ensure that a
   problem with a server, should it occur, does not occur five minutes before an
   important deadline.
 
@@ -269,11 +269,11 @@ like to be treated by them:
 
 One of the main ways how SSH can establish a user's identity on a remote server
 is via passwords. SSH passwords work identically to the passwords used to log
-in to local computers or to access web services like Google. Importantly, SSH
+in to personal computers or to access web services like Google. Importantly, SSH
 passwords are *not* managed by the SSH protocol itself. They are, in fact,
-standard passwords in the server's operating system (typically Linux). This
-means they follow the same rules as standard passwords, and have the same
-drawbacks and caveats.
+standard passwords in the server's operating system (typically Linux) and are
+managed by that operating system. This means they follow the same rules as
+standard passwords and have the same drawbacks and caveats.
 
 If a server uses SSH passwords for authentication, that server's administrators 
 will typically assign some random password to a new user and communicate that 
@@ -281,7 +281,7 @@ password to them through some insecure channel like email. As a result, a new
 user is usually expected to change their initial password the first time they 
 log into their new account. As SSH passwords are simply operating system-level 
 passwords on the server, they can be changed in the same way as local 
-passwords, using the `passwd` command:
+passwords, by running the `passwd` command from a remote shell:
 
 ````
 me@mypc$ ssh testuser@testserver
@@ -434,15 +434,19 @@ These are the steps of the above procedure in detail:
   This passphrase is not stored anywhere, and **must never be given to
   anyone.** When the `ssh` program needs to access a private key to connect to
   a server, it will ask the user for the passphrase, use it to access the
-  private key, and then immediately forget it again.
+  private key, and then immediately forget it again. For sound and practical
+  advice on how to choose cryptographically strong passphrases, see
+  [this xkcd cartoon][xkcd_password].
 
 * Then, `ssh-keygen` prints the name of the file containing the **public** SSH
   key associated with the new private SSH key, which is just the name of the
   private SSH key file with ".pub" appended to it.
 
-* Finally, `ssh-keygen` will print the new key's hash "fingerprint" and the
-  key's "randomart," which are both unimportant to anyone who is not a
-  cryptography nerd.
+* Finally, `ssh-keygen` will print the new key's *hash fingerprint* and its
+  *randomart,* which are both unimportant to anyone who is not a cryptography
+  nerd.
+
+[xkcd_password]: https://xkcd.com/936/
 
 From a practical perspective, key-based authentication has a number of
 important differences to password-based authentication:
@@ -480,20 +484,15 @@ important differences to password-based authentication:
 + **NEVER EVER AT ABSOLUTELY NO TIME GIVE ANYONE YOUR SSH KEY PASSPHRASE EVER!**
 :::
 
-For sound and practical advice on how to choose cryptographically strong 
-passphrases, see [this xkcd cartoon][xkcd_password].
-
-[xkcd_password]: https://xkcd.com/936/
-
 ### The `.ssh` Configuration Directory
 
 The SSH protocol suite stores configuration data in a hidden `.ssh` directory
 in a user's home directory. Because this directory contains some data that is
 private to the user, such as private SSH keys, many SSH programs will refuse to
-operate if this directory or its contents have incorrect sets of permissions,
+operate if this directory or its contents have incorrect sets of *permissions,*
 i.e., access privileges.
 
-:::{important} Access privileges for the `.ssh` directory
+:::{important} Permissions for the `.ssh` directory
 
 + The `.ssh` directory **must** be readable, writable, and executable by the
   user.
@@ -544,6 +543,10 @@ traveling between the user and the intended remote server because there are now
 *two* encrypted connections: one between the user and the man-in-the-middle, and
 one between the man-in-the-middle and the intended remote server.
 
+Server keys can prevent this type of attack. In the same way that a server can
+verify a user's identity via that user's public SSH key, a user can verify a
+server's identity via that server's public SSH key.
+
 When a user connects to a server to which they have connected in the past, the
 `ssh` program compares that server's public SSH key to the one in the
 `known_hosts` file. If the keys do not match, `ssh` refuses to establish the
@@ -560,13 +563,42 @@ by opening that file with a text editor such as `vim`, finding the old server
 key (`ssh` will print the number of the line containing the mismatching key),
 replacing it with the new key, and then saving the edited file.
 
+But what happens when a new user tries to connect to a server for the first
+time? At that point, the `known_hosts` file does not yet know that server's key,
+and has nothing to compare against. The default behavior of `ssh` is to silently
+accept keys from new servers and add them to the `known_hosts` file. On highly
+security-aware servers, this adds another step to the sign-up procedure for new
+users. After setting up a new user's account, the server administrator will
+inform the new user not only of their new account name, but also of the server's
+public SSH key. The user will then manually add that key to their `known_hosts`
+file *before* connecting to the server for the first time, and thus prevent a
+potential man-in-the-middle attack even on the first connection.
+
 ### SSH Config
 
 `~/.ssh/config` contains local configuration data for SSH programs like `ssh`. 
 The most useful settings in that file are per-server settings that associate 
 account names and potentially SSH key files with server names, to simplify 
-managing different user identities on different servers. For example, if a 
-user's `~/.ssh/config` file contains the following text:
+managing different user identities on different servers. For example, imagine a
+scenario in which a user has accounts on two different servers: an account named
+`testuser` on a server named `testserver`, using an SSH key for authentication,
+and an account named `m34754_a2` on a server named `anotherserver`, also using
+an SSH key for authentication, but using a different key pair than for server
+`testserver` (while using different SSH keys for different servers does not
+actually increase security, there might still be other reasons for doing so).
+Then the user would have to use the following two commands to log into the two
+servers, respectvely:
+
+````
+me@mypc$ ssh testuser@testserver
+````
+and
+````
+me@mypc$ ssh -i ~/.ssh/anotherserver_rsa m34754_a2@anotherserver
+````
+The `-i <key file name>` option for `ssh` selects a specific SSH key other than
+the default `id_rsa`. To avoid typing this every time, the user could add the
+following text to their `~/.ssh/config` file using a text editor like `vim`:
 
 ````
 Host testserver
@@ -578,21 +610,18 @@ User m34754_a2
 IdentityFile ~/.ssh/anotherserver_rsa
 ````
 
-then it is no longer necessary to specify the testuser account name when 
-logging into server testserver, and specifying the (non-standard) 
-`~/.ssh/anotherserver_rsa` SSH key file and the m34754_a2 account name when 
-logging into server another server. In other words, instead of
+* The `Host` keyword tells SSH programs that the following settings, up until
+  the next `Host` keyword, only apply to servers whose names match the pattern
+  after the `Host` keyword.
 
-````
-me@mypc$ ssh testuser@testserver
-````
-and
+* The `User` keyword specifies the account name to use when connecting to the
+  matching server(s).
 
-````
-me@mypc$ ssh -i ~/.ssh/anotherserver_rsa m34754_a2@anotherserver
-````
+* The `IdentityFile` keyword specifies the name of the private SSH key file to
+  use for authentication when connecting to the matching server(s).
 
-the user can simply log into these two servers via
+With these lines in their `~/.ssh/config` file, the user can then connect to
+those two servers with the (much) shorter following commands:
 
 ````
 me@mypc$ ssh testserver
@@ -603,20 +632,23 @@ and
 me@mypc$ ssh anotherserver
 ````
 
+The full set of available configuration options is described in `ssh-config`'s
+documentation (`man ssh_config`).
+
 Moving Data Between A Local Computer, The Internet, And A Server
 ----------------------------------------------------------------
 
-An established SSH connection between a user's local computer and remote server
-sends the user's input to the remote server, and sends the output of the shell
-running on the remote server to the user's local computer, but it does not
-otherwise send data or code between those two ends. Therefore, uploading data
-from a user's local computer to a server, downloading data from the Internet to
-a server, and downloading data from a server to a user's local computer require
-additional tools.
+An established SSH connection between a user's local computer and a remote 
+server sends the user's input to the remote server, and sends the output of the 
+shell running on the remote server to the user's local computer, but it does 
+not otherwise send data or code between those two ends. Therefore, uploading 
+data from a user's local computer to a server, downloading data from the 
+Internet to a server, or downloading data from a server to a user's local 
+computer require additional tools.
 
 ### Download Files From The Internet
 
-The first pair of commands to download data from the Internet to *any*
+The first pair of commands, to download data from the Internet to *any*
 computer, including a user's local computer and a server to which a user is
 connected via SSH, are `wget` and `curl`. Both of these commands do basically
 the same thing, but for historical reasons, one or the other (or sometimes
@@ -625,15 +657,15 @@ know the basics of using both of them.
 
 ### `wget`
 
-`wget` (as in "web get") is the simpler of the two. It can be used to copy one
-or more files, entire directories, or even entire directory hierarchies, from
-the Internet via a multiple protocols including HTTP and HTTPS. Its most common
-use is to download files from web servers. Usually, one downloads a file from a
-web server via a web browser, by right-clicking on a hyperlink in a web page
-and selecting "Save Link As..." from the menu that pops up in response. In its
-simplest form, `wget` does the same, but from the command line and without
-requiring further user input. To download the file referenced by a given URL,
-one simply passes that URL on `wget`'s command line:
+`wget` (as in "web get") is the simpler of the two commands. It can be used to 
+download one or more files, entire directories, or even entire directory 
+hierarchies, from the Internet, via multiple protocols including HTTP and HTTPS. 
+Its most common use is to download files from web servers. Usually, one 
+downloads a file from a web server via a web browser, by right-clicking on a 
+hyperlink in a web page and selecting "Save Link As..." from the menu that pops 
+up in response. In its simplest form, `wget` does the same, but from the 
+command line and without requiring further user input. To download the file 
+referenced by a given URL, one simply passes that URL on `wget`'s command line:
 
 ````
 me@mypc$ wget https://www.google.com
@@ -690,13 +722,13 @@ testuser@testserver$
 When downloading a URL, `wget` will store the file referenced by that URL in
 the current directory from which `wget` was run, using the same file name as
 the file on the server (in the above example, `135918main_bm1_high.jpg`). This
-is often not useful, because the names of files on web servers are commonly
-auto-generated and non-descriptive. Instead, it is possible to specify a
-desired location and name for the downloaded file via the `-O <file name>`
-(that is *uppercase* O for "output file name") command line option for `wget`.
-The `-O <file name>` option must appear *before* the URL of the file to be
-downloaded. While at it, one can also reduce the amount of extra information
-`wget` prints while downloading via the `-q` (for "quiet") command line option:
+is seldom useful, because the names of files on web servers are commonly
+auto-generated and non-descriptive. Instead, one can specify a desired location
+and name for the downloaded file via the `-O <file name>` (that is *uppercase* O
+for "output file name") command line option for `wget`. The `-O <file name>`
+option must appear *before* the URL of the file to be downloaded. While at it,
+one can also reduce the amount of extra information `wget` prints while
+downloading via the `-q` (for "quiet") command line option:
 
 ````
 testuser@testserver$ wget -q -O BlueMarble1972.jpg https://www.nasa.gov/wp-content/uploads/2023/03/135918main_bm1_high.jpg
@@ -711,16 +743,17 @@ contain absolute or relative paths, such as `Images/BlueMarble1972.jpg`, or
 `/home/testuser/Images/BlueMarble1972.jpg` or `~/Images/BlueMarble1972.jpg` for 
 short.
 
-`wget` can download multiple files in one go by using wildcards in the URL, 
-such as
+`wget` can download multiple files in one go by using wildcards like `*` in the
+URL:
 
 ````
 wget -q https://www.nasa.gov/wp-content/uploads/2023/03/*.jpg
 ````
 
-which will download all JPEG image files in the March 2023 upload section of 
-NASA's main web site (which is probably not a good idea!), or by referencing 
-the name of a directory instead of a file, as in
+which will download all JPEG image files (or, more accurately, all files whose
+names end in `.jpg`) in the March 2023 upload section of NASA's main web site
+(which is probably not a good idea!), or by referencing a directory instead of a
+file, which will download all files in that directory:
 
 ````
 wget -q https://www.nasa.gov/wp-content/uploads/2023/03/
@@ -734,9 +767,12 @@ wget -q -r https://www.nasa.gov/wp-content/uploads/
 ````
 
 which will download all media files NASA ever uploaded to their web site (now
-this is an outright *terrible* idea!), and recreate the directory hierarchy of
-the web site on the user's local computer, i.e., the 1972 Blue Marble image
-from before would be stored in
+this is an outright *terrible* idea!). When downloading a directory or directory
+hierarchy, `wget` will recreate the server's directory structure starting from
+the server name. In the above example, it will create a new directory
+`www.nasa.gov` in the current directory, a directory `wp-content` inside of
+that, `uploads` inside of that, etc. Thus, the 1972 Blue Marble image that was
+downloaded in an earlier example would now appear as
 `www.nasa.gov/wp-content/uploads/2023/03/135918main_bm1_high.jpg`.
 
 By default, `wget` stores downloaded files or directories in the current
@@ -753,15 +789,16 @@ will store the downloaded image in the user's `Images` directory, under the name
 
 ### `curl`
 
-`curl` (as in "copy URL") is another command line utility that can download
+`curl` (as in "copy URL") is the other command line utility that can download
 files from the Internet. `curl` supports even more remote file access protocols
 than `wget`, and, according to its documentation (`man curl`), "[its] number of
 features will make your head spin."
 
 In its simplest invocation, `curl` will download the file referenced by a given 
 URL and print its contents to the terminal. Instead of printing to the 
-terminal, which is often not very useful, output redirection can then be used 
-to save `curl`'s output to a file, or to pipe it as input into another program:
+terminal, which is often not very useful, `curl`'s output can be redirected into
+a file via the output operator `>`, or piped as input into another program via
+the pipe operator `|`:
 
 ````
 testuser@testserver$ curl https://www.nasa.gov/wp-content/uploads/2023/03/135918main_bm1_high.jpg > BlueMarble1972.jpg
@@ -771,8 +808,28 @@ testuser@testserver$ curl https://www.nasa.gov/wp-content/uploads/2023/03/135918
 testuser@testserver$ 
 ````
 
-Instead of redirecting output to a file, `curl` can also be instructed to write 
-to a file directly by using the `-o` or `-O` command line options. `-o` 
+In the UNIX world, data or programs are often made available for download as
+`gzip`-compressed `tar` (for "tape archive") files, commonly known as
+"tarballs." A neat trick to download such a tarball from a web server and
+decompress and unpack it on the fly without storing the tarball itself on the
+local hard drive is to download it via `curl` and pipe it directly into the
+`tar` program for decompression and unpacking:
+
+````
+me@mypc$ curl http://testserver/DataArchive.tar.gz | tar xfz -
+````
+
+which will recreate the complete directory hierarchy that was packed into the
+tarball inside the current directory. Using `wget`, the same command would be:
+
+````
+me@mypc$ wget -O - http://testserver/DataArchive.tar.gz | tar xfz -
+````
+(`-O -` instructs `wget` to print the downloaded file to the terminal, mirroring
+the default behavior of `curl`).
+
+Instead of redirecting output to a file via `>`, `curl` can also be instructed
+to write to a file directly by using the `-o` or `-O` command line options. `-o`
 (*lowercase* o) needs a file name, while `-O` (*uppercase* O) uses the file 
 name component of the given URL. In other words, `curl -O <URL>` aligns with 
 the default behavior of `wget <URL>`, and `curl -o <file name> <URL>` aligns 
@@ -794,10 +851,10 @@ adding `-S` (*uppercase* S, for "not quite so silent") after `-s`.
 
 Unlike `wget` and `curl`, the next pair of commands can be used to transfer 
 files between a user's local computer and a remote server. The first, `scp`, is 
-non-interactive and behaves similar to the standard UNIX `cp` command, but with 
-the added ability to access files on remote servers. The second command, 
-`sftp`, is an interactive terminal application like `vi`, in the sense that it 
-opens a custom "shell" in which the user can run commands that enable local and 
+non-interactive and behaves similarly to the standard UNIX `cp` command, but
+with  the added ability to access files on remote servers. The second command, 
+`sftp`, is an interactive terminal application like `vim`, in the sense that it 
+opens a custom "shell" in which the user can run commands that allow local and 
 remote file operations and transfers. While `scp` can only transfer files 
 between computers, `sftp` additionally supports file management operations like 
 creating and removing directories, moving, renaming, and deleting files, etc.
@@ -819,39 +876,39 @@ me@mypc$ scp BlueMarble1972.jpg testuser@testserver:Images/
 ````
 
 will copy a `BlueMarble1972.jpg` file from the current directory on the local 
-computer into the `Images` directory in the testuser account on the testserver 
-server. Remote paths start from the remote user's home directory, unless they 
-start with a `/`, which indicates that they start from the root directory of 
-the remote server's file system. When a local or remote destination path 
-identifies a directory, the destination file will be created in that 
-destination directory with the same name as the source file. The command
+computer into the `Images` directory in the `testuser` account on the
+`testserver` server. Remote paths are relative to the remote user's home
+directory, unless they start with a `/` (forward slash), which indicates that
+they are relative to the remote server's root directory. When a local or remote
+destination path identifies a directory, the destination file will be created in
+that destination directory with the same name as the source file. The command
 
 ````
 me@mypc$ scp testuser@testserver:Images/BlueMarble1972.jpg .
 ````
 
 will do the exact opposite, copying `BlueMarble1972.jpg` from the `Images`
-directory under the testuser account's home directory on server testserver to
-the current directory on the local computer. The `.` at the end of the command
-line is UNIX shorthand for the current directory, and thus tells `scp` to give
-the destination file the same name as the source file, and to store it in the
-current directory on the local computer. Equivalently, one could have specified
-the name of the destination file explicitly:
+directory under the `testuser` account's home directory on server `testserver`
+to the current directory on the local computer. The `.` at the end of the
+command line is UNIX shorthand for the current directory, and thus tells `scp`
+to give the destination file the same name as the source file, and to store it
+in the current directory on the local computer. Equivalently, one could have
+specified the name of the destination file explicitly:
 
 ````
 me@mypc$ scp testuser@testserver:Images/BlueMarble1972.jpg BlueMarble1972.jpg
 ````
 
-`scp` also supports wildcards in source paths to copy more than one file at a
-time. For example,
+`scp` also supports wildcards like `*` in source paths to copy more than one
+file at a time:
 
 ````
 me@mypc$ scp testuser@testserver:Images/*.jpeg Images/
 ````
 
 will copy all JPEG files (or, rather, files whose names end in `.jpeg`)
-contained in testuser's `Images` directory on the remote server to the `Images`
-directory on the local computer.
+contained in `testuser`'s `Images` directory on server `testserver` to the
+`Images` directory on the local computer.
 
 Like `cp`, `scp` supports recursive copying of entire directory hierarchies 
 using the `-r` (*lowercase* r for "recursive") option (note that the equivalent 
@@ -873,7 +930,7 @@ sftp <account name>@<server name>
 
 The above command instructs `sftp` to connect to server `<server name>` using 
 account `<account name>`. Being an interactive application, `sftp` will then 
-enter a command loop where it prints an `sftp> ` prompt, waits for user input, 
+enter a command loop where it prints an `sftp>` prompt, waits for user input, 
 reads a command from the user, executes that command, and repeats. The `bye`, 
 `exit`, or `quit` commands tell `sftp` to close the connection to the server, 
 exit the program, and return the user back to the local shell.
@@ -886,26 +943,27 @@ always having to enter absolute paths to identify the file(s) on which they
 want to operate. Unlike a regular shell, however, `sftp` has *two* current 
 directories: one on the local computer, and one on the server. Consequently, 
 the commands to query or alter those current directories also come in pairs, 
-where the command referring to the local current directory has an "l" prefix, 
-and the other one works exactly like the shell command of the same name:
+where the command referring to the local current directory has an "l"
+(*lowercase* l for "local")prefix, and the other one works exactly like the
+shell command of the same name:
 
-* `pwd` and `lpwd` ("(local) print working directory") print the paths of the 
-  remote or local current directory, respectively.
+* `pwd` and `lpwd` (for "(local) print working directory") print the paths of
+  the remote or local current directory, respectively.
 
-* `cd <path>` and `lcd <path>` ("(local) change directory") set the path of the
-  remote or local current directory to the given path, respectively.
+* `cd <path>` and `lcd <path>` (for "(local) change directory") set the path of
+  the remote or local current directory to the given path, respectively.
 
-* `ls <path>` and `lls <path>` ("(local) list) list the contents of the given
-  remote or local path, respectively. These commands work the same, and have
-  most of the same options as, a regular shell's `ls` command.
+* `ls <path>` and `lls <path>` (for "(local) list") list the contents of the
+  given remote or local path, respectively. These commands work the same, and
+  have most of the same options as, a regular shell's `ls` command.
 
 Any local or remote path used by any `sftp` commands is relative to the local 
-or remote current directories, respectively, unless the path begins with a "/" 
+or remote current directory, respectively, unless the path begins with a `/`
 (forward slash), in which case it is relative to the root of the local or 
 remote file system, respectively. As in a regular shell, `.` (single dot) 
 refers to a directory itself, and `..` (two dots) refers to a directory's 
-parent. Unfortunately, the `~` shortcut for an account's home directory *does 
-not* work in remote paths, and the remote home directory must be spelled out as 
+parent. Unfortunately, the `~` shortcut for an account's home directory does 
+not work in remote paths, and the remote home directory must be spelled out as 
 `/home/<account name>`.
 
 The following is an example `sftp` session using the above commands:
@@ -961,15 +1019,15 @@ The `get <remote path> [local path]` command downloads one or more files from
 the remote server to the local computer. The `<remote path>` argument 
 identifies the remote file(s) to download. If `<remote path>` refers to a 
 directory, all files in that directory will be downloaded. If `<remote path>` 
-contains wildcards such as "*", all files whose names match the given pattern 
+contains wildcards such as `*`, all files whose names match the given pattern 
 will be downloaded.
 
 The optional `[local path]` argument specifies the path to which to download 
 the remote file(s). If it is omitted, `get` will operate as if `[local path]` 
-was the current local directory. If `[local path]` refers to a directory, the 
-remote files will be downloaded to that directory retaining their remote names. 
-If `<remote path>` matches more than one file, `[local path]` *must* refer to a
-directory.
+was given as `.`, i.e., the current local directory. If `[local path]` refers to
+a directory, the remote files will be downloaded to that directory retaining
+their remote names. If `<remote path>` selects more than one file (by being a
+directory or containing a wildcard), `[local path]` *must* refer to a directory.
 
 Example of downloading a file using the `get` command:
 
@@ -995,26 +1053,28 @@ Common `get` options:
   interrupted. `sftp` will use the size of the existing local file to skip 
   downloading the initial portion of that size of the remote file, but it will 
   not check whether the existing local file differs from that initial portion.
-  In other words, if either the local or remote file were changed since the
-  initial interrupted download, the resulting local file will be corrupted.
+  In other words, if the local and/or remote file were changed since the
+  interrupted download, the two files will not be identical after the download
+  completes.
 
 * `-p` (for "permissions"): `sftp` will also copy the full set of file 
   permissions and the access time of the remote file. Without this option, the
   new local file's access time will be set to the current local time, and its
   permissions will be set to the local account's default permissions.
 
-The `put <local path> [remote path]` command uploads one or files from the 
+The `put <local path> [remote path]` command uploads one or more files from the 
 local computer to the remote server. The `<local path>` argument 
 identifies the local file(s) to upload. If `<local path>` refers to a 
 directory, all files in that directory will be uploaded. If `<local path>` 
-contains wildcards such as "*", all files whose names match the given pattern 
+contains wildcards such as `*`, all files whose names match the given pattern 
 will be uploaded.
 
 The optional `[remote path]` argument specifies the path to which to upload 
 the local file(s). If it is omitted, `put` will operate as if `[remote path]` 
-was the current remote directory. If `[remote path]` refers to a directory, the 
-local files will be uploaded to that directory retaining their local names. 
-If `<local path>` matches more than one file, `[remote path]` *must* refer to a 
+was given as `.`, i.e., the current local directory. If `[remote path]` refers
+to a directory, the local files will be uploaded to that directory retaining
+their local names. If `<local path>` selects more than one file (by being a
+directory or containing a wildcard), `[remote path]` *must* refer to a
 directory.
 
 Example of uploading a file using the `put` command:
@@ -1042,8 +1102,9 @@ Common `put` options:
   interrupted. `sftp` will use the size of the existing remote file to skip 
   uploading the initial portion of that size of the local file, but it will 
   not check whether the existing remote file differs from that initial portion.
-  In other words, if either the remote or local file were changed since the
-  initial interrupted upload, the resulting remote file will be corrupted.
+  In other words, if the remote and/or local file were changed since the
+  interrupted upload, the two files will not be identical after the upload
+  completes.
 
 * `-p` (for "permissions"): `sftp` will also copy the full set of file 
   permissions and the access time of the local file. Without this option, the
@@ -1059,7 +1120,8 @@ are:
 
 * `rename <from path> <to path>` renames the file or directory referred to by 
 `<from path>` to `<to path>`. If `<from path>` and `<to path>` are in different 
-directories, the file will be moved from the "from" to the "to" directory.
+directories, the file or directory will be moved from the "from" to the "to"
+directory.
 
 * `copy <from path> <to path>` copies the file or directory referred to by 
 `<from path>` to `<to path>`. If `<to path>` refers to a directory, the file or 
@@ -1077,8 +1139,8 @@ directory must be empty.
 referred to by `<path>` to the given `<mode>` in *octal notation.* Please refer 
 to `chmod`'s documentation (`man chmod`) for details on octal notation.
 
-For convenience, `sftp` offers a local counterpart of the `mkdir` command to 
-create new directories on the local computer: `lmkdir <path>`
+For convenience, `sftp` offers a local counterpart to the `mkdir` command, to 
+create a new directory on the local computer: `lmkdir <path>`
 
 The POSIX Directory Structure And Permissions
 ---------------------------------------------
@@ -1100,7 +1162,7 @@ typically `-rw-r--r--.` for data files and `-rwxr-xr-x.` for program and library
 files. The most relevant system directories are:
 
 * `/bin` and `/sbin` contain programs that are essential for operating a UNIX
-  system, such as `ls`, `cat`, `cp`, etc. `sbin` contains user-level programs;
+  system, such as `ls`, `cat`, `cp`, etc. `/bin` contains user-level programs;
   `/sbin` contains programs that are only meant to be used by administrators
 
 * `/lib` and `/lib<arch>` (e.g., `/lib64`) contain library files (libraries are
@@ -1110,9 +1172,9 @@ files. The most relevant system directories are:
 * `/usr` is a second-level hierarchy containing the majority of utilities and
   applications installed on a UNIX system
 
-* `/usr/bin`, `/usr/sbin`, `/usr/lib`, `/usr/lib<arch>` contain programs,
-  administrator-level programs, and libraries shared by those programs,
-  respectively
+* `/usr/bin`, `/usr/sbin`, `/usr/lib`, `/usr/lib<arch>` contain user-level
+  programs, administrator-level programs, and libraries shared by those
+  programs, respectively
 
 * `/usr/include` contains *include files* that are used by developers to create
   and build applications on the server, primarily using the libraries in
@@ -1124,18 +1186,11 @@ files. The most relevant system directories are:
   `lib<arch>`, `include`, etc. directories
 
 * `/etc` contains host-specific system-wide configuration files. According to
-  UNIX lore, "etc" *does not* stand for "etcetera," and is pronounced "etsy" or
-  sometimes "ee-tee-cee"
+  UNIX lore, "etc" *does not* stand for "et cetera," and is pronounced "etsy" or
+  sometimes "ee-tee-see"
 
 * `/opt` contains optional software packages accessible to all users on a
   system
-
-* `/media` contains mount points for removable media like CD-ROMs. In some UNIX
-  versions, `/media` also contains mount points for temporary storage devices
-  such as USB drives
-
-* `/mnt` contains mount points for temporary storage devices such as USB
-  drives. In some UNIX versions, these appear in `/media` instead
 
 ### User Home Directories
 
