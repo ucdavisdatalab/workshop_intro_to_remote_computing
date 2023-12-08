@@ -346,7 +346,7 @@ using cloud services like GitHub.
 
 Unlike SSH passwords, which are just strings of characters, SSH keys are
 cryptographic keys, typically based on the RSA algorithm, which is a
-[super interesting topic][topic] for another day. RSA uses a two-part asymmetric
+[super interesting topic][RSA] for another day. RSA uses a two-part asymmetric
 scheme consisting of a *private key* and a *public key.* Without going into the
 details of how RSA cryptography works, a public key is used to *encrypt* data,
 and the associated private key is used to *decrypt* data. Unlike in *symmetric*
@@ -358,7 +358,7 @@ the server, but are property of the user, are generated and stored on the
 user's own computer, and a user's private keys are *not* shared with a server as
 part of establishing a connection to that server.
 
-[topic]: https://en.wikipedia.org/wiki/RSA_cryptosystem
+[RSA]: https://en.wikipedia.org/wiki/RSA_cryptosystem
 
 In the context of SSH authentication, RSA keys are used to establish a user's 
 identity. First, the server's administrators associate the user's **public** 
@@ -481,9 +481,9 @@ important differences to password-based authentication:
 :::
 
 For sound and practical advice on how to choose cryptographically strong 
-passphrases, see [this xkcd cartoon][topic].
+passphrases, see [this xkcd cartoon][xkcd_password].
 
-[topic]: https://xkcd.com/936/
+[xkcd_password]: https://xkcd.com/936/
 
 ### The `.ssh` Configuration Directory
 
