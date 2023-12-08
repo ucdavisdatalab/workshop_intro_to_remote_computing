@@ -78,11 +78,14 @@ To make alterations to the reader:
     repo, which contains source materials for the web page (but not the web
     page itself).
 
-6.  Run the command `ghp-import -n -p -f _build/html` in a shell at the top
-    level of the repo to update the `gh-pages` branch of the repo. This uses
-    the [`ghp-import` Python package][ghp-import], which you will need to
-    install first (`pip install ghp-import`). The live web page will update
-    automatically after 1-10 minutes.
+6.  Run the command the following command in a shell at the top level of the
+    repo to update the `gh-pages` branch:
+    ```
+    ghp-import -n -p -f _build/html
+    ```
+    This uses the [`ghp-import` Python package][ghp-import], which you will
+    need to install first (`pip install ghp-import`). The live web page will
+    update automatically after 1-10 minutes.
 
 [ghp-import]: https://github.com/c-w/ghp-import
 
