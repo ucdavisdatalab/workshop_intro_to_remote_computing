@@ -154,11 +154,11 @@ flexibility and reproducibility.
 [VirtualBox]: https://www.virtualbox.org/
 
 
-### Farm Modules
+### UC Davis HPC Modules
 
 :::{important}
-This section is specific to Farm. While some other servers and clusters may
-have a similar module system, many do not.
+This section is specific to UC Davis HPC clusters. While some other servers and
+clusters may have a similar module system, many do not.
 :::
 
 On most of UC Davis' HPC clusters, the HPC Core Facility staff maintain a
@@ -371,11 +371,11 @@ files (and check the `PATH` environment variable).
 
 #### Creating Environments
 
-The [Micromamba documentation][mm] appears to be aimed at users already
-familiar with Conda. If you're new to environment management or the Conda
-family of tools, you may find the [Conda documentation][conda-docs] more
-helpful for understanding what commands do and how to use them. There's also a
-[Conda cheat sheet][conda-cheat].
+The [Micromamba documentation][mm] is intended for users already familiar with
+Conda. If you're new to environment management or the Conda family of tools,
+you may find the [Conda documentation][conda-docs] more helpful for
+understanding what commands do and how to use them. There's also a [Conda cheat
+sheet][conda-cheat].
 
 [conda-cheat]: https://docs.conda.io/projects/conda/en/latest/_downloads/843d9e0198f2a193a3484886fa28163c/conda-cheatsheet.pdf
 [conda-docs]: https://docs.conda.io/projects/conda/en/stable/commands/index.html
@@ -532,9 +532,10 @@ The `create`, `activate`, and `install` subcommands are fundamental to using
 Micromamba. There are many other subcommands, which you can learn about by
 reading the [Conda documentation][conda-docs].
 
-:::{note}
+:::{tip}
 The ripgrep and `fd` search tools are worth knowing about if you work in the
-command line frequently. Both can help you find files quickly.
+command line frequently. Both can help you find files quickly. They are faster,
+modernized versions of the classic `grep` and `find` tools.
 :::
 
 
@@ -669,17 +670,33 @@ you can customize your computing environment to make it do what you want and
 make it more comfortable to use.
 
 
+(bash)=
 ### Bash
 
-[Bash][] is a **shell**, a programming language and prompt that serves as a
+[Bash][] is a **shell**: a programming language and prompt that serves as a
 command line interface for computers. Bash is widely used, and is the default
-shell for many Linux distributions and for macOS from 10.3 to 10.15. On
-Windows, Bash is bundled with git as Git Bash. Knowing how to configure Bash
-can make it much easier to work in a terminal. Furthermore, the process of
-configuring Bash is similar to the process of configuring other shells,
-although some filenames and specific commands are different.
+shell for most Linux distributions. Knowing how to configure Bash can make it
+much easier to work in a terminal.
+
+:::{important}
+This section is about configuring Bash, but some POSIX computers default to
+other shells (such as the [Z Shell (Zsh)][zsh] or [Fish][fish]). These shells
+can also be configured, but the files and commands needed to do so may be
+different; see their documentation for details.
+
+You can check the default shell on a POSIX computer with this command:
+
+```
+echo $SHELL
+```
+
+On macOS, the default shell for versions 10.3 through 10.14 is Bash. Beginning
+with version 10.15, the default shell is Zsh.
+:::
 
 [Bash]: https://en.wikipedia.org/wiki/Bash_(Unix_shell)
+[zsh]: https://en.wikipedia.org/wiki/Z_shell
+[fish]: https://en.wikipedia.org/wiki/Fish_(Unix_shell)
 
 You can configure Bash by editing the `.bashrc` file in your home directory .
 The `.bashrc` file is a Bash script, meaning it contains commands for Bash and
@@ -707,23 +724,24 @@ While learning about Micromamba, did you ever feel like typing out `micromamba`
 for every command was a little bit tedious? One way you can customize the shell 
 is by creating **aliases** for commands that are long or hard to remember.
 Let's create an alias `mm` for the `micromamba` command, so that you can just
-type `mm` instead of typing `micromamba`. You can create an alias with the
-`alias` command. Add this code to your `.bashrc`:
+type `mm` instead of typing `micromamba`.
+
+The command to create an alias is `alias`, followed by a space, the name of the
+alias, an equals sign, and then the aliased command in quotes.
+
+For example, try adding this code to your `.bashrc`:
 
 ```bash
 alias mm='micromamba'
 ```
 
-The `alias` command is always followed by a space, the name of the alias, an
-equals sign, and then the aliased command in quotes.
-
-:::{warning}
+:::{important}
 Be careful to match the spacing and quotes exactly. In Bash, spacing often
 matters and single quotes have a distinct meaning from double quotes.
 :::
 
 After adding the `alias` command to `.bashrc`, save and close the file. You can
-make Bash "reload" the settings file by running the file with this command:
+make Bash "reload" the settings in `.bashrc` with this command:
 
 ```sh
 source ~/.bashrc
@@ -749,7 +767,199 @@ ran the `source` command.
 
 #### Environment Variables
 
+You can assign variables in your shell just like in most other programming
+languages. Typically, some variables are assigned automatically when the shell
+starts.
 
+For example, the `PATH` variable contains a colon-separated list of paths where
+the shell should search for commands (software programs). Without `PATH`, you'd
+have to type the full path to every command.
+
+:::{tip}
+You can use the `which` command to check where the shell found a command. For
+instance, to check where the `git` command is:
+
+```sh
+which git
+```
+:::
+
+In the shell, the `echo` command prints things, and you can get the value of a
+variable by putting a dollar sign `$` in front of its name. Put these two ideas
+together to print the value of `PATH`:
+
+```sh
+echo $PATH
+```
+```
+/home/nick/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/bin
+```
+
+You should see a colon-separated list of directories, like the one above. Some
+of the directories listed will probably be different on your computer.
+
+
+You can assign a variable by typing a name, an equals sign (`=`), and then a
+value. The equals sign *must not* have spaces around it, and if the value
+contains spaces, it must be quoted. By convention, names of shell variables
+should be all uppercase. Here's how to assign a variable `FOO` with the value
+`Hello world!`:
+
+```sh
+FOO='Hello world!'
+```
+
+Try printing `FOO` with `echo`.
+
+:::{note}
+You can delete a variable with the `unset` command. For instance, to delete
+`FOO`, run:
+
+```sh
+unset FOO
+```
+
+If you try this, make sure to reassign `FOO` again, as we'll use it in a
+subsequent example.
+:::
+
+
+An **environment variable** is a shell variable that's shared with other
+programs (including other shells). Environment variables are typically used to
+configure the computing environment. As it turns out, `PATH` is an environment
+variable.
+
+You can get a list of all environment variables with the `env` command. Here's
+an example of a few lines of output from the command:
+
+```sh
+env
+```
+
+```
+SHELL=/usr/bin/bash
+SESSION_MANAGER=local/zen:@/tmp/.ICE-unix/579,unix/zen:/tmp/.ICE-unix/579
+R_PROFILE_USER=/home/nick/.config/R/rprofile
+LESSHISTFILE=/home/nick/.config/less/history
+COLORTERM=truecolor
+```
+
+On your computer, you'll probably see some environment variables with different
+names and values.
+
+Shell variables are not automatically environment variables. Notice that the
+variable `FOO`, created above, is not in the output from `env`. To assign an
+environment variable, you can use the `export` command. To make `FOO` an
+environment variable, run:
+
+```sh
+export FOO
+```
+
+Now `FOO` is an environment variable and will appear in the output of `env`.
+
+Variables you assign interactively will be deleted when you close the shell. If
+you want to automatically assign or modify a variable every time you open a
+shell, put the assignment in your `~/.profile` file.
+
+As an example, let's make an executable script that prints `Hello, world!` and
+add it to the `PATH`. To start, create and navigate to a directory called
+`~/scripts`:
+
+```sh
+mkdir ~/scripts
+cd ~/scripts
+```
+
+Open `hello.sh` in a text editor (for example, `nano hello.sh`), enter the
+following, and save the file:
+
+```sh
+#!/bin/sh
+echo Hello world!
+```
+
+Then make the script executable:
+
+```sh
+chmod +x hello.sh
+```
+
+Try running the script to make sure it works:
+
+```
+./hello.sh
+```
+
+If you want to run the script from any other directory, you'll have to tell the
+shell where to find the script by typing the full path `~/scripts/hello.sh`.
+
+For instance, navigate back to your home directory and try running `hello.sh`
+without the full path:
+
+```sh
+cd ~
+hello.sh
+```
+
+```
+-bash: hello.sh: command not found
+```
+
+The shell is unable to find `hello.sh`. You can tell the shell where to look by
+adding `~/scripts` to the `PATH`. The command is:
+
+```sh
+export PATH="$HOME/scripts:$PATH"
+```
+
+This prepends `~/scripts` (`$HOME/scripts`) and a colon (`:`) to the `PATH`.
+
+:::{caution}
+Be careful not to overwrite the `PATH`, as this can break your shell. Instead,
+prepend or append directories to the `PATH`.
+
+
+If you do accidentally overwrite the `PATH`, you can usually reset it by
+closing and reopening the shell. On a server, you can do this by logging out
+and then logging in again.
+:::
+
+Now try running `hello.sh` again:
+
+```sh
+hello.sh
+```
+```
+Hello world!
+```
+
+As it stands, `~/scripts` will only stay on the `PATH` until the shell is
+closed. You can make the change persistent by adding the `export` command above
+to `~/.profile`. Open `~/.profile` in a text editor and add this line:
+
+```sh
+export PATH="$HOME/scripts:$PATH"
+```
+
+Now `~/scripts` will be on the `PATH` even if you close and reopen the shell.
+
+Besides the `PATH`, there are many other environment variables you might want
+to customize. For instance, you can assign `EDITOR` to specify your preferred
+text editor or assign `R_LIBS_USER` to control where R stores packages. Check
+the documentation for your favorite software to learn more about how they use
+environment variables.
+
+
+<!--
 ### Shell Tips
+-->
 
 ### Other Configuration Files
+
+{numref}`bash` focuses on Bash configuration files, but software such as git,
+tmux, R, Python, and Vim can also be customized through configuration files.
+For software you use frequently, learning to edit the configuration file(s) is
+often a worthwhile investment because allows you to tailor the software to your
+specific needs and workflows.
+
