@@ -205,3 +205,28 @@ Parallel Processing
 
 ### Multi-partition jobs
 
+
+Etiquette
+---------
+
+Using storage responsibly (callback to `du`/`df`)
+
+Using shared storage (if lab/dept has it)
+
+Using `/scratch/`
+
+Compression when uploading/downloading files
+
+
+Project Organization
+--------------------
+
+Callout to reproducible research reader
+
+Keeping files in sync with `rsync`
+
+Keeping files in sync with `git`
+
+General advice about working on servers vs locally
+
+* SSH tunneling for RStudio/Jupyter/VSCode?
