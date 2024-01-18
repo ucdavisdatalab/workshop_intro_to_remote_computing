@@ -358,7 +358,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-s-an-environment">3.1. What’s an Environment?</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installing-software">3.2. Installing Software</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#package-and-environment-managers">3.2.1. Package and Environment Managers</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#farm-modules">3.2.2. Farm Modules</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#uc-davis-hpc-modules">3.2.2. UC Davis HPC Modules</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#micromamba">3.2.3. Micromamba</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#installing-micromamba">3.2.3.1. Installing Micromamba</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-environments">3.2.3.2. Creating Environments</a></li>
@@ -374,8 +374,7 @@ document.write(`
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#environment-variables">3.3.1.2. Environment Variables</a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#shell-tips">3.3.2. Shell Tips</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#other-configuration-files">3.3.3. Other Configuration Files</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#other-configuration-files">3.3.2. Other Configuration Files</a></li>
 </ul>
 </li>
 </ul>
@@ -512,12 +511,12 @@ knowledge.</p>
 flexibility and reproducibility.</p>
 </div>
 </section>
-<section id="farm-modules">
-<h3><span class="section-number">3.2.2. </span>Farm Modules<a class="headerlink" href="#farm-modules" title="Permalink to this headline">#</a></h3>
+<section id="uc-davis-hpc-modules">
+<h3><span class="section-number">3.2.2. </span>UC Davis HPC Modules<a class="headerlink" href="#uc-davis-hpc-modules" title="Permalink to this headline">#</a></h3>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
-<p>This section is specific to Farm. While some other servers and clusters may
-have a similar module system, many do not.</p>
+<p>This section is specific to UC Davis HPC clusters. While some other servers and
+clusters may have a similar module system, many do not.</p>
 </div>
 <p>On most of UC Davis’ HPC clusters, the HPC Core Facility staff maintain a
 collection of ready-to-use virtual environments called <strong>modules</strong>. These are
@@ -683,11 +682,11 @@ files (and check the <code class="docutils literal notranslate"><span class="pre
 </section>
 <section id="creating-environments">
 <h4><span class="section-number">3.2.3.2. </span>Creating Environments<a class="headerlink" href="#creating-environments" title="Permalink to this headline">#</a></h4>
-<p>The <a class="reference external" href="https://mamba.readthedocs.io/en/latest/user_guide/micromamba.html">Micromamba documentation</a> appears to be aimed at users already
-familiar with Conda. If you’re new to environment management or the Conda
-family of tools, you may find the <a class="reference external" href="https://docs.conda.io/projects/conda/en/stable/commands/index.html">Conda documentation</a> more
-helpful for understanding what commands do and how to use them. There’s also a
-<a class="reference external" href="https://docs.conda.io/projects/conda/en/latest/_downloads/843d9e0198f2a193a3484886fa28163c/conda-cheatsheet.pdf">Conda cheat sheet</a>.</p>
+<p>The <a class="reference external" href="https://mamba.readthedocs.io/en/latest/user_guide/micromamba.html">Micromamba documentation</a> is intended for users already familiar with
+Conda. If you’re new to environment management or the Conda family of tools,
+you may find the <a class="reference external" href="https://docs.conda.io/projects/conda/en/stable/commands/index.html">Conda documentation</a> more helpful for
+understanding what commands do and how to use them. There’s also a <a class="reference external" href="https://docs.conda.io/projects/conda/en/latest/_downloads/843d9e0198f2a193a3484886fa28163c/conda-cheatsheet.pdf">Conda cheat
+sheet</a>.</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>In almost all cases, Conda commands are the same as Micromamba commands—just
@@ -814,10 +813,11 @@ we did not request directly—are dependencies.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">create</span></code>, <code class="docutils literal notranslate"><span class="pre">activate</span></code>, and <code class="docutils literal notranslate"><span class="pre">install</span></code> subcommands are fundamental to using
 Micromamba. There are many other subcommands, which you can learn about by
 reading the <a class="reference external" href="https://docs.conda.io/projects/conda/en/stable/commands/index.html">Conda documentation</a>.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
 <p>The ripgrep and <code class="docutils literal notranslate"><span class="pre">fd</span></code> search tools are worth knowing about if you work in the
-command line frequently. Both can help you find files quickly.</p>
+command line frequently. Both can help you find files quickly. They are faster,
+modernized versions of the classic <code class="docutils literal notranslate"><span class="pre">grep</span></code> and <code class="docutils literal notranslate"><span class="pre">find</span></code> tools.</p>
 </div>
 </section>
 <section id="exporting-environments">
@@ -927,14 +927,24 @@ from a <strong>configuration file</strong> when they run. By editing configurati
 you can customize your computing environment to make it do what you want and
 make it more comfortable to use.</p>
 <section id="bash">
-<h3><span class="section-number">3.3.1. </span>Bash<a class="headerlink" href="#bash" title="Permalink to this headline">#</a></h3>
-<p><a class="reference external" href="https://en.wikipedia.org/wiki/Bash_(Unix_shell)">Bash</a> is a <strong>shell</strong>, a programming language and prompt that serves as a
+<span id="id2"></span><h3><span class="section-number">3.3.1. </span>Bash<a class="headerlink" href="#bash" title="Permalink to this headline">#</a></h3>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Bash_(Unix_shell)">Bash</a> is a <strong>shell</strong>: a programming language and prompt that serves as a
 command line interface for computers. Bash is widely used, and is the default
-shell for many Linux distributions and for macOS from 10.3 to 10.15. On
-Windows, Bash is bundled with git as Git Bash. Knowing how to configure Bash
-can make it much easier to work in a terminal. Furthermore, the process of
-configuring Bash is similar to the process of configuring other shells,
-although some filenames and specific commands are different.</p>
+shell for most Linux distributions. Knowing how to configure Bash can make it
+much easier to work in a terminal.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>This section is about configuring Bash, but some POSIX computers default to
+other shells (such as the <a class="reference external" href="https://en.wikipedia.org/wiki/Z_shell">Z Shell (Zsh)</a> or <a class="reference external" href="https://en.wikipedia.org/wiki/Fish_(Unix_shell)">Fish</a>). These shells
+can also be configured, but the files and commands needed to do so may be
+different; see their documentation for details.</p>
+<p>You can check the default shell on a POSIX computer with this command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>echo $SHELL
+</pre></div>
+</div>
+<p>On macOS, the default shell for versions 10.3 through 10.14 is Bash. Beginning
+with version 10.15, the default shell is Zsh.</p>
+</div>
 <p>You can configure Bash by editing the <code class="docutils literal notranslate"><span class="pre">.bashrc</span></code> file in your home directory .
 The <code class="docutils literal notranslate"><span class="pre">.bashrc</span></code> file is a Bash script, meaning it contains commands for Bash and
 its predecessor, the <a class="reference external" href="https://en.wikipedia.org/wiki/Bourne_shell">Bourne shell</a> (<code class="docutils literal notranslate"><span class="pre">sh</span></code>). Go ahead and open up
@@ -955,20 +965,20 @@ but it runs every time you open a Bash shell.</p>
 for every command was a little bit tedious? One way you can customize the shell
 is by creating <strong>aliases</strong> for commands that are long or hard to remember.
 Let’s create an alias <code class="docutils literal notranslate"><span class="pre">mm</span></code> for the <code class="docutils literal notranslate"><span class="pre">micromamba</span></code> command, so that you can just
-type <code class="docutils literal notranslate"><span class="pre">mm</span></code> instead of typing <code class="docutils literal notranslate"><span class="pre">micromamba</span></code>. You can create an alias with the
-<code class="docutils literal notranslate"><span class="pre">alias</span></code> command. Add this code to your <code class="docutils literal notranslate"><span class="pre">.bashrc</span></code>:</p>
+type <code class="docutils literal notranslate"><span class="pre">mm</span></code> instead of typing <code class="docutils literal notranslate"><span class="pre">micromamba</span></code>.</p>
+<p>The command to create an alias is <code class="docutils literal notranslate"><span class="pre">alias</span></code>, followed by a space, the name of the
+alias, an equals sign, and then the aliased command in quotes.</p>
+<p>For example, try adding this code to your <code class="docutils literal notranslate"><span class="pre">.bashrc</span></code>:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">alias</span><span class="w"> </span><span class="nv">mm</span><span class="o">=</span><span class="s1">&#39;micromamba&#39;</span>
 </pre></div>
 </div>
-<p>The <code class="docutils literal notranslate"><span class="pre">alias</span></code> command is always followed by a space, the name of the alias, an
-equals sign, and then the aliased command in quotes.</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
 <p>Be careful to match the spacing and quotes exactly. In Bash, spacing often
 matters and single quotes have a distinct meaning from double quotes.</p>
 </div>
 <p>After adding the <code class="docutils literal notranslate"><span class="pre">alias</span></code> command to <code class="docutils literal notranslate"><span class="pre">.bashrc</span></code>, save and close the file. You can
-make Bash “reload” the settings file by running the file with this command:</p>
+make Bash “reload” the settings in <code class="docutils literal notranslate"><span class="pre">.bashrc</span></code> with this command:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nb">source</span><span class="w"> </span>~/.bashrc
 </pre></div>
 </div>
@@ -989,13 +999,156 @@ ran the <code class="docutils literal notranslate"><span class="pre">source</spa
 </section>
 <section id="environment-variables">
 <h4><span class="section-number">3.3.1.2. </span>Environment Variables<a class="headerlink" href="#environment-variables" title="Permalink to this headline">#</a></h4>
+<p>You can assign variables in your shell just like in most other programming
+languages. Typically, some variables are assigned automatically when the shell
+starts.</p>
+<p>For example, the <code class="docutils literal notranslate"><span class="pre">PATH</span></code> variable contains a colon-separated list of paths where
+the shell should search for commands (software programs). Without <code class="docutils literal notranslate"><span class="pre">PATH</span></code>, you’d
+have to type the full path to every command.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>You can use the <code class="docutils literal notranslate"><span class="pre">which</span></code> command to check where the shell found a command. For
+instance, to check where the <code class="docutils literal notranslate"><span class="pre">git</span></code> command is:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>which<span class="w"> </span>git
+</pre></div>
+</div>
+</div>
+<p>In the shell, the <code class="docutils literal notranslate"><span class="pre">echo</span></code> command prints things, and you can get the value of a
+variable by putting a dollar sign <code class="docutils literal notranslate"><span class="pre">$</span></code> in front of its name. Put these two ideas
+together to print the value of <code class="docutils literal notranslate"><span class="pre">PATH</span></code>:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span><span class="w"> </span><span class="nv">$PATH</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">nick</span><span class="o">/.</span><span class="n">local</span><span class="o">/</span><span class="nb">bin</span><span class="p">:</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="n">sbin</span><span class="p">:</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="nb">bin</span><span class="p">:</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="nb">bin</span>
+</pre></div>
+</div>
+<p>You should see a colon-separated list of directories, like the one above. Some
+of the directories listed will probably be different on your computer.</p>
+<p>You can assign a variable by typing a name, an equals sign (<code class="docutils literal notranslate"><span class="pre">=</span></code>), and then a
+value. The equals sign <em>must not</em> have spaces around it, and if the value
+contains spaces, it must be quoted. By convention, names of shell variables
+should be all uppercase. Here’s how to assign a variable <code class="docutils literal notranslate"><span class="pre">FOO</span></code> with the value
+<code class="docutils literal notranslate"><span class="pre">Hello</span> <span class="pre">world!</span></code>:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nv">FOO</span><span class="o">=</span><span class="s1">&#39;Hello world!&#39;</span>
+</pre></div>
+</div>
+<p>Try printing <code class="docutils literal notranslate"><span class="pre">FOO</span></code> with <code class="docutils literal notranslate"><span class="pre">echo</span></code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can delete a variable with the <code class="docutils literal notranslate"><span class="pre">unset</span></code> command. For instance, to delete
+<code class="docutils literal notranslate"><span class="pre">FOO</span></code>, run:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nb">unset</span><span class="w"> </span>FOO
+</pre></div>
+</div>
+<p>If you try this, make sure to reassign <code class="docutils literal notranslate"><span class="pre">FOO</span></code> again, as we’ll use it in a
+subsequent example.</p>
+</div>
+<p>An <strong>environment variable</strong> is a shell variable that’s shared with other
+programs (including other shells). Environment variables are typically used to
+configure the computing environment. As it turns out, <code class="docutils literal notranslate"><span class="pre">PATH</span></code> is an environment
+variable.</p>
+<p>You can get a list of all environment variables with the <code class="docutils literal notranslate"><span class="pre">env</span></code> command. Here’s
+an example of a few lines of output from the command:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>env
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SHELL</span><span class="o">=/</span><span class="n">usr</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">bash</span>
+<span class="n">SESSION_MANAGER</span><span class="o">=</span><span class="n">local</span><span class="o">/</span><span class="n">zen</span><span class="p">:</span><span class="o">@/</span><span class="n">tmp</span><span class="o">/.</span><span class="n">ICE</span><span class="o">-</span><span class="n">unix</span><span class="o">/</span><span class="mi">579</span><span class="p">,</span><span class="n">unix</span><span class="o">/</span><span class="n">zen</span><span class="p">:</span><span class="o">/</span><span class="n">tmp</span><span class="o">/.</span><span class="n">ICE</span><span class="o">-</span><span class="n">unix</span><span class="o">/</span><span class="mi">579</span>
+<span class="n">R_PROFILE_USER</span><span class="o">=/</span><span class="n">home</span><span class="o">/</span><span class="n">nick</span><span class="o">/.</span><span class="n">config</span><span class="o">/</span><span class="n">R</span><span class="o">/</span><span class="n">rprofile</span>
+<span class="n">LESSHISTFILE</span><span class="o">=/</span><span class="n">home</span><span class="o">/</span><span class="n">nick</span><span class="o">/.</span><span class="n">config</span><span class="o">/</span><span class="n">less</span><span class="o">/</span><span class="n">history</span>
+<span class="n">COLORTERM</span><span class="o">=</span><span class="n">truecolor</span>
+</pre></div>
+</div>
+<p>On your computer, you’ll probably see some environment variables with different
+names and values.</p>
+<p>Shell variables are not automatically environment variables. Notice that the
+variable <code class="docutils literal notranslate"><span class="pre">FOO</span></code>, created above, is not in the output from <code class="docutils literal notranslate"><span class="pre">env</span></code>. To assign an
+environment variable, you can use the <code class="docutils literal notranslate"><span class="pre">export</span></code> command. To make <code class="docutils literal notranslate"><span class="pre">FOO</span></code> an
+environment variable, run:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span>FOO
+</pre></div>
+</div>
+<p>Now <code class="docutils literal notranslate"><span class="pre">FOO</span></code> is an environment variable and will appear in the output of <code class="docutils literal notranslate"><span class="pre">env</span></code>.</p>
+<p>Variables you assign interactively will be deleted when you close the shell. If
+you want to automatically assign or modify a variable every time you open a
+shell, put the assignment in your <code class="docutils literal notranslate"><span class="pre">~/.profile</span></code> file.</p>
+<p>As an example, let’s make an executable script that prints <code class="docutils literal notranslate"><span class="pre">Hello,</span> <span class="pre">world!</span></code> and
+add it to the <code class="docutils literal notranslate"><span class="pre">PATH</span></code>. To start, create and navigate to a directory called
+<code class="docutils literal notranslate"><span class="pre">~/scripts</span></code>:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>~/scripts
+<span class="nb">cd</span><span class="w"> </span>~/scripts
+</pre></div>
+</div>
+<p>Open <code class="docutils literal notranslate"><span class="pre">hello.sh</span></code> in a text editor (for example, <code class="docutils literal notranslate"><span class="pre">nano</span> <span class="pre">hello.sh</span></code>), enter the
+following, and save the file:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/sh</span>
+<span class="nb">echo</span><span class="w"> </span>Hello<span class="w"> </span>world!
+</pre></div>
+</div>
+<p>Then make the script executable:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>chmod<span class="w"> </span>+x<span class="w"> </span>hello.sh
+</pre></div>
+</div>
+<p>Try running the script to make sure it works:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">hello</span><span class="o">.</span><span class="n">sh</span>
+</pre></div>
+</div>
+<p>If you want to run the script from any other directory, you’ll have to tell the
+shell where to find the script by typing the full path <code class="docutils literal notranslate"><span class="pre">~/scripts/hello.sh</span></code>.</p>
+<p>For instance, navigate back to your home directory and try running <code class="docutils literal notranslate"><span class="pre">hello.sh</span></code>
+without the full path:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~
+hello.sh
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">-</span><span class="n">bash</span><span class="p">:</span> <span class="n">hello</span><span class="o">.</span><span class="n">sh</span><span class="p">:</span> <span class="n">command</span> <span class="ow">not</span> <span class="n">found</span>
+</pre></div>
+</div>
+<p>The shell is unable to find <code class="docutils literal notranslate"><span class="pre">hello.sh</span></code>. You can tell the shell where to look by
+adding <code class="docutils literal notranslate"><span class="pre">~/scripts</span></code> to the <code class="docutils literal notranslate"><span class="pre">PATH</span></code>. The command is:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/scripts:</span><span class="nv">$PATH</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+<p>This prepends <code class="docutils literal notranslate"><span class="pre">~/scripts</span></code> (<code class="docutils literal notranslate"><span class="pre">$HOME/scripts</span></code>) and a colon (<code class="docutils literal notranslate"><span class="pre">:</span></code>) to the <code class="docutils literal notranslate"><span class="pre">PATH</span></code>.</p>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>Be careful not to overwrite the <code class="docutils literal notranslate"><span class="pre">PATH</span></code>, as this can break your shell. Instead,
+prepend or append directories to the <code class="docutils literal notranslate"><span class="pre">PATH</span></code>.</p>
+<p>If you do accidentally overwrite the <code class="docutils literal notranslate"><span class="pre">PATH</span></code>, you can usually reset it by
+closing and reopening the shell. On a server, you can do this by logging out
+and then logging in again.</p>
+</div>
+<p>Now try running <code class="docutils literal notranslate"><span class="pre">hello.sh</span></code> again:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>hello.sh
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Hello world!
+</pre></div>
+</div>
+<p>As it stands, <code class="docutils literal notranslate"><span class="pre">~/scripts</span></code> will only stay on the <code class="docutils literal notranslate"><span class="pre">PATH</span></code> until the shell is
+closed. You can make the change persistent by adding the <code class="docutils literal notranslate"><span class="pre">export</span></code> command above
+to <code class="docutils literal notranslate"><span class="pre">~/.profile</span></code>. Open <code class="docutils literal notranslate"><span class="pre">~/.profile</span></code> in a text editor and add this line:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/scripts:</span><span class="nv">$PATH</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+<p>Now <code class="docutils literal notranslate"><span class="pre">~/scripts</span></code> will be on the <code class="docutils literal notranslate"><span class="pre">PATH</span></code> even if you close and reopen the shell.</p>
+<p>Besides the <code class="docutils literal notranslate"><span class="pre">PATH</span></code>, there are many other environment variables you might want
+to customize. For instance, you can assign <code class="docutils literal notranslate"><span class="pre">EDITOR</span></code> to specify your preferred
+text editor or assign <code class="docutils literal notranslate"><span class="pre">R_LIBS_USER</span></code> to control where R stores packages. Check
+the documentation for your favorite software to learn more about how they use
+environment variables.</p>
+<!--
+### Shell Tips
+-->
 </section>
-</section>
-<section id="shell-tips">
-<h3><span class="section-number">3.3.2. </span>Shell Tips<a class="headerlink" href="#shell-tips" title="Permalink to this headline">#</a></h3>
 </section>
 <section id="other-configuration-files">
-<h3><span class="section-number">3.3.3. </span>Other Configuration Files<a class="headerlink" href="#other-configuration-files" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">3.3.2. </span>Other Configuration Files<a class="headerlink" href="#other-configuration-files" title="Permalink to this headline">#</a></h3>
+<p><a class="reference internal" href="#bash"><span class="std std-numref">Section 3.3.1</span></a> focuses on Bash configuration files, but software such as git,
+tmux, R, Python, and Vim can also be customized through configuration files.
+For software you use frequently, learning to edit the configuration file(s) is
+often a worthwhile investment because allows you to tailor the software to your
+specific needs and workflows.</p>
 </section>
 </section>
 </section>
@@ -1070,7 +1223,7 @@ ran the <code class="docutils literal notranslate"><span class="pre">source</spa
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-s-an-environment">3.1. What’s an Environment?</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installing-software">3.2. Installing Software</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#package-and-environment-managers">3.2.1. Package and Environment Managers</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#farm-modules">3.2.2. Farm Modules</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#uc-davis-hpc-modules">3.2.2. UC Davis HPC Modules</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#micromamba">3.2.3. Micromamba</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#installing-micromamba">3.2.3.1. Installing Micromamba</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-environments">3.2.3.2. Creating Environments</a></li>
@@ -1086,8 +1239,7 @@ ran the <code class="docutils literal notranslate"><span class="pre">source</spa
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#environment-variables">3.3.1.2. Environment Variables</a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#shell-tips">3.3.2. Shell Tips</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#other-configuration-files">3.3.3. Other Configuration Files</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#other-configuration-files">3.3.2. Other Configuration Files</a></li>
 </ul>
 </li>
 </ul>

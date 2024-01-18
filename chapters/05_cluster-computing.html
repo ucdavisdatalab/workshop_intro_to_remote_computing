@@ -331,7 +331,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -347,6 +349,25 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-slurm">5.1. What is Slurm?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#partition-info-and-monitoring">5.2. Partition Info and Monitoring</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#running-jobs">5.3. Running Jobs</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#real-time-interactions">5.3.1. Real Time Interactions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#submitting-to-a-queue">5.3.2. Submitting to a Queue</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parallel-processing">5.4. Parallel Processing</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-thread-jobs">5.4.1. Multi-thread jobs</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-partition-jobs">5.4.2. Multi-partition jobs</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -361,9 +382,183 @@ document.write(`
 <div class="admonition-learning-objectives admonition">
 <p class="admonition-title">Learning Objectives</p>
 <ul class="simple">
-<li><p>Objective 1…</p></li>
+<li><p>Explain how partitioning and job scheduling works</p></li>
+<li><p>Know the basics of submitting and monitoring jobs with Slurm</p></li>
+<li><p>Run compute-intensive jobs interactively</p></li>
+<li><p>Submit and run compute-intensive jobs to a task queue</p></li>
+<li><p>Explain what parallel processing is</p></li>
+<li><p>Know the basics of writing code for multi-thread and multi-partition
+processes</p></li>
 </ul>
 </div>
+<section id="what-is-slurm">
+<h2><span class="section-number">5.1. </span>What is Slurm?<a class="headerlink" href="#what-is-slurm" title="Permalink to this headline">#</a></h2>
+<p>Terms to define: partition, node (+ head node), workload manager, job priority</p>
+</section>
+<section id="partition-info-and-monitoring">
+<h2><span class="section-number">5.2. </span>Partition Info and Monitoring<a class="headerlink" href="#partition-info-and-monitoring" title="Permalink to this headline">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">sinfo</span></code>: partition and node information</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ squeue --summarize
+PARTITION  AVAIL  TIMELIMIT   NODES(A/I/O/T) NODELIST
+low2          up    4:00:00       16/43/1/60 cpu-3-[50-57,62-69],&lt;...&gt;
+med2          up 150-00:00:       16/43/1/60 cpu-3-[50-57,62-69],&lt;...&gt;
+high2         up 150-00:00:       16/43/1/60 cpu-3-[50-57,62-69],&lt;...&gt;
+low           up    4:00:00      4/71/26/101 cpu-8-[62-77,86-96],&lt;...&gt;
+med*          up 150-00:00:      4/71/26/101 cpu-8-[62-77,86-96],&lt;...&gt;
+high          up 150-00:00:      4/71/26/101 cpu-8-[62-77,86-96],&lt;...&gt;
+bigmeml       up    4:00:00          2/3/4/9 bigmem[1-8,10]
+bigmemm       up 150-00:00:          2/3/4/9 bigmem[1-8,10]
+bigmemh       up 150-00:00:          1/3/4/8 bigmem[1-8]
+bigmemht      up 150-00:00:          1/0/0/1 bigmem10
+bit150h       up 150-00:00:          1/0/0/1 bigmem9
+ecl243        up 150-00:00:          1/0/0/1 bigmem9
+bml           up    4:00:00       11/11/2/24 bm[1-24]
+bmm           up 150-00:00:       11/11/2/24 bm[1-24]
+bmh           up 150-00:00:       11/11/2/24 bm[1-24]
+gpul          up    4:00:00          4/0/0/4 gpu-4-[54,56],gpu-5-[50,58]
+bgpu          up 150-00:00:          2/0/0/2 gpu-4-54,gpu-12-92
+gpuh          up 7-00:00:00          2/0/0/2 gpu-5-[50,58]
+gpum          up 7-00:00:00          2/0/0/2 gpu-5-[50,58]
+gpu-a100-h    up 14-00:00:0          1/0/0/1 gpu-4-56
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">squeue</span></code>: partition and node availability</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ squeue | head -n 10
+  JOBID PARTITION     NAME  USER ACCOUNT ST        TIME   TIME_LEFT NODES CPU MIN_ME NODELIST(REASON)
+9375115      bgpu     bash user1   acct1  R     7:42:28     2:17:32     1 6   32G    gpu-4-54
+9375105      bgpu  UserJob user2   acct1  R     8:21:50  7-03:38:10     1 6   200G   gpu-12-92
+9297800   bigmemh   sbatch user3   acct2  R  9-17:58:59     6:01:01     1 16  120G   bigmem8
+6173446   bigmemm McL-hmm- user4   acct3 PD        0:00  2-00:00:00     1 4   8G     (launch failed requeued held)
+9375794   bigmemm     bash user5   acct4  R     5:13:36  3-18:46:24     1 16  40G    bigmem10
+9377337   bigmemm raNTallg user6   acct5  R        0:42 20-19:59:18     1 2   4G     bigmem10
+9377130   bigmemm raNTallg user6   acct5  R       37:10 20-19:22:50     1 2   4G     bigmem10
+9376376   bigmemm raallga1 user6   acct5  R     1:38:22 20-18:21:38     1 2   4G     bigmem10
+9318810       bmh   censor user7   acct6  R  4-03:19:08  5-20:40:52     1 4   20G    bm20
+</pre></div>
+</div>
+</section>
+<section id="running-jobs">
+<h2><span class="section-number">5.3. </span>Running Jobs<a class="headerlink" href="#running-jobs" title="Permalink to this headline">#</a></h2>
+<p>Once you know which partitions and notes are available, you can submit a
+request to <strong>allocate</strong> some space to do your work. There are two ways to do
+this: in real time, or by adding your job to a queue.</p>
+<section id="real-time-interactions">
+<h3><span class="section-number">5.3.1. </span>Real Time Interactions<a class="headerlink" href="#real-time-interactions" title="Permalink to this headline">#</a></h3>
+<p>Running a job in real time puts you into an environment that resembles any
+other command line interface. It’s an ideal way to develop and test code with
+the added space and compute power of a big partition.</p>
+<p>Use the <code class="docutils literal notranslate"><span class="pre">srun</span></code> command to request an interactive job on a partition. This
+command has a number of parameters, so we encourage you to consult its <code class="docutils literal notranslate"><span class="pre">man</span></code>
+page; but for our purposes, the most important ones include a parameter that
+specifies which partition you want to work on and how much time you’d like for
+doing your work.</p>
+<p>The command below uses <code class="docutils literal notranslate"><span class="pre">srun</span></code> to request 60 minutes for a node on the <code class="docutils literal notranslate"><span class="pre">med</span></code>
+partition.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ srun --partition=med --time=60 --pty /bin/bash -il
+srun: job 9377346 queued and waiting for resources
+srun: job 9377346 has been allocated resources
+Unloading openmpi/4.1.5
+Unloading slurm/23.02.7
+Loading slurm/23.02.7
+Loading openmpi/4.1.5
+</pre></div>
+</div>
+<p>In addition to <code class="docutils literal notranslate"><span class="pre">--partition</span></code> and <code class="docutils literal notranslate"><span class="pre">--time</span></code>, the four other pieces of this
+command specify how you want to interact on this node. They specify that you
+want to use a terminal for interactions (<code class="docutils literal notranslate"><span class="pre">--pty</span></code>), that you want to load Bash
+as a shell for handling those interactions (<code class="docutils literal notranslate"><span class="pre">/bin/bash</span></code>), that you want to type
+commands (<code class="docutils literal notranslate"><span class="pre">-i</span></code>), and that you’re requesting all of this for an immediate job
+(<code class="docutils literal notranslate"><span class="pre">-l</span></code>).</p>
+<div class="admonition-don-t-want-to-type-that-sequence-for-every-job-request admonition">
+<p class="admonition-title">Don’t want to type that sequence for every job request?</p>
+<p>Consider aliasing it to a new command in your <code class="docutils literal notranslate"><span class="pre">~/.bashrc</span></code> file. If you’d like
+to change parameters for different requests, you might create a Bash function
+instead.</p>
+</div>
+<p>The result of the above combination of parameters is a command line interface,
+just like the one you use to interact with on your own computer or other
+virtual machines. Except, now you’re on a node, deep in the computing cluster
+and equipped with extra memory and compute power.</p>
+<p>If you’d like to see which node you’re on, use <code class="docutils literal notranslate"><span class="pre">hostname</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ hostname
+cpu-8-87.farm.hpc.ucdavis.edu
+</pre></div>
+</div>
+<p>Or, use <code class="docutils literal notranslate"><span class="pre">squeue</span></code> to see more information about your session:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ squeue --me
+  JOBID PARTITION     NAME     USER  ACCOUNT ST        TIME   TIME_LEFT NODES CPU MIN_ME NODELIST(REASON)
+9377346       med     bash  datalab datalabg  R        0:07       59:53     1 2   2000M  cpu-8-87
+</pre></div>
+</div>
+<p>The above should align with your <code class="docutils literal notranslate"><span class="pre">srun</span></code> request, though note the extra columns:
+with <code class="docutils literal notranslate"><span class="pre">srun</span></code>, it’s possible to request multiple nodes, change the memory
+allocation, and more. We will discuss parameters those below.</p>
+<p>From here, you’re free to do your work: write code, run scripts, move data
+around—anything. When you’re done, simply use <code class="docutils literal notranslate"><span class="pre">logout</span></code> to return to the
+head node:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ logout
+$ hostname
+farm
+</pre></div>
+</div>
+</section>
+<section id="submitting-to-a-queue">
+<h3><span class="section-number">5.3.2. </span>Submitting to a Queue<a class="headerlink" href="#submitting-to-a-queue" title="Permalink to this headline">#</a></h3>
+<p>While <code class="docutils literal notranslate"><span class="pre">srun</span></code> gives you the interactivity of any other command line interface,
+not everything needs to be run in these real time interactions. This is
+especially the case with big jobs, like training a large model: there would be
+no reason to keep a terminal open while the model trained; instead, you would
+want to kick off the process and simply wait for the results, which could take
+hours, if not days.</p>
+<p>In this and similar scenarios, Slurm allows you to submit a non-interactive
+job via <code class="docutils literal notranslate"><span class="pre">sbatch</span></code>. This command adds that job to a queue and runs it when the
+partition becomes available. Technically it’s possible to write out the details
+of that job on the command line, but it’s far more common to create a <strong>batch
+script</strong>, which specifies the parameters of your allocation request as well as
+the operations required to run the job. You submit this script to <code class="docutils literal notranslate"><span class="pre">sbatch</span></code> and
+the program will follow those operations when it’s your job’s turn.</p>
+<p>A batch script is written in Bash. It has two parts: 1) a header, which defines
+the parameters of your job (all prepended with <code class="docutils literal notranslate"><span class="pre">#SBATCH</span></code>), and 2) the
+operations you’d like <code class="docutils literal notranslate"><span class="pre">sbatch</span></code> to follow (all written in Bash). The following
+example uses our <code class="docutils literal notranslate"><span class="pre">beacon.{py,R,sh}</span></code> script from the previous chapter to print a
+message continuously to a file via <code class="docutils literal notranslate"><span class="pre">sbatch</span></code>.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash -login</span>
+<span class="c1">#SBATCH --partition=med</span>
+<span class="c1">#SBATCH --job-name=beacon</span>
+<span class="c1">#SBATCH --time=0-12:00:00</span>
+<span class="c1">#SBATCH --nodes=1</span>
+<span class="c1">#SBATCH --mem=2MB</span>
+<span class="c1">#SBATCH --ntasks=1</span>
+<span class="c1">#SBATCH --cpus-per-task=4</span>
+<span class="c1">#SBATCH -e /path/to/log/%x_%j.err</span>
+<span class="c1">#SBATCH -o /path/to/log/%x_%j.out</span>
+<span class="c1">#SBATCH --mail-type=ALL</span>
+<span class="c1">#SBATCH --mail-user=&lt;you@email.com&gt;</span>
+
+<span class="nb">set</span><span class="w"> </span>-e
+<span class="nb">set</span><span class="w"> </span>-x
+
+<span class="nb">cd</span><span class="w"> </span>~
+python3<span class="w"> </span>beacon.py<span class="w"> </span>DataLab<span class="w"> </span>&gt;<span class="w"> </span>file.txt
+
+env<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>SLURM
+scontrol<span class="w"> </span>show<span class="w"> </span>job<span class="w"> </span><span class="si">${</span><span class="nv">SLURM_JOB_ID</span><span class="si">}</span>
+sstat<span class="w"> </span>--format<span class="w"> </span><span class="s1">&#39;JobId,MaxRSS,AveCPU&#39;</span><span class="w"> </span>-P<span class="w"> </span><span class="si">${</span><span class="nv">SLUR_JOB_ID</span><span class="si">}</span>.batch
+</pre></div>
+</div>
+<p>Let’s walk through the components…</p>
+<p><code class="docutils literal notranslate"><span class="pre">scancel</span></code></p>
+</section>
+</section>
+<section id="parallel-processing">
+<h2><span class="section-number">5.4. </span>Parallel Processing<a class="headerlink" href="#parallel-processing" title="Permalink to this headline">#</a></h2>
+<section id="multi-thread-jobs">
+<h3><span class="section-number">5.4.1. </span>Multi-thread jobs<a class="headerlink" href="#multi-thread-jobs" title="Permalink to this headline">#</a></h3>
+</section>
+<section id="multi-partition-jobs">
+<h3><span class="section-number">5.4.2. </span>Multi-partition jobs<a class="headerlink" href="#multi-partition-jobs" title="Permalink to this headline">#</a></h3>
+</section>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -415,6 +610,31 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-slurm">5.1. What is Slurm?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#partition-info-and-monitoring">5.2. Partition Info and Monitoring</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#running-jobs">5.3. Running Jobs</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#real-time-interactions">5.3.1. Real Time Interactions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#submitting-to-a-queue">5.3.2. Submitting to a Queue</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parallel-processing">5.4. Parallel Processing</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-thread-jobs">5.4.1. Multi-thread jobs</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-partition-jobs">5.4.2. Multi-partition jobs</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
