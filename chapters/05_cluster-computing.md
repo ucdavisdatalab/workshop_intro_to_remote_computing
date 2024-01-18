@@ -23,7 +23,7 @@ Partition Info and Monitoring
 `sinfo`: partition and node information
 
 ```
-$ squeue --summarize
+$ sinfo --summarize
 PARTITION  AVAIL  TIMELIMIT   NODES(A/I/O/T) NODELIST
 low2          up    4:00:00       16/43/1/60 cpu-3-[50-57,62-69],<...>
 med2          up 150-00:00:       16/43/1/60 cpu-3-[50-57,62-69],<...>
@@ -97,21 +97,28 @@ Loading openmpi/4.1.5
 
 In addition to `--partition` and `--time`, the four other pieces of this
 command specify how you want to interact on this node. They specify that you
-want to use a terminal for interactions (`--pty`), that you want to load Bash
-as a shell for handling those interactions (`/bin/bash`), that you want to type
-commands (`-i`), and that you're requesting all of this for an immediate job
-(`-l`).
+want to...
++ Use a terminal for interactions (`--pty`)
++ Load Bash as a shell for handling those interactions (`/bin/bash`)
++ Type commands (`-i`)
++ Run your job immediately (`-l`)
 
 :::{admonition} Don't want to type that sequence for every job request?
-Consider aliasing it to a new command in your `~/.bashrc` file. If you'd like
-to change parameters for different requests, you might create a Bash function
-instead.
+Consider aliasing it to a new command in your `~/.bashrc` file. That might look
+like the following:
+
+```sh
+alias start_cpu_session='srun --partition=med --time=60 --pty /bin/bash -il'
+```
+
+If you'd like to change parameters for different requests, you might create a
+Bash function instead.
 :::
 
-The result of the above combination of parameters is a command line interface,
-just like the one you use to interact with on your own computer or other
-virtual machines. Except, now you're on a node, deep in the computing cluster
-and equipped with extra memory and compute power.
+The result of the above parameters is a command line interface, just like the
+one you use to interact with on your own computer or other virtual machines.
+Except, now you're on a node, deep in the computing cluster and equipped with
+extra memory and compute power.
 
 If you'd like to see which node you're on, use `hostname`:
 
@@ -124,13 +131,13 @@ Or, use `squeue` to see more information about your session:
 
 ```
 $ squeue --me
-  JOBID PARTITION     NAME     USER  ACCOUNT ST        TIME   TIME_LEFT NODES CPU MIN_ME NODELIST(REASON)
-9377346       med     bash  datalab datalabg  R        0:07       59:53     1 2   2000M  cpu-8-87
+  JOBID PARTITION NAME    USER  ACCOUNT ST TIME TIME_LEFT NODES CPU MIN_ME NODELIST(REASON)
+9377346       med bash datalab datalabg  R 0:07     59:53     1 2   2000M  cpu-8-87
 ```
 
 The above should align with your `srun` request, though note the extra columns:
 with `srun`, it's possible to request multiple nodes, change the memory
-allocation, and more. We will discuss parameters those below.
+allocation, and more. We will discuss more of these parameters below.
 
 From here, you're free to do your work: write code, run scripts, move data
 around---anything. When you're done, simply use `logout` to return to the
@@ -151,19 +158,23 @@ no reason to keep a terminal open while the model trained; instead, you would
 want to kick off the process and simply wait for the results, which could take
 hours, if not days.
 
-In this and similar scenarios, Slurm allows you to submit a non-interactive
-job via `sbatch`. This command adds that job to a queue and runs it when the
-partition becomes available. Technically it's possible to write out the details
-of that job on the command line, but it's far more common to create a **batch
-script**, which specifies the parameters of your allocation request as well as
-the operations required to run the job. You submit this script to `sbatch` and
-the program will follow those operations when it's your job's turn.
+A terminal multiplexer like `tmux` would be one way to keep a session running
+in a detached state while you go about your day, but Slurm also allows you to
+submit a non-interactive job via `sbatch`. This command adds that job to a
+queue and runs it when the partition becomes available. Technically it's
+possible to write out the details of that job on the command line, but it's
+easier to create a **batch script** that specifies the parameters of your
+allocation request as well as the operations required to run the job. You
+submit this script to `sbatch` and the program will follow those operations
+when it's your job's turn.
 
-A batch script is written in Bash. It has two parts: 1) a header, which defines
-the parameters of your job (all prepended with `#SBATCH`), and 2) the
-operations you'd like `sbatch` to follow (all written in Bash). The following
-example uses our `beacon.{py,R,sh}` script from the previous chapter to print a
-message continuously to a file via `sbatch`.
+A batch script is written in Bash. It has two parts:
+1. A header, which defines the parameters of your job (all prepended with
+   `#SBATCH`)
+2. The operations you'd like `sbatch` to follow (all written in Bash)
+
+The following example uses our `beacon.{py,R,sh}` script from the previous
+chapter to print a message continuously to a file via `sbatch`.
 
 ```sh
 #!/bin/bash -login
@@ -171,9 +182,9 @@ message continuously to a file via `sbatch`.
 #SBATCH --job-name=beacon
 #SBATCH --time=0-12:00:00
 #SBATCH --nodes=1
-#SBATCH --mem=2MB
+#SBATCH --mem=10MB
 #SBATCH --ntasks=1
-#SBATCH --cpus-per-task=4
+#SBATCH --cpus-per-task=1
 #SBATCH -e /path/to/log/%x_%j.err
 #SBATCH -o /path/to/log/%x_%j.out
 #SBATCH --mail-type=ALL
@@ -182,7 +193,7 @@ message continuously to a file via `sbatch`.
 set -e
 set -x
 
-cd ~
+cd ~/beacon
 python3 beacon.py DataLab > file.txt
 
 env | grep SLURM
@@ -190,21 +201,41 @@ scontrol show job ${SLURM_JOB_ID}
 sstat --format 'JobId,MaxRSS,AveCPU' -P ${SLUR_JOB_ID}.batch
 ```
 
-Let's walk through the components...
-
+Let's walk through the components.
+1. First, this script contains a shebang, which tells `sbatch` to use Bash and
+   your user environment
+2. Next come the `sbatch` **directives**. These are the parameters of your
+   request, which are exactly the same parameters you would use to use `srun`.
+   A few are worth noting in more detail:
+   + Each batch job has a **job name**, which you specify with `--job-name`
+   + Using `--mem` specifies how much memory you need for your job
+   + The `--ntasks` command tells Slurm whether you would like to run multiple
+     parts of your script simultaneously
+   + Setting a value for `--cpus-per-task` specifies how many CPU cores each
+     task should use
+   + The `-e` command redirects any error messages to a file for logging
+     purposes. Above, `%x_%j` formats the error file as `job-name_job-id.err`
+   + The `-o` command redirects any output from your job to a file. As with the
+     error file, the format of the file name is `job-name_job-id.out`
+   + Setting `--mail-type` requests job updates from Slurm
+   + Those updates will go to your email address, which you set with
+     `--mail-user`
+3. With the directives declared, we set two more environment variables:
+   + Setting `-e` ensures that the script will exit if a command fails
+   + Setting `-x` prints each command and its arguments to the `.err` file for
+     your job (this is helpful for debugging purposes)
+4. Next comes the actual job. In this portion of the script, Bash goes to a
+   directory `~/beacon` and then calls Python on `beacon.py`. The output is
+   sent to a file
+5. The last portion is all logging:
+   + We retrieve the environment information from Slurm with `env | grep SLURM`
+   + We use that information to display detailed information about our job with
+     `scontrol ...`
+   + And finally, we plug job information into a Slurm command, `sstat`, which
+     tells us information about how much memory and compute power the job used
 
 
 `scancel`
-
-
-Parallel Processing
--------------------
-
-### Multi-thread jobs
-
-
-### Multi-partition jobs
-
 
 Etiquette
 ---------
@@ -216,6 +247,17 @@ Using shared storage (if lab/dept has it)
 Using `/scratch/`
 
 Compression when uploading/downloading files
+
+
+
+Parallel Processing
+-------------------
+
+### Multi-thread jobs
+
+
+### Multi-partition jobs
+
 
 
 Project Organization
