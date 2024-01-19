@@ -20,7 +20,13 @@ Terms to define: partition, node (+ head node), workload manager, job priority
 Partition Info and Monitoring
 -----------------------------
 
-`sinfo`: partition and node information
+HPC is a shared space with many different components. Given this scope, it's
+helpful to get information about the overall system before diving into a
+specific job.
+
+Use `sinfo` to list available partitions, their nodes, and the maximum time you
+can request for a job. This command will also show you whether partitions are
+up and running.
 
 ```
 $ sinfo --summarize
@@ -47,7 +53,15 @@ gpum          up 7-00:00:00          2/0/0/2 gpu-5-[50,58]
 gpu-a100-h    up 14-00:00:0          1/0/0/1 gpu-4-56
 ```
 
-`squeue`: partition and node availability
+The fourth column in `sinfo` shows available nodes, idle nodes, nodes running a
+job, and the total number of nodes on a partition. That's a decent overview,
+but detailed information about specific nodes is also available with `squeue`.
+Think of the latter command as the Slurm equivalent to `top` or `htop`. It will
+show you information about all the jobs, the users running them, and the status
+of those jobs.
+
+On big clusters, the output of `squeue` can get be quite long. Below, we use
+`head` to take only the first 10 rows.
 
 ```
 $ squeue | head -n 10
@@ -63,6 +77,24 @@ $ squeue | head -n 10
 9318810       bmh   censor user7   acct6  R  4-03:19:08  5-20:40:52     1 4   20G    bm20
 ```
 
+This output includes a lot of information. The following table breaks it out
+into individual components:
+
+| Column    | Explanation                                                         |
+|-----------|---------------------------------------------------------------------|
+| JOBID     | Unique id for the job                                               |
+| PARTITION | Which partion a job is running on                                   |
+| NAME      | Name of the job                                                     |
+| USER      | Name of the user running the job                                    |
+| ACCOUNT   | The HPC account to which this user belongs                          |
+| ST        | Job status; `R` is "running", `PD` is "pending", `S` is "suspended" |
+| TIME      | Total time of the job thus far                                      |
+| TIME_LEFT | Time left on the request                                            |
+| NODES     | Number of nodes this job uses                                       |
+| CPU       | Number of CPU cores this job uses                                   |
+| MIN_ME    | The job memory                                                      |
+| NODELIST  | Which node the job is running on                                    |
+
 Running Jobs
 ------------
 
@@ -77,10 +109,10 @@ other command line interface. It's an ideal way to develop and test code with
 the added space and compute power of a big partition.
 
 Use the `srun` command to request an interactive job on a partition. This
-command has a number of parameters, so we encourage you to consult its `man`
-page; but for our purposes, the most important ones include a parameter that
-specifies which partition you want to work on and how much time you'd like for
-doing your work.
+command has a large number of parameters, so we encourage you to consult its
+`man` page; but the purposes of introducing it, the most important parameters
+include one that specifies which partition you want to work on and how much
+time you'd like for doing your work.
 
 The command below uses `srun` to request 60 minutes for a node on the `med`
 partition.
@@ -111,7 +143,7 @@ like the following:
 alias start_cpu_session='srun --partition=med --time=60 --pty /bin/bash -il'
 ```
 
-If you'd like to change parameters for different requests, you might create a
+If you'd like to change parameters for different requests, you could create a
 Bash function instead.
 :::
 
@@ -127,7 +159,8 @@ $ hostname
 cpu-8-87.farm.hpc.ucdavis.edu
 ```
 
-Or, use `squeue` to see more information about your session:
+Or, use `squeue` to see more information about your session. Send the command
+the `--me` flag to return your jobs.
 
 ```
 $ squeue --me
@@ -154,7 +187,7 @@ farm
 While `srun` gives you the interactivity of any other command line interface,
 not everything needs to be run in these real time interactions. This is
 especially the case with big jobs, like training a large model: there would be
-no reason to keep a terminal open while the model trained; instead, you would
+no reason to keep a terminal open while the model trained. Instead, you would
 want to kick off the process and simply wait for the results, which could take
 hours, if not days.
 
@@ -168,10 +201,12 @@ allocation request as well as the operations required to run the job. You
 submit this script to `sbatch` and the program will follow those operations
 when it's your job's turn.
 
-A batch script is written in Bash. It has two parts:
-1. A header, which defines the parameters of your job (all prepended with
-   `#SBATCH`)
-2. The operations you'd like `sbatch` to follow (all written in Bash)
+A batch script is written in Bash and (typically) saved to a file with a `.sh`
+extension. It has two parts:
+1. A header, which defines the parameters of your job; you should prepend every
+   parameter with `#SBATCH`
+2. The operations you'd like `sbatch` to follow; think of these like command
+   line instructions
 
 The following example uses our `beacon.{py,R,sh}` script from the previous
 chapter to print a message continuously to a file via `sbatch`.
@@ -201,41 +236,79 @@ scontrol show job ${SLURM_JOB_ID}
 sstat --format 'JobId,MaxRSS,AveCPU' -P ${SLUR_JOB_ID}.batch
 ```
 
-Let's walk through the components.
-1. First, this script contains a shebang, which tells `sbatch` to use Bash and
-   your user environment
-2. Next come the `sbatch` **directives**. These are the parameters of your
-   request, which are exactly the same parameters you would use to use `srun`.
-   A few are worth noting in more detail:
-   + Each batch job has a **job name**, which you specify with `--job-name`
-   + Using `--mem` specifies how much memory you need for your job
-   + The `--ntasks` command tells Slurm whether you would like to run multiple
-     parts of your script simultaneously
-   + Setting a value for `--cpus-per-task` specifies how many CPU cores each
-     task should use
-   + The `-e` command redirects any error messages to a file for logging
-     purposes. Above, `%x_%j` formats the error file as `job-name_job-id.err`
-   + The `-o` command redirects any output from your job to a file. As with the
-     error file, the format of the file name is `job-name_job-id.out`
-   + Setting `--mail-type` requests job updates from Slurm
-   + Those updates will go to your email address, which you set with
-     `--mail-user`
-3. With the directives declared, we set two more environment variables:
-   + Setting `-e` ensures that the script will exit if a command fails
-   + Setting `-x` prints each command and its arguments to the `.err` file for
-     your job (this is helpful for debugging purposes)
-4. Next comes the actual job. In this portion of the script, Bash goes to a
-   directory `~/beacon` and then calls Python on `beacon.py`. The output is
-   sent to a file
-5. The last portion is all logging:
-   + We retrieve the environment information from Slurm with `env | grep SLURM`
-   + We use that information to display detailed information about our job with
-     `scontrol ...`
-   + And finally, we plug job information into a Slurm command, `sstat`, which
-     tells us information about how much memory and compute power the job used
+Let's walk through the components. Lines from the header portion of the script
+are below:
 
+| Line               | Explanation                                           |
+|--------------------|-------------------------------------------------------|
+| `/bin/bash -login` | use Bash and your user environment                    |
+| `--partition`      | which partition to use                                |
+| `--job-name`       | the name of the job                                   |
+| `--nodes`          | how many nodes the job runs on                        |
+| `--mem`            | how much memory to use                                |
+| `--ntasks`         | number of simultaneous operations                     |
+| `--cpus-per-task`  | cpu cores/task; more cores means more compute         | 
+| `-e`               | send errors to a file formatted `job-name_job-id.err` |
+| `-o`               | send output to a file formmated `job-name_job-id.out` |
+| `--mail-type`      | get updates from Slurn sent to your email             |
+| `--mail-user`      | send updates to this address                          |
 
-`scancel`
+Now the job operations:
+
+| Line             | Explanation                                               |
+|------------------|-----------------------------------------------------------|
+| `set -e`         | Exit the script if a command fails                        |
+| `set -x`         | Print commands to the `.err` file (helpful for debugging) |
+| `cd <...>`       | Go to a directory                                         |
+| `python3 <...>`  | Run a script                                              |
+
+Finally, we include some optional operations for getting usage statistics about
+your job, which you might use to determine whether you've requested adequate
+memory, time, etc.
+
+| Line             | Explanation                                   |
+|------------------|-----------------------------------------------|
+| `env <...>`      | Retrieve Slurm-specific environment variables |
+| `scontrol <...>` | Use those variables to show job information   |
+| `sstat <...>`    | Get usage statistics about the job            |
+
+All of the above is saved to a `beacon.sh` file. Before submitting it, create a
+`log` directory to store any logging information your code creates as it runs.
+
+```
+$ cd beacon
+$ mkdir log
+```
+
+With that done, you're ready to submit the script.
+
+```
+$ sbatch beacon.sh
+```
+
+If you check `squeue`, you'll see it either waiting to be run or running:
+
+```
+$ squeue --me
+  JOBID PARTITION   NAME    USER    ACCOUNT ST TIME TIME_LEFT NODES CPU MIN_ME NODELIST(REASON)
+9384372       med beacon datalab datalabgrp  R 0:15  11:59:45     1 2   10M    cpu-8-87
+```
+
+And if you've told Slurm to update you via email, you should have an email in
+your inbox telling you that your job is in the queue. Slurm will notify you
+when the job starts and ends.
+
+Recall however that `beacon.{sh,py.R}` uses a `while` loop to print a name
+indefinitely. That means it will only end when your request time runs out or
+when you end the program early. To do the latter, take note of the `JOBID` in
+the `squeue` output and enter that as an argument to `scancel`:
+
+```
+$ scancel 9384372
+```
+
+Slurm will cancel the job, send logging information to the `.out` file, and
+notify you via email that the job is no longer running.
 
 Etiquette
 ---------

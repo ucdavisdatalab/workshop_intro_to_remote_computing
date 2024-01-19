@@ -399,7 +399,12 @@ processes</p></li>
 </section>
 <section id="partition-info-and-monitoring">
 <h2><span class="section-number">5.2. </span>Partition Info and Monitoring<a class="headerlink" href="#partition-info-and-monitoring" title="Permalink to this headline">#</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">sinfo</span></code>: partition and node information</p>
+<p>HPC is a shared space with many different components. Given this scope, it’s
+helpful to get information about the overall system before diving into a
+specific job.</p>
+<p>Use <code class="docutils literal notranslate"><span class="pre">sinfo</span></code> to list available partitions, their nodes, and the maximum time you
+can request for a job. This command will also show you whether partitions are
+up and running.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ sinfo --summarize
 PARTITION  AVAIL  TIMELIMIT   NODES(A/I/O/T) NODELIST
 low2          up    4:00:00       16/43/1/60 cpu-3-[50-57,62-69],&lt;...&gt;
@@ -424,7 +429,14 @@ gpum          up 7-00:00:00          2/0/0/2 gpu-5-[50,58]
 gpu-a100-h    up 14-00:00:0          1/0/0/1 gpu-4-56
 </pre></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">squeue</span></code>: partition and node availability</p>
+<p>The fourth column in <code class="docutils literal notranslate"><span class="pre">sinfo</span></code> shows available nodes, idle nodes, nodes running a
+job, and the total number of nodes on a partition. That’s a decent overview,
+but detailed information about specific nodes is also available with <code class="docutils literal notranslate"><span class="pre">squeue</span></code>.
+Think of the latter command as the Slurm equivalent to <code class="docutils literal notranslate"><span class="pre">top</span></code> or <code class="docutils literal notranslate"><span class="pre">htop</span></code>. It will
+show you information about all the jobs, the users running them, and the status
+of those jobs.</p>
+<p>On big clusters, the output of <code class="docutils literal notranslate"><span class="pre">squeue</span></code> can get be quite long. Below, we use
+<code class="docutils literal notranslate"><span class="pre">head</span></code> to take only the first 10 rows.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ squeue | head -n 10
   JOBID PARTITION     NAME  USER ACCOUNT ST        TIME   TIME_LEFT NODES CPU MIN_ME NODELIST(REASON)
 9375115      bgpu     bash user1   acct1  R     7:42:28     2:17:32     1 6   32G    gpu-4-54
@@ -438,6 +450,53 @@ gpu-a100-h    up 14-00:00:0          1/0/0/1 gpu-4-56
 9318810       bmh   censor user7   acct6  R  4-03:19:08  5-20:40:52     1 4   20G    bm20
 </pre></div>
 </div>
+<p>This output includes a lot of information. The following table breaks it out
+into individual components:</p>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Column</p></th>
+<th class="head"><p>Explanation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>JOBID</p></td>
+<td><p>Unique id for the job</p></td>
+</tr>
+<tr class="row-odd"><td><p>PARTITION</p></td>
+<td><p>Which partion a job is running on</p></td>
+</tr>
+<tr class="row-even"><td><p>NAME</p></td>
+<td><p>Name of the job</p></td>
+</tr>
+<tr class="row-odd"><td><p>USER</p></td>
+<td><p>Name of the user running the job</p></td>
+</tr>
+<tr class="row-even"><td><p>ACCOUNT</p></td>
+<td><p>The HPC account to which this user belongs</p></td>
+</tr>
+<tr class="row-odd"><td><p>ST</p></td>
+<td><p>Job status; <code class="docutils literal notranslate"><span class="pre">R</span></code> is “running”, <code class="docutils literal notranslate"><span class="pre">PD</span></code> is “pending”, <code class="docutils literal notranslate"><span class="pre">S</span></code> is “suspended”</p></td>
+</tr>
+<tr class="row-even"><td><p>TIME</p></td>
+<td><p>Total time of the job thus far</p></td>
+</tr>
+<tr class="row-odd"><td><p>TIME_LEFT</p></td>
+<td><p>Time left on the request</p></td>
+</tr>
+<tr class="row-even"><td><p>NODES</p></td>
+<td><p>Number of nodes this job uses</p></td>
+</tr>
+<tr class="row-odd"><td><p>CPU</p></td>
+<td><p>Number of CPU cores this job uses</p></td>
+</tr>
+<tr class="row-even"><td><p>MIN_ME</p></td>
+<td><p>The job memory</p></td>
+</tr>
+<tr class="row-odd"><td><p>NODELIST</p></td>
+<td><p>Which node the job is running on</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="running-jobs">
 <h2><span class="section-number">5.3. </span>Running Jobs<a class="headerlink" href="#running-jobs" title="Permalink to this headline">#</a></h2>
@@ -450,10 +509,10 @@ this: in real time, or by adding your job to a queue.</p>
 other command line interface. It’s an ideal way to develop and test code with
 the added space and compute power of a big partition.</p>
 <p>Use the <code class="docutils literal notranslate"><span class="pre">srun</span></code> command to request an interactive job on a partition. This
-command has a number of parameters, so we encourage you to consult its <code class="docutils literal notranslate"><span class="pre">man</span></code>
-page; but for our purposes, the most important ones include a parameter that
-specifies which partition you want to work on and how much time you’d like for
-doing your work.</p>
+command has a large number of parameters, so we encourage you to consult its
+<code class="docutils literal notranslate"><span class="pre">man</span></code> page; but the purposes of introducing it, the most important parameters
+include one that specifies which partition you want to work on and how much
+time you’d like for doing your work.</p>
 <p>The command below uses <code class="docutils literal notranslate"><span class="pre">srun</span></code> to request 60 minutes for a node on the <code class="docutils literal notranslate"><span class="pre">med</span></code>
 partition.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ srun --partition=med --time=60 --pty /bin/bash -il
@@ -481,7 +540,7 @@ like the following:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nb">alias</span><span class="w"> </span><span class="nv">start_cpu_session</span><span class="o">=</span><span class="s1">&#39;srun --partition=med --time=60 --pty /bin/bash -il&#39;</span>
 </pre></div>
 </div>
-<p>If you’d like to change parameters for different requests, you might create a
+<p>If you’d like to change parameters for different requests, you could create a
 Bash function instead.</p>
 </div>
 <p>The result of the above parameters is a command line interface, just like the
@@ -493,7 +552,8 @@ extra memory and compute power.</p>
 cpu-8-87.farm.hpc.ucdavis.edu
 </pre></div>
 </div>
-<p>Or, use <code class="docutils literal notranslate"><span class="pre">squeue</span></code> to see more information about your session:</p>
+<p>Or, use <code class="docutils literal notranslate"><span class="pre">squeue</span></code> to see more information about your session. Send the command
+the <code class="docutils literal notranslate"><span class="pre">--me</span></code> flag to return your jobs.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ squeue --me
   JOBID PARTITION NAME    USER  ACCOUNT ST TIME TIME_LEFT NODES CPU MIN_ME NODELIST(REASON)
 9377346       med bash datalab datalabg  R 0:07     59:53     1 2   2000M  cpu-8-87
@@ -516,7 +576,7 @@ farm
 <p>While <code class="docutils literal notranslate"><span class="pre">srun</span></code> gives you the interactivity of any other command line interface,
 not everything needs to be run in these real time interactions. This is
 especially the case with big jobs, like training a large model: there would be
-no reason to keep a terminal open while the model trained; instead, you would
+no reason to keep a terminal open while the model trained. Instead, you would
 want to kick off the process and simply wait for the results, which could take
 hours, if not days.</p>
 <p>A terminal multiplexer like <code class="docutils literal notranslate"><span class="pre">tmux</span></code> would be one way to keep a session running
@@ -528,11 +588,13 @@ easier to create a <strong>batch script</strong> that specifies the parameters o
 allocation request as well as the operations required to run the job. You
 submit this script to <code class="docutils literal notranslate"><span class="pre">sbatch</span></code> and the program will follow those operations
 when it’s your job’s turn.</p>
-<p>A batch script is written in Bash. It has two parts:</p>
+<p>A batch script is written in Bash and (typically) saved to a file with a <code class="docutils literal notranslate"><span class="pre">.sh</span></code>
+extension. It has two parts:</p>
 <ol class="arabic simple">
-<li><p>A header, which defines the parameters of your job (all prepended with
-<code class="docutils literal notranslate"><span class="pre">#SBATCH</span></code>)</p></li>
-<li><p>The operations you’d like <code class="docutils literal notranslate"><span class="pre">sbatch</span></code> to follow (all written in Bash)</p></li>
+<li><p>A header, which defines the parameters of your job; you should prepend every
+parameter with <code class="docutils literal notranslate"><span class="pre">#SBATCH</span></code></p></li>
+<li><p>The operations you’d like <code class="docutils literal notranslate"><span class="pre">sbatch</span></code> to follow; think of these like command
+line instructions</p></li>
 </ol>
 <p>The following example uses our <code class="docutils literal notranslate"><span class="pre">beacon.{py,R,sh}</span></code> script from the previous
 chapter to print a message continuously to a file via <code class="docutils literal notranslate"><span class="pre">sbatch</span></code>.</p>
@@ -560,50 +622,121 @@ scontrol<span class="w"> </span>show<span class="w"> </span>job<span class="w"> 
 sstat<span class="w"> </span>--format<span class="w"> </span><span class="s1">&#39;JobId,MaxRSS,AveCPU&#39;</span><span class="w"> </span>-P<span class="w"> </span><span class="si">${</span><span class="nv">SLUR_JOB_ID</span><span class="si">}</span>.batch
 </pre></div>
 </div>
-<p>Let’s walk through the components.</p>
-<ol class="arabic simple">
-<li><p>First, this script contains a shebang, which tells <code class="docutils literal notranslate"><span class="pre">sbatch</span></code> to use Bash and
-your user environment</p></li>
-<li><p>Next come the <code class="docutils literal notranslate"><span class="pre">sbatch</span></code> <strong>directives</strong>. These are the parameters of your
-request, which are exactly the same parameters you would use to use <code class="docutils literal notranslate"><span class="pre">srun</span></code>.
-A few are worth noting in more detail:</p>
-<ul class="simple">
-<li><p>Each batch job has a <strong>job name</strong>, which you specify with <code class="docutils literal notranslate"><span class="pre">--job-name</span></code></p></li>
-<li><p>Using <code class="docutils literal notranslate"><span class="pre">--mem</span></code> specifies how much memory you need for your job</p></li>
-<li><p>The <code class="docutils literal notranslate"><span class="pre">--ntasks</span></code> command tells Slurm whether you would like to run multiple
-parts of your script simultaneously</p></li>
-<li><p>Setting a value for <code class="docutils literal notranslate"><span class="pre">--cpus-per-task</span></code> specifies how many CPU cores each
-task should use</p></li>
-<li><p>The <code class="docutils literal notranslate"><span class="pre">-e</span></code> command redirects any error messages to a file for logging
-purposes. Above, <code class="docutils literal notranslate"><span class="pre">%x_%j</span></code> formats the error file as <code class="docutils literal notranslate"><span class="pre">job-name_job-id.err</span></code></p></li>
-<li><p>The <code class="docutils literal notranslate"><span class="pre">-o</span></code> command redirects any output from your job to a file. As with the
-error file, the format of the file name is <code class="docutils literal notranslate"><span class="pre">job-name_job-id.out</span></code></p></li>
-<li><p>Setting <code class="docutils literal notranslate"><span class="pre">--mail-type</span></code> requests job updates from Slurm</p></li>
-<li><p>Those updates will go to your email address, which you set with
-<code class="docutils literal notranslate"><span class="pre">--mail-user</span></code></p></li>
-</ul>
-</li>
-<li><p>With the directives declared, we set two more environment variables:</p>
-<ul class="simple">
-<li><p>Setting <code class="docutils literal notranslate"><span class="pre">-e</span></code> ensures that the script will exit if a command fails</p></li>
-<li><p>Setting <code class="docutils literal notranslate"><span class="pre">-x</span></code> prints each command and its arguments to the <code class="docutils literal notranslate"><span class="pre">.err</span></code> file for
-your job (this is helpful for debugging purposes)</p></li>
-</ul>
-</li>
-<li><p>Next comes the actual job. In this portion of the script, Bash goes to a
-directory <code class="docutils literal notranslate"><span class="pre">~/beacon</span></code> and then calls Python on <code class="docutils literal notranslate"><span class="pre">beacon.py</span></code>. The output is
-sent to a file</p></li>
-<li><p>The last portion is all logging:</p>
-<ul class="simple">
-<li><p>We retrieve the environment information from Slurm with <code class="docutils literal notranslate"><span class="pre">env</span> <span class="pre">|</span> <span class="pre">grep</span> <span class="pre">SLURM</span></code></p></li>
-<li><p>We use that information to display detailed information about our job with
-<code class="docutils literal notranslate"><span class="pre">scontrol</span> <span class="pre">...</span></code></p></li>
-<li><p>And finally, we plug job information into a Slurm command, <code class="docutils literal notranslate"><span class="pre">sstat</span></code>, which
-tells us information about how much memory and compute power the job used</p></li>
-</ul>
-</li>
-</ol>
-<p><code class="docutils literal notranslate"><span class="pre">scancel</span></code></p>
+<p>Let’s walk through the components. Lines from the header portion of the script
+are below:</p>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Line</p></th>
+<th class="head"><p>Explanation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">/bin/bash</span> <span class="pre">-login</span></code></p></td>
+<td><p>use Bash and your user environment</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--partition</span></code></p></td>
+<td><p>which partition to use</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--job-name</span></code></p></td>
+<td><p>the name of the job</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--nodes</span></code></p></td>
+<td><p>how many nodes the job runs on</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--mem</span></code></p></td>
+<td><p>how much memory to use</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--ntasks</span></code></p></td>
+<td><p>number of simultaneous operations</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--cpus-per-task</span></code></p></td>
+<td><p>cpu cores/task; more cores means more compute</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">-e</span></code></p></td>
+<td><p>send errors to a file formatted <code class="docutils literal notranslate"><span class="pre">job-name_job-id.err</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">-o</span></code></p></td>
+<td><p>send output to a file formmated <code class="docutils literal notranslate"><span class="pre">job-name_job-id.out</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--mail-type</span></code></p></td>
+<td><p>get updates from Slurn sent to your email</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--mail-user</span></code></p></td>
+<td><p>send updates to this address</p></td>
+</tr>
+</tbody>
+</table>
+<p>Now the job operations:</p>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Line</p></th>
+<th class="head"><p>Explanation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">set</span> <span class="pre">-e</span></code></p></td>
+<td><p>Exit the script if a command fails</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">set</span> <span class="pre">-x</span></code></p></td>
+<td><p>Print commands to the <code class="docutils literal notranslate"><span class="pre">.err</span></code> file (helpful for debugging)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">&lt;...&gt;</span></code></p></td>
+<td><p>Go to a directory</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">python3</span> <span class="pre">&lt;...&gt;</span></code></p></td>
+<td><p>Run a script</p></td>
+</tr>
+</tbody>
+</table>
+<p>Finally, we include some optional operations for getting usage statistics about
+your job, which you might use to determine whether you’ve requested adequate
+memory, time, etc.</p>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Line</p></th>
+<th class="head"><p>Explanation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">env</span> <span class="pre">&lt;...&gt;</span></code></p></td>
+<td><p>Retrieve Slurm-specific environment variables</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">scontrol</span> <span class="pre">&lt;...&gt;</span></code></p></td>
+<td><p>Use those variables to show job information</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">sstat</span> <span class="pre">&lt;...&gt;</span></code></p></td>
+<td><p>Get usage statistics about the job</p></td>
+</tr>
+</tbody>
+</table>
+<p>All of the above is saved to a <code class="docutils literal notranslate"><span class="pre">beacon.sh</span></code> file. Before submitting it, create a
+<code class="docutils literal notranslate"><span class="pre">log</span></code> directory to store any logging information your code creates as it runs.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cd beacon
+$ mkdir log
+</pre></div>
+</div>
+<p>With that done, you’re ready to submit the script.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ sbatch beacon.sh
+</pre></div>
+</div>
+<p>If you check <code class="docutils literal notranslate"><span class="pre">squeue</span></code>, you’ll see it either waiting to be run or running:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ squeue --me
+  JOBID PARTITION   NAME    USER    ACCOUNT ST TIME TIME_LEFT NODES CPU MIN_ME NODELIST(REASON)
+9384372       med beacon datalab datalabgrp  R 0:15  11:59:45     1 2   10M    cpu-8-87
+</pre></div>
+</div>
+<p>And if you’ve told Slurm to update you via email, you should have an email in
+your inbox telling you that your job is in the queue. Slurm will notify you
+when the job starts and ends.</p>
+<p>Recall however that <code class="docutils literal notranslate"><span class="pre">beacon.{sh,py.R}</span></code> uses a <code class="docutils literal notranslate"><span class="pre">while</span></code> loop to print a name
+indefinitely. That means it will only end when your request time runs out or
+when you end the program early. To do the latter, take note of the <code class="docutils literal notranslate"><span class="pre">JOBID</span></code> in
+the <code class="docutils literal notranslate"><span class="pre">squeue</span></code> output and enter that as an argument to <code class="docutils literal notranslate"><span class="pre">scancel</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ scancel 9384372
+</pre></div>
+</div>
+<p>Slurm will cancel the job, send logging information to the <code class="docutils literal notranslate"><span class="pre">.out</span></code> file, and
+notify you via email that the job is no longer running.</p>
 </section>
 </section>
 <section id="etiquette">
