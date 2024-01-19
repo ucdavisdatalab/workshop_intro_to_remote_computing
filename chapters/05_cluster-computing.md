@@ -60,25 +60,26 @@ Think of the latter command as the Slurm equivalent to `top` or `htop`. It will
 show you information about all the jobs, the users running them, and the status
 of those jobs.
 
-On big clusters, the output of `squeue` can get be quite long. Below, we use
-`head` to take only the first 10 rows.
+On big clusters, the output of `squeue` can be quite long. Below, we use `head`
+to take only the first 10 rows.
 
 ```
 $ squeue | head -n 10
-  JOBID PARTITION     NAME  USER ACCOUNT ST        TIME   TIME_LEFT NODES CPU MIN_ME NODELIST(REASON)
-9375115      bgpu     bash user1   acct1  R     7:42:28     2:17:32     1 6   32G    gpu-4-54
-9375105      bgpu  UserJob user2   acct1  R     8:21:50  7-03:38:10     1 6   200G   gpu-12-92
-9297800   bigmemh   sbatch user3   acct2  R  9-17:58:59     6:01:01     1 16  120G   bigmem8
-6173446   bigmemm McL-hmm- user4   acct3 PD        0:00  2-00:00:00     1 4   8G     (launch failed requeued held)
-9375794   bigmemm     bash user5   acct4  R     5:13:36  3-18:46:24     1 16  40G    bigmem10
-9377337   bigmemm raNTallg user6   acct5  R        0:42 20-19:59:18     1 2   4G     bigmem10
-9377130   bigmemm raNTallg user6   acct5  R       37:10 20-19:22:50     1 2   4G     bigmem10
-9376376   bigmemm raallga1 user6   acct5  R     1:38:22 20-18:21:38     1 2   4G     bigmem10
-9318810       bmh   censor user7   acct6  R  4-03:19:08  5-20:40:52     1 4   20G    bm20
+  JOBID PARTITION     NAME  USER ACCOUNT ST       TIME   TIME_LEFT NODES CPU MIN_ME NODELIST(REASON)
+9375115      bgpu     bash user1   acct1  R    7:42:28     2:17:32     1 6   32G    gpu-4-54
+9375105      bgpu  UserJob user2   acct1  R    8:21:50  7-03:38:10     1 6   200G   gpu-12-92
+9297800   bigmemh   sbatch user3   acct2  R 9-17:58:59     6:01:01     1 16  120G   bigmem8
+6173446   bigmemm McL-hmm- user4   acct3 PD       0:00  2-00:00:00     1 4   8G     (launch failed requeued held)
+9375794   bigmemm     bash user5   acct4  R    5:13:36  3-18:46:24     1 16  40G    bigmem10
+9377337   bigmemm raNTallg user6   acct5  R       0:42 20-19:59:18     1 2   4G     bigmem10
+9377130   bigmemm raNTallg user6   acct5  R      37:10 20-19:22:50     1 2   4G     bigmem10
+9376376   bigmemm raallga1 user6   acct5  R    1:38:22 20-18:21:38     1 2   4G     bigmem10
+9318810       bmh   censor user7   acct6  R 4-03:19:08  5-20:40:52     1 4   20G    bm20
 ```
 
-This output includes a lot of information. The following table breaks it out
-into individual components:
+Above, `squeue` lists out jobs along with a fair bit of metadata about each
+one. The following table breaks out this information into its individual
+components:
 
 | Column    | Explanation                                                         |
 |-----------|---------------------------------------------------------------------|
@@ -95,10 +96,39 @@ into individual components:
 | MIN_ME    | The job memory                                                      |
 | NODELIST  | Which node the job is running on                                    |
 
+When you're planning a job, you might intend to run it on a specific partition.
+Use the `--partition` flag to check which jobs are currently running. It may be
+that most of the partition's nodes are full, so you'll learn that your job
+won't start until they've finished.
+
+The command below asks `squeue` for information about the `bgpu` partition,
+which has GPU capabilities. Currently, there are two jobs running on it: one
+has about two hours remaining, while the other has been allocated up to a week
+of run time.
+
+```
+$ squeue --partition=bgpu
+  JOBID PARTITION    NAME  USER ACCOUNT ST    TIME  TIME_LEFT NODES CPU MIN_ME NODELIST(REASON)
+9375115      bgpu    bash user1   acct1  R 7:42:28    2:17:32     1 6   32G    gpu-4-54
+9375105      bgpu UserJob user2   acct1  R 8:21:50 7-03:38:10     1 6   200G   gpu-12-92
+```
+
+Checking with `sinfo` will tell you whether there is another node for your job
+on your desired partition.
+
+```
+$ sinfo --partion=bgpu
+PARTITION AVAIL  TIMELIMIT  NODES  STATE NODELIST
+bgpu         up 150-00:00:      2    mix gpu-4-54,gpu-12-92
+```
+
+Unfortunately, there isn't, so if you want to use this partition, you'll need
+to wait your turn.
+
 Running Jobs
 ------------
 
-Once you know which partitions and notes are available, you can submit a
+Once you know which partitions and nodes are available, you can submit a
 request to **allocate** some space to do your work. There are two ways to do
 this: in real time, or by adding your job to a queue.
 
@@ -111,8 +141,8 @@ the added space and compute power of a big partition.
 Use the `srun` command to request an interactive job on a partition. This
 command has a large number of parameters, so we encourage you to consult its
 `man` page; but the purposes of introducing it, the most important parameters
-include one that specifies which partition you want to work on and how much
-time you'd like for doing your work.
+include one that specifies which partition you want to work on and one for how
+much time you'd like to do your work.
 
 The command below uses `srun` to request 60 minutes for a node on the `med`
 partition.
@@ -280,7 +310,8 @@ $ cd beacon
 $ mkdir log
 ```
 
-With that done, you're ready to submit the script.
+With that done, you're ready to submit the script. You do so from the head
+node.
 
 ```
 $ sbatch beacon.sh
