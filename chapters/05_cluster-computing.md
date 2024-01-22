@@ -117,13 +117,13 @@ Checking with `sinfo` will tell you whether there is another node for your job
 on your desired partition.
 
 ```
-$ sinfo --partion=bgpu
+$ sinfo --partition=bgpu
 PARTITION AVAIL  TIMELIMIT  NODES  STATE NODELIST
 bgpu         up 150-00:00:      2    mix gpu-4-54,gpu-12-92
 ```
 
-Unfortunately, there isn't, so if you want to use this partition, you'll need
-to wait your turn.
+Unfortunately, there isn't. If you want to use this partition, you'll need to
+wait your turn.
 
 Running Jobs
 ------------
@@ -239,7 +239,7 @@ extension. It has two parts:
    line instructions
 
 The following example uses our `beacon.{py,R,sh}` script from the previous
-chapter to print a message continuously to a file via `sbatch`.
+chapter to print a message continuously.
 
 ```sh
 #!/bin/bash -login
@@ -250,16 +250,16 @@ chapter to print a message continuously to a file via `sbatch`.
 #SBATCH --mem=10MB
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=1
-#SBATCH -e /path/to/log/%x_%j.err
-#SBATCH -o /path/to/log/%x_%j.out
+#SBATCH --error /path/to/log/%x_%j.err
+#SBATCH --output /path/to/log/%x_%j.out
 #SBATCH --mail-type=ALL
-#SBATCH --mail-user=<you@email.com>
+#SBATCH --mail-user=<your@email.com>
 
 set -e
 set -x
 
 cd ~/beacon
-python3 beacon.py DataLab > file.txt
+python3 beacon.py DataLab
 
 env | grep SLURM
 scontrol show job ${SLURM_JOB_ID}
@@ -275,12 +275,12 @@ are below:
 | `--partition`      | which partition to use                                |
 | `--job-name`       | the name of the job                                   |
 | `--nodes`          | how many nodes the job runs on                        |
-| `--mem`            | how much memory to use                                |
+| `--mem`            | maximum memory to use                                 |
 | `--ntasks`         | number of simultaneous operations                     |
 | `--cpus-per-task`  | cpu cores/task; more cores means more compute         | 
-| `-e`               | send errors to a file formatted `job-name_job-id.err` |
-| `-o`               | send output to a file formmated `job-name_job-id.out` |
-| `--mail-type`      | get updates from Slurn sent to your email             |
+| `--error`          | send errors to a file formatted `job-name_job-id.err` |
+| `--output`         | send output to a file formmated `job-name_job-id.out` |
+| `--mail-type`      | get updates from Slurm sent to your email             |
 | `--mail-user`      | send updates to this address                          |
 
 Now the job operations:
@@ -291,6 +291,10 @@ Now the job operations:
 | `set -x`         | Print commands to the `.err` file (helpful for debugging) |
 | `cd <...>`       | Go to a directory                                         |
 | `python3 <...>`  | Run a script                                              |
+
+Note that these are just command line instructions. If you have a module or
+virtual environment to activate, a directory to create, multiple scripts to run
+in sequence, etc., you can script this out.
 
 Finally, we include some optional operations for getting usage statistics about
 your job, which you might use to determine whether you've requested adequate
@@ -306,7 +310,7 @@ All of the above is saved to a `beacon.sh` file. Before submitting it, create a
 `log` directory to store any logging information your code creates as it runs.
 
 ```
-$ cd beacon
+$ cd ~/beacon
 $ mkdir log
 ```
 
@@ -340,6 +344,39 @@ $ scancel 9384372
 
 Slurm will cancel the job, send logging information to the `.out` file, and
 notify you via email that the job is no longer running.
+
+Opening the `.out` file will show your job details:
+
+```
+$ cat log/beacon_9384572.out
+==========================================
+SLURM_JOB_ID = 9384372
+SLURM_NODELIST = cpu-8-87
+==========================================
+
+############### Job 9384372 summary ###############
+Name                : beacon
+User                : datalab
+Account             : datalabgrp
+Partition           : med
+Nodes               : cpu-8-87
+Cores               : 2
+GPUs                : 0
+State               : CANCELLED by 1804235,CANCELLED
+ExitCode            : 0:0
+Submit              : 2024-01-22T09:35:08
+Start               : 2024-01-22T09:35:09
+End                 : 2024-01-22T09:35:30
+Reserved walltime   : 12:00:00
+Used walltime       : 00:00:21
+Used CPU time       : 00:00:00
+% User (Computation): --
+% System (I/O)      : --
+Mem reserved        : 10M
+Max Mem used        : --
+Max Disk Write      : --
+Max Disk Read       : --
+```
 
 Etiquette
 ---------
