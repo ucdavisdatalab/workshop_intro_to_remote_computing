@@ -514,13 +514,13 @@ of run time.</p>
 </div>
 <p>Checking with <code class="docutils literal notranslate"><span class="pre">sinfo</span></code> will tell you whether there is another node for your job
 on your desired partition.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ sinfo --partion=bgpu
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ sinfo --partition=bgpu
 PARTITION AVAIL  TIMELIMIT  NODES  STATE NODELIST
 bgpu         up 150-00:00:      2    mix gpu-4-54,gpu-12-92
 </pre></div>
 </div>
-<p>Unfortunately, there isn’t, so if you want to use this partition, you’ll need
-to wait your turn.</p>
+<p>Unfortunately, there isn’t. If you want to use this partition, you’ll need to
+wait your turn.</p>
 </section>
 <section id="running-jobs">
 <h2><span class="section-number">5.3. </span>Running Jobs<a class="headerlink" href="#running-jobs" title="Permalink to this headline">#</a></h2>
@@ -621,7 +621,7 @@ parameter with <code class="docutils literal notranslate"><span class="pre">#SBA
 line instructions</p></li>
 </ol>
 <p>The following example uses our <code class="docutils literal notranslate"><span class="pre">beacon.{py,R,sh}</span></code> script from the previous
-chapter to print a message continuously to a file via <code class="docutils literal notranslate"><span class="pre">sbatch</span></code>.</p>
+chapter to print a message continuously.</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash -login</span>
 <span class="c1">#SBATCH --partition=med</span>
 <span class="c1">#SBATCH --job-name=beacon</span>
@@ -630,16 +630,16 @@ chapter to print a message continuously to a file via <code class="docutils lite
 <span class="c1">#SBATCH --mem=10MB</span>
 <span class="c1">#SBATCH --ntasks=1</span>
 <span class="c1">#SBATCH --cpus-per-task=1</span>
-<span class="c1">#SBATCH -e /path/to/log/%x_%j.err</span>
-<span class="c1">#SBATCH -o /path/to/log/%x_%j.out</span>
+<span class="c1">#SBATCH --error /path/to/log/%x_%j.err</span>
+<span class="c1">#SBATCH --output /path/to/log/%x_%j.out</span>
 <span class="c1">#SBATCH --mail-type=ALL</span>
-<span class="c1">#SBATCH --mail-user=&lt;you@email.com&gt;</span>
+<span class="c1">#SBATCH --mail-user=&lt;your@email.com&gt;</span>
 
 <span class="nb">set</span><span class="w"> </span>-e
 <span class="nb">set</span><span class="w"> </span>-x
 
 <span class="nb">cd</span><span class="w"> </span>~/beacon
-python3<span class="w"> </span>beacon.py<span class="w"> </span>DataLab<span class="w"> </span>&gt;<span class="w"> </span>file.txt
+python3<span class="w"> </span>beacon.py<span class="w"> </span>DataLab
 
 env<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>SLURM
 scontrol<span class="w"> </span>show<span class="w"> </span>job<span class="w"> </span><span class="si">${</span><span class="nv">SLURM_JOB_ID</span><span class="si">}</span>
@@ -668,7 +668,7 @@ are below:</p>
 <td><p>how many nodes the job runs on</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--mem</span></code></p></td>
-<td><p>how much memory to use</p></td>
+<td><p>maximum memory to use</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--ntasks</span></code></p></td>
 <td><p>number of simultaneous operations</p></td>
@@ -676,14 +676,14 @@ are below:</p>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--cpus-per-task</span></code></p></td>
 <td><p>cpu cores/task; more cores means more compute</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">-e</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--error</span></code></p></td>
 <td><p>send errors to a file formatted <code class="docutils literal notranslate"><span class="pre">job-name_job-id.err</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">-o</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--output</span></code></p></td>
 <td><p>send output to a file formmated <code class="docutils literal notranslate"><span class="pre">job-name_job-id.out</span></code></p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--mail-type</span></code></p></td>
-<td><p>get updates from Slurn sent to your email</p></td>
+<td><p>get updates from Slurm sent to your email</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--mail-user</span></code></p></td>
 <td><p>send updates to this address</p></td>
@@ -712,6 +712,9 @@ are below:</p>
 </tr>
 </tbody>
 </table>
+<p>Note that these are just command line instructions. If you have a module or
+virtual environment to activate, a directory to create, multiple scripts to run
+in sequence, etc., you can script this out.</p>
 <p>Finally, we include some optional operations for getting usage statistics about
 your job, which you might use to determine whether you’ve requested adequate
 memory, time, etc.</p>
@@ -735,7 +738,7 @@ memory, time, etc.</p>
 </table>
 <p>All of the above is saved to a <code class="docutils literal notranslate"><span class="pre">beacon.sh</span></code> file. Before submitting it, create a
 <code class="docutils literal notranslate"><span class="pre">log</span></code> directory to store any logging information your code creates as it runs.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cd beacon
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cd ~/beacon
 $ mkdir log
 </pre></div>
 </div>
@@ -762,6 +765,37 @@ the <code class="docutils literal notranslate"><span class="pre">squeue</span></
 </div>
 <p>Slurm will cancel the job, send logging information to the <code class="docutils literal notranslate"><span class="pre">.out</span></code> file, and
 notify you via email that the job is no longer running.</p>
+<p>Opening the <code class="docutils literal notranslate"><span class="pre">.out</span></code> file will show your job details:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cat log/beacon_9384572.out
+==========================================
+SLURM_JOB_ID = 9384372
+SLURM_NODELIST = cpu-8-87
+==========================================
+
+############### Job 9384372 summary ###############
+Name                : beacon
+User                : datalab
+Account             : datalabgrp
+Partition           : med
+Nodes               : cpu-8-87
+Cores               : 2
+GPUs                : 0
+State               : CANCELLED by 1804235,CANCELLED
+ExitCode            : 0:0
+Submit              : 2024-01-22T09:35:08
+Start               : 2024-01-22T09:35:09
+End                 : 2024-01-22T09:35:30
+Reserved walltime   : 12:00:00
+Used walltime       : 00:00:21
+Used CPU time       : 00:00:00
+% User (Computation): --
+% System (I/O)      : --
+Mem reserved        : 10M
+Max Mem used        : --
+Max Disk Write      : --
+Max Disk Read       : --
+</pre></div>
+</div>
 </section>
 </section>
 <section id="etiquette">
