@@ -71,17 +71,17 @@ sections.
 
 ### Opening a Connection
 
-With that in mind, once a new user has obtained an account on a server and a way
-to authenticate themselves, they can log in to the server using the
-aforementioned `ssh` command:
+With that in mind, once you have obtained an account on a server and a way to 
+authenticate yourself, you can log in to the server using the aforementioned 
+`ssh` command:
 
 ````
 ssh -l <account name> <server name>
 ````
 
-where `<account name>` is the name of the account that was assigned to the
-user, and `<server name>` is the Internet host name or IP address of the
-server. An alternative formulation of the same command is
+where `<account name>` is the name of the account on the server that was 
+assigned to you, and `<server name>` is the Internet host name or IP address of 
+the server. An alternative formulation of the same command is
 
 ````
 ssh <account name>@<server hame>
@@ -89,27 +89,29 @@ ssh <account name>@<server hame>
 
 which uses the "@" notation familiar from email addresses.
 
-Running either one of these commands will establish a connection between the
-user's local computer and the remote server, and start a new shell session on
-the remote computer. As part of setting up that connection, the `ssh` command
-might ask for the user's password, in which case the user will have to enter
-the password that was assigned to them by the server's administrator. After the
-SSH connection has been established and while it remains active, anything typed
-into the terminal on which the `ssh` command was run will be forwarded to the
-shell on the remote server, and any output from that remote shell or programs
-run within it will be forwarded to, and printed by, the terminal on the user's
-local computer. In other words, users can interact with the remote shell
-running on the remote server in the same way as with the local shell on their
-local computer, but any commands executed in that remote shell will be run on
-the remote server. Finally, when the user shuts down the remote shell, for
-example via the `exit` command, the SSH connection will be closed, and the
-terminal on the user's local computer will control the local shell again.
+Running either one of these commands will establish a connection between your 
+local computer and the remote server, and start a new shell session on the 
+remote computer. As part of setting up that connection, the `ssh` command might 
+ask for your password, in which case you will have to enter not your password 
+for your local computer, but the password for the remote server that was 
+assigned to you by the server's administrator. As usual, the password will not 
+be echoed back to you as you enter it. After the SSH connection has been 
+established, anything you type into the terminal from which the `ssh` command 
+was run will be forwarded to the shell on the remote server, and any output 
+from that remote shell, or from programs run within it, will be forwarded to, 
+and printed by, the terminal on your local computer. In other words, you can 
+interact with the remote shell running on the remote server in the same way as 
+with the local shell on your local computer, but any commands executed in that 
+remote shell will be run on the remote server. Finally, when you shut down the 
+remote shell, for example by entering the `exit` command, the SSH connection 
+will be closed, and the terminal on your local computer will control your local 
+shell again.
 
 A brief SSH session might proceed like this:
 
 ````
 me@mypc$ ssh testuser@testserver
-testuser@testserver's password: 
+testuser@testserver's password: ************
 Last login: Mon Dec  4 12:00:59 2023 from 192.168.2.109
 testuser@testserver$ date
 Tue Dec  5 09:03:13 PST 2023
@@ -123,42 +125,42 @@ me@mypc$
 
 These are the steps of the above example in detail:
 
-* The user runs the `ssh` client program in a terminal on their local computer, 
+* You run the `ssh` client program in a terminal on your local computer, 
   providing the name of the server to which to connect and the name of the 
   account into which to log in.
 
-* The `ssh` program prompts the user to enter the password associated with the 
-  user's account on the server (assuming that the account was set up to
-  authenticate via a password, see below).
+* The `ssh` program prompts you to enter the password associated with your
+  account *on the server* (assuming that the account was set up to authenticate
+  via a password, more on that below).
 
-* The user enters the (correct) password, which is not echoed back for security 
+* You enter the (correct) password, which is not echoed back for security 
   reasons.
 
 * The server prints some welcome message indicating that the SSH session has 
   been established. On this particular server, the message contains the last
-  time at which the same user has logged into the server. This can help to
-  detect if the user's account has been compromised and has been accessed by a
-  third party impersonating the legitimate user.
+  time at which you have logged into the server. This can help to detect if your
+  account has been compromised and has been accessed by someone impersonating
+  you.
 
-* The user runs the `date` command on the server, which will print the 
-  *server's* current time. The server might be in a different time zone than 
-  the local computer, or its clock might be slightly offset compared to the 
-  local computer's clock.
+* You run the `date` command on the server, which will print *the server's*
+  current time. The server might be in a different time zone than you, or its
+  clock might be slightly offset compared to your local computer's clock,
+  meaning  that it might display a different time than you would expect.
 
-* The server runs the `ls ~` command on the server, which lists the contents of 
-  the user's home directory *on the server.*
+* You run the `ls ~` command, which lists the contents of your home directory
+  *on the server,* not the one on your local computer.
 
-* The user runs the `exit` command on the server, which will terminate the 
-  remote shell, close the SSH session, and return control to the shell running 
-  on the user's local computer.
+* You run the `exit` command on the server, which will terminate the remote
+  shell, close the SSH session, and return control to the shell running on your
+  local computer.
 
-Most importantly, both the `date` and `ls -l` commands were run *on the 
-server, not on the user's local computer.* Only the *output* from those 
-commands was forwarded from the server to the local computer over the SSH 
-connection, and then printed in the local computer's terminal.
+Most importantly, both the `date` and `ls ~` commands were run *on the 
+server, not on your local computer.* Only the *output* from those 
+commands was forwarded from the server to your local computer over the SSH 
+connection, and then printed in your local computer's terminal.
 
 There is a second way to use `ssh` to quickly execute a single command on a
-remote server without entering an interactive shell. This is done by appending
+remote server without entering an interactive shell. You do this by appending
 the command line that should be executed on the remote server to the `ssh`
 command itself, like so:
 
@@ -171,19 +173,22 @@ me@mypc$
 
 This example connected to the same account on the same server as before, 
 executed the `date` command on the server to print *the server's* current time, 
-and then immediately closed the SSH connection and returned control to the 
-user's local computer.
+and then immediately closed the SSH connection and returned control to your 
+local computer. This is a good way to quickly run a small command on a remote 
+server, or to run remote server commands from scripts.
 
-### Basic Server Etiquette
+Basic Server Etiquette
+----------------------
 
 Unlike most personal computers, servers are typically shared resources. This 
 not only means that a single server can have multiple user accounts that belong to 
 different people, but it often means that there are multiple users *connected 
 to the same server simultaneously,* all running programs and using the server's 
-resources. Users should therefore follow etiquette to ensure that no single 
-user "hogs" a server's resources to the point that it unduly interferes with other 
-users' work, that users don't invade each others' privacy, and that the 
-relationship between users and server administrators remains amicable.
+resources at the same time. All users should therefore follow etiquette to
+ensure that no single user "hogs" a server's resources to the point that it
+unduly interferes with other users' work, that users don't invade each others'
+privacy, and that the relationship between users and server administrators
+remains amicable.
 
 ### Resource Use
 
@@ -191,9 +196,10 @@ Server resources broadly fall into four categories:
 
 * Computing bandwidth: While servers are typically designed for heavy
   computation, they do contain a finite number of CPUs (and/or GPUs) that can
-  execute a finite number of operations per second. If the total computing
-  bandwidth requested by all active users exceeds the existing bandwidth,
-  computation will slow down proportionally for everyone.
+  execute a finite number of operations per second. If the total requested
+  computing bandwidth, i.e., number of requested operations per time unit,
+  exceeds the existing bandwidth, computation will slow down proportionally for
+  everyone.
 
 * Memory space: While servers typically have a lot of memory, it is, again, a 
   finite resource, and if the total memory requested by all active users 
@@ -205,7 +211,8 @@ Server resources broadly fall into four categories:
   the other hand, the operating system will respond by "swapping" memory to and 
   from the server's hard drives, which is *several orders of magnitude* slower 
   than system memory, and excessive swapping can grind even a very powerful
-  server to a virtual stand-still.
+  server to a virtual stand-still. It is therefore crucial that users be 
+  mindful of the memory requirements of the jobs they submit to a server.
 
 * Hard drive space: While again much larger than the hard drive space available 
   on typical personal computers, this resource has a *hard* limit. Once a 
@@ -216,23 +223,56 @@ Server resources broadly fall into four categories:
   limit the amount of hard drive space available to each user such that total 
   usage can never exceed available space, meaning that if a user's program tries
   to use more than available hard drive space, only that user's program crashes.
+  Regardless, all users should be mindful of the amount of hard drive space 
+  their submitted jobs require.
 
 * Hard drive bandwidth: Writing data to or reading data from hard drives is
   *several orders of magnitude* slower than writing or reading data from 
   memory. If the total hard drive bandwidth requested by all active users 
   exceeds existing bandwidth, hard drive operations will slow down 
-  proportionally for all users.
+  proportionally for all users. Different servers may have different policies
+  regarding hard drive bandwidth. For example, a server may have a special hard
+  drive set aside for reading/writing large amounts of temporary "scratch" 
+  data, and another for long-term storage of large files. All users should be
+  aware of any special policies that apply to the servers to which they 
+  connect.
+
+The later chapters of this reader will introduce strategies to estimate the 
+resource needs of a particular operation *before* running the operation, to be 
+able to plan ahead and ideally coordinate with a server's administrators before 
+submitting an exceedingly resource-intensive job.
+
+### Job Scheduling
 
 To ensure smooth operation and fair allocation of the above resources, many 
 servers implement job scheduling systems that let users submit operations they 
 want to run ahead of time, and then select which jobs to run in which order to 
 maximize total performance and minimize slow-downs due to contention. The later 
-chapters of this workshop discuss common scheduling systems in detail.
+chapters of this workshop discuss common scheduling systems in detail. The main
+take-home message here is that you should not start some job that requires 
+large amounts of server resources simply by logging in to a remote server and 
+immediately running a computation command from that server's shell.
 
-The later chapters will also introduce strategies to estimate the resource 
-needs of a particular operation *before* running the operation, to be able to 
-plan ahead and ideally coordinate with a server's administrators before 
-submitting an exceedingly resource-intensive job.
+### Cluster Computing
+
+The above note is especially important for *clusters,* which are groups of 
+interconnected computers that act as a single server. Clusters are typically 
+organized such that there is a single so-called *head node* that manages the 
+operation of the entire cluster, and a large number of *computing nodes* 
+(dozens to thousands) that actually run the computations requested by users. 
+When a user submits a job to a remote cluster, the head node will subsequently 
+send that job to one or more computation nodes, ideally ones that are not 
+currently used by anyone else, so that the job can run with minimal interference
+and finish in the shortest amount of time possible.
+
+This architecture creates a potential issue: when you log into a remote cluster 
+via SSH, you typically connect to the head node. But the head node is only 
+meant for two purposes: to upload or download data or programs to/from the 
+cluster, and to schedule jobs for execution on the computing nodes using some 
+job scheduling system. Meaning, if you start a computation *on the head node* 
+by directly running some command from the remote shell, you could easily 
+overtax the head node's resources and bring the entire cluster to a halt. *Do 
+not do this.*
 
 ### User Privacy
 
@@ -254,6 +294,10 @@ faceless cogs in some giant machine. It is therefore always a good idea to treat
 system administrators or other IT support staff in the same way as one would
 like to be treated by them:
 
+* Users should know and follow any policies associated with each server they are 
+  using. This includes things as which job scheduling systems to use, where to
+  store large temporary or permanent files, limits on resource usage, etc.
+
 * Users should make an honest effort to try and fix problems they run into on
   their own, for example by searching for solutions to their problems on the
   Internet or on a server's support web site, before directly contacting
@@ -265,9 +309,16 @@ like to be treated by them:
   problem with a server, should it occur, does not occur five minutes before an
   important deadline.
 
+SSH Authentication
+------------------
+
+The SSH protocol has two main ways of authenticating you, i.e., establishing 
+with the server that you are who you claim to be, and that you have the right 
+to connect to the server: SSH passwords and SSH keys.
+
 ### SSH Passwords
 
-One of the main ways how SSH can establish a user's identity on a remote server
+One of the main ways how SSH can establish your identity on a remote server
 is via passwords. SSH passwords work identically to the passwords used to log
 in to personal computers or to access web services like Google. Importantly, SSH
 passwords are *not* managed by the SSH protocol itself. They are, in fact,
@@ -276,12 +327,13 @@ managed by that operating system. This means they follow the same rules as
 standard passwords and have the same drawbacks and caveats.
 
 If a server uses SSH passwords for authentication, that server's administrators 
-will typically assign some random password to a new user and communicate that 
-password to them through some insecure channel like email. As a result, a new 
-user is usually expected to change their initial password the first time they 
-log into their new account. As SSH passwords are simply operating system-level 
-passwords on the server, they can be changed in the same way as local 
-passwords, by running the `passwd` command from a remote shell:
+will typically assign you some random password when you sign up for an account, 
+and will communicate that password to you through some insecure channel like 
+email. As a result, you are usually expected to change that initial password 
+when you log in to the server under your new account for the first time. As SSH 
+passwords are simply operating system-level passwords *on the server,* you can 
+change them in the same way as local passwords, by running the `passwd` command 
+from a remote shell:
 
 ````
 me@mypc$ ssh testuser@testserver
@@ -296,14 +348,15 @@ passwd: all authentication tokens updated successfully.
 testuser@testserver$ 
 ````
 
-The `passwd` command will first ask for the user's current password, i.e., the
-one that was assigned during account creation. It will then ask for a new
+The `passwd` command will first ask for your current password, i.e., the
+one that was assigned to you during account creation. It will then ask for a new
 password, check that password against its internal password rules, whatever
 they may be, and then ask for the new password for a second time to catch
 typos. If the new password passes the internal checks and is entered
 identically for the second time, the `passwd` command will print a confirmation
-message and immediately activate the new password, meaning the user must use it
-the next time they log into the server.
+message and immediately activate the new password, meaning that you must use it
+the next time the server asks you for a password, e.g., when logging in the 
+next time.
 
 If, on the other hand, something went wrong, `passwd` will print an error
 message like this:
@@ -312,30 +365,42 @@ message like this:
 passwd: Authentication token manipulation error
 ````
 
-and *not* activate the new password, meaning the user must continue to use the 
+and *not* activate the new password, meaning that you must continue to use the 
 old password, whether to log into the server or to attempt to change the 
 password using `passwd` again.
 
 :::{important} SSH Password Hygiene
 
-Due to SSH passwords being standard passwords stored on a remote server, users
+Due to SSH passwords being standard passwords stored on a remote server, you
 should **always:**
 
-+ assume that their password on any given server **will be leaked or stolen**
++ assume that your password on any given server **will be leaked or stolen**
   at some point.
 
 + **use different passwords for different servers,** to minimize the damage when
-  one server they use will inevitably be hacked, and their password for that
-  server will be stolen. By using different passwords for different servers,
+  one server you use will inevitably be hacked, and your password for that
+  server will be stolen. When you use different passwords for different servers,
   hackers will not be able to use the password they stole from one server to
-  access the same user's accounts on other servers.
+  access your accounts on other servers. It is a good idea to use a password 
+  manager so that you don't have to remember all the different passwords for 
+  all the different servers and services you use, and so that you are 
+  encouraged to use strong passwords all the time.
 :::
+
+### Existing Computing Accounts
+
+There is a slight variation of the password authentication method, where your 
+account on a computing server is tied to another account that you already have. 
+For example, a computing server managed by a university might use your existing 
+campus-wide IT account to authenticate you. In that case, you just log into the 
+server with your usual account name and password, and you don't change your 
+password on the server (in fact, it might not even be possible to do so).
 
 ### SSH Keys
 
-The second main way how SSH can establish a user's identity on a remote server 
+The second main way how SSH can establish your identity on a remote server 
 is via SSH keys. SSH keys are specific to the SSH protocol, and much more 
-secure than SSH passwords, both for the user and the server, to the point that 
+secure than SSH passwords, both for you and for the server, to the point that 
 many servers no longer allow SSH passwords for login and require SSH keys. 
 Besides vastly improved security, an additional benefit of SSH keys is that 
 users no longer have to enter passwords when connecting to a server (they still 
@@ -360,31 +425,33 @@ part of establishing a connection to that server.
 
 [RSA]: https://en.wikipedia.org/wiki/RSA_cryptosystem
 
-In the context of SSH authentication, RSA keys are used to establish a user's 
-identity. First, the server's administrators associate the user's **public** 
-key with the user's account (typically by asking the user to send them their 
+In the context of SSH authentication, RSA keys are used to establish your 
+identity on a server. First, the server's administrators associate your 
+**public** key with your account, typically by asking you to send them your 
 public key via email or an online form, which is safe to do because **public** 
-SSH keys can be freely shared with anyone). Then, when the user attempts to 
-connect to the server over SSH, the server takes a small piece of data, 
-encrypts it with the user's **public** key, and sends it to the `ssh` client 
-program running on the user's computer. The `ssh` program will then decrypt the 
-server's message using the user's **private** key, which is stored on the local 
-computer, and subsequently prove to the server that it was able to decode the 
-message (the details of how this proof works are very interesting, but beyond 
-the scope of this reader). Being able to decode the server's message, in turn, 
-proves to the server that the user knows the **private** key associated with 
-the **public** key stored with the user's account on the server, and is 
-therefore who they claim to be.
+SSH keys can be freely shared with anyone. Then, when you attempt to connect to 
+the server over SSH, the server takes a small piece of data, encrypts it with 
+your **public** key, and sends it to the `ssh` client program running on your 
+local computer. The `ssh` program will then decrypt the server's message using 
+your **private** key, which is stored on your local computer, and subsequently 
+prove to the server that it was able to decode the message (the details of how 
+this proof works are very interesting, but beyond the scope of this reader). 
+Being able to decode the server's message, in turn, proves to the server that 
+you know the **private** key associated with the **public** key stored with the 
+user's account on the server, and that you therefore are who you claim to be. 
+Importantly, your **private** key never leaves your local computer during this 
+exchange, and can therefore not be stolen by a malicious server or a malicious 
+third party.
 
 As a result of a server's assumption that anyone who knows a user's **private** 
 SSH key *is* that user, **private** SSH keys can not be freely shared like 
 **public** SSH keys and *must* be kept private and safe, as the name implies. 
-If a user's **private** SSH key(s) get accessed by hackers, those hackers will 
-be able to access any of that user's accounts using those keys. It is therefore 
-highly recommended to protect one's SSH keys with strong passwords (more on 
-that below).
+If your **private** SSH key(s) get accessed by hackers, those hackers will be 
+able to access any of your accounts using those keys. It is therefore highly 
+recommended to protect your SSH keys with strong passwords (more on that 
+below).
 
-SSH keys are created by running the `ssh-keygen` command on a user's local
+SSH keys are created by running the `ssh-keygen` command on your local 
 computer:
 
 ````
@@ -421,10 +488,10 @@ These are the steps of the above procedure in detail:
 
 * `ssh-keygen` asks for the name of a file in which to store the **private**
   key. By default, as indicated in the prompt, private RSA keys will be stored
-  in a file named id_rsa in a hidden `.ssh` directory in the user's home
-  directory (`/home/me`). If the user simply presses the Enter key at this
-  prompt, `ssh-keygen` will use the default file name, which is fine unless the
-  user wants to maintain multiple keys.
+  in a file named id_rsa in a hidden `.ssh` directory in your home
+  directory (`/home/me`). If you simply press the Enter key at this
+  prompt, `ssh-keygen` will use the default file name, which is fine unless you
+  want to maintain multiple keys (more on that below).
 
 * Next, `ssh-keygen` asks for an optional passphrase to protect the new private
   key. As mentioned above, it is crucial that **private** SSH keys be kept
@@ -433,10 +500,10 @@ These are the steps of the above procedure in detail:
   hackers from using the private key in case they get access to it somehow.
   This passphrase is not stored anywhere, and **must never be given to
   anyone.** When the `ssh` program needs to access a private key to connect to
-  a server, it will ask the user for the passphrase, use it to access the
-  private key, and then immediately forget it again. For sound and practical
-  advice on how to choose cryptographically strong passphrases, see
-  [this xkcd cartoon][xkcd_password].
+  a server, it will ask you for the passphrase, use it to access the private
+  key, and then immediately forget it again. For sound and practical advice on
+  how to choose cryptographically strong passphrases (or passwords in general),
+  see [this xkcd cartoon][xkcd_password].
 
 * Then, `ssh-keygen` prints the name of the file containing the **public** SSH
   key associated with the new private SSH key, which is just the name of the
@@ -456,30 +523,29 @@ important differences to password-based authentication:
 + **Public** SSH keys can be freely shared with anyone, without concern. They
   could be published via email, on web pages, or in phone books.
 
-+ **Private** SSH keys, unlike SSH passwords, are only stored on the user's
-  local computer, and are *not* shared with a server while an SSH connection is
++ **Private** SSH keys, unlike SSH passwords, are only stored on your local
+  computer, and are *not* shared with a server while an SSH connection is
   established.
 
 + Because **public** SSH keys are safe to share, and **private** SSH keys are
   not shared with servers during connection establishment, it is safe to use
   the same SSH public/private key pair for any number of different servers.
   Even if one server gets hacked, the information that hackers could
-  potentially glean would *not* allow them to log into the same user's account
+  potentially glean would *not* allow them to log into any of your accounts
   on other servers.
 
 + **Private** SSH keys **must be kept private.**
 
-+ SSH keys are only as secure as the user's local computer where they are
-  stored. If a user's computer gets stolen or hacked, thieves or hackers could
-  potentially gain access to that user's accounts on all servers for which the
-  user has SSH keys, unless the keys themselves are protected by strong
-  passphrases.
++ SSH keys are only as secure as your local computer where they are stored. If
+  your computer gets stolen or hacked, thieves or hackers could potentially gain
+  access to your accounts on all servers for which you have SSH keys, unless the
+  keys themselves are protected by strong passphrases.
 
 + **NEVER EVER AT ABSOLUTELY NO TIME GIVE ANYONE YOUR PRIVATE SSH KEY EVER!**
 
 + If an SSH key is protected by a strong passphrase, it is practically
   impossible to use by a hacker even if said hacker were able to access the key
-  files on a user's computer somehow.
+  files on your local computer somehow.
 
 + **NEVER EVER AT ABSOLUTELY NO TIME GIVE ANYONE YOUR SSH KEY PASSPHRASE EVER!**
 :::
@@ -487,81 +553,125 @@ important differences to password-based authentication:
 ### The `.ssh` Configuration Directory
 
 The SSH protocol suite stores configuration data in a hidden `.ssh` directory
-in a user's home directory. Because this directory contains some data that is
-private to the user, such as private SSH keys, many SSH programs will refuse to
-operate if this directory or its contents have incorrect sets of *permissions,*
-i.e., access privileges.
+in your home directory. Because this directory contains some data that must 
+remain private to you, such as private SSH keys, many SSH programs will refuse
+to operate if this directory or its contents have incorrect sets of
+*permissions,* i.e., access privileges.
+
+### Permissions
+
+In UNIX-based operating systems like Linux, there are three separate sets of 
+permissions on every file or directory:
+
+* **User (u):** These permissions apply to the single user who owns a file or 
+  directory.
+
+* **Group (g):** These permissions apply to users who belong to the same group as
+  the user who owns a file or directory.
+
+* **Other (o):** These permissions apply to all users who fall into neither of the 
+  previous two groups.
+
+Inside each of these groups, there are three permissions:
+
+* **Read (r):** The user can read the contents of a file or directory.
+
+* **Write (w):** The user can change the contents of a file, or add/move/remove
+  files to/from a directory.
+
+* **Execute (x):** The user can execute, i.e., run, a program or script file, or
+  enter into a directory.
+
+The current permissions of a file or directory can be queried by running `ls 
+-l` on that file or directory, and are displayed like this:
+
+`-rwxr-x---` for a regular file, where the first three "rwx" characters denote 
+the user permissions, followed by three characters for the group permissions, 
+followed by three characters for the other users' permissions. Dashes indicate 
+that a permission is missing. This example shows an executable file (program or 
+script) that can be read, written, and executed by the user owning it; read and 
+executed by users in the owner's group, and cannot be accessed at all by other 
+users.
+
+`drwxr-xr-x` for a directory. The initial "d" indicates that this is a 
+directory, and the rest of the characters have the same meaning as for files. 
+This example shows a directory whose contents can be read and changed, and that 
+can be entered, by its owner, whose contents can be read but not changed, and 
+that can be entered, by users in the owner's group, and that is inaccessible to 
+all other users.
 
 :::{important} Permissions for the `.ssh` directory
 
-+ The `.ssh` directory **must** be readable, writable, and executable by the
-  user.
++ The `.ssh` directory **must** be readable, writable, and executable by you.
 
 + The `.ssh` directory **should not** be readable, writable, or executable by
-  the user's group and by other users.
+  your user group and by other users.
 
 + The `.ssh` directory's permissions, as printed by `ls -l ~/.ssh`, **should**
   be `drwx------.`
 
-+ In case of doubt, one should set the `.ssh` directory's permissions via
-  `chmod u+rwx,go-rwx ~/.ssh`, or, equivalently, `chmod 0700 ~/.ssh`.
++ In case of doubt, you should explicitly set the `.ssh` directory's permissions
+  via `chmod u+rwx,go-rwx ~/.ssh`, or, equivalently, `chmod 0700 ~/.ssh`.
 
 + **Public** key files (`id_rsa.pub` etc.) **must** be readable and writable by
-  the user, and **may** be readable, but **must not** be writable, by the
-  user's group and by other users. In short, their permissions **should** be
-  `-rw-r--r--.`. To set the recommended permissions, one runs
+  you, and **may** be readable, but **must not** be writable, by your user group
+  and by other users. In short, their permissions **should** be `-rw-r--r--.`.
+  To set the recommended permissions explicitly, you would run
   `chmod u+rw,go+r,go-w ~/.ssh/<key file>.pub`
 
 + **Private** key files (`id_rsa` etc.) **must** be readable and writable by
-  the user, and **must not** be readable or writable by the user's group or
+  you, and **must not** be readable or writable by the your user group or by
   other users. In short, their permissions **must** be `-rw-------.`. To set
-  the required permissions, one runs `chmod u+rw,go-rw ~/.ssh/<key file>`
+  the required permissions, you would run `chmod u+rw,go-rw ~/.ssh/<key file>`
 
-+ The `~/.ssh/config` file **must** be readable and writable by the user, and
-  **must not** be readable or writable by the user's group or other users. In
++ The `~/.ssh/config` file **must** be readable and writable by you, and
+  **must not** be readable or writable by your user group or by other users. In
   short, its permissions **must** be `-rw-------.`. To set the required
-  permissions, one runs `chmod u+rw,go-rw ~/.ssh/config`
+  permissions, you would run `chmod u+rw,go-rw ~/.ssh/config`
 
 + Other files (`known_hosts`, `authorized_keys`, etc.) **must** be readable and
-  writable by the user, **must not** be writable by the user's group or other
-  users, and **should not** be readable by the user's group or other users. In
+  writable by you, **must not** be writable by your user group or by other
+  users, and **should not** be readable by your user group or by other users. In
   short, their permissions **should** be `-rw-------.`. To set the recommended
-  permissions, one runs `chmod u+rw,go-rw ~/.ssh/<file>`
+  permissions, you would run `chmod u+rw,go-rw ~/.ssh/<file>`
 :::
 
 ### Known Hosts
 
-`~/.ssh/known_hosts` contains the **public** SSH keys of servers to which the
-user has connected in the past. These are stored to prevent so-called
+`~/.ssh/known_hosts` contains the **public** SSH keys of servers to which you 
+have connected in the past. These are stored to prevent so-called
 "man-in-the-middle" attacks, where a third party attempts to intercept SSH
-connection traffic by pretending to be a server to which a user wants to
-connect, accepting incoming SSH connections from such a user, and then
+connection traffic by pretending to be a server to which you wants to
+connect, accepting incoming SSH connections from you, and then
 transparently forwarding those connections and their content to the actual
 server. While SSH connections are secure between the two ends of a
 connection, this setup would allow a third party to see unencrypted data
-traveling between the user and the intended remote server because there are now
-*two* encrypted connections: one between the user and the man-in-the-middle, and
-one between the man-in-the-middle and the intended remote server.
+traveling between you and the intended remote server because there are now
+*two* encrypted connections: one between you and the man-in-the-middle, and
+one between the man-in-the-middle and the remote server to which you actually 
+wanted to connect.
 
-Server keys can prevent this type of attack. In the same way that a server can
-verify a user's identity via that user's public SSH key, a user can verify a
-server's identity via that server's public SSH key.
+Server keys can prevent this type of attack. In the same way that a server can 
+verify your identity via your public SSH key, you, or rather the SSH client on 
+your local computer, can verify a server's identity via that server's public 
+SSH key.
 
-When a user connects to a server to which they have connected in the past, the
-`ssh` program compares that server's public SSH key to the one in the
+When you connect to a server to which you have connected in the past, the
+`ssh` program compares that server's public SSH key to the one in your
 `known_hosts` file. If the keys do not match, `ssh` refuses to establish the
 connection, because it can not prove that the server is the same one to which
 it connected before, meaning that the server is potentially being impersonated
 by a malicious third party.
 
-In rare circumstances, servers may legitimately change their SSH keys. If `ssh`
-indicates a server key mismatch, the secure approach is to directly contact the
-administrators of that server to confirm that the key was legitimately changed,
-and, if that is the case, ask to receive a copy of the server's new public SSH
-key. The server's key must then manually be replaced in the `known_hosts` file
-by opening that file with a text editor such as `vim`, finding the old server
-key (`ssh` will print the number of the line containing the mismatching key),
-replacing it with the new key, and then saving the edited file.
+In rare circumstances, servers may legitimately change their SSH keys. If `ssh` 
+indicates a server key mismatch, the secure approach is to directly contact the 
+administrators of that server to confirm that the key was legitimately changed, 
+and, if that is the case, ask to receive a copy of the server's new public SSH 
+key. You will then have to manually replace the server's old SSH key with its 
+new one in your`known_hosts` file by opening that file with a text editor such 
+as `vim`, finding the old server key (`ssh` will print the number of the line 
+containing the mismatching key), replacing it with the new key, and then saving 
+the edited file.
 
 But what happens when a new user tries to connect to a server for the first
 time? At that point, the `known_hosts` file does not yet know that server's key,
@@ -578,27 +688,30 @@ potential man-in-the-middle attack even on the first connection.
 
 `~/.ssh/config` contains local configuration data for SSH programs like `ssh`. 
 The most useful settings in that file are per-server settings that associate 
-account names and potentially SSH key files with server names, to simplify 
-managing different user identities on different servers. For example, imagine a
-scenario in which a user has accounts on two different servers: an account named
-`testuser` on a server named `testserver`, using an SSH key for authentication,
-and an account named `m34754_a2` on a server named `anotherserver`, also using
-an SSH key for authentication, but using a different key pair than for server
-`testserver` (while using different SSH keys for different servers does not
-actually increase security, there might still be other reasons for doing so).
-Then the user would have to use the following two commands to log into the two
+account names, and potentially SSH key files, with server names, to simplify 
+managing different user identities on different servers. For example, imagine 
+that you have accounts on two different servers: an account named `testuser` on 
+a server named `testserver`, using an SSH key for authentication, and an 
+account named `m34754_a2` on a server named `anotherserver`, also using an SSH 
+key for authentication, but using a different key pair than for server 
+`testserver` (while using different SSH keys for different servers does not 
+actually increase security, there might still be other reasons for doing so). 
+Then you would have to use the following two commands to log into the two 
 servers, respectvely:
 
 ````
 me@mypc$ ssh testuser@testserver
 ````
+
 and
+
 ````
 me@mypc$ ssh -i ~/.ssh/anotherserver_rsa m34754_a2@anotherserver
 ````
-The `-i <key file name>` option for `ssh` selects a specific SSH key other than
-the default `id_rsa`. To avoid typing this every time, the user could add the
-following text to their `~/.ssh/config` file using a text editor like `vim`:
+
+The `-i <key file name>` option for `ssh` selects a specific SSH key other than 
+the default `id_rsa`. To avoid typing this every time, you could add the 
+following text to your `~/.ssh/config` file using a text editor like `vim`:
 
 ````
 Host testserver
@@ -620,12 +733,13 @@ IdentityFile ~/.ssh/anotherserver_rsa
 * The `IdentityFile` keyword specifies the name of the private SSH key file to
   use for authentication when connecting to the matching server(s).
 
-With these lines in their `~/.ssh/config` file, the user can then connect to
-those two servers with the (much) shorter following commands:
+With these lines in your `~/.ssh/config` file, you would then be able to 
+connect to those two servers with the (much) shorter following commands:
 
 ````
 me@mypc$ ssh testserver
 ````
+
 and
 
 ````
@@ -638,34 +752,35 @@ documentation (`man ssh_config`).
 Moving Data Between A Local Computer, The Internet, And A Server
 ----------------------------------------------------------------
 
-An established SSH connection between a user's local computer and a remote 
-server sends the user's input to the remote server, and sends the output of the 
-shell running on the remote server to the user's local computer, but it does 
-not otherwise send data or code between those two ends. Therefore, uploading 
-data from a user's local computer to a server, downloading data from the 
-Internet to a server, or downloading data from a server to a user's local 
-computer require additional tools.
+An established SSH connection between your local computer and a remote server 
+sends your keystrokes to the remote server, and sends the output of the shell 
+running on the remote server back to your local computer, but it does not 
+otherwise send data or code between those two ends. Therefore, uploading data 
+from your local computer to a server, downloading data from the Internet to a 
+server, or downloading data from a server to your local computer require 
+additional tools.
 
 ### Download Files From The Internet
 
-The first pair of commands, to download data from the Internet to *any*
-computer, including a user's local computer and a server to which a user is
-connected via SSH, are `wget` and `curl`. Both of these commands do basically
-the same thing, but for historical reasons, one or the other (or sometimes
-both) may be installed on any specific computer. It is therefore important to
-know the basics of using both of them.
+The first pair of commands, to download data from the Internet to *any* 
+computer, including your local computer and a server to which you are connected 
+via SSH, are `wget` and `curl`. Both of these commands do basically the same 
+thing, but for historical reasons, one or the other (or sometimes both) may be 
+installed on any specific computer. It is therefore important to know the 
+basics of using both of them.
 
 ### `wget`
 
 `wget` (as in "web get") is the simpler of the two commands. It can be used to 
 download one or more files, entire directories, or even entire directory 
-hierarchies, from the Internet, via multiple protocols including HTTP and HTTPS. 
-Its most common use is to download files from web servers. Usually, one 
-downloads a file from a web server via a web browser, by right-clicking on a 
+hierarchies from the Internet, via multiple protocols including HTTP and HTTPS. 
+Its most common use is to download files from web servers. Usually, you would 
+download a file from a web server via a web browser, by right-clicking on a 
 hyperlink in a web page and selecting "Save Link As..." from the menu that pops 
 up in response. In its simplest form, `wget` does the same, but from the 
-command line and without requiring further user input. To download the file 
-referenced by a given URL, one simply passes that URL on `wget`'s command line:
+command line and without requiring further actions from you. To download the 
+file referenced by a given URL, you simply pass that URL on `wget`'s command 
+line:
 
 ````
 me@mypc$ wget https://www.google.com
@@ -686,7 +801,7 @@ me@mypc$
 ````
 
 The above command will download the entirety of the Internet and store it on
-the user's local computer.
+your local computer.
 
 No, just kidding, it will download `index.html`, the HTML file that renders
 Google's frontpage, the one that is shown when visiting the
@@ -695,7 +810,7 @@ and fun to look at.
 
 In the same way, `wget` can download files referenced by any other URLs. A
 common practical way to do this is to visit the web site hosting a desired file
-using a web browser, to locate a hyperlink for the file one wants to download,
+using a web browser, to locate a hyperlink for the file you want to download,
 then to right-click on that hyperlink and select "Copy Link" in the pop-up
 menu, and finally to paste the copied link into `wget`'s command line. And
 because `wget` is command line-based, this can be used to download a file to a
@@ -723,11 +838,11 @@ When downloading a URL, `wget` will store the file referenced by that URL in
 the current directory from which `wget` was run, using the same file name as
 the file on the server (in the above example, `135918main_bm1_high.jpg`). This
 is seldom useful, because the names of files on web servers are commonly
-auto-generated and non-descriptive. Instead, one can specify a desired location
+auto-generated and non-descriptive. Instead, you can specify a desired location
 and name for the downloaded file via the `-O <file name>` (that is *uppercase* O
 for "output file name") command line option for `wget`. The `-O <file name>`
 option must appear *before* the URL of the file to be downloaded. While at it,
-one can also reduce the amount of extra information `wget` prints while
+you can also reduce the amount of extra information `wget` prints while
 downloading via the `-q` (for "quiet") command line option:
 
 ````
@@ -811,7 +926,7 @@ testuser@testserver$
 In the UNIX world, data or programs are often made available for download as
 `gzip`-compressed `tar` (for "tape archive") files, commonly known as
 "tarballs." A neat trick to download such a tarball from a web server and
-decompress and unpack it on the fly without storing the tarball itself on the
+decompress and unpack it on the fly without storing the tarball itself on your
 local hard drive is to download it via `curl` and pipe it directly into the
 `tar` program for decompression and unpacking:
 
@@ -825,6 +940,7 @@ tarball inside the current directory. Using `wget`, the same command would be:
 ````
 me@mypc$ wget -O - http://testserver/DataArchive.tar.gz | tar xfz -
 ````
+
 (`-O -` instructs `wget` to print the downloaded file to the terminal, mirroring
 the default behavior of `curl`).
 
@@ -845,16 +961,17 @@ write download statistics when done. Also like `wget`, these updates can be
 disabled, but unlike `wget`, the associated command line option is `-s` (for 
 "silent"), and `curl` in silent mode will not even print a message if there is 
 an error while downloading a file, unless error messages are re-enabled by 
-adding `-S` (*uppercase* S, for "not quite so silent") after `-s`.
+adding `-S` (*uppercase* S, for "not quite so silent, thankyouverymuch") after
+`-s`.
 
 ### Transfer Files Between A Local Computer And A Server
 
 Unlike `wget` and `curl`, the next pair of commands can be used to transfer 
-files between a user's local computer and a remote server. The first, `scp`, is 
-non-interactive and behaves similarly to the standard UNIX `cp` command, but
+files between your local computer and a remote server. The first, `scp`, is 
+non-interactive and behaves similarly to the standard UNIX `cp` command, but 
 with  the added ability to access files on remote servers. The second command, 
 `sftp`, is an interactive terminal application like `vim`, in the sense that it 
-opens a custom "shell" in which the user can run commands that allow local and 
+opens a custom "shell" in which you can run commands that allow local and 
 remote file operations and transfers. While `scp` can only transfer files 
 between computers, `sftp` additionally supports file management operations like 
 creating and removing directories, moving, renaming, and deleting files, etc.
@@ -875,7 +992,7 @@ an "@" sign, as in `<account name>@<server name>:<path>`. For example,
 me@mypc$ scp BlueMarble1972.jpg testuser@testserver:Images/
 ````
 
-will copy a `BlueMarble1972.jpg` file from the current directory on the local 
+will copy a `BlueMarble1972.jpg` file from the current directory on your local 
 computer into the `Images` directory in the `testuser` account on the
 `testserver` server. Remote paths are relative to the remote user's home
 directory, unless they start with a `/` (forward slash), which indicates that
@@ -889,10 +1006,10 @@ me@mypc$ scp testuser@testserver:Images/BlueMarble1972.jpg .
 
 will do the exact opposite, copying `BlueMarble1972.jpg` from the `Images`
 directory under the `testuser` account's home directory on server `testserver`
-to the current directory on the local computer. The `.` at the end of the
+to the current directory on your local computer. The `.` at the end of the
 command line is UNIX shorthand for the current directory, and thus tells `scp`
 to give the destination file the same name as the source file, and to store it
-in the current directory on the local computer. Equivalently, one could have
+in the current directory on your local computer. Equivalently, you could have
 specified the name of the destination file explicitly:
 
 ````
@@ -930,21 +1047,21 @@ sftp <account name>@<server name>
 
 The above command instructs `sftp` to connect to server `<server name>` using 
 account `<account name>`. Being an interactive application, `sftp` will then 
-enter a command loop where it prints an `sftp>` prompt, waits for user input, 
-reads a command from the user, executes that command, and repeats. The `bye`, 
-`exit`, or `quit` commands tell `sftp` to close the connection to the server, 
-exit the program, and return the user back to the local shell.
+enter a command loop where it prints an `sftp>` prompt, waits for you to enter 
+a command, executes that command, and repeats. The `bye`, `exit`, or `quit` 
+commands tell `sftp` to close the connection to the server, exit the program, 
+and return you back to your local shell.
 
 ### Current Directories
 
 Because `sftp`'s purpose is file transfer and management, it has the same 
-concept of a *current directory* as a regular shell, to relieve the user from 
-always having to enter absolute paths to identify the file(s) on which they 
+concept of a *current directory* as a regular shell, to relieve you from 
+always having to enter absolute paths to identify the file(s) on which you 
 want to operate. Unlike a regular shell, however, `sftp` has *two* current 
-directories: one on the local computer, and one on the server. Consequently, 
+directories: one on your local computer, and one on the server. Consequently, 
 the commands to query or alter those current directories also come in pairs, 
 where the command referring to the local current directory has an "l"
-(*lowercase* l for "local")prefix, and the other one works exactly like the
+(*lowercase* l for "local") prefix, and the other one works exactly like the
 shell command of the same name:
 
 * `pwd` and `lpwd` (for "(local) print working directory") print the paths of
@@ -1003,8 +1120,8 @@ sftp> exit
 me@mypc$
 ````
 
-When `sftp` starts, the local current directory is initialized to the shell's 
-current directory, and the remote current directory is set to the home 
+When `sftp` starts, the local current directory is initialized to your local 
+shell's current directory, and the remote current directory is set to the home 
 directory of the given account on the server. It is also possible to start with 
 a different remote current directory by appending that directory's path to the 
 server name given on `sftp`'s command line, separated by a colon:
@@ -1055,12 +1172,12 @@ Common `get` options:
   not check whether the existing local file differs from that initial portion.
   In other words, if the local and/or remote file were changed since the
   interrupted download, the two files will not be identical after the download
-  completes.
+  completes, which will typically result in an unusable corrupted file.
 
 * `-p` (for "permissions"): `sftp` will also copy the full set of file 
   permissions and the access time of the remote file. Without this option, the
   new local file's access time will be set to the current local time, and its
-  permissions will be set to the local account's default permissions.
+  permissions will be set to your local account's default permissions.
 
 The `put <local path> [remote path]` command uploads one or more files from the 
 local computer to the remote server. The `<local path>` argument 
@@ -1104,7 +1221,7 @@ Common `put` options:
   not check whether the existing remote file differs from that initial portion.
   In other words, if the remote and/or local file were changed since the
   interrupted upload, the two files will not be identical after the upload
-  completes.
+  completes, which will typically result in an unusable corrupted file.
 
 * `-p` (for "permissions"): `sftp` will also copy the full set of file 
   permissions and the access time of the local file. Without this option, the
@@ -1157,8 +1274,8 @@ private to each user. "Other" directories can contain a mix of these two.
 As system directories contain data and programs that are shared by all users,
 their contents are typically readable by all users, but can only be modified by
 the superuser (root). In other words, their permissions are typically
-`drwxr-xr-x.`, and the permissions of the files contained within them are
-typically `-rw-r--r--.` for data files and `-rwxr-xr-x.` for program and library
+`drwxr-xr-x`, and the permissions of the files contained within them are
+typically `-rw-r--r--` for data files and `-rwxr-xr-x` for program and library
 files. The most relevant system directories are:
 
 * `/bin` and `/sbin` contain programs that are essential for operating a UNIX
@@ -1199,7 +1316,7 @@ each user's account name, such as `/home/me` or `/home/testuser`. As home
 directories are supposed to be private to each user, they can typically be read
 and written by the user owning them, can be read but not written by the user's
 group, and are neither readable nor writable by other users. In short, their
-permissions are typically `drwxr-x---.`.
+permissions are typically `drwxr-x---`.
 
 Sometimes a user might accidentally misconfigure their home directory's
 permissions to allow read or even write access by other users. Exploiting such
