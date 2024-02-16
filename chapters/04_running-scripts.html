@@ -530,11 +530,13 @@ Python</label><div class="sd-tab-content docutils">
 <span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">import</span> <span class="nn">time</span>
 
+
 <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
     <span class="n">name</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
     <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
         <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Hello, </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="n">main</span><span class="p">()</span>
@@ -920,7 +922,7 @@ rethink how to implement your code.</p>
 computer. It’s a great bird’s-eye view of what is going on at any one point in
 your system. But for that reason it can also be overwhelming. Calling <code class="docutils literal notranslate"><span class="pre">top</span></code>
 with no arguments shows a giant, shifting wall of text; for the purposes of
-this chapter, it will be more useful to zero-in on a specific user.</p>
+this chapter, it will be more useful to look at a specific user.</p>
 <p>Running</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ top -u datalab
 </pre></div>
@@ -987,9 +989,9 @@ gigabytes, and so on. Use <code class="docutils literal notranslate"><span class
 <p>A newer version of <code class="docutils literal notranslate"><span class="pre">top</span></code>, <code class="docutils literal notranslate"><span class="pre">htop</span></code>, adds some nice interactivity to the display.
 We recommend it, though you may have to install it yourself. Visit the
 application’s <a class="reference external" href="https://github.com/htop-dev/htop">GitHub repository</a> for more information. You may have also
-noticed that <code class="docutils literal notranslate"><span class="pre">top</span></code> has not provided any information about GPUs. It usually
-doesn’t. GPU manufacturers frequently provide their own utilities for system
-monitoring.</p>
+noticed that <code class="docutils literal notranslate"><span class="pre">top</span></code> has not provided any information about special hardware,
+GPUs. It usually doesn’t. GPU manufacturers frequently provide their own
+utilities for system monitoring.</p>
 <p>For Nvidia GPUs, there is <code class="docutils literal notranslate"><span class="pre">nvidia-smi</span></code>. It’s a safe assumption to expect this
 utility to be installed on any computer with Nvidia GPU hardware. Set the <code class="docutils literal notranslate"><span class="pre">-l</span></code>
 flag with a number <code class="docutils literal notranslate"><span class="pre">&lt;N&gt;</span></code> to update the readout every <code class="docutils literal notranslate"><span class="pre">&lt;N&gt;</span></code> seconds.</p>
@@ -1015,9 +1017,9 @@ flag with a number <code class="docutils literal notranslate"><span class="pre">
 +---------------------------------------------------------------------------------------+
 </pre></div>
 </div>
-<p>Cells in the header will tell you information about your CUDA version, which
-GPU(s) you have, and memory usage. Below the header, the task list will show you
-any running processes.</p>
+<p>Cells in the header will tell you information about your <a class="reference external" href="https://en.wikipedia.org/wiki/CUDA">CUDA</a> version,
+which GPU(s) you have, and memory usage. Below the header, the task list will
+show you any running processes.</p>
 </section>
 <section id="other-resource-information">
 <h3><span class="section-number">4.3.3. </span>Other resource information<a class="headerlink" href="#other-resource-information" title="Permalink to this headline">#</a></h3>
@@ -1120,15 +1122,18 @@ Python</label><div class="sd-tab-content docutils">
 
 <span class="kn">import</span> <span class="nn">sys</span>
 
+
 <span class="k">def</span> <span class="nf">factorial</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute the factorial of a positive number `n`.&quot;&quot;&quot;</span>
     <span class="n">result</span> <span class="o">=</span> <span class="mi">1</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
         <span class="n">result</span> <span class="o">*=</span> <span class="n">i</span>
 
+
 <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
     <span class="n">n</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
     <span class="n">factorial</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="n">main</span><span class="p">()</span>

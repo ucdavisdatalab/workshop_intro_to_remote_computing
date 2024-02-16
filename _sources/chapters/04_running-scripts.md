@@ -145,11 +145,13 @@ done
 import sys
 import time
 
+
 def main():
     name = sys.argv[1]
     while True:
         print(f"Hello, {name}")
         time.sleep(1)
+
 
 if __name__ == "__main__":
     main()
@@ -616,7 +618,7 @@ But how would you know what resources are being used?
 computer. It's a great bird's-eye view of what is going on at any one point in
 your system. But for that reason it can also be overwhelming. Calling `top`
 with no arguments shows a giant, shifting wall of text; for the purposes of
-this chapter, it will be more useful to zero-in on a specific user.
+this chapter, it will be more useful to look at a specific user.
 
 Running
 
@@ -693,9 +695,9 @@ You can end a process from `top` by entering `k` followed by the PID. Quit
 A newer version of `top`, `htop`, adds some nice interactivity to the display.
 We recommend it, though you may have to install it yourself. Visit the
 application's [GitHub repository][repo] for more information. You may have also
-noticed that `top` has not provided any information about GPUs. It usually
-doesn't. GPU manufacturers frequently provide their own utilities for system
-monitoring. 
+noticed that `top` has not provided any information about special hardware,
+GPUs. It usually doesn't. GPU manufacturers frequently provide their own
+utilities for system monitoring. 
 
 [repo]: https://github.com/htop-dev/htop
 
@@ -726,9 +728,11 @@ $ nvidia-smi -l 5
 +---------------------------------------------------------------------------------------+
 ```
 
-Cells in the header will tell you information about your CUDA version, which
-GPU(s) you have, and memory usage. Below the header, the task list will show you
-any running processes.
+Cells in the header will tell you information about your [CUDA][cuda] version,
+which GPU(s) you have, and memory usage. Below the header, the task list will
+show you any running processes.
+
+[cuda]: https://en.wikipedia.org/wiki/CUDA
 
 ### Other resource information
 
@@ -840,15 +844,18 @@ factorial "$1"
 
 import sys
 
+
 def factorial(n):
     """Compute the factorial of a positive number `n`."""
     result = 1
     for i in range(1, n+1):
         result *= i
 
+
 def main():
     n = int(sys.argv[1])
     factorial(n)
+
 
 if __name__ == "__main__":
     main()
