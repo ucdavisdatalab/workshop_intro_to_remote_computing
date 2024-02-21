@@ -1050,7 +1050,7 @@ user    0m0.174s
 sys     0m0.073s
 ```
 
-The second one is over five times as fast!
+The second one is over four times as fast!
 
 ### RAM usage
 
