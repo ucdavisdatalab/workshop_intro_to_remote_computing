@@ -339,11 +339,17 @@ Hello, DataLab
 ...
 ```
 
-That will kick off the script, which you'll leave running. Now, type the
-sequence `Ctrl+b d`. This is a **keybinding** that sends a command to `tmux`.
-In this case, the command is to leave, or **detach**, your session. Doing so
-should bring you back to your terminal view. You'll see the following in that
-view:
+That will kick off the script, which you'll leave running. But since the script
+is running, you can't type any further commands into your terminal itself.
+Instead, you'll need to type a special sequence, or **keybinding**, to
+communicate with `tmux`. Default keybindings in `tmux` start with the sequence
+`Ctrl+b`. You'll always type these two keys before specifying what you want the
+program to do.  
+
+In this case, you want to leave, or **detach**, your session so that you can do
+more work while the code continues to run. The sequence you'll type is `Ctrl+b
+d`. Doing so should bring you back to your original terminal view, where you'll
+see the following:
 
 ```
 $ tmux
@@ -428,17 +434,19 @@ session, `beacon`, with window `win1`.
 tmux new -s "beacon" -n "win1"
 ```
 
-From `win1`, you can create another window, `win2`:
+From `win1`, you can create another window, `win2`. To do so, enter `Ctrl+b`
+and type `:` to enter the command mode. If you've used `vim` before, this will
+feel familiar. Then type:
 
 ```
-tmux new-window -n "win2"
+new-window -n "win2"
 ```
 
 ![A `tmux` session with two windows](../img/tmux_windows.png)
 
 Note the bottom bar, which displays the two windows. To switch between them,
-enter `Ctrl+b` and type `:` to enter the command mode (if you've used `vim`
-before, this will feel familiar). Then, type:
+enter the keybinding and command mode key again. From here forward, we will
+notate this sequence with a shorthand `:` before the `tmux` command. Then type:
 
 ```
 :select-window -t "win1"
@@ -452,9 +460,12 @@ Terminate a window like so:
 
 Shorthand keybindings allow for quick movement between windows:
 
-+ `Ctrl+b p`: toggle the previous window
-+ `Ctrl+b n`: toggle the next window
-+ `Ctrl+b x`: close the current window
+| Keybinding     | Explanation                           |
+|----------------|---------------------------------------|
+| `Ctrl+b p`     | Toggle the previous window            |
+| `Ctrl+b n`     | Toggle the next window                |
+| `Ctrl+b 0...9` | Select a window by its index position |
+| `Ctrl+b x`     | Close the current window              |
 
 Finally, windows can be split into **panes**. This divides a window into
 different areas, which can all run different processes. The syntax is similar
@@ -473,18 +484,17 @@ environment (IDE).
 ![A `tmux` window with three panes running multiple
 programs](../img/tmux_panes.png)
 
-As before, keybindings make creating panes faster:
+As before, keybindings make creating panes and navigating between them faster:
 
-+ `Ctrl+b "`: do a vertical split
-+ `Ctrl+b %`: do a horizontal split
-+ `Ctrl-b x`: close the current pane
-
-Navigate panes in command mode using your arrow keys:
-
-+ `Ctrl+b left`: move to the pane on the left
-+ `Ctrl+b right`: move to the pane on the right
-+ `Ctrl+b up`: move to the pane above
-+ `Ctrl+b down`: move to the pane below
+| Keybinding     | Explanation                   |
+|----------------|-------------------------------|
+| `Ctrl+b "`     | Do a vertical split           |
+| `Ctrl+b %`     | Do a horizontal split         |
+| `Ctrl-b x`     | Close the current pane        |
+| `Ctrl+b left`  | Move to the pane on the left  |
+| `Ctrl+b right` | Move to the pane on the right |
+| `Ctrl+b up`    | Move to the pane above        |
+| `Ctrl+b down`  | Move to the pane below        |
 
 This only scratches the surface of `tmux`. It has much more functionality than
 the above, and nearly all of those functions may be configured according to
