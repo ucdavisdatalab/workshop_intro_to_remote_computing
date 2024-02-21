@@ -804,10 +804,13 @@ tmpfs                       26G     0   26G   0% /run/user/1032
 Estimating Resource Requirements
 --------------------------------
 
-Estimating how much time and memory your script requires is hard. It's hard for
-several reasons, some of which involve knowing formal principles from computer
-science. In this section we will limit ourselves to discussing practical
-considerations.
+Remote computing environments will ask you to estimate how many resources you
+need to do your work. Typically, these resources are **time** and **run-time
+memory** (RAM). Computer scientists have developed formalized methods for
+estimating these two resources, and we will discuss them briefly below, but
+making such estimations also relies on the particularities of whatever system
+you're using. This section is therefore primarily about practical
+considerations for estimating resource requirements.
 
 If you take away anything from this section, it should be this: you should
 estimate resource usage by tip-toeing up from simple instances to more complex
@@ -816,45 +819,97 @@ of gigabytes of data. That will be time-intensive and probably misleading.
 Instead, start with a small amount of data and gradually scale your tests until
 you feel you're able to make a good estimate.
 
+### Computational complexity
+
+In computer science, **computational complexity** refers to the amount of
+resources an algorithm requires to run. Time is often the focus in this topic,
+because certain operations in your code can quickly balloon from only a few
+seconds to several minutes, hours, and even days. That is, the amount of data,
+or **input size**, your code processes does not always hold a linear
+relationship with the amount of time it takes to process that input; the same
+goes for memory considerations as well.
+
+Instead, the relationship between input size and resource usage might be one of
+several different types. Computer scientists express these relationships using
+**Big O notation**, which represents the growth rate of resource usage for a
+particular input size $n$. Here are some common notations:
+
+```{margin} Want to know more?
+The [Wikipedia page][wiki] for Big O notation is a good place to start. It
+covers the basic concepts and lists many other time complexity types.
+
+[wiki]: https://en.wikipedia.org/wiki/Big_O_notation
+```
+
+| Notation | Relationship | Explanation                                          |
+|----------|--------------|------------------------------------------------------|
+| $O(1)$   | Constant     | Constant resource use, regardless of input           |
+| $O(n)$   | Linear       | Resource use is proportional to input                |
+| $O(n^2)$ | Quadratic    | Requirements are proportional to the square of input |
+| $O(2^n)$ | Exponential  | Each new input element doubles resource use          |
+
+Importantly, Big O notation represents the worst-case scenario for how many
+resources your code might require. But not every piece of code you write is
+guaranteed to require the full extent of possible resources defined by this
+notation. Various optimizations, from your computer's hardware to the design of
+software libraries like NumPy or dplyr, help mitigate this. But you should be
+aware that the possibility of this eventuality nevertheless exists, and thus
+try to mitigate it yourself when possible.
+
+Here are some examples of operations in your code that fit into the above
+notations:
+
+| Notation | Operation                     |
+|----------|-------------------------------|
+| $O(1)$   | Indexing an array             |
+| $O(n)$   | A `for` loop                  |
+| $O(n^2)$ | Two nested `for` loops        |
+| $O(2^n)$ | Calculating Fibonacci numbers |
+
 ### Example script
 
-Consider the script `factorial.{sh,py,R}`. It computes the factorial of a
-positive number `n` (e.g. $10!$).
+Consider the script `nested.{sh,py,R}`. It runs one `for` loop `n` times, and
+then it runs another `for` loop inside that first one `n` times. This means its
+time complexity is quadratic.
 
 `````{tab-set}
 ````{tab-item} Bash
 ```{code-block} bash
 #!/usr/bin/env bash
 
-factorial() {
-    # Compute the factorial of a positive number $1
-    local result=1
+nested() {
+    # Run an inner and outer for loop n times
     for ((i=1; i<=$1; i++)) do
-        result=$((result * i))
+        echo "Outer loop $i"
+        for ((j=1; j<=$1; j++)) do
+            echo "Inner loop $j"
+        done
     done
 }
 
-factorial "$1"
+nested "$1"
 ```
 ````
 
 ````{tab-item} Python
 ```{code-block} python
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 
 import sys
 
 
-def factorial(n):
-    """Compute the factorial of a positive number `n`."""
-    result = 1
-    for i in range(1, n+1):
-        result *= i
+def nested(n):
+    # Run an inner and outer for loop n times
+    for i in range(n):
+        print("Outer loop", i)
+        for j in range(n):
+            print("Inner loop", j)
 
 
 def main():
     n = int(sys.argv[1])
-    factorial(n)
+    nested(n)
 
 
 if __name__ == "__main__":
@@ -866,19 +921,19 @@ if __name__ == "__main__":
 ```{code-block} R
 #!/usr/bin/env Rscript
 
-library(gmp)
-
-factorial = function(n) {
-  # ' Compute the factorial of a postive number `n`
-  result = as.bigz(1)
+nested = function(n) {
+  # ' Run an inner and outer for loop n times
   for (i in 1:n) {
-    result = result * i
+    cat(paste("Outer loop", i, "\n"))
+    for (j in 1:n) {
+      cat(paste("Inner loop", j, "\n"))
+    }
   }
 }
 
 args = commandArgs(trailingOnly=TRUE)
 n = as.integer(args[1])
-factorial(n)
+nested(n)
 ```
 ````
 `````
@@ -891,47 +946,111 @@ you how long it took to execute that command. Below, we use the Python version
 of this code to compute factorials for three numbers.
 
 ```
-$ time ./factorial.py 5000
-./factorial.py 5000  0.02s user 0.01s system 92% cpu 0.037 total
-$ time ./factorial.py 10000
-./factorial.py 10000  0.04s user 0.01s system 94% cpu 0.058 total
-$ time ./factorial.py 15000
-./factorial.py 15000  0.08s user 0.01s system 96% cpu 0.091 total
+$ time ./nested.py 1000 > output.txt
+real    0m1.112s
+user    0m0.667s
+sys     0m0.049s
+$ time ./nested.py 2000 > output.txt
+real    0m2.512s
+user    0m2.283s
+sys     0m0.089s
+$ time ./nested.py 4000 > output.txt
+real    0m9.761s
+user    0m9.096s
+sys     0m0.305s
 ```
 
-`time` outputs four metrics:
+`time` outputs three metrics:
 
++ `real`: elapsed time for the entire process
 + `user`: time spent executing the actual script instructions
-+ `system`: time spent on system-level processes (e.g. loading data into a
-  script, calls to the kernel)
-+ `cpu`: percentage of CPU time spent on the command, relative to the total
-  time available
-+ `total`, or `real`: actual elapsed time for the entire process
++ `sys`: time spent on system-level processes (e.g. loading data into a script,
+  calls to the kernel)
 
-Calculating the factorial of a number runs in **linear** time. That is, the
-time it takes to run this process increases linearly with the size of its
-input. This is evident from the steady rise in the `total` time value:
-increasing `n` by `50000` takes an additional ~0.03 seconds.
-
-Will that hold for the next number in our series?
+We won't be subjecting these outputs to a rigorous time analysis, but do note
+the fact that the time taken to execute this program quickly expands beyond the
+rise in input size. Whereas our input size doubles each time, the time it takes
+to process this input first doubled, then it tripled. Can we expect it to
+quadruple next?
 
 ```
-$ time ./factorial.py 20000
-./factorial.py 20000  0.12s user 0.01s system 97% cpu 0.129 total
+$ time ./nested.py 8000 > output.txt
+real    0m36.974s
+user    0m35.701s
+sys     0m0.932s
 ```
 
-Roughly, yes. A true time test will take the average of multiple runs to
-account for variances in your system, but this is already a decent estimate of
-the amount of time it will take to execute `factorial.py`. We could express
-this estimate as a linear equation:
+Roughly, yes!
 
-$$
-T = \frac{0.03}{5000} \cdot n + b
-$$
+While this is a trivial example, certain data structures can require nested
+`for` loops to construct them. For example, we often need to populate big
+matrices for mathematical operations. One way to do that would be with these
+double loops, but that can get slow quickly, and you may end up spending a lot
+of time simply building matrices before you can run computations on them. This
+is where optimized code libraries come in. NumPy, for example, has vectorized
+operations for building matrices, which run much faster than your typical
+nested `for` loop.
 
-Where $n$ is your input and $b$ represents the base amount of time it takes to
-complete the task. You can estimate $b$ by comparing a few trials with
-different values for $n$. In this case, $b$ is ~0.005 seconds.
+The code below shows you how to construct a big matrix with base Python and
+then with NumPy.
+
+`````{tab-set}
+````{tab-item} Base Python
+```{code-block} Python
+#!/usr/bin/env python3
+
+def main():
+    n = 5000
+    mat = []
+    for i in range(n):
+        sublist = []
+        for j in range(n):
+            sublist.append(0)
+        mat.append(sublist)
+
+
+if __name__ == "__main__":
+    main()
+```
+````
+
+````{tab-item} NumPy
+```{code-block} Python
+#!/usr/bin/env python3
+
+import numpy as np
+
+
+def main():
+    n = 5000
+    mat = np.zeros((n, n))
+
+
+if __name__ == "__main__":
+    main()
+```
+````
+`````
+
+Timing the nested `for` loop version gives the following:
+
+```
+$ time ./base_matrix.py
+real    0m1.718s
+user    0m1.492s
+sys     0m0.203s
+```
+
+While timing the NumPy version gives this result:
+
+```
+$ time ./numpy_matrix.py
+real    0m0.360s
+user    0m0.174s
+sys     0m0.073s
+```
+
+The second one is over five times as fast!
 
 ### RAM usage
 
