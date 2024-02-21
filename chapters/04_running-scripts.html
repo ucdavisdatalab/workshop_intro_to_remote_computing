@@ -698,11 +698,15 @@ Hello, DataLab
 ...
 </pre></div>
 </div>
-<p>That will kick off the script, which you’ll leave running. Now, type the
-sequence <code class="docutils literal notranslate"><span class="pre">Ctrl+b</span> <span class="pre">d</span></code>. This is a <strong>keybinding</strong> that sends a command to <code class="docutils literal notranslate"><span class="pre">tmux</span></code>.
-In this case, the command is to leave, or <strong>detach</strong>, your session. Doing so
-should bring you back to your terminal view. You’ll see the following in that
-view:</p>
+<p>That will kick off the script, which you’ll leave running. But since the script
+is running, you can’t type any further commands into your terminal itself.
+Instead, you’ll need to type a special sequence, or <strong>keybinding</strong>, to
+communicate with <code class="docutils literal notranslate"><span class="pre">tmux</span></code>. Default keybindings in <code class="docutils literal notranslate"><span class="pre">tmux</span></code> start with the sequence
+<code class="docutils literal notranslate"><span class="pre">Ctrl+b</span></code>. You’ll always type these two keys before specifying what you want the
+program to do.</p>
+<p>In this case, you want to leave, or <strong>detach</strong>, your session so that you can do
+more work while the code continues to run. The sequence you’ll type is <code class="docutils literal notranslate"><span class="pre">Ctrl+b</span> <span class="pre">d</span></code>. Doing so should bring you back to your original terminal view, where you’ll
+see the following:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ tmux
 [detached (from session 0)]
 </pre></div>
@@ -764,14 +768,16 @@ session, <code class="docutils literal notranslate"><span class="pre">beacon</sp
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tmux</span> <span class="n">new</span> <span class="o">-</span><span class="n">s</span> <span class="s2">&quot;beacon&quot;</span> <span class="o">-</span><span class="n">n</span> <span class="s2">&quot;win1&quot;</span>
 </pre></div>
 </div>
-<p>From <code class="docutils literal notranslate"><span class="pre">win1</span></code>, you can create another window, <code class="docutils literal notranslate"><span class="pre">win2</span></code>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tmux</span> <span class="n">new</span><span class="o">-</span><span class="n">window</span> <span class="o">-</span><span class="n">n</span> <span class="s2">&quot;win2&quot;</span>
+<p>From <code class="docutils literal notranslate"><span class="pre">win1</span></code>, you can create another window, <code class="docutils literal notranslate"><span class="pre">win2</span></code>. To do so, enter <code class="docutils literal notranslate"><span class="pre">Ctrl+b</span></code>
+and type <code class="docutils literal notranslate"><span class="pre">:</span></code> to enter the command mode. If you’ve used <code class="docutils literal notranslate"><span class="pre">vim</span></code> before, this will
+feel familiar. Then type:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">new</span><span class="o">-</span><span class="n">window</span> <span class="o">-</span><span class="n">n</span> <span class="s2">&quot;win2&quot;</span>
 </pre></div>
 </div>
 <p><img alt="A  session with two windows" src="../_images/tmux_windows.png" /></p>
 <p>Note the bottom bar, which displays the two windows. To switch between them,
-enter <code class="docutils literal notranslate"><span class="pre">Ctrl+b</span></code> and type <code class="docutils literal notranslate"><span class="pre">:</span></code> to enter the command mode (if you’ve used <code class="docutils literal notranslate"><span class="pre">vim</span></code>
-before, this will feel familiar). Then, type:</p>
+enter the keybinding and command mode key again. From here forward, we will
+notate this sequence with a shorthand <code class="docutils literal notranslate"><span class="pre">:</span></code> before the <code class="docutils literal notranslate"><span class="pre">tmux</span></code> command. Then type:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">:</span><span class="n">select</span><span class="o">-</span><span class="n">window</span> <span class="o">-</span><span class="n">t</span> <span class="s2">&quot;win1&quot;</span>
 </pre></div>
 </div>
@@ -780,11 +786,27 @@ before, this will feel familiar). Then, type:</p>
 </pre></div>
 </div>
 <p>Shorthand keybindings allow for quick movement between windows:</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">Ctrl+b</span> <span class="pre">p</span></code>: toggle the previous window</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Ctrl+b</span> <span class="pre">n</span></code>: toggle the next window</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Ctrl+b</span> <span class="pre">x</span></code>: close the current window</p></li>
-</ul>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Keybinding</p></th>
+<th class="head"><p>Explanation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Ctrl+b</span> <span class="pre">p</span></code></p></td>
+<td><p>Toggle the previous window</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Ctrl+b</span> <span class="pre">n</span></code></p></td>
+<td><p>Toggle the next window</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Ctrl+b</span> <span class="pre">0...9</span></code></p></td>
+<td><p>Select a window by its index position</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Ctrl+b</span> <span class="pre">x</span></code></p></td>
+<td><p>Close the current window</p></td>
+</tr>
+</tbody>
+</table>
 <p>Finally, windows can be split into <strong>panes</strong>. This divides a window into
 different areas, which can all run different processes. The syntax is similar
 to the above. Enter command mode with <code class="docutils literal notranslate"><span class="pre">Ctrl+b</span></code>, then enter:</p>
@@ -797,19 +819,37 @@ different process. As this example indicates, using <code class="docutils litera
 program like <code class="docutils literal notranslate"><span class="pre">vim</span></code> can end up acting like a custom interactive development
 environment (IDE).</p>
 <p><img alt="A  window with three panes running multipleprograms" src="../_images/tmux_panes.png" /></p>
-<p>As before, keybindings make creating panes faster:</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">Ctrl+b</span> <span class="pre">&quot;</span></code>: do a vertical split</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Ctrl+b</span> <span class="pre">%</span></code>: do a horizontal split</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Ctrl-b</span> <span class="pre">x</span></code>: close the current pane</p></li>
-</ul>
-<p>Navigate panes in command mode using your arrow keys:</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">Ctrl+b</span> <span class="pre">left</span></code>: move to the pane on the left</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Ctrl+b</span> <span class="pre">right</span></code>: move to the pane on the right</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Ctrl+b</span> <span class="pre">up</span></code>: move to the pane above</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Ctrl+b</span> <span class="pre">down</span></code>: move to the pane below</p></li>
-</ul>
+<p>As before, keybindings make creating panes and navigating between them faster:</p>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Keybinding</p></th>
+<th class="head"><p>Explanation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Ctrl+b</span> <span class="pre">&quot;</span></code></p></td>
+<td><p>Do a vertical split</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Ctrl+b</span> <span class="pre">%</span></code></p></td>
+<td><p>Do a horizontal split</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Ctrl-b</span> <span class="pre">x</span></code></p></td>
+<td><p>Close the current pane</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Ctrl+b</span> <span class="pre">left</span></code></p></td>
+<td><p>Move to the pane on the left</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Ctrl+b</span> <span class="pre">right</span></code></p></td>
+<td><p>Move to the pane on the right</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Ctrl+b</span> <span class="pre">up</span></code></p></td>
+<td><p>Move to the pane above</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Ctrl+b</span> <span class="pre">down</span></code></p></td>
+<td><p>Move to the pane below</p></td>
+</tr>
+</tbody>
+</table>
 <p>This only scratches the surface of <code class="docutils literal notranslate"><span class="pre">tmux</span></code>. It has much more functionality than
 the above, and nearly all of those functions may be configured according to
 your preferences. Use the application’s <code class="docutils literal notranslate"><span class="pre">man</span></code> page to find out more, or consult
