@@ -59,9 +59,12 @@ maintain, and document computing environments is important because:
 
 This chapter focuses on software environments and settings, because configuring
 these is often the first thing you'll need to do, and because it's not always
-possible to choose your hardware environment. Chapter 4 addresses ways to
-choose the hardware environment on compute clusters and cloud computing
-services.
+possible to choose your hardware environment.
+
+<!--
+Chapter 4 addresses ways to choose the hardware environment on compute clusters
+and cloud computing services.
+-->
 
 
 Installing Software
@@ -353,9 +356,20 @@ The script will prompt you about several installation details:
 * `Configure conda-forge`: whether to default to installing packages from the
   conda-forge package repository, which provides additional
   community-maintained packages. Enter `Y` here.
+* `Prefix location`: where environments and packages will be installed. Once
+  again, it's fine to accept the default by pressing `Enter` without typing
+  anything.
 
-When the script finishes running, check that your shell can find Micromamba. In
-the terminal, run:
+Once the script finishes, you must reload your shell's settings before running
+Micromamba. To do so, run this command in the terminal:
+
+```sh
+source ~/.bashrc
+```
+
+{numref}`bash` provides more details about what this command is doing.
+
+Then check that your shell can find Micromamba. In the terminal, run:
 
 ```sh
 micromamba --version
@@ -453,15 +467,15 @@ deactivate`. It is *not* necessary to do this before activating a different
 environment.
 :::
 
-Let's install two file search tools, ripgrep and `fd`, in the `utils`
-environment. The ripgrep (`rg`) tool searches text within files, while the `fd`
-tool searches for files by name. You can use the `install` subcommand to
-install packages. The default is to install packages into the active
-environment. You can list any number of packages after `install`. For instance,
-to install ripgrep and `fd`:
+Let's install a file search tool, [ripgrep][rg], in the `utils` environment.
+The ripgrep (`rg`) tool searches for files which contain a given text string
+(or regular expression). You can use the `install` subcommand to install
+packages. The default is to install packages into the active environment. You
+can list any number of packages after `install`. For instance, to install
+ripgrep:
 
 ```sh
-micromamba install ripgrep fd
+micromamba install ripgrep
 ```
 
 The subcommand will list the packages that will be installed and prompt you to
@@ -488,11 +502,12 @@ micromamba install 'python=3.9'
 
 
 After the installation is complete, try out one of the commands. For example,
-create a file called `foo.txt` and then try finding it with `fd`:
+create a file called `foo.txt` with the text `hello world`, and then try
+finding it with `rg`:
 
 ```sh
-touch foo.txt
-fd foo
+echo "hello world" > foo.txt
+rg hello
 ```
 
 You can list all of the packages installed in a virtual environment with the
@@ -505,37 +520,28 @@ micromamba list
 ```
 List of packages in environment: "/home/nick/micromamba/envs/utils"
 
-  Name            Version  Build               Channel
-────────────────────────────────────────────────────────────
-  _libgcc_mutex   0.1      conda_forge         conda-forge
-  _openmp_mutex   4.5      2_gnu               conda-forge
-  cfg             10.5.5   h59595ed_0          conda-forge
-  cm              10.3.7   h59595ed_0          conda-forge
-  fd              8.43.7   h166bdaf_0          conda-forge
-  fftw            3.3.10   nompi_hc118613_108  conda-forge
-  frv             4.36.0   hbea9962_0          conda-forge
-  libframel       8.46.1   hd590300_0          conda-forge
-  libgcc-ng       13.2.0   h807b86a_3          conda-forge
-  libgfortran-ng  13.2.0   h69a702a_3          conda-forge
-  libgfortran5    13.2.0   ha4646dd_3          conda-forge
-  libgomp         13.2.0   h807b86a_3          conda-forge
-  libstdcxx-ng    13.2.0   h7e041cc_3          conda-forge
-  ripgrep         13.0.0   he8a937b_3          conda-forge
+  Name           Version  Build        Channel
+────────────────────────────────────────────────────
+  _libgcc_mutex  0.1      conda_forge  conda-forge
+  _openmp_mutex  4.5      2_gnu        conda-forge
+  libgcc-ng      13.2.0   h807b86a_5   conda-forge
+  libgomp        13.2.0   h807b86a_5   conda-forge
+  ripgrep        14.1.0   he8a937b_0   conda-forge
 ```
 
 The list might differ slightly on your computer because of different operating
 systems and new versions of packages released since this was written. However,
-you should see ripgrep and `fd` in the list. All of the other packages---which
-we did not request directly---are dependencies.
+you should see ripgrep in the list. All of the other packages---which we did
+not request directly---are dependencies.
 
 The `create`, `activate`, and `install` subcommands are fundamental to using
 Micromamba. There are many other subcommands, which you can learn about by
 reading the [Conda documentation][conda-docs].
 
 :::{tip}
-The ripgrep and `fd` search tools are worth knowing about if you work in the
-command line frequently. Both can help you find files quickly. They are faster,
-modernized versions of the classic `grep` and `find` tools.
+The ripgrep search tool is worth knowing about if you work in the command line
+frequently. It can help you find files quickly. It's a faster, modernized
+versions of the classic `grep` tool.
 :::
 
 
@@ -558,7 +564,6 @@ channels:
 - conda-forge
 - pkgs/main
 dependencies:
-- fd
 - ripgrep
 ```
 
@@ -599,7 +604,7 @@ micromamba env create --file utils.yml
 ```
 
 After the packages finish installing, activate the environment and test that
-ripgrep (`rg`) and `fd` are there.
+ripgrep (`rg`) is there.
 
 Keep environment specification files with the code for the project to which
 they belong. For instance, if you version your code with git, version your
@@ -698,24 +703,55 @@ with version 10.15, the default shell is Zsh.
 [zsh]: https://en.wikipedia.org/wiki/Z_shell
 [fish]: https://en.wikipedia.org/wiki/Fish_(Unix_shell)
 
-You can configure Bash by editing the `.bashrc` file in your home directory .
-The `.bashrc` file is a Bash script, meaning it contains commands for Bash and
-its predecessor, the [Bourne shell][sh] (`sh`). Go ahead and open up
-`~/.bashrc` in a text editor.
+Three files in your home directory are especially important for configuring
+Bash. Each one is a script, which means they contain commands for Bash (`bash`)
+or its predecessor, the [Bourne shell][sh] (`sh`). The files are:
 
 [sh]: https://en.wikipedia.org/wiki/Bourne_shell
 
-If the file is blank, Bash uses default settings. If the file already contains
-some commands, those may have been set up by your operating system or by your
-computer's administrator. Leave them intact until you have enough experience to
-know what they do---they might be important. Either way, you can add your own
-settings to the file.
+* `~/.bash_profile` runs every time you log in (to a server, for example).
+* `~/.profile` also runs every time you log in, but only if `.bash_profile`
+  doesn't exist. It can only contain `sh` commands, not `bash` commands.
+* `~/.bashrc` runs every time you open a shell when you're *already logged in*.
 
-There are two other files that are important for configuring Bash, called
-`.profile` and `.bash_profile`. Like `.bashrc`, both can be found in your home
-directory and both are shell scripts. The `.profile` file is actually a
-configuration file for the Bourne shell (`sh`), and can only contain `sh` code,
-but it runs every time you open a Bash shell.
+When these files don't exist or are empty, Bash uses default settings. If they
+alredy exist on your computer and contain commands, they may have been set up
+by your operating system or by your computer's administrator. Leave them intact
+until you have enough experience to know what the commands do---they might be
+important. You can still add your own settings to the files.
+
+:::{note}
+You can learn more about how Bash reads configuration files at startup in the
+[Bash Startup Files][bash-startup] section of the Bash manual.
+:::
+
+[bash-startup]: https://www.gnu.org/software/bash/manual/bash.html#Bash-Startup-Files
+
+:::{note}
+Configuration files are also called **dotfiles**, because they usually have
+names that begin with a dot.
+:::
+
+We recommend setting up the Bash configuration files so that `.bash_profile`
+always runs `.profile` and `.bashrc`. Then use `.profile` to set environment
+variables ({numref}`environment-variables`) and use `.bashrc` for everything
+else. This approach ensures that your environment variables are loaded whenever
+you use any `sh`-compatible shell and that your Bash configuration is loaded
+whenever you use Bash. To set this up, use a text editor (such as `vi`) to add
+these lines to your `.bash_profile`:
+
+```bash
+#
+# .bash_profile
+#
+# This file is runs on login to a Bash shell.
+
+[[ -r ~/.profile ]] && source ~/.profile
+[[ -r ~/.bashrc  ]] && source ~/.bashrc
+```
+
+These commands check that `.profile` and `.bashrc` exist, and run them if they
+do. Leave the rest of your `.bash_profile` blank.
 
 
 #### Aliases
@@ -764,7 +800,29 @@ double-check that your saved the `alias` command in `~/.bashrc` and that you
 ran the `source` command.
 :::
 
+If you ever decide you don't like an alias, you can use the `unalias` command
+to unset aliases in your current shell (for example, `unalias mm`). Make sure
+to remove the alias from `.bashrc` as well, or else it will return next time
+you open a new shell.
 
+:::{tip}
+For many shell commands, you can set an argument several times and only the
+last setting applies. As a result, you can use aliases to set your preferred
+defaults for a command, and then override them as needed.
+
+For example, to make the `ls` command color-code file names and display file
+sizes in human-readable units by default, add this alias to your `.bashrc`:
+
+```bash
+alias ls='ls --color=auto --human-readable'
+```
+:::
+
+You can find many examples of helpful aliases online; try searching for `bash
+aliases` or `bash dotfiles`.
+
+
+(environment-variables)=
 #### Environment Variables
 
 You can assign variables in your shell just like in most other programming
