@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 
 
-<html lang="en-us" >
+<html lang="en-us" data-content_root="" >
 
   <head>
     <meta charset="utf-8" />
@@ -19,12 +19,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
 
   
-  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -39,12 +39,14 @@
     <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
+  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
 
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
@@ -75,6 +77,15 @@ const thebe_selector_output = ".output, .cell_output"
   
   
   <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
   
   <input type="checkbox"
           class="sidebar-toggle"
@@ -128,9 +139,11 @@ const thebe_selector_output = ".output, .cell_output"
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
+
   
 
 <a class="navbar-brand logo" href="index.html">
+  
   
   
   
@@ -140,8 +153,8 @@ const thebe_selector_output = ".output, .cell_output"
       
     
     
-    <img src="../_static/datalab-logo-full-color-rgb-1.png" class="logo__image only-light" alt="Logo image"/>
-    <script>document.write(`<img src="../_static/datalab-logo-full-color-rgb-1.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+    <img src="../_static/datalab-logo-full-color-rgb-1.png" class="logo__image only-light" alt="Introduction to Remote Computing - Home"/>
+    <script>document.write(`<img src="../_static/datalab-logo-full-color-rgb-1.png" class="logo__image only-dark" alt="Introduction to Remote Computing - Home"/>`);</script>
   
   
 </a></div>
@@ -314,20 +327,22 @@ const thebe_selector_output = ".output, .cell_output"
 </button>
 
 
+
 <script>
 document.write(`
-  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
-    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
-    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
   </button>
 `);
 </script>
 
+
 <script>
 document.write(`
   <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
   </button>
 `);
 </script>
@@ -380,7 +395,7 @@ document.write(`
                 <article class="bd-article" role="main">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="cluster-computing">
-<h1><span class="section-number">5. </span>Cluster Computing<a class="headerlink" href="#cluster-computing" title="Permalink to this headline">#</a></h1>
+<h1><span class="section-number">5. </span>Cluster Computing<a class="headerlink" href="#cluster-computing" title="Permalink to this heading">#</a></h1>
 <div class="admonition-learning-objectives admonition">
 <p class="admonition-title">Learning Objectives</p>
 <ul class="simple">
@@ -394,11 +409,11 @@ processes</p></li>
 </ul>
 </div>
 <section id="what-is-slurm">
-<h2><span class="section-number">5.1. </span>What is Slurm?<a class="headerlink" href="#what-is-slurm" title="Permalink to this headline">#</a></h2>
+<h2><span class="section-number">5.1. </span>What is Slurm?<a class="headerlink" href="#what-is-slurm" title="Permalink to this heading">#</a></h2>
 <p>Terms to define: partition, node (+ head node), workload manager, job priority</p>
 </section>
 <section id="partition-info-and-monitoring">
-<h2><span class="section-number">5.2. </span>Partition Info and Monitoring<a class="headerlink" href="#partition-info-and-monitoring" title="Permalink to this headline">#</a></h2>
+<h2><span class="section-number">5.2. </span>Partition Info and Monitoring<a class="headerlink" href="#partition-info-and-monitoring" title="Permalink to this heading">#</a></h2>
 <p>HPC is a shared space with many different components. Given this scope, it’s
 helpful to get information about the overall system before diving into a
 specific job.</p>
@@ -523,12 +538,12 @@ bgpu         up 150-00:00:      2    mix gpu-4-54,gpu-12-92
 wait your turn.</p>
 </section>
 <section id="running-jobs">
-<h2><span class="section-number">5.3. </span>Running Jobs<a class="headerlink" href="#running-jobs" title="Permalink to this headline">#</a></h2>
+<h2><span class="section-number">5.3. </span>Running Jobs<a class="headerlink" href="#running-jobs" title="Permalink to this heading">#</a></h2>
 <p>Once you know which partitions and nodes are available, you can submit a
 request to <strong>allocate</strong> some space to do your work. There are two ways to do
 this: in real time, or by adding your job to a queue.</p>
 <section id="real-time-interactions">
-<h3><span class="section-number">5.3.1. </span>Real Time Interactions<a class="headerlink" href="#real-time-interactions" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">5.3.1. </span>Real Time Interactions<a class="headerlink" href="#real-time-interactions" title="Permalink to this heading">#</a></h3>
 <p>Running a job in real time puts you into an environment that resembles any
 other command line interface. It’s an ideal way to develop and test code with
 the added space and compute power of a big partition.</p>
@@ -596,7 +611,7 @@ farm
 </div>
 </section>
 <section id="submitting-to-a-queue">
-<h3><span class="section-number">5.3.2. </span>Submitting to a Queue<a class="headerlink" href="#submitting-to-a-queue" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">5.3.2. </span>Submitting to a Queue<a class="headerlink" href="#submitting-to-a-queue" title="Permalink to this heading">#</a></h3>
 <p>While <code class="docutils literal notranslate"><span class="pre">srun</span></code> gives you the interactivity of any other command line interface,
 not everything needs to be run in these real time interactions. This is
 especially the case with big jobs, like training a large model: there would be
@@ -799,23 +814,23 @@ Max Disk Read       : --
 </section>
 </section>
 <section id="etiquette">
-<h2><span class="section-number">5.4. </span>Etiquette<a class="headerlink" href="#etiquette" title="Permalink to this headline">#</a></h2>
+<h2><span class="section-number">5.4. </span>Etiquette<a class="headerlink" href="#etiquette" title="Permalink to this heading">#</a></h2>
 <p>Using storage responsibly (callback to <code class="docutils literal notranslate"><span class="pre">du</span></code>/<code class="docutils literal notranslate"><span class="pre">df</span></code>)</p>
 <p>Using shared storage (if lab/dept has it)</p>
 <p>Using <code class="docutils literal notranslate"><span class="pre">/scratch/</span></code></p>
 <p>Compression when uploading/downloading files</p>
 </section>
 <section id="parallel-processing">
-<h2><span class="section-number">5.5. </span>Parallel Processing<a class="headerlink" href="#parallel-processing" title="Permalink to this headline">#</a></h2>
+<h2><span class="section-number">5.5. </span>Parallel Processing<a class="headerlink" href="#parallel-processing" title="Permalink to this heading">#</a></h2>
 <section id="multi-thread-jobs">
-<h3><span class="section-number">5.5.1. </span>Multi-thread jobs<a class="headerlink" href="#multi-thread-jobs" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">5.5.1. </span>Multi-thread jobs<a class="headerlink" href="#multi-thread-jobs" title="Permalink to this heading">#</a></h3>
 </section>
 <section id="multi-partition-jobs">
-<h3><span class="section-number">5.5.2. </span>Multi-partition jobs<a class="headerlink" href="#multi-partition-jobs" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">5.5.2. </span>Multi-partition jobs<a class="headerlink" href="#multi-partition-jobs" title="Permalink to this heading">#</a></h3>
 </section>
 </section>
 <section id="project-organization">
-<h2><span class="section-number">5.6. </span>Project Organization<a class="headerlink" href="#project-organization" title="Permalink to this headline">#</a></h2>
+<h2><span class="section-number">5.6. </span>Project Organization<a class="headerlink" href="#project-organization" title="Permalink to this heading">#</a></h2>
 <p>Callout to reproducible research reader</p>
 <p>Keeping files in sync with <code class="docutils literal notranslate"><span class="pre">rsync</span></code></p>
 <p>Keeping files in sync with <code class="docutils literal notranslate"><span class="pre">git</span></code></p>
@@ -851,11 +866,10 @@ Max Disk Read       : --
 
               
               
-                <footer class="bd-footer-article">
+              
+              
+                <footer class="prev-next-footer">
                   
-<div class="footer-article-items footer-article__inner">
-  
-    <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
        href="04_running-scripts.html"
@@ -866,10 +880,7 @@ Max Disk Read       : --
         <p class="prev-next-title"><span class="section-number">4. </span>Running Scripts</p>
       </div>
     </a>
-</div></div>
-  
 </div>
-
                 </footer>
               
             </div>
@@ -919,6 +930,7 @@ By Oliver Kreylos, Tyler Shoemaker, Nick Ulle
   
   <div class="footer-item">
     
+
   </div>
   
   <div class="footer-item">
@@ -944,8 +956,8 @@ By Oliver Kreylos, Tyler Shoemaker, Nick Ulle
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
 
   <footer class="bd-footer">
   </footer>
