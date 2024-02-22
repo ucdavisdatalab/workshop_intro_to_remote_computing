@@ -851,12 +851,12 @@ covers the basic concepts and lists many other time complexity types.
 [wiki]: https://en.wikipedia.org/wiki/Big_O_notation
 ```
 
-| Notation | Relationship | Explanation                                          |
-|----------|--------------|------------------------------------------------------|
-| $O(1)$   | Constant     | Constant resource use, regardless of input           |
-| $O(n)$   | Linear       | Resource use is proportional to input                |
-| $O(n^2)$ | Quadratic    | Requirements are proportional to the square of input |
-| $O(2^n)$ | Exponential  | Each new input element doubles resource use          |
+| Notation | Relationship | Explanation                                          | Example                       |
+|----------|--------------|------------------------------------------------------|-------------------------------|
+| $O(1)$   | Constant     | Constant resource use, regardless of input           | Indexing an array             |
+| $O(n)$   | Linear       | Resource use is proportional to input                | A `for` loop                  |
+| $O(n^2)$ | Quadratic    | Requirements are proportional to the square of input | Two nested `for` loops        |
+| $O(2^n)$ | Exponential  | Each new input element doubles resource use          | Calculating Fibonacci numbers |
 
 Importantly, Big O notation represents the worst-case scenario for how many
 resources your code might require. But not every piece of code you write is
@@ -865,16 +865,6 @@ notation. Various optimizations, from your computer's hardware to the design of
 software libraries like NumPy or dplyr, help mitigate this. But you should be
 aware that the possibility of this eventuality nevertheless exists, and thus
 try to mitigate it yourself when possible.
-
-Here are some examples of operations in your code that fit into the above
-notations:
-
-| Notation | Operation                     |
-|----------|-------------------------------|
-| $O(1)$   | Indexing an array             |
-| $O(n)$   | A `for` loop                  |
-| $O(n^2)$ | Two nested `for` loops        |
-| $O(2^n)$ | Calculating Fibonacci numbers |
 
 ### Example script
 
