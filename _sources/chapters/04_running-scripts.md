@@ -462,6 +462,7 @@ Shorthand keybindings allow for quick movement between windows:
 
 | Keybinding     | Explanation                           |
 |----------------|---------------------------------------|
+| `Ctrl+b c`     | Create a new unnamed window           |
 | `Ctrl+b p`     | Toggle the previous window            |
 | `Ctrl+b n`     | Toggle the next window                |
 | `Ctrl+b 0...9` | Select a window by its index position |
