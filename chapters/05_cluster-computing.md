@@ -17,6 +17,26 @@ What is Slurm?
 Terms to define: partition, node (+ head node), workload manager, job priority
 
 
+Slurm describes computations at three different levels of granularity. From
+smallest to largest, they are:
+
+* A **task** is a process that runs on a single compute node. A compute node
+  may have more than one CPU or a CPU with multiple cores, so tasks can be
+  multithreaded.
+
+* A **step** is a single command in a computation, which launches one or more
+  tasks (processes). In a batch script (for `sbatch`), each line is one step.
+
+* A **job** is an entire computation, made up of one or more steps. Jobs can be
+  initiated with the `srun` or `sbatch` commands.
+
+Distinguishing between tasks, steps, and nodes is especially important when you
+want to carry out non-interactive computations in parallel across multiple
+nodes. When you work interactively on a single node, the distinction is not as
+important: `srun` creates a single job and step where you can interactively
+enter tasks.
+
+
 Partition Info and Monitoring
 -----------------------------
 
