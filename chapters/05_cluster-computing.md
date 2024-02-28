@@ -14,8 +14,8 @@ Cluster Computing
 What is Slurm?
 --------------
 
-Terms to define: partition, node (+ head node), workload manager, job priority,
-multi-threaded, parallel
+Terms to define: cluster, node (+ head node), workload manager/job scheduler,
+job priority, multithreaded, parallel, Slurm
 
 Slurm describes computations at three different levels of granularity. From
 smallest to largest, they are:
@@ -36,13 +36,17 @@ nodes. When you work interactively on a single node, the distinction is not as
 important: `srun` creates a single job and step where you can interactively
 enter tasks.
 
+When you submit a job to Slurm, it's added to a job queue, called a
+**partition**, until the compute resources you requested are available. Slurm
+uses different partitions for different types of hardware (for example, nodes
+with GPUs) and different levels of job priority.
+{numref}`monitoring-patitions-and-jobs` gives examples of partitions on Farm
+and how they relate to priority.
 
-Partition Info and Monitoring
------------------------------
 
-HPC is a shared space with many different components. Given this scope, it's
-helpful to get information about the overall system before diving into a
-specific job.
+(monitoring-patitions-and-jobs)=
+Monitoring Partitions and Jobs
+------------------------------
 
 Use `sinfo` to list available partitions, their nodes, and the maximum time you
 can request for a job. This command will also show you whether partitions are
