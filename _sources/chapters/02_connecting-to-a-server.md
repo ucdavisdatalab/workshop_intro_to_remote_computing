@@ -964,6 +964,7 @@ an error while downloading a file, unless error messages are re-enabled by
 adding `-S` (*uppercase* S, for "not quite so silent, thankyouverymuch") after
 `-s`.
 
+(transfer-files)=
 ### Transfer Files Between A Local Computer And A Server
 
 Unlike `wget` and `curl`, the next pair of commands can be used to transfer 

@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 
 
-<html lang="en-us" >
+<html lang="en-us" data-content_root="" >
 
   <head>
     <meta charset="utf-8" />
@@ -19,12 +19,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
 
   
-  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -39,12 +39,14 @@
     <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
+  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
 
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
@@ -76,6 +78,15 @@ const thebe_selector_output = ".output, .cell_output"
   
   
   <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
   
   <input type="checkbox"
           class="sidebar-toggle"
@@ -129,9 +140,11 @@ const thebe_selector_output = ".output, .cell_output"
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
+
   
 
 <a class="navbar-brand logo" href="index.html">
+  
   
   
   
@@ -141,8 +154,8 @@ const thebe_selector_output = ".output, .cell_output"
       
     
     
-    <img src="../_static/datalab-logo-full-color-rgb-1.png" class="logo__image only-light" alt="Logo image"/>
-    <script>document.write(`<img src="../_static/datalab-logo-full-color-rgb-1.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+    <img src="../_static/datalab-logo-full-color-rgb-1.png" class="logo__image only-light" alt="Introduction to Remote Computing - Home"/>
+    <script>document.write(`<img src="../_static/datalab-logo-full-color-rgb-1.png" class="logo__image only-dark" alt="Introduction to Remote Computing - Home"/>`);</script>
   
   
 </a></div>
@@ -315,20 +328,22 @@ const thebe_selector_output = ".output, .cell_output"
 </button>
 
 
+
 <script>
 document.write(`
-  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
-    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
-    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
   </button>
 `);
 </script>
 
+
 <script>
 document.write(`
   <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
   </button>
 `);
 </script>
@@ -408,7 +423,7 @@ document.write(`
                 <article class="bd-article" role="main">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="connecting-to-a-server">
-<h1><span class="section-number">2. </span>Connecting To A Server<a class="headerlink" href="#connecting-to-a-server" title="Permalink to this headline">#</a></h1>
+<h1><span class="section-number">2. </span>Connecting To A Server<a class="headerlink" href="#connecting-to-a-server" title="Permalink to this heading">#</a></h1>
 <p>This chapter will show you how to connect to a server using the SSH (“secure
 shell”) protocol, how to interact with that server through a remote shell, and
 how to move data and code between your local computer, the Internet, and the
@@ -427,7 +442,7 @@ using <code class="docutils literal notranslate"><span class="pre">wget</span></
 </ul>
 </div>
 <section id="what-is-a-server">
-<h2><span class="section-number">2.1. </span>What Is A Server?<a class="headerlink" href="#what-is-a-server" title="Permalink to this headline">#</a></h2>
+<h2><span class="section-number">2.1. </span>What Is A Server?<a class="headerlink" href="#what-is-a-server" title="Permalink to this heading">#</a></h2>
 <p>Generally, a server is just some computer that can be accessed over a network,
 typically the Internet. In this context, a computing server is, more
 specifically, a computer that gives users access to a remote command line from
@@ -443,7 +458,7 @@ dedicated people, called system administrators or system operators (SysOps for
 short).</p>
 </section>
 <section id="how-to-connect-to-a-server">
-<h2><span class="section-number">2.2. </span>How To Connect To A Server<a class="headerlink" href="#how-to-connect-to-a-server" title="Permalink to this headline">#</a></h2>
+<h2><span class="section-number">2.2. </span>How To Connect To A Server<a class="headerlink" href="#how-to-connect-to-a-server" title="Permalink to this heading">#</a></h2>
 <p>Users typically connect to a server using the SSH (“secure shell”) protocol, by
 using the <code class="docutils literal notranslate"><span class="pre">ssh</span></code> command installed on their local computers (in the following,
 we will use “SSH” to refer to the SSH protocol, i.e., the language spoken
@@ -469,7 +484,7 @@ server. In the SSH protocol, there are two main authentication methods: SSH
 passwords and SSH keys. We will discuss those in detail in the following
 sections.</p>
 <section id="opening-a-connection">
-<h3><span class="section-number">2.2.1. </span>Opening a Connection<a class="headerlink" href="#opening-a-connection" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">2.2.1. </span>Opening a Connection<a class="headerlink" href="#opening-a-connection" title="Permalink to this heading">#</a></h3>
 <p>With that in mind, once you have obtained an account on a server and a way to
 authenticate yourself, you can log in to the server using the aforementioned
 <code class="docutils literal notranslate"><span class="pre">ssh</span></code> command:</p>
@@ -561,7 +576,7 @@ server, or to run remote server commands from scripts.</p>
 </section>
 </section>
 <section id="basic-server-etiquette">
-<h2><span class="section-number">2.3. </span>Basic Server Etiquette<a class="headerlink" href="#basic-server-etiquette" title="Permalink to this headline">#</a></h2>
+<h2><span class="section-number">2.3. </span>Basic Server Etiquette<a class="headerlink" href="#basic-server-etiquette" title="Permalink to this heading">#</a></h2>
 <p>Unlike most personal computers, servers are typically shared resources. This
 not only means that a single server can have multiple user accounts that belong to
 different people, but it often means that there are multiple users <em>connected
@@ -572,7 +587,7 @@ unduly interferes with other users’ work, that users don’t invade each other
 privacy, and that the relationship between users and server administrators
 remains amicable.</p>
 <section id="resource-use">
-<h3><span class="section-number">2.3.1. </span>Resource Use<a class="headerlink" href="#resource-use" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">2.3.1. </span>Resource Use<a class="headerlink" href="#resource-use" title="Permalink to this heading">#</a></h3>
 <p>Server resources broadly fall into four categories:</p>
 <ul class="simple">
 <li><p>Computing bandwidth: While servers are typically designed for heavy
@@ -621,7 +636,7 @@ able to plan ahead and ideally coordinate with a server’s administrators befor
 submitting an exceedingly resource-intensive job.</p>
 </section>
 <section id="job-scheduling">
-<h3><span class="section-number">2.3.2. </span>Job Scheduling<a class="headerlink" href="#job-scheduling" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">2.3.2. </span>Job Scheduling<a class="headerlink" href="#job-scheduling" title="Permalink to this heading">#</a></h3>
 <p>To ensure smooth operation and fair allocation of the above resources, many
 servers implement job scheduling systems that let users submit operations they
 want to run ahead of time, and then select which jobs to run in which order to
@@ -632,7 +647,7 @@ large amounts of server resources simply by logging in to a remote server and
 immediately running a computation command from that server’s shell.</p>
 </section>
 <section id="cluster-computing">
-<h3><span class="section-number">2.3.3. </span>Cluster Computing<a class="headerlink" href="#cluster-computing" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">2.3.3. </span>Cluster Computing<a class="headerlink" href="#cluster-computing" title="Permalink to this heading">#</a></h3>
 <p>The above note is especially important for <em>clusters,</em> which are groups of
 interconnected computers that act as a single server. Clusters are typically
 organized such that there is a single so-called <em>head node</em> that manages the
@@ -652,7 +667,7 @@ overtax the head node’s resources and bring the entire cluster to a halt. <em>
 not do this.</em></p>
 </section>
 <section id="user-privacy">
-<h3><span class="section-number">2.3.4. </span>User Privacy<a class="headerlink" href="#user-privacy" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">2.3.4. </span>User Privacy<a class="headerlink" href="#user-privacy" title="Permalink to this heading">#</a></h3>
 <p>A second component of server etiquette is user separation and privacy. Users
 store their private programs and data in their respective home directories,
 which can be found in the <code class="docutils literal notranslate"><span class="pre">/home</span></code> directory hierarchy as <code class="docutils literal notranslate"><span class="pre">/home/&lt;account</span>&#160; <span class="pre">name&gt;</span></code>. While home directories are typically shielded from other users via
@@ -663,7 +678,7 @@ individual users that might appear outside of their home directories, for
 example in the <code class="docutils literal notranslate"><span class="pre">/tmp</span></code> temporary storage directory.</p>
 </section>
 <section id="administrators-are-people">
-<h3><span class="section-number">2.3.5. </span>Administrators Are People<a class="headerlink" href="#administrators-are-people" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">2.3.5. </span>Administrators Are People<a class="headerlink" href="#administrators-are-people" title="Permalink to this heading">#</a></h3>
 <p>Finally, users should always remember that computing servers, especially in the
 scientific computing context, are operated and maintained by <em>real people,</em> not
 faceless cogs in some giant machine. It is therefore always a good idea to treat
@@ -686,12 +701,12 @@ important deadline.</p></li>
 </section>
 </section>
 <section id="ssh-authentication">
-<h2><span class="section-number">2.4. </span>SSH Authentication<a class="headerlink" href="#ssh-authentication" title="Permalink to this headline">#</a></h2>
+<h2><span class="section-number">2.4. </span>SSH Authentication<a class="headerlink" href="#ssh-authentication" title="Permalink to this heading">#</a></h2>
 <p>The SSH protocol has two main ways of authenticating you, i.e., establishing
 with the server that you are who you claim to be, and that you have the right
 to connect to the server: SSH passwords and SSH keys.</p>
 <section id="ssh-passwords">
-<h3><span class="section-number">2.4.1. </span>SSH Passwords<a class="headerlink" href="#ssh-passwords" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">2.4.1. </span>SSH Passwords<a class="headerlink" href="#ssh-passwords" title="Permalink to this heading">#</a></h3>
 <p>One of the main ways how SSH can establish your identity on a remote server
 is via passwords. SSH passwords work identically to the passwords used to log
 in to personal computers or to access web services like Google. Importantly, SSH
@@ -756,7 +771,7 @@ encouraged to use strong passwords all the time.</p></li>
 </div>
 </section>
 <section id="existing-computing-accounts">
-<h3><span class="section-number">2.4.2. </span>Existing Computing Accounts<a class="headerlink" href="#existing-computing-accounts" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">2.4.2. </span>Existing Computing Accounts<a class="headerlink" href="#existing-computing-accounts" title="Permalink to this heading">#</a></h3>
 <p>There is a slight variation of the password authentication method, where your
 account on a computing server is tied to another account that you already have.
 For example, a computing server managed by a university might use your existing
@@ -765,7 +780,7 @@ server with your usual account name and password, and you don’t change your
 password on the server (in fact, it might not even be possible to do so).</p>
 </section>
 <section id="ssh-keys">
-<h3><span class="section-number">2.4.3. </span>SSH Keys<a class="headerlink" href="#ssh-keys" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">2.4.3. </span>SSH Keys<a class="headerlink" href="#ssh-keys" title="Permalink to this heading">#</a></h3>
 <p>The second main way how SSH can establish your identity on a remote server
 is via SSH keys. SSH keys are specific to the SSH protocol, and much more
 secure than SSH passwords, both for you and for the server, to the point that
@@ -900,7 +915,7 @@ files on your local computer somehow.</p></li>
 </div>
 </section>
 <section id="the-ssh-configuration-directory">
-<h3><span class="section-number">2.4.4. </span>The <code class="docutils literal notranslate"><span class="pre">.ssh</span></code> Configuration Directory<a class="headerlink" href="#the-ssh-configuration-directory" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">2.4.4. </span>The <code class="docutils literal notranslate"><span class="pre">.ssh</span></code> Configuration Directory<a class="headerlink" href="#the-ssh-configuration-directory" title="Permalink to this heading">#</a></h3>
 <p>The SSH protocol suite stores configuration data in a hidden <code class="docutils literal notranslate"><span class="pre">.ssh</span></code> directory
 in your home directory. Because this directory contains some data that must
 remain private to you, such as private SSH keys, many SSH programs will refuse
@@ -908,7 +923,7 @@ to operate if this directory or its contents have incorrect sets of
 <em>permissions,</em> i.e., access privileges.</p>
 </section>
 <section id="permissions">
-<h3><span class="section-number">2.4.5. </span>Permissions<a class="headerlink" href="#permissions" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">2.4.5. </span>Permissions<a class="headerlink" href="#permissions" title="Permalink to this heading">#</a></h3>
 <p>In UNIX-based operating systems like Linux, there are three separate sets of
 permissions on every file or directory:</p>
 <ul class="simple">
@@ -974,7 +989,7 @@ permissions, you would run <code class="docutils literal notranslate"><span clas
 </div>
 </section>
 <section id="known-hosts">
-<h3><span class="section-number">2.4.6. </span>Known Hosts<a class="headerlink" href="#known-hosts" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">2.4.6. </span>Known Hosts<a class="headerlink" href="#known-hosts" title="Permalink to this heading">#</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">~/.ssh/known_hosts</span></code> contains the <strong>public</strong> SSH keys of servers to which you
 have connected in the past. These are stored to prevent so-called
 “man-in-the-middle” attacks, where a third party attempts to intercept SSH
@@ -1018,7 +1033,7 @@ file <em>before</em> connecting to the server for the first time, and thus preve
 potential man-in-the-middle attack even on the first connection.</p>
 </section>
 <section id="ssh-config">
-<h3><span class="section-number">2.4.7. </span>SSH Config<a class="headerlink" href="#ssh-config" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">2.4.7. </span>SSH Config<a class="headerlink" href="#ssh-config" title="Permalink to this heading">#</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">~/.ssh/config</span></code> contains local configuration data for SSH programs like <code class="docutils literal notranslate"><span class="pre">ssh</span></code>.
 The most useful settings in that file are per-server settings that associate
 account names, and potentially SSH key files, with server names, to simplify
@@ -1073,7 +1088,7 @@ documentation (<code class="docutils literal notranslate"><span class="pre">man<
 </section>
 </section>
 <section id="moving-data-between-a-local-computer-the-internet-and-a-server">
-<h2><span class="section-number">2.5. </span>Moving Data Between A Local Computer, The Internet, And A Server<a class="headerlink" href="#moving-data-between-a-local-computer-the-internet-and-a-server" title="Permalink to this headline">#</a></h2>
+<h2><span class="section-number">2.5. </span>Moving Data Between A Local Computer, The Internet, And A Server<a class="headerlink" href="#moving-data-between-a-local-computer-the-internet-and-a-server" title="Permalink to this heading">#</a></h2>
 <p>An established SSH connection between your local computer and a remote server
 sends your keystrokes to the remote server, and sends the output of the shell
 running on the remote server back to your local computer, but it does not
@@ -1082,7 +1097,7 @@ from your local computer to a server, downloading data from the Internet to a
 server, or downloading data from a server to your local computer require
 additional tools.</p>
 <section id="download-files-from-the-internet">
-<h3><span class="section-number">2.5.1. </span>Download Files From The Internet<a class="headerlink" href="#download-files-from-the-internet" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">2.5.1. </span>Download Files From The Internet<a class="headerlink" href="#download-files-from-the-internet" title="Permalink to this heading">#</a></h3>
 <p>The first pair of commands, to download data from the Internet to <em>any</em>
 computer, including your local computer and a server to which you are connected
 via SSH, are <code class="docutils literal notranslate"><span class="pre">wget</span></code> and <code class="docutils literal notranslate"><span class="pre">curl</span></code>. Both of these commands do basically the same
@@ -1091,7 +1106,7 @@ installed on any specific computer. It is therefore important to know the
 basics of using both of them.</p>
 </section>
 <section id="wget">
-<h3><span class="section-number">2.5.2. </span><code class="docutils literal notranslate"><span class="pre">wget</span></code><a class="headerlink" href="#wget" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">2.5.2. </span><code class="docutils literal notranslate"><span class="pre">wget</span></code><a class="headerlink" href="#wget" title="Permalink to this heading">#</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">wget</span></code> (as in “web get”) is the simpler of the two commands. It can be used to
 download one or more files, entire directories, or even entire directory
 hierarchies from the Internet, via multiple protocols including HTTP and HTTPS.
@@ -1206,7 +1221,7 @@ the given directory, which can be identified by an absolute or relative path:</p
 <code class="docutils literal notranslate"><span class="pre">135918main_bm1_high.jpg</span></code>.</p>
 </section>
 <section id="curl">
-<h3><span class="section-number">2.5.3. </span><code class="docutils literal notranslate"><span class="pre">curl</span></code><a class="headerlink" href="#curl" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">2.5.3. </span><code class="docutils literal notranslate"><span class="pre">curl</span></code><a class="headerlink" href="#curl" title="Permalink to this heading">#</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">curl</span></code> (as in “copy URL”) is the other command line utility that can download
 files from the Internet. <code class="docutils literal notranslate"><span class="pre">curl</span></code> supports even more remote file access protocols
 than <code class="docutils literal notranslate"><span class="pre">wget</span></code>, and, according to its documentation (<code class="docutils literal notranslate"><span class="pre">man</span> <span class="pre">curl</span></code>), “[its] number of
@@ -1259,7 +1274,7 @@ adding <code class="docutils literal notranslate"><span class="pre">-S</span></c
 <code class="docutils literal notranslate"><span class="pre">-s</span></code>.</p>
 </section>
 <section id="transfer-files-between-a-local-computer-and-a-server">
-<h3><span class="section-number">2.5.4. </span>Transfer Files Between A Local Computer And A Server<a class="headerlink" href="#transfer-files-between-a-local-computer-and-a-server" title="Permalink to this headline">#</a></h3>
+<span id="transfer-files"></span><h3><span class="section-number">2.5.4. </span>Transfer Files Between A Local Computer And A Server<a class="headerlink" href="#transfer-files-between-a-local-computer-and-a-server" title="Permalink to this heading">#</a></h3>
 <p>Unlike <code class="docutils literal notranslate"><span class="pre">wget</span></code> and <code class="docutils literal notranslate"><span class="pre">curl</span></code>, the next pair of commands can be used to transfer
 files between your local computer and a remote server. The first, <code class="docutils literal notranslate"><span class="pre">scp</span></code>, is
 non-interactive and behaves similarly to the standard UNIX <code class="docutils literal notranslate"><span class="pre">cp</span></code> command, but
@@ -1271,7 +1286,7 @@ between computers, <code class="docutils literal notranslate"><span class="pre">
 creating and removing directories, moving, renaming, and deleting files, etc.</p>
 </section>
 <section id="scp">
-<h3><span class="section-number">2.5.5. </span><code class="docutils literal notranslate"><span class="pre">scp</span></code><a class="headerlink" href="#scp" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">2.5.5. </span><code class="docutils literal notranslate"><span class="pre">scp</span></code><a class="headerlink" href="#scp" title="Permalink to this heading">#</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">scp</span></code> (as in “secure copy”) is straightforward to use. Just like <code class="docutils literal notranslate"><span class="pre">cp</span></code>, it takes
 the name of a source file, and the name of a destination file or the name of a
 directory into which to copy the source file. Unlike <code class="docutils literal notranslate"><span class="pre">cp</span></code>, the source file
@@ -1319,7 +1334,7 @@ source and destination paths specified on <code class="docutils literal notransl
 directories.</p>
 </section>
 <section id="sftp">
-<h3><span class="section-number">2.5.6. </span><code class="docutils literal notranslate"><span class="pre">sftp</span></code><a class="headerlink" href="#sftp" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">2.5.6. </span><code class="docutils literal notranslate"><span class="pre">sftp</span></code><a class="headerlink" href="#sftp" title="Permalink to this heading">#</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">sftp</span></code> (as in “secure file transfer protocol”) is an interactive terminal
 application to transfer files between a local computer and a server, and to
 perform file management (creating/deleting directories,
@@ -1336,7 +1351,7 @@ commands tell <code class="docutils literal notranslate"><span class="pre">sftp<
 and return you back to your local shell.</p>
 </section>
 <section id="current-directories">
-<h3><span class="section-number">2.5.7. </span>Current Directories<a class="headerlink" href="#current-directories" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">2.5.7. </span>Current Directories<a class="headerlink" href="#current-directories" title="Permalink to this heading">#</a></h3>
 <p>Because <code class="docutils literal notranslate"><span class="pre">sftp</span></code>’s purpose is file transfer and management, it has the same
 concept of a <em>current directory</em> as a regular shell, to relieve you from
 always having to enter absolute paths to identify the file(s) on which you
@@ -1408,7 +1423,7 @@ server name given on <code class="docutils literal notranslate"><span class="pre
 </div>
 </section>
 <section id="uploading-and-downloading-files">
-<h3><span class="section-number">2.5.8. </span>Uploading And Downloading Files<a class="headerlink" href="#uploading-and-downloading-files" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">2.5.8. </span>Uploading And Downloading Files<a class="headerlink" href="#uploading-and-downloading-files" title="Permalink to this heading">#</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">get</span> <span class="pre">&lt;remote</span> <span class="pre">path&gt;</span> <span class="pre">[local</span> <span class="pre">path]</span></code> command downloads one or more files from
 the remote server to the local computer. The <code class="docutils literal notranslate"><span class="pre">&lt;remote</span> <span class="pre">path&gt;</span></code> argument
 identifies the remote file(s) to download. If <code class="docutils literal notranslate"><span class="pre">&lt;remote</span> <span class="pre">path&gt;</span></code> refers to a
@@ -1496,7 +1511,7 @@ permissions will be set to the remote account’s default permissions.</p></li>
 </ul>
 </section>
 <section id="remote-file-management">
-<h3><span class="section-number">2.5.9. </span>Remote File Management<a class="headerlink" href="#remote-file-management" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">2.5.9. </span>Remote File Management<a class="headerlink" href="#remote-file-management" title="Permalink to this heading">#</a></h3>
 <p>Unlike <code class="docutils literal notranslate"><span class="pre">scp</span></code>, <code class="docutils literal notranslate"><span class="pre">sftp</span></code> supports remote file management in addition to file
 up-/downloads, via a set of commands that mimic the behavior of regular shell
 file management commands. <code class="docutils literal notranslate"><span class="pre">sftp</span></code>’s most common remote file management commands
@@ -1523,7 +1538,7 @@ create a new directory on the local computer: <code class="docutils literal notr
 </section>
 </section>
 <section id="the-posix-directory-structure-and-permissions">
-<h2><span class="section-number">2.6. </span>The POSIX Directory Structure And Permissions<a class="headerlink" href="#the-posix-directory-structure-and-permissions" title="Permalink to this headline">#</a></h2>
+<h2><span class="section-number">2.6. </span>The POSIX Directory Structure And Permissions<a class="headerlink" href="#the-posix-directory-structure-and-permissions" title="Permalink to this heading">#</a></h2>
 <p>As servers are typically UNIX machines, the layout of their filesystems
 typically follow the POSIX Filesystem Hierarchy Standard. This means the file
 system is generally split between system directories, user home directories,
@@ -1531,7 +1546,7 @@ and “other” directories. System directories contain programs and data shared
 all users on the server, while user home directories contain programs and data
 private to each user. “Other” directories can contain a mix of these two.</p>
 <section id="system-directories">
-<h3><span class="section-number">2.6.1. </span>System Directories<a class="headerlink" href="#system-directories" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">2.6.1. </span>System Directories<a class="headerlink" href="#system-directories" title="Permalink to this heading">#</a></h3>
 <p>As system directories contain data and programs that are shared by all users,
 their contents are typically readable by all users, but can only be modified by
 the superuser (root). In other words, their permissions are typically
@@ -1565,7 +1580,7 @@ system</p></li>
 </ul>
 </section>
 <section id="user-home-directories">
-<h3><span class="section-number">2.6.2. </span>User Home Directories<a class="headerlink" href="#user-home-directories" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">2.6.2. </span>User Home Directories<a class="headerlink" href="#user-home-directories" title="Permalink to this heading">#</a></h3>
 <p>Users’ home directories appear inside the <code class="docutils literal notranslate"><span class="pre">/home</span></code> hierarchy, and are named by
 each user’s account name, such as <code class="docutils literal notranslate"><span class="pre">/home/me</span></code> or <code class="docutils literal notranslate"><span class="pre">/home/testuser</span></code>. As home
 directories are supposed to be private to each user, they can typically be read
@@ -1580,7 +1595,7 @@ considered a capital offense and will most probably result in a lifetime ban
 from the server.</p>
 </section>
 <section id="other-directories">
-<h3><span class="section-number">2.6.3. </span>Other Directories<a class="headerlink" href="#other-directories" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">2.6.3. </span>Other Directories<a class="headerlink" href="#other-directories" title="Permalink to this heading">#</a></h3>
 <p>Other directories are a mixed bag. The most relevant one is <code class="docutils literal notranslate"><span class="pre">/tmp</span></code>, which holds
 temporary files that are not meant to exist beyond the lifetime of whichever
 program created them. Many programs that need to create temporary files to
@@ -1620,11 +1635,10 @@ of space – or for any other reason, really.</p>
 
               
               
-                <footer class="bd-footer-article">
+              
+              
+                <footer class="prev-next-footer">
                   
-<div class="footer-article-items footer-article__inner">
-  
-    <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
        href="01_introduction.html"
@@ -1644,10 +1658,7 @@ of space – or for any other reason, really.</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
-</div></div>
-  
 </div>
-
                 </footer>
               
             </div>
@@ -1724,6 +1735,7 @@ By Oliver Kreylos, Tyler Shoemaker, Nick Ulle
   
   <div class="footer-item">
     
+
   </div>
   
   <div class="footer-item">
@@ -1749,8 +1761,8 @@ By Oliver Kreylos, Tyler Shoemaker, Nick Ulle
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
 
   <footer class="bd-footer">
   </footer>
