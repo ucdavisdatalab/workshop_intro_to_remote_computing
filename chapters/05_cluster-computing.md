@@ -759,7 +759,7 @@ array index in the filename. Use `cat` or a text editor to examine the first
 `.out` file:
 
 ```sh
-cat slurm-10071088_1.out`
+cat slurm-10071088_1.out
 ```
 ```
 ==========================================
@@ -794,7 +794,7 @@ Max Disk Read       : 0.00  (cpu-10-88)
 
 Then examine the second `.out` file:
 ```sh
-cat slurm-10071088_2.out`
+cat slurm-10071088_2.out
 ```
 ```
 ==========================================
