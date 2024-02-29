@@ -11,11 +11,163 @@ Cluster Computing
   processes
 :::
 
+What is Parallel Computation?
+-----------------------------
+
+The default mode of computation is **sequential** or **single-threaded**
+computation. In this mode, a program, which comprises a number of small
+individual steps or instructions, is executed by a single CPU, one instruction
+after the other. The sequence of instructions that are executed over time, from
+the beginning of the program to its conclusion, is called the "thread of
+execution." In a sequential program, there is only one thread of execution,
+which progresses in a deterministic and orderly way.
+
+In **parallel computation,** on the other hand, a program contains multiple
+threads of execution. These threads are executed independently of each other,
+and typically at the same time, using multiple CPUs cores, or multiple CPUs, or
+even multiple computers. Importantly, while the instructions in each individual
+thread of execution are still executed deterministically in sequence, there is
+no implicit ordering between instructions in different threads of execution,
+meaning that the order of execution of instructions across an entire program is
+no longer deterministic. Dealing with this non-determinancy and the problems it
+causes is one of the big challenges of parallel programming.
+
+### Multi-threading vs Distributed Computing
+
+In almost all cases, the multiple threads of execution that compose a parallel
+computation are working towards a common goal, such as multiplying very large
+matrices, or solving large sets of partial differential equations. To achieve
+those common goals, there typically needs to be some form of communication
+between individual threads of execution. There are two major models of parallel
+computing based on two different methods of communication between threads of
+execution.
+
+In **multi-threading,** different threads of execution primarily communicate
+with each other by reading from or writing to the same memory. For example, one
+thread might write a result to some variable, and a different thread might later
+retrieve that result by reading from the same variable. Besides sharing memory,
+different threads also need mechanisms to synchronize with each other, for
+example to ensure that one thread only reads a result from some variable *after*
+another thread has writting that result to that variable. As mentioned before,
+there is no implicit order of execution between different threads, meaning that
+this order has to be established explicitly by the programmer through the use
+of synchronization. This is typically done via mechanisms provided by the
+operating system, such as POSIX pthreads.
+
+In **distributed computing,** on the other hand, different threads of execution
+do not share memory, and instead communicate and synchronize by sending messages
+to each other. Unlike multi-threading, which relies on the existence of shared
+memory that can be accessed by all threads, and therefore only works on a single
+computer, distributed computing can work on multiple computers, by sending
+messages between computers over some network, such as Ethernet or the Internet.
+For example, one thread of execution might calculate some partial result, and
+then pack that result into a message and explicitly send that message to another
+thread of execution on a different computer, for example over a TCP connection.
+That other thread of execution will explicitly wait for such a message to
+arrive, extract the partial result from the message, and then use it for its own
+computation. This send/receive paradigm not only exchanges data, but also
+synchronizes between the involved threads, because implicitly, a message has to
+be sent before it can be received. Therefore, there is no need for a dedicated
+synchronization method, as it is necessary in multi-threading.
+
+Of the two models, multi-threading is typically the easier one for programmers.
+A multi-threaded program often does not look very different from a sequential
+program, because it is based on the same paradigm of reading and writing the
+values of variables from and to memory. Many algorithms can be extended from
+sequential programming to multi-threading in a straightforward manner. The
+primary difference between sequential and multi-threaded programs is the need
+for explicit synchronization, which is usually supported by the operating
+system.
+
+Turning a sequential program into a distributed program, on the other hand,
+typically requires a lot more effort because the familiar paradigm of reading
+and writing from and to memory no longer applies to the program as a whole.
+Oftentimes, distributed computing requires a major re-structuring of existing
+sequential programs, including the use of completely different algorithms. In
+addition, there is also the difficulty of actually sending messages between
+parts of a program running on different computers. There can be a multitude of
+different types of networks, or different ways how the individual computers are
+connected to each other. For that reason, distributed computing typically relies
+on higher-level support libraries such as MPI ("message passing interface") that
+hide the ugly details of inter-computer communication from the programmer.
+
+The primary benefit of using distributed computing over multi-threading is
+**scalabililty.** If one needs to run a parallel computation using thousands or
+tens of thousands of threads of execution to solve a very large problem, it is
+much easier and cheaper to build multiple computers that together contain such
+a large number of CPUs and connect them via a high-speed network than to build
+a single supercomputer containing the same number of CPUs. For that reason, the
+vasy majority of high-performance computing resources available today are such
+networks.
+
+### Hybrid Models of Computation
+
+On a high-performance computing resource comprising a network of individual
+computers, it is typically the case that each of those computers also contain
+multiple CPUs or CPU cores. It is therefore natural to use a hybrid model of
+parallel computation where a program is split into a number of **processes**
+which each run on individual computers and communicate by sending messages to
+each other, and to split each of those processes in turn into a number of
+**threads** which run on the same computer and communicate with each other by
+sharing memory. These days, almost all computers contain multiple CPU cores,
+typcially between 4 and 16, and therefore this hybrid model of computation is
+the de-facto standard model, to the point that the job management and scheduling
+systems described in the remainder of this chapter assume that all programs
+submitted by users follow it.
+
+In summary, a parallel program following this default model has the following
+components:
+
+* A single **program,** which executes a desired computation.
+
+* One or more **processes,** which each run on a different computer, and
+  communicate with each other by passing messages, typically using a support
+  library such as MPI.
+
+* For each process, one or more **threads,** which all run on the same computer,
+  and communicate with each other by sharing memory and using operating system-
+  supplied synchronization mechanisms such as POSIX pthreads.
+
+What is a Cluster?
+------------------
+
+A **cluster** is a high-performance computing resource comprising a collection
+of individual computers that are connected via an internal high-speed
+communication network, intended to run large-scale parallel computations based
+on the aforementioned "standard" hybrid model of parallel computation. A cluster
+is distinguished from other types of supercomputers by the absence of shared
+memory that is accessible to *all* CPUs in the cluster, which means that, in
+order to use the full computing power of a cluster, parallel programs must
+follow the distributed computing or hybrid model. On the other hand, clusters
+typically offer very large amounts of secondary (hard drive) storage that can be
+accessed by all CPUs, usually in the form of network-attached storage (NAS).
+
+A ***node*** is one single computer in a cluster. Fundamentally, there are two
+classes of nodes: there is a number of ***compute nodes*** that together execute
+large computations, and -- typically -- a single ***head node*** that manages
+the entire cluster. The head node is also the "face" of the cluster, where users
+log in, run commands, and copy data between the user's local computer, the
+cluster, and the Internet. Usually, each node in a cluster, but especially the
+compute nodes, are themselves high-performance computers containing a medium
+number (typically dozens) of CPU cores across multiple CPUs, large amounts of
+memory, and sometimes one or more GPUs ("graphical processing units") that can
+compute certain types of problems with very high efficiency.
+
+A **workload manager** or **job scheduler** is a software system that manages
+the allocation of cluster resources to the **jobs,** i.e., parallel programs,
+that the cluster's users want to run. Instead of running their parallel programs
+directly, for example from the command line when logging into a cluster, users
+submit their jobs to the manager. The manager will then ensure that all
+resources a job needs are available to it before it is started, assign the job
+to a subset of the cluster's compute nodes depending on the number of processes
+the job wants to use, and finally run the job and keep the user informed of the
+job's progress.
+
 What is Slurm?
 --------------
 
-Terms to define: cluster, node (+ head node), workload manager/job scheduler,
-job priority, multithreaded, parallel, Slurm
+Slurm ("Simple Linux Utility for Resource Management") is the workload manager
+used on UC Davis's Farm cluster.
 
 Slurm describes computations at three different levels of granularity. From
 smallest to largest, they are:
