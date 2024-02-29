@@ -753,7 +753,7 @@ these lines to your `.bash_profile`:
 These commands check that `.profile` and `.bashrc` exist, and run them if they
 do. Leave the rest of your `.bash_profile` blank.
 
-
+(aliases)=
 #### Aliases
 
 While learning about Micromamba, did you ever feel like typing out `micromamba`
