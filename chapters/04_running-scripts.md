@@ -61,6 +61,7 @@ In practice, the above might look like so:
 $ python3 script.py input.txt output.csv
 ```
 
+(shebangs)=
 ### Shebangs
 
 It is, however, possible to execute a script without specifying the
@@ -116,6 +117,7 @@ The following examples use `env` to implement a shebang for Bash, Python, and R:
 
 This will direct your computer to use the environment variables set in `env`.
 
+(example-script)=
 ### Example script
 
 Now that you know the anatomy of an executable script, you can write one
