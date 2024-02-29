@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 
 
-<html lang="en-us" data-content_root="" >
+<html lang="en-us" >
 
   <head>
     <meta charset="utf-8" />
@@ -19,12 +19,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
 
   
-  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -39,14 +39,12 @@
     <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
-  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
 
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
@@ -77,15 +75,6 @@ const thebe_selector_output = ".output, .cell_output"
   
   
   <a class="skip-link" href="#main-content">Skip to main content</a>
-  
-  <div id="pst-scroll-pixel-helper"></div>
-
-  
-  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
-    <i class="fa-solid fa-arrow-up"></i>
-    Back to top
-  </button>
-
   
   <input type="checkbox"
           class="sidebar-toggle"
@@ -139,11 +128,9 @@ const thebe_selector_output = ".output, .cell_output"
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
-
   
 
 <a class="navbar-brand logo" href="index.html">
-  
   
   
   
@@ -153,8 +140,8 @@ const thebe_selector_output = ".output, .cell_output"
       
     
     
-    <img src="../_static/datalab-logo-full-color-rgb-1.png" class="logo__image only-light" alt="Introduction to Remote Computing - Home"/>
-    <script>document.write(`<img src="../_static/datalab-logo-full-color-rgb-1.png" class="logo__image only-dark" alt="Introduction to Remote Computing - Home"/>`);</script>
+    <img src="../_static/datalab-logo-full-color-rgb-1.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../_static/datalab-logo-full-color-rgb-1.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
   
   
 </a></div>
@@ -327,22 +314,20 @@ const thebe_selector_output = ".output, .cell_output"
 </button>
 
 
-
 <script>
 document.write(`
-  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
   </button>
 `);
 </script>
 
-
 <script>
 document.write(`
   <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+    <i class="fa-solid fa-magnifying-glass"></i>
   </button>
 `);
 </script>
@@ -369,22 +354,28 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-slurm">5.1. What is Slurm?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#monitoring-partitions-and-jobs">5.2. Monitoring Partitions and Jobs</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#partitions">5.2.1. Partitions</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#jobs">5.2.2. Jobs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-parallel-computation">5.1. What is Parallel Computation?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-threading-vs-distributed-computing">5.1.1. Multi-threading vs Distributed Computing</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hybrid-models-of-computation">5.1.2. Hybrid Models of Computation</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interactive-jobs">5.3. Interactive Jobs</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#non-interactive-batch-jobs">5.4. Non-interactive (Batch) Jobs</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hello-batch-scripts">5.4.1. Hello, Batch Scripts!</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configuring-cancelling-jobs">5.4.2. Configuring &amp; Cancelling Jobs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-a-cluster">5.2. What is a Cluster?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-slurm">5.3. What is Slurm?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#monitoring-partitions-and-jobs">5.4. Monitoring Partitions and Jobs</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#partitions">5.4.1. Partitions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#jobs">5.4.2. Jobs</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parallel-array-jobs">5.5. Parallel (Array) Jobs</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#parallel-steps">5.5.1. Parallel Steps</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#job-arrays">5.5.2. Job Arrays</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#case-study-bml-traffic-model">5.5.3. Case Study: BML Traffic Model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interactive-jobs">5.5. Interactive Jobs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#non-interactive-batch-jobs">5.6. Non-interactive (Batch) Jobs</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hello-batch-scripts">5.6.1. Hello, Batch Scripts!</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configuring-cancelling-jobs">5.6.2. Configuring &amp; Cancelling Jobs</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parallel-array-jobs">5.7. Parallel (Array) Jobs</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#parallel-steps">5.7.1. Parallel Steps</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#job-arrays">5.7.2. Job Arrays</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#case-study-bml-traffic-model">5.7.3. Case Study: BML Traffic Model</a></li>
 </ul>
 </li>
 </ul>
@@ -399,7 +390,7 @@ document.write(`
                 <article class="bd-article" role="main">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="cluster-computing">
-<h1><span class="section-number">5. </span>Cluster Computing<a class="headerlink" href="#cluster-computing" title="Permalink to this heading">#</a></h1>
+<h1><span class="section-number">5. </span>Cluster Computing<a class="headerlink" href="#cluster-computing" title="Permalink to this headline">#</a></h1>
 <div class="admonition-learning-objectives admonition">
 <p class="admonition-title">Learning Objectives</p>
 <ul class="simple">
@@ -412,10 +403,150 @@ document.write(`
 processes</p></li>
 </ul>
 </div>
+<section id="what-is-parallel-computation">
+<h2><span class="section-number">5.1. </span>What is Parallel Computation?<a class="headerlink" href="#what-is-parallel-computation" title="Permalink to this headline">#</a></h2>
+<p>The default mode of computation is <strong>sequential</strong> or <strong>single-threaded</strong>
+computation. In this mode, a program, which comprises a number of small
+individual steps or instructions, is executed by a single CPU, one instruction
+after the other. The sequence of instructions that are executed over time, from
+the beginning of the program to its conclusion, is called the “thread of
+execution.” In a sequential program, there is only one thread of execution,
+which progresses in a deterministic and orderly way.</p>
+<p>In <strong>parallel computation,</strong> on the other hand, a program contains multiple
+threads of execution. These threads are executed independently of each other,
+and typically at the same time, using multiple CPUs cores, or multiple CPUs, or
+even multiple computers. Importantly, while the instructions in each individual
+thread of execution are still executed deterministically in sequence, there is
+no implicit ordering between instructions in different threads of execution,
+meaning that the order of execution of instructions across an entire program is
+no longer deterministic. Dealing with this non-determinancy and the problems it
+causes is one of the big challenges of parallel programming.</p>
+<section id="multi-threading-vs-distributed-computing">
+<h3><span class="section-number">5.1.1. </span>Multi-threading vs Distributed Computing<a class="headerlink" href="#multi-threading-vs-distributed-computing" title="Permalink to this headline">#</a></h3>
+<p>In almost all cases, the multiple threads of execution that compose a parallel
+computation are working towards a common goal, such as multiplying very large
+matrices, or solving large sets of partial differential equations. To achieve
+those common goals, there typically needs to be some form of communication
+between individual threads of execution. There are two major models of parallel
+computing based on two different methods of communication between threads of
+execution.</p>
+<p>In <strong>multi-threading,</strong> different threads of execution primarily communicate
+with each other by reading from or writing to the same memory. For example, one
+thread might write a result to some variable, and a different thread might later
+retrieve that result by reading from the same variable. Besides sharing memory,
+different threads also need mechanisms to synchronize with each other, for
+example to ensure that one thread only reads a result from some variable <em>after</em>
+another thread has writting that result to that variable. As mentioned before,
+there is no implicit order of execution between different threads, meaning that
+this order has to be established explicitly by the programmer through the use
+of synchronization. This is typically done via mechanisms provided by the
+operating system, such as POSIX pthreads.</p>
+<p>In <strong>distributed computing,</strong> on the other hand, different threads of execution
+do not share memory, and instead communicate and synchronize by sending messages
+to each other. Unlike multi-threading, which relies on the existence of shared
+memory that can be accessed by all threads, and therefore only works on a single
+computer, distributed computing can work on multiple computers, by sending
+messages between computers over some network, such as Ethernet or the Internet.
+For example, one thread of execution might calculate some partial result, and
+then pack that result into a message and explicitly send that message to another
+thread of execution on a different computer, for example over a TCP connection.
+That other thread of execution will explicitly wait for such a message to
+arrive, extract the partial result from the message, and then use it for its own
+computation. This send/receive paradigm not only exchanges data, but also
+synchronizes between the involved threads, because implicitly, a message has to
+be sent before it can be received. Therefore, there is no need for a dedicated
+synchronization method, as it is necessary in multi-threading.</p>
+<p>Of the two models, multi-threading is typically the easier one for programmers.
+A multi-threaded program often does not look very different from a sequential
+program, because it is based on the same paradigm of reading and writing the
+values of variables from and to memory. Many algorithms can be extended from
+sequential programming to multi-threading in a straightforward manner. The
+primary difference between sequential and multi-threaded programs is the need
+for explicit synchronization, which is usually supported by the operating
+system.</p>
+<p>Turning a sequential program into a distributed program, on the other hand,
+typically requires a lot more effort because the familiar paradigm of reading
+and writing from and to memory no longer applies to the program as a whole.
+Oftentimes, distributed computing requires a major re-structuring of existing
+sequential programs, including the use of completely different algorithms. In
+addition, there is also the difficulty of actually sending messages between
+parts of a program running on different computers. There can be a multitude of
+different types of networks, or different ways how the individual computers are
+connected to each other. For that reason, distributed computing typically relies
+on higher-level support libraries such as MPI (“message passing interface”) that
+hide the ugly details of inter-computer communication from the programmer.</p>
+<p>The primary benefit of using distributed computing over multi-threading is
+<strong>scalabililty.</strong> If one needs to run a parallel computation using thousands or
+tens of thousands of threads of execution to solve a very large problem, it is
+much easier and cheaper to build multiple computers that together contain such
+a large number of CPUs and connect them via a high-speed network than to build
+a single supercomputer containing the same number of CPUs. For that reason, the
+vasy majority of high-performance computing resources available today are such
+networks.</p>
+</section>
+<section id="hybrid-models-of-computation">
+<h3><span class="section-number">5.1.2. </span>Hybrid Models of Computation<a class="headerlink" href="#hybrid-models-of-computation" title="Permalink to this headline">#</a></h3>
+<p>On a high-performance computing resource comprising a network of individual
+computers, it is typically the case that each of those computers also contain
+multiple CPUs or CPU cores. It is therefore natural to use a hybrid model of
+parallel computation where a program is split into a number of <strong>processes</strong>
+which each run on individual computers and communicate by sending messages to
+each other, and to split each of those processes in turn into a number of
+<strong>threads</strong> which run on the same computer and communicate with each other by
+sharing memory. These days, almost all computers contain multiple CPU cores,
+typcially between 4 and 16, and therefore this hybrid model of computation is
+the de-facto standard model, to the point that the job management and scheduling
+systems described in the remainder of this chapter assume that all programs
+submitted by users follow it.</p>
+<p>In summary, a parallel program following this default model has the following
+components:</p>
+<ul class="simple">
+<li><p>A single <strong>program,</strong> which executes a desired computation.</p></li>
+<li><p>One or more <strong>processes,</strong> which each run on a different computer, and
+communicate with each other by passing messages, typically using a support
+library such as MPI.</p></li>
+<li><p>For each process, one or more <strong>threads,</strong> which all run on the same computer,
+and communicate with each other by sharing memory and using operating system-
+supplied synchronization mechanisms such as POSIX pthreads.</p></li>
+</ul>
+</section>
+</section>
+<section id="what-is-a-cluster">
+<h2><span class="section-number">5.2. </span>What is a Cluster?<a class="headerlink" href="#what-is-a-cluster" title="Permalink to this headline">#</a></h2>
+<p>A <strong>cluster</strong> is a high-performance computing resource comprising a collection
+of individual computers that are connected via an internal high-speed
+communication network, intended to run large-scale parallel computations based
+on the aforementioned “standard” hybrid model of parallel computation. A cluster
+is distinguished from other types of supercomputers by the absence of shared
+memory that is accessible to <em>all</em> CPUs in the cluster, which means that, in
+order to use the full computing power of a cluster, parallel programs must
+follow the distributed computing or hybrid model. On the other hand, clusters
+typically offer very large amounts of secondary (hard drive) storage that can be
+accessed by all CPUs, usually in the form of network-attached storage (NAS).</p>
+<p>A <em><strong>node</strong></em> is one single computer in a cluster. Fundamentally, there are two
+classes of nodes: there is a number of <em><strong>compute nodes</strong></em> that together execute
+large computations, and – typically – a single <em><strong>head node</strong></em> that manages
+the entire cluster. The head node is also the “face” of the cluster, where users
+log in, run commands, and copy data between the user’s local computer, the
+cluster, and the Internet. Usually, each node in a cluster, but especially the
+compute nodes, are themselves high-performance computers containing a medium
+number (typically dozens) of CPU cores across multiple CPUs, large amounts of
+memory, and sometimes one or more GPUs (“graphical processing units”) that can
+compute certain types of problems with very high efficiency.</p>
+<p>A <strong>workload manager</strong> or <strong>job scheduler</strong> is a software system that manages
+the allocation of cluster resources to the <strong>jobs,</strong> i.e., parallel programs,
+that the cluster’s users want to run. Instead of running their parallel programs
+directly, for example from the command line when logging into a cluster, users
+submit their jobs to the manager. The manager will then ensure that all
+resources a job needs are available to it before it is started, assign the job
+to a subset of the cluster’s compute nodes depending on the number of processes
+the job wants to use, and finally run the job and keep the user informed of the
+job’s progress.</p>
+</section>
 <section id="what-is-slurm">
-<h2><span class="section-number">5.1. </span>What is Slurm?<a class="headerlink" href="#what-is-slurm" title="Permalink to this heading">#</a></h2>
-<p>Terms to define: cluster, node (+ head node), workload manager/job scheduler,
-job priority, multithreaded, parallel, Slurm</p>
+<h2><span class="section-number">5.3. </span>What is Slurm?<a class="headerlink" href="#what-is-slurm" title="Permalink to this headline">#</a></h2>
+<p>Slurm (“Simple Linux Utility for Resource Management”) is the workload manager
+used on UC Davis’s Farm cluster.</p>
 <p>Slurm describes computations at three different levels of granularity. From
 smallest to largest, they are:</p>
 <ul class="simple">
@@ -436,17 +567,17 @@ enter tasks.</p>
 <strong>partition</strong>, until the compute resources you requested are available. Slurm
 uses different partitions for different types of hardware (for example, nodes
 with GPUs) and different levels of job priority.
-<a class="reference internal" href="#monitoring-patitions-and-jobs"><span class="std std-numref">Section 5.2</span></a> gives examples of partitions on Farm
+<a class="reference internal" href="#monitoring-patitions-and-jobs"><span class="std std-numref">Section 5.4</span></a> gives examples of partitions on Farm
 and how they relate to priority.</p>
 </section>
 <section id="monitoring-partitions-and-jobs">
-<span id="monitoring-patitions-and-jobs"></span><h2><span class="section-number">5.2. </span>Monitoring Partitions and Jobs<a class="headerlink" href="#monitoring-partitions-and-jobs" title="Permalink to this heading">#</a></h2>
+<span id="monitoring-patitions-and-jobs"></span><h2><span class="section-number">5.4. </span>Monitoring Partitions and Jobs<a class="headerlink" href="#monitoring-partitions-and-jobs" title="Permalink to this headline">#</a></h2>
 <p>Most clusters are a shared by many users and have many different kinds of
 nodes. Given this scope, it’s helpful to get information about the organization
 and state of the cluster before requesting compute resources for a specific
 job.</p>
 <section id="partitions">
-<h3><span class="section-number">5.2.1. </span>Partitions<a class="headerlink" href="#partitions" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">5.4.1. </span>Partitions<a class="headerlink" href="#partitions" title="Permalink to this headline">#</a></h3>
 <p>You can use the <code class="docutils literal notranslate"><span class="pre">sinfo</span></code> command to list available partitions, their nodes, and
 the maximum time you can request for a job. This command will also show you
 whether partitions and nodes are up and running. Use the command’s
@@ -511,7 +642,7 @@ To see which partitions you can use, run this command:</p>
 </div>
 </section>
 <section id="jobs">
-<h3><span class="section-number">5.2.2. </span>Jobs<a class="headerlink" href="#jobs" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">5.4.2. </span>Jobs<a class="headerlink" href="#jobs" title="Permalink to this headline">#</a></h3>
 <p>Sometimes you might want detailed information about jobs running on a partition
 or even a specific node. You can use the <code class="docutils literal notranslate"><span class="pre">squeue</span></code> command to get this
 information. Think of <code class="docutils literal notranslate"><span class="pre">squeue</span></code> as the Slurm equivalent to <code class="docutils literal notranslate"><span class="pre">top</span></code> or <code class="docutils literal notranslate"><span class="pre">htop</span></code>.</p>
@@ -616,7 +747,7 @@ wait your turn.</p>
 </section>
 </section>
 <section id="interactive-jobs">
-<h2><span class="section-number">5.3. </span>Interactive Jobs<a class="headerlink" href="#interactive-jobs" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">5.5. </span>Interactive Jobs<a class="headerlink" href="#interactive-jobs" title="Permalink to this headline">#</a></h2>
 <p>Once you know which partitions and nodes are available, you can submit a
 request to Slurm to <strong>allocate</strong> compute resources for your computations. There
 are two ways to do this: in real time, or by adding your job to a queue.</p>
@@ -727,7 +858,7 @@ job and return to the head node.</p>
 </div>
 </section>
 <section id="non-interactive-batch-jobs">
-<h2><span class="section-number">5.4. </span>Non-interactive (Batch) Jobs<a class="headerlink" href="#non-interactive-batch-jobs" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">5.6. </span>Non-interactive (Batch) Jobs<a class="headerlink" href="#non-interactive-batch-jobs" title="Permalink to this headline">#</a></h2>
 <p>Interactive jobs are convenient for prototyping code and experimenting with
 data, but once you’ve worked out the details, interactivity isn’t necessary and
 may even be undesirable. This is especially true for long-running jobs, like
@@ -744,7 +875,7 @@ available.</p>
 <code class="docutils literal notranslate"><span class="pre">tmux</span></code> and detach.</p>
 </div>
 <section id="hello-batch-scripts">
-<span id="id1"></span><h3><span class="section-number">5.4.1. </span>Hello, Batch Scripts!<a class="headerlink" href="#hello-batch-scripts" title="Permalink to this heading">#</a></h3>
+<span id="id1"></span><h3><span class="section-number">5.6.1. </span>Hello, Batch Scripts!<a class="headerlink" href="#hello-batch-scripts" title="Permalink to this headline">#</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">sbatch</span></code> and <code class="docutils literal notranslate"><span class="pre">srun</span></code> commands have many parameters in common, but with
 <code class="docutils literal notranslate"><span class="pre">sbatch</span></code> the preferred way to set the parameters is to create a <strong>batch
 script</strong>. Here’s an example of a simple batch script that prints the hostname
@@ -847,7 +978,7 @@ You can display the contents with <code class="docutils literal notranslate"><sp
 </div>
 </section>
 <section id="configuring-cancelling-jobs">
-<h3><span class="section-number">5.4.2. </span>Configuring &amp; Cancelling Jobs<a class="headerlink" href="#configuring-cancelling-jobs" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">5.6.2. </span>Configuring &amp; Cancelling Jobs<a class="headerlink" href="#configuring-cancelling-jobs" title="Permalink to this headline">#</a></h3>
 <p>Slurm provides many <code class="docutils literal notranslate"><span class="pre">sbatch</span></code> (and <code class="docutils literal notranslate"><span class="pre">srun</span></code>) parameters which you can set to
 control what kinds of resources are allocated to a job. Here are some useful
 parameters that we haven’t described yet:</p>
@@ -984,7 +1115,7 @@ especially if some of the commands use variables as arguments.</p>
 </section>
 </section>
 <section id="parallel-array-jobs">
-<h2><span class="section-number">5.5. </span>Parallel (Array) Jobs<a class="headerlink" href="#parallel-array-jobs" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">5.7. </span>Parallel (Array) Jobs<a class="headerlink" href="#parallel-array-jobs" title="Permalink to this headline">#</a></h2>
 <p>One of the advantages of computing clusters is that they can run computations
 in parallel, using multiple CPUs or even multiple nodes. Parallel computations
 are usually non-interactive: it’s difficult to interact with multiple
@@ -1007,10 +1138,10 @@ parameters) and the order in which they run doesn’t matter.</p></li>
 </ol>
 <p>These are not the only approaches, but others tend to be more complicated.</p>
 <p>Let’s try out both approaches to parallelism using modified versions of the
-<code class="docutils literal notranslate"><span class="pre">hello.sh</span></code> script from <a class="reference internal" href="#hello-batch-scripts"><span class="std std-numref">Section 5.4.1</span></a>. We’ll make the script run
+<code class="docutils literal notranslate"><span class="pre">hello.sh</span></code> script from <a class="reference internal" href="#hello-batch-scripts"><span class="std std-numref">Section 5.6.1</span></a>. We’ll make the script run
 <code class="docutils literal notranslate"><span class="pre">hostname</span></code> twice, possibly on two different nodes.</p>
 <section id="parallel-steps">
-<h3><span class="section-number">5.5.1. </span>Parallel Steps<a class="headerlink" href="#parallel-steps" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">5.7.1. </span>Parallel Steps<a class="headerlink" href="#parallel-steps" title="Permalink to this headline">#</a></h3>
 <p>In the parallel steps approach, the batch script header must allocate the total
 number of nodes (with <code class="docutils literal notranslate"><span class="pre">--nodes</span></code>) and number of CPUs (with <code class="docutils literal notranslate"><span class="pre">--ntasks</span></code>) needed
 when the parallel steps run. So if you want to run 10 steps in parallel and
@@ -1088,7 +1219,7 @@ of serial steps or vice-versa. Just make sure to use <code class="docutils liter
 leave off the ampersand <code class="docutils literal notranslate"><span class="pre">&amp;</span></code> on the serial steps.</p>
 </section>
 <section id="job-arrays">
-<h3><span class="section-number">5.5.2. </span>Job Arrays<a class="headerlink" href="#job-arrays" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">5.7.2. </span>Job Arrays<a class="headerlink" href="#job-arrays" title="Permalink to this headline">#</a></h3>
 <p>In the job array approach, the batch script header must set the <code class="docutils literal notranslate"><span class="pre">--array</span></code>
 parameter with the indices for the array of jobs. The batch script will run
 once for each index. The indices must be a comma-separated list or
@@ -1181,14 +1312,14 @@ script:</p>
 srun<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Hello from subjob </span><span class="nv">$SLURM_ARRAY_TASK_ID</span><span class="s2">!&quot;</span>
 </pre></div>
 </div>
-<p><a class="reference internal" href="#case-study-bml-traffic-model"><span class="std std-numref">Section 5.5.3</span></a> provides a more detailed example of how
+<p><a class="reference internal" href="#case-study-bml-traffic-model"><span class="std std-numref">Section 5.7.3</span></a> provides a more detailed example of how
 to use this feature.</p>
 <p>Compared to the parallel steps approach, the array job approach is less
 flexible but easier to set up. In the <code class="docutils literal notranslate"><span class="pre">hello.sh</span></code> example, we only had to add
 one line to the batch script to make it run in parallel.</p>
 </section>
 <section id="case-study-bml-traffic-model">
-<span id="id2"></span><h3><span class="section-number">5.5.3. </span>Case Study: BML Traffic Model<a class="headerlink" href="#case-study-bml-traffic-model" title="Permalink to this heading">#</a></h3>
+<span id="id2"></span><h3><span class="section-number">5.7.3. </span>Case Study: BML Traffic Model<a class="headerlink" href="#case-study-bml-traffic-model" title="Permalink to this headline">#</a></h3>
 <p>The <a class="reference external" href="https://en.wikipedia.org/wiki/Biham%E2%80%93Middleton%E2%80%93Levine_traffic_model">Biham-Middleton-Levine traffic model</a> (BML model) is a simple model
 for traffic flow that has been studied by many mathematicians and computer
 scientists, including UC Davis’ own <a class="reference external" href="https://doi.org/10.1103/PhysRevE.71.066112">Raissa D’Souza</a>. The model
@@ -1467,10 +1598,11 @@ General advice about working on servers vs locally
 
               
               
-              
-              
-                <footer class="prev-next-footer">
+                <footer class="bd-footer-article">
                   
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
        href="04_running-scripts.html"
@@ -1481,7 +1613,10 @@ General advice about working on servers vs locally
         <p class="prev-next-title"><span class="section-number">4. </span>Running Scripts</p>
       </div>
     </a>
+</div></div>
+  
 </div>
+
                 </footer>
               
             </div>
@@ -1496,22 +1631,28 @@ General advice about working on servers vs locally
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-slurm">5.1. What is Slurm?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#monitoring-partitions-and-jobs">5.2. Monitoring Partitions and Jobs</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#partitions">5.2.1. Partitions</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#jobs">5.2.2. Jobs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-parallel-computation">5.1. What is Parallel Computation?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-threading-vs-distributed-computing">5.1.1. Multi-threading vs Distributed Computing</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hybrid-models-of-computation">5.1.2. Hybrid Models of Computation</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interactive-jobs">5.3. Interactive Jobs</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#non-interactive-batch-jobs">5.4. Non-interactive (Batch) Jobs</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hello-batch-scripts">5.4.1. Hello, Batch Scripts!</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configuring-cancelling-jobs">5.4.2. Configuring &amp; Cancelling Jobs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-a-cluster">5.2. What is a Cluster?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-slurm">5.3. What is Slurm?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#monitoring-partitions-and-jobs">5.4. Monitoring Partitions and Jobs</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#partitions">5.4.1. Partitions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#jobs">5.4.2. Jobs</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parallel-array-jobs">5.5. Parallel (Array) Jobs</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#parallel-steps">5.5.1. Parallel Steps</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#job-arrays">5.5.2. Job Arrays</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#case-study-bml-traffic-model">5.5.3. Case Study: BML Traffic Model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interactive-jobs">5.5. Interactive Jobs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#non-interactive-batch-jobs">5.6. Non-interactive (Batch) Jobs</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hello-batch-scripts">5.6.1. Hello, Batch Scripts!</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configuring-cancelling-jobs">5.6.2. Configuring &amp; Cancelling Jobs</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parallel-array-jobs">5.7. Parallel (Array) Jobs</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#parallel-steps">5.7.1. Parallel Steps</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#job-arrays">5.7.2. Job Arrays</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#case-study-bml-traffic-model">5.7.3. Case Study: BML Traffic Model</a></li>
 </ul>
 </li>
 </ul>
@@ -1535,7 +1676,6 @@ By Oliver Kreylos, Tyler Shoemaker, Nick Ulle
   
   <div class="footer-item">
     
-
   </div>
   
   <div class="footer-item">
@@ -1561,8 +1701,8 @@ By Oliver Kreylos, Tyler Shoemaker, Nick Ulle
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
 
   <footer class="bd-footer">
   </footer>
