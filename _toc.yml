@@ -9,7 +9,7 @@ parts:
   - caption: Introduction to Remote Computing
     numbered: true
     chapters:
-      - file: chapters/02_connecting-to-a-server
-      - file: chapters/03_environment-setup
-      - file: chapters/04_running-scripts
-      - file: chapters/05_cluster-computing
+      - file: chapters/01_connecting-to-a-server
+      - file: chapters/02_environment-setup
+      - file: chapters/03_running-scripts
+      - file: chapters/04_cluster-computing
