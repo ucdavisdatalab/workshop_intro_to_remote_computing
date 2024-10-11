@@ -1,7 +1,7 @@
 Cluster Computing
 =================
 
-:::{admonition} Learning Objectives
+:::{admonition} Learning Goals
 + Explain how partitioning and job scheduling works 
 + Know the basics of submitting and monitoring jobs with Slurm
 + Run compute-intensive jobs interactively

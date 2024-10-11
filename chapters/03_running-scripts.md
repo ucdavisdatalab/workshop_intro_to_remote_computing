@@ -8,7 +8,7 @@ processes, and doing reproducible research. In addition to writing and running
 scripts, this chapter will show you how to manage terminal sessions and monitor
 processes so that you can successfully do your work.
 
-:::{admonition} Learning Objectives
+:::{admonition} Learning Goals
 + Write and run executable scripts from the command line
 + Explain what processes, process groups, sessions, and terminals are
 + Use a terminal multiplexer (`tmux`) to create multiple persistent sessions

@@ -8,17 +8,12 @@ server. Along the way, you will learn about how SSH proves your identity to a
 server, how to configure your local computer to make using SSH more
 comfortable, and about basic server etiquette.
 
-:::{admonition} Learning Objectives
-
+:::{admonition} Learning Goals
 + Learn how to connect to a remote server using the SSH protocol
-
 + Learn how to peacefully co-exist with other users on the same server
-
 + Learn about SSH passwords and keys
-
 + Learn how to move data between your local PC, the Internet, and a server
   using `wget`/`curl`, `sftp`, and `scp`
-
 + Learn about the POSIX directory structure and access permissions
 :::
 

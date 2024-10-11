@@ -14,7 +14,7 @@ The examples in this chapter focus on remote computers, but these skills are
 also useful for configuring laptops and desktops.
 
 
-:::{admonition} Learning Objectives
+:::{admonition} Learning Goals
 + Use Farm's module system
 + List popular tools for installing software on POSIX computers
 + Explain what virtual environments are and why they're useful
