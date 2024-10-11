@@ -20,8 +20,8 @@ comfortable, and about basic server etiquette.
 What Is a Server?
 -----------------
 
-Generally, a server is just some computer that can be accessed over a network,
-typically the Internet. In this context, a computing server is, more
+Generally, a **server** is just some computer that can be accessed over a
+network, typically the Internet. In this context, a computing server is, more
 specifically, a computer that gives users access to a remote command line from
 where they can run programs on that computer. The reason to run programs on a
 server is that servers typically offer more memory and disk space and more
@@ -32,8 +32,8 @@ Unlike users' personal computers, servers typically run some UNIX-like operating
 system, which in almost all cases is Linux; they are typically controlled
 exclusively via the command line; they are typically shared by multiple users,
 often multiple users at the same time; and they are operated and maintained by
-dedicated people, called system administrators or system operators (SysOps for
-short).
+dedicated people, called **system administrators** or system operators
+(SysAdmins or SysOps for short).
 
 How to Connect to a Server
 --------------------------
@@ -58,11 +58,11 @@ have some special procedure for requesting an account. A new user typically has
 to contact a system administrator or fill out some online form to request an
 account, and if the administrators accept the request, they will typically
 assign the new user an account name and some way to authenticate themselves to
-the server. "Authentication" here means some way for the user to prove that they
-really are who they claim they are, and that they have permission to access the
-server. In the SSH protocol, there are two main authentication methods: SSH
-passwords and SSH keys. We will discuss those in detail in the following
-sections.
+the server. "**Authentication**" here means some way for the user to prove that
+they really are who they claim they are, and that they have permission to
+access the server. In the SSH protocol, there are two main authentication
+methods: SSH passwords and SSH keys. We will discuss those in detail in the
+following sections.
 
 ### Opening a Connection
 
@@ -189,15 +189,15 @@ remains amicable.
 
 Server resources broadly fall into four categories:
 
-* Computing bandwidth: While servers are typically designed for heavy
+* **Computing bandwidth**: While servers are typically designed for heavy
   computation, they do contain a finite number of CPUs (and/or GPUs) that can
   execute a finite number of operations per second. If the total requested
   computing bandwidth, i.e., number of requested operations per time unit,
   exceeds the existing bandwidth, computation will slow down proportionally for
   everyone.
 
-* Memory space: While servers typically have a lot of memory, it is, again, a 
-  finite resource, and if the total memory requested by all active users 
+* **Memory space**: While servers typically have a lot of memory, it is, again,
+  a finite resource, and if the total memory requested by all active users 
   exceeds existing memory, there will again be slow-downs. Memory related 
   slow-downs, however, typically have vastly worse effects than 
   computing-related slow-downs. If the total requested computing bandwidth 
@@ -209,21 +209,21 @@ Server resources broadly fall into four categories:
   server to a virtual stand-still. It is therefore crucial that users be 
   mindful of the memory requirements of the jobs they submit to a server.
 
-* Hard drive space: While again much larger than the hard drive space available 
-  on typical personal computers, this resource has a *hard* limit. Once a 
-  server's hard drives are full, they are *full,* and no further data can be 
-  written to them. This will usually crash running operations of *all* active 
-  users, not just those started by the user who filled the hard drive, and thus
-  cause significant losses. To avoid this cricital problem, servers typically
-  limit the amount of hard drive space available to each user such that total 
-  usage can never exceed available space, meaning that if a user's program tries
-  to use more than available hard drive space, only that user's program crashes.
-  Regardless, all users should be mindful of the amount of hard drive space 
-  their submitted jobs require.
+* **Hard drive space**: While again much larger than the hard drive space
+  available on typical personal computers, this resource has a *hard* limit.
+  Once a server's hard drives are full, they are *full,* and no further data
+  can be written to them. This will usually crash running operations of *all*
+  active users, not just those started by the user who filled the hard drive,
+  and thus cause significant losses. To avoid this cricital problem, servers
+  typically limit the amount of hard drive space available to each user such
+  that total usage can never exceed available space, meaning that if a user's
+  program tries to use more than available hard drive space, only that user's
+  program crashes. Regardless, all users should be mindful of the amount of
+  hard drive space their submitted jobs require.
 
-* Hard drive bandwidth: Writing data to or reading data from hard drives is
-  *several orders of magnitude* slower than writing or reading data from 
-  memory. If the total hard drive bandwidth requested by all active users 
+* **Hard drive bandwidth**: Writing data to or reading data from hard drives is
+  *several orders of magnitude* slower than writing or reading data from
+  memory. If the total hard drive bandwidth requested by all active users
   exceeds existing bandwidth, hard drive operations will slow down 
   proportionally for all users. Different servers may have different policies
   regarding hard drive bandwidth. For example, a server may have a special hard
@@ -250,10 +250,10 @@ immediately running a computation command from that server's shell.
 
 ### Cluster Computing
 
-The above note is especially important for *clusters,* which are groups of 
+The above note is especially important for **clusters**, which are groups of 
 interconnected computers that act as a single server. Clusters are typically 
-organized such that there is a single so-called *head node* that manages the 
-operation of the entire cluster, and a large number of *computing nodes* 
+organized such that there is a single so-called **head node** that manages the 
+operation of the entire cluster, and a large number of **computing nodes** 
 (dozens to thousands) that actually run the computations requested by users. 
 When a user submits a job to a remote cluster, the head node will subsequently 
 send that job to one or more computation nodes, ideally ones that are not 
@@ -394,7 +394,7 @@ password on the server (in fact, it might not even be possible to do so).
 ### SSH Keys
 
 The second main way how SSH can establish your identity on a remote server 
-is via SSH keys. SSH keys are specific to the SSH protocol, and much more 
+is via **SSH keys**. SSH keys are specific to the SSH protocol, and much more 
 secure than SSH passwords, both for you and for the server, to the point that 
 many servers no longer allow SSH passwords for login and require SSH keys. 
 Besides vastly improved security, an additional benefit of SSH keys is that 
@@ -407,41 +407,41 @@ using cloud services like GitHub.
 Unlike SSH passwords, which are just strings of characters, SSH keys are
 cryptographic keys, typically based on the RSA algorithm, which is a
 [super interesting topic][RSA] for another day. RSA uses a two-part asymmetric
-scheme consisting of a *private key* and a *public key.* Without going into the
-details of how RSA cryptography works, a public key is used to *encrypt* data,
-and the associated private key is used to *decrypt* data. Unlike in *symmetric*
-cryptography systems, in asymmetric systems like RSA public keys can be shared
-*freely, with anyone,* without endangering security. In fact, many people append
-their public keys to their email signatures, or post them on their personal web
-pages. Also unlike SSH passwords, SSH keys are not generated on or assigned by
-the server, but are property of the user, are generated and stored on the
-user's own computer, and a user's private keys are *not* shared with a server as
-part of establishing a connection to that server.
+scheme consisting of a **private key** and a **public key**. Without going into
+the details of how RSA cryptography works, a public key is used to *encrypt*
+data, and the associated private key is used to *decrypt* data. Unlike in
+*symmetric* cryptography systems, in asymmetric systems like RSA public keys
+can be shared *freely, with anyone,* without endangering security. In fact,
+many people append their public keys to their email signatures, or post them on
+their personal web pages. Also unlike SSH passwords, SSH keys are not generated
+on or assigned by the server, but are property of the user, are generated and
+stored on the user's own computer, and a user's private keys are *not* shared
+with a server as part of establishing a connection to that server.
 
 [RSA]: https://en.wikipedia.org/wiki/RSA_cryptosystem
 
 In the context of SSH authentication, RSA keys are used to establish your 
 identity on a server. First, the server's administrators associate your 
-**public** key with your account, typically by asking you to send them your 
-public key via email or an online form, which is safe to do because **public** 
+*public* key with your account, typically by asking you to send them your 
+public key via email or an online form, which is safe to do because *public* 
 SSH keys can be freely shared with anyone. Then, when you attempt to connect to 
 the server over SSH, the server takes a small piece of data, encrypts it with 
-your **public** key, and sends it to the `ssh` client program running on your 
+your *public* key, and sends it to the `ssh` client program running on your 
 local computer. The `ssh` program will then decrypt the server's message using 
-your **private** key, which is stored on your local computer, and subsequently 
+your *private* key, which is stored on your local computer, and subsequently 
 prove to the server that it was able to decode the message (the details of how 
 this proof works are very interesting, but beyond the scope of this reader). 
 Being able to decode the server's message, in turn, proves to the server that 
-you know the **private** key associated with the **public** key stored with the 
+you know the *private* key associated with the *public* key stored with the 
 user's account on the server, and that you therefore are who you claim to be. 
-Importantly, your **private** key never leaves your local computer during this 
+Importantly, your *private* key never leaves your local computer during this 
 exchange, and can therefore not be stolen by a malicious server or a malicious 
 third party.
 
-As a result of a server's assumption that anyone who knows a user's **private** 
-SSH key *is* that user, **private** SSH keys can not be freely shared like 
-**public** SSH keys and *must* be kept private and safe, as the name implies. 
-If your **private** SSH key(s) get accessed by hackers, those hackers will be 
+As a result of a server's assumption that anyone who knows a user's *private* 
+SSH key *is* that user, *private* SSH keys can not be freely shared like 
+*public* SSH keys and *must* be kept private and safe, as the name implies. 
+If your *private* SSH key(s) get accessed by hackers, those hackers will be 
 able to access any of your accounts using those keys. It is therefore highly 
 recommended to protect your SSH keys with strong passwords (more on that 
 below).
@@ -481,7 +481,7 @@ These are the steps of the above procedure in detail:
   different key algorithms, and servers may require or recommend specific ones,
   but the most common key algorithm is RSA.
 
-* `ssh-keygen` asks for the name of a file in which to store the **private**
+* `ssh-keygen` asks for the name of a file in which to store the *private*
   key. By default, as indicated in the prompt, private RSA keys will be stored
   in a file named id_rsa in a hidden `.ssh` directory in your home
   directory (`/home/me`). If you simply press the Enter key at this
@@ -489,7 +489,7 @@ These are the steps of the above procedure in detail:
   want to maintain multiple keys (more on that below).
 
 * Next, `ssh-keygen` asks for an optional passphrase to protect the new private
-  key. As mentioned above, it is crucial that **private** SSH keys be kept
+  key. As mentioned above, it is crucial that *private* SSH keys be kept
   private and safe. As such, it is a good idea to protect them with a
   passphrase (which is just another term for password) that will prevent
   hackers from using the private key in case they get access to it somehow.
@@ -500,7 +500,7 @@ These are the steps of the above procedure in detail:
   how to choose cryptographically strong passphrases (or passwords in general),
   see [this xkcd cartoon][xkcd_password].
 
-* Then, `ssh-keygen` prints the name of the file containing the **public** SSH
+* Then, `ssh-keygen` prints the name of the file containing the *public* SSH
   key associated with the new private SSH key, which is just the name of the
   private SSH key file with ".pub" appended to it.
 
@@ -515,14 +515,14 @@ important differences to password-based authentication:
 
 :::{important} SSH Key Hygiene
 
-+ **Public** SSH keys can be freely shared with anyone, without concern. They
++ *Public* SSH keys can be freely shared with anyone, without concern. They
   could be published via email, on web pages, or in phone books.
 
-+ **Private** SSH keys, unlike SSH passwords, are only stored on your local
++ *Private* SSH keys, unlike SSH passwords, are only stored on your local
   computer, and are *not* shared with a server while an SSH connection is
   established.
 
-+ Because **public** SSH keys are safe to share, and **private** SSH keys are
++ Because *public* SSH keys are safe to share, and *private* SSH keys are
   not shared with servers during connection establishment, it is safe to use
   the same SSH public/private key pair for any number of different servers.
   Even if one server gets hacked, the information that hackers could
@@ -597,45 +597,45 @@ all other users.
 
 :::{important} Permissions for the `.ssh` directory
 
-+ The `.ssh` directory **must** be readable, writable, and executable by you.
++ The `.ssh` directory *must* be readable, writable, and executable by you.
 
-+ The `.ssh` directory **should not** be readable, writable, or executable by
++ The `.ssh` directory *should not* be readable, writable, or executable by
   your user group and by other users.
 
-+ The `.ssh` directory's permissions, as printed by `ls -l ~/.ssh`, **should**
++ The `.ssh` directory's permissions, as printed by `ls -l ~/.ssh`, *should*
   be `drwx------.`
 
 + In case of doubt, you should explicitly set the `.ssh` directory's permissions
   via `chmod u+rwx,go-rwx ~/.ssh`, or, equivalently, `chmod 0700 ~/.ssh`.
 
-+ **Public** key files (`id_rsa.pub` etc.) **must** be readable and writable by
-  you, and **may** be readable, but **must not** be writable, by your user group
-  and by other users. In short, their permissions **should** be `-rw-r--r--.`.
++ *Public* key files (`id_rsa.pub` etc.) *must* be readable and writable by
+  you, and *may* be readable, but *must not* be writable, by your user group
+  and by other users. In short, their permissions *should* be `-rw-r--r--.`.
   To set the recommended permissions explicitly, you would run
   `chmod u+rw,go+r,go-w ~/.ssh/<key file>.pub`
 
-+ **Private** key files (`id_rsa` etc.) **must** be readable and writable by
-  you, and **must not** be readable or writable by the your user group or by
-  other users. In short, their permissions **must** be `-rw-------.`. To set
++ *Private* key files (`id_rsa` etc.) *must* be readable and writable by
+  you, and *must not* be readable or writable by the your user group or by
+  other users. In short, their permissions *must* be `-rw-------.`. To set
   the required permissions, you would run `chmod u+rw,go-rw ~/.ssh/<key file>`
 
-+ The `~/.ssh/config` file **must** be readable and writable by you, and
-  **must not** be readable or writable by your user group or by other users. In
-  short, its permissions **must** be `-rw-------.`. To set the required
++ The `~/.ssh/config` file *must* be readable and writable by you, and
+  *must not* be readable or writable by your user group or by other users. In
+  short, its permissions *must* be `-rw-------.`. To set the required
   permissions, you would run `chmod u+rw,go-rw ~/.ssh/config`
 
-+ Other files (`known_hosts`, `authorized_keys`, etc.) **must** be readable and
-  writable by you, **must not** be writable by your user group or by other
-  users, and **should not** be readable by your user group or by other users. In
-  short, their permissions **should** be `-rw-------.`. To set the recommended
++ Other files (`known_hosts`, `authorized_keys`, etc.) *must* be readable and
+  writable by you, *must not* be writable by your user group or by other
+  users, and *should not* be readable by your user group or by other users. In
+  short, their permissions *should* be `-rw-------.`. To set the recommended
   permissions, you would run `chmod u+rw,go-rw ~/.ssh/<file>`
 :::
 
 ### Known Hosts
 
-`~/.ssh/known_hosts` contains the **public** SSH keys of servers to which you 
+`~/.ssh/known_hosts` contains the *public* SSH keys of servers to which you 
 have connected in the past. These are stored to prevent so-called
-"man-in-the-middle" attacks, where a third party attempts to intercept SSH
+**"man-in-the-middle" attacks**, where a third party attempts to intercept SSH
 connection traffic by pretending to be a server to which you wants to
 connect, accepting incoming SSH connections from you, and then
 transparently forwarding those connections and their content to the actual
@@ -1050,15 +1050,15 @@ and return you back to your local shell.
 
 ### Current Directories
 
-Because `sftp`'s purpose is file transfer and management, it has the same 
-concept of a *current directory* as a regular shell, to relieve you from 
-always having to enter absolute paths to identify the file(s) on which you 
-want to operate. Unlike a regular shell, however, `sftp` has *two* current 
-directories: one on your local computer, and one on the server. Consequently, 
-the commands to query or alter those current directories also come in pairs, 
-where the command referring to the local current directory has an "l"
-(*lowercase* l for "local") prefix, and the other one works exactly like the
-shell command of the same name:
+Because `sftp`'s purpose is file transfer and management, it has the same
+concept of a **current directory** or working directory as a regular shell, to
+relieve you from always having to enter absolute paths to identify the file(s)
+on which you want to operate. Unlike a regular shell, however, `sftp` has *two*
+current directories: one on your local computer, and one on the server.
+Consequently, the commands to query or alter those current directories also
+come in pairs, where the command referring to the local current directory has
+an "l" (*lowercase* l for "local") prefix, and the other one works exactly like
+the shell command of the same name:
 
 * `pwd` and `lpwd` (for "(local) print working directory") print the paths of
   the remote or local current directory, respectively.
@@ -1259,11 +1259,12 @@ The POSIX Directory Structure and Permissions
 ---------------------------------------------
 
 As servers are typically UNIX machines, the layout of their filesystems
-typically follow the POSIX Filesystem Hierarchy Standard. This means the file
-system is generally split between system directories, user home directories,
-and "other" directories. System directories contain programs and data shared by
-all users on the server, while user home directories contain programs and data
-private to each user. "Other" directories can contain a mix of these two.
+typically follow the **POSIX Filesystem Hierarchy Standard**. This means the
+file system is generally split between system directories, user home
+directories, and "other" directories. System directories contain programs and
+data shared by all users on the server, while user home directories contain
+programs and data private to each user. "Other" directories can contain a mix
+of these two.
 
 ### System Directories
 
