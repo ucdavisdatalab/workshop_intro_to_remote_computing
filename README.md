@@ -3,8 +3,9 @@
 [![License: CC BY-SA 4.0](https://img.shields.io/badge/License-CC_BY--SA_4.0-lightgrey.svg)](https://creativecommons.org/licenses/by-sa/4.0/)
 
 _[UC Davis DataLab](https://datalab.ucdavis.edu/)_  
-_Winter 2024_  
-_Instructors & Authors: Nick Ulle, Oliver Kreylos, Tyler Shoemaker_  
+_Fall 2024_  
+_Instructors: Oliver Kreylos, Nick Ulle, Wesley Brooks_  
+_Authors: Nick Ulle, Oliver Kreylos, Tyler Shoemaker_  
 _Maintainer: Nick Ulle <<naulle@ucdavis.edu>>_  
 
 * [Reader](https://ucdavisdatalab.github.io/workshop_intro_to_remote_computing/)
