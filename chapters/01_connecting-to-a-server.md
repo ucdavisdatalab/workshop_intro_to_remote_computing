@@ -1,4 +1,4 @@
-Connecting To A Server
+Connecting to a Server
 ======================
 
 This chapter will show you how to connect to a server using the SSH ("secure
@@ -17,7 +17,7 @@ comfortable, and about basic server etiquette.
 + Learn about the POSIX directory structure and access permissions
 :::
 
-What Is A Server?
+What Is a Server?
 -----------------
 
 Generally, a server is just some computer that can be accessed over a network,
@@ -35,7 +35,7 @@ often multiple users at the same time; and they are operated and maintained by
 dedicated people, called system administrators or system operators (SysOps for
 short).
 
-How To Connect To A Server
+How to Connect to a Server
 --------------------------
 
 Users typically connect to a server using the SSH ("secure shell") protocol, by
@@ -744,7 +744,7 @@ me@mypc$ ssh anotherserver
 The full set of available configuration options is described in `ssh-config`'s
 documentation (`man ssh_config`).
 
-Moving Data Between A Local Computer, The Internet, And A Server
+Moving Data between a Local Computer, the Internet, and a Server
 ----------------------------------------------------------------
 
 An established SSH connection between your local computer and a remote server 
@@ -755,7 +755,7 @@ from your local computer to a server, downloading data from the Internet to a
 server, or downloading data from a server to your local computer require 
 additional tools.
 
-### Download Files From The Internet
+### Download Files from the Internet
 
 The first pair of commands, to download data from the Internet to *any* 
 computer, including your local computer and a server to which you are connected 
@@ -960,7 +960,7 @@ adding `-S` (*uppercase* S, for "not quite so silent, thankyouverymuch") after
 `-s`.
 
 (transfer-files)=
-### Transfer Files Between A Local Computer And A Server
+### Transfer Files between a Local Computer and a Server
 
 Unlike `wget` and `curl`, the next pair of commands can be used to transfer 
 files between your local computer and a remote server. The first, `scp`, is 
@@ -1126,7 +1126,7 @@ server name given on `sftp`'s command line, separated by a colon:
 sftp <account name>@<server name>:<path>
 ````
 
-### Uploading And Downloading Files
+### Uploading and Downloading Files
 
 The `get <remote path> [local path]` command downloads one or more files from 
 the remote server to the local computer. The `<remote path>` argument 
@@ -1255,7 +1255,7 @@ to `chmod`'s documentation (`man chmod`) for details on octal notation.
 For convenience, `sftp` offers a local counterpart to the `mkdir` command, to 
 create a new directory on the local computer: `lmkdir <path>`
 
-The POSIX Directory Structure And Permissions
+The POSIX Directory Structure and Permissions
 ---------------------------------------------
 
 As servers are typically UNIX machines, the layout of their filesystems
