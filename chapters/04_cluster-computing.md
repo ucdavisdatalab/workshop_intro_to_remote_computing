@@ -11,7 +11,7 @@ Cluster Computing
   processes
 :::
 
-What is Parallel Computation?
+What Is Parallel Computation?
 -----------------------------
 
 The default mode of computation is **sequential** or **single-threaded**
@@ -128,7 +128,7 @@ components:
   and communicate with each other by sharing memory and using operating system-
   supplied synchronization mechanisms such as POSIX pthreads.
 
-What is a Cluster?
+What Is a Cluster?
 ------------------
 
 A **cluster** is a high-performance computing resource comprising a collection
@@ -163,7 +163,7 @@ to a subset of the cluster's compute nodes depending on the number of processes
 the job wants to use, and finally run the job and keep the user informed of the
 job's progress.
 
-What is Slurm?
+What Is Slurm?
 --------------
 
 Slurm ("Simple Linux Utility for Resource Management") is the workload manager
