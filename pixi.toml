@@ -1,0 +1,18 @@
+[project]
+authors = [
+  "Oliver Kreylos <okreylos@ucdavis.edu>",
+  "Tyler Shoemaker",
+  "Nick Ulle <naulle@ucdavis.edu>"
+]
+channels = ["conda-forge"]
+description = "Reader for the Intro to Remote Computing workshop series."
+name = "intro_to_remote_computing"
+platforms = ["linux-64", "osx-64", "win-64"]
+version = "2024.winter.0"  # <year>.<quarter>.<revision #>
+
+[tasks]
+
+[dependencies]
+python = ">=3.12.7,<4"
+jupyter-book = ">=1.0.3,<2"
+ghp-import = ">=2.1.0,<3"
