@@ -167,7 +167,7 @@ What Is Slurm?
 --------------
 
 Slurm ("Simple Linux Utility for Resource Management") is the workload manager
-used on UC Davis's Farm cluster.
+used on most of UC Davis's compute clusters.
 
 Slurm describes computations at three different levels of granularity. From
 smallest to largest, they are:
@@ -192,8 +192,8 @@ When you submit a job to Slurm, it's added to a job queue, called a
 **partition**, until the compute resources you requested are available. Slurm
 uses different partitions for different types of hardware (for example, nodes
 with GPUs) and different levels of job priority.
-{numref}`monitoring-patitions-and-jobs` gives examples of partitions on Farm
-and how they relate to priority.
+{numref}`monitoring-patitions-and-jobs` gives examples of partitions on the
+cluster and how they relate to priority.
 
 
 (monitoring-patitions-and-jobs)=
@@ -211,34 +211,16 @@ You can use the `sinfo` command to list available partitions, their nodes, and
 the maximum time you can request for a job. This command will also show you
 whether partitions and nodes are up and running. Use the command's
 `--summarize` argument to get a summary, which is easier to read on compute
-clusters that have many nodes. Let's try running the command on Farm:
+clusters that have many nodes. Let's try running the command on Hive:
 
 ```sh
 sinfo --summarize
 ```
 
 ```
-PARTITION  AVAIL  TIMELIMIT   NODES(A/I/O/T) NODELIST
-low2          up    4:00:00       16/43/1/60 cpu-3-[50-57,62-69],<...>
-med2          up 150-00:00:       16/43/1/60 cpu-3-[50-57,62-69],<...>
-high2         up 150-00:00:       16/43/1/60 cpu-3-[50-57,62-69],<...>
-low           up    4:00:00      4/71/26/101 cpu-8-[62-77,86-96],<...>
-med*          up 150-00:00:      4/71/26/101 cpu-8-[62-77,86-96],<...>
-high          up 150-00:00:      4/71/26/101 cpu-8-[62-77,86-96],<...>
-bigmeml       up    4:00:00          2/3/4/9 bigmem[1-8,10]
-bigmemm       up 150-00:00:          2/3/4/9 bigmem[1-8,10]
-bigmemh       up 150-00:00:          1/3/4/8 bigmem[1-8]
-bigmemht      up 150-00:00:          1/0/0/1 bigmem10
-bit150h       up 150-00:00:          1/0/0/1 bigmem9
-ecl243        up 150-00:00:          1/0/0/1 bigmem9
-bml           up    4:00:00       11/11/2/24 bm[1-24]
-bmm           up 150-00:00:       11/11/2/24 bm[1-24]
-bmh           up 150-00:00:       11/11/2/24 bm[1-24]
-gpul          up    4:00:00          4/0/0/4 gpu-4-[54,56],gpu-5-[50,58]
-bgpu          up 150-00:00:          2/0/0/2 gpu-4-54,gpu-12-92
-gpuh          up 7-00:00:00          2/0/0/2 gpu-5-[50,58]
-gpum          up 7-00:00:00          2/0/0/2 gpu-5-[50,58]
-gpu-a100-h    up 14-00:00:0          1/0/0/1 gpu-4-56
+PARTITION AVAIL  TIMELIMIT   NODES(A/I/O/T) NODELIST
+low          up 1-00:00:00          0/8/0/8 hive-dc-7-10-[18,22,26,30,42,46,50,54]
+high*        up 30-00:00:0          0/8/0/8 hive-dc-7-10-[18,22,26,30,42,46,50,54]
 ```
 
 In the output, the fourth column shows available nodes, idle nodes, nodes
@@ -261,21 +243,8 @@ sacctmgr show associations where user=nulle
 ```
    Cluster    Account       User  Partition     Share   Priority GrpJobs       GrpTRES GrpSubmit     GrpWall   GrpTRESMins MaxJobs       MaxTRES MaxTRESPerNode MaxSubmit     MaxWall   MaxTRESMins                  QOS   Def QOS GrpTRESRunMin
 ---------- ---------- ---------- ---------- --------- ---------- ------- ------------- --------- ----------- ------------- ------- ------------- -------------- --------- ----------- ------------- -------------------- --------- -------------
-      farm datalabgrp      nulle      high2         1                                                                                                               50000                           datalabgrp-high2-qos
-      farm datalabgrp      nulle       med2         1                                                                                                               50000                            datalabgrp-med2-qos
-      farm datalabgrp      nulle       low2         1                                                                                                               50000                            datalabgrp-low2-qos
-      farm datalabgrp      nulle gpu-a100-h         1                                                                                                               50000                           datalabgrp-gpu-a100+
-      farm ctbrowngrp      nulle gpu-a100-h         1                                                                                                               50000                           ctbrowngrp-gpu-a100+
-      farm ctbrowngrp      nulle       gpum         1                                                                                                               50000                            gpum-users-gpum-qos
-      farm ctbrowngrp      nulle       gpuh         1                                                                                                               50000                            ctbrowngrp-gpuh-qos
-      farm ctbrowngrp      nulle        med         1                                                                                                               50000                                adamgrp-med-qos
-      farm ctbrowngrp      nulle        low         1                                                                                                               50000                                adamgrp-med-qos
-      farm ctbrowngrp      nulle        bmh         1                                                                                                               50000                             ctbrowngrp-bmh-qos
-      farm ctbrowngrp      nulle        bmm         1                                                                                                               50000                             ctbrowngrp-bmm-qos
-      farm ctbrowngrp      nulle        bml         1                                                                                                               50000                             ctbrowngrp-bml-qos
-      farm ctbrowngrp      nulle      high2         1                                                                                                               50000                           ctbrowngrp-high2-qos
-      farm ctbrowngrp      nulle       med2         1                                                                                                               50000                            ctbrowngrp-med2-qos
-      farm ctbrowngrp      nulle       low2         1                                                                                                               50000                            ctbrowngrp-low2-qos
+      hive  publicgrp      nulle       high         1                                                                                                                                                 publicgrp-high-qos
+      hive  publicgrp      nulle        low         1                                                                                                                                                  publicgrp-low-qos
 ```
 
 
@@ -483,7 +452,7 @@ You can confirm that you're back on the head node with `hostname`:
 hostname
 ```
 ```
-farm
+login1
 ```
 
 
@@ -957,7 +926,7 @@ cpu-10-88
 ```
 
 In this case, Slurm ran both subjobs on the same node, but used 2 separate CPUs
-(most nodes on Farm have at least 4 CPUs).
+(most nodes have at least 4 CPUs).
 
 There's one more important feature of array jobs that the preceding example
 didn't demonstrate. When you run an array job, for each subjob, Slurm sets the
@@ -1205,9 +1174,9 @@ srun python bml.py $SLURM_ARRAY_TASK_ID
 ```
 
 :::{note}
-When you run an array job on Farm, Slurm automatically passes on your shell
-environment to the subjobs. This is why we didn't have to activate the `bml`
-environment from within the batch script.
+When you run an array job on a cluster, Slurm automatically passes on your
+shell environment to the subjobs. This is why we didn't have to activate the
+`bml` environment from within the batch script.
 
 On other clusters, Slurm may be configured differently. In order to use
 `micromamba` from within a batch script, you may have to initialize it first
