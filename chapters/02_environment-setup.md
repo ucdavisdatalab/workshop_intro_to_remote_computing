@@ -70,7 +70,7 @@ and cloud computing services.
 Installing Software
 -------------------
 
-### Package and Environment Managers
+### Package & Environment Managers
 
 A **package manager** is a software tool that downloads and installs software
 packages. If you've used R or Python, you may already be familiar with the

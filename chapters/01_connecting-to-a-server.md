@@ -960,7 +960,7 @@ adding `-S` (*uppercase* S, for "not quite so silent, thankyouverymuch") after
 `-s`.
 
 (transfer-files)=
-### Transfer Files between a Local Computer and a Server
+### Transfer Files between a Local Computer & a Server
 
 Unlike `wget` and `curl`, the next pair of commands can be used to transfer 
 files between your local computer and a remote server. The first, `scp`, is 
@@ -1126,7 +1126,7 @@ server name given on `sftp`'s command line, separated by a colon:
 sftp <account name>@<server name>:<path>
 ````
 
-### Uploading and Downloading Files
+### Uploading & Downloading Files
 
 The `get <remote path> [local path]` command downloads one or more files from 
 the remote server to the local computer. The `<remote path>` argument 

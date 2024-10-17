@@ -32,7 +32,7 @@ external program to run.
 
 This chapter focuses on the third group of files: executable scripts.
 
-### Using an executable script
+### Using an Executable Script
 
 Using an executable script works very similarly to using command line programs
 like `ls`, `grep`, etc.: scripts have names and some can take optional
@@ -118,7 +118,7 @@ The following examples use `env` to implement a shebang for Bash, Python, and R:
 This will direct your computer to use the environment variables set in `env`.
 
 (example-script)=
-### Example script
+### Example Script
 
 Now that you know the anatomy of an executable script, you can write one
 yourself. There are three versions of such a script below, one for Bash,
@@ -174,7 +174,7 @@ while (TRUE) {
 ````
 `````
 
-### File permissions
+### File Permissions
 
 To use your script (in this case, the Bash version), call it from the command
 line:
@@ -274,7 +274,7 @@ do this is with a **terminal multiplexer**. Multiplexers are applications that
 enable you to run one or more sessions at the same time and keep those sessions
 alive for as long as you'd like.
 
-### The basics of `tmux`
+### The Basics of `tmux`
 
 The two most popular multiplexers are `screen` and `tmux`. Most computers will
 come with one or both of these applications installed, though you can also
@@ -423,7 +423,7 @@ This functionality becomes extremely powerful with remote systems. Using
 from the session, and log off the remote computer altogether. All the while,
 the script will continue running until you log in again.
 
-### Windows and panes
+### Windows & Panes
 
 In `tmux`, a window is not the same thing as a session. The latter is a
 container for the former, and you can have multiple windows. Think of them like
@@ -515,7 +515,7 @@ remote computing, tracking your work is not only essential but good etiquette.
 Resources can be limited, and you want to be sure you aren't negatively
 affecting users' work.
 
-### Finding a process
+### Finding a Process
 
 Recall that each program runs on its own process. Every time you interact with
 your computer, you spawn a process, or multiple processes. Your computer
@@ -625,7 +625,7 @@ rethink how to implement your code.
 
 But how would you know what resources are being used?
 
-### Monitoring real-time system performance
+### Monitoring Real-Time System Performance
 
 `top` will display real-time information about every process running on a
 computer. It's a great bird's-eye view of what is going on at any one point in
@@ -747,7 +747,7 @@ show you any running processes.
 
 [cuda]: https://en.wikipedia.org/wiki/CUDA
 
-### Other resource information
+### Other Resource Information
 
 General disk usage information is available with `du`. This little command can
 be especially useful on remote systems, where there are usually more
@@ -832,7 +832,7 @@ of gigabytes of data. That will be time-intensive and probably misleading.
 Instead, start with a small amount of data and gradually scale your tests until
 you feel you're able to make a good estimate.
 
-### Computational complexity
+### Computational Complexity
 
 In computer science, **computational complexity** refers to the amount of
 resources an algorithm requires to run. Time is often the focus in this topic,
@@ -869,7 +869,7 @@ software libraries like NumPy or dplyr, help mitigate this. But you should be
 aware that the possibility of this eventuality nevertheless exists, and thus
 try to mitigate it yourself when possible.
 
-### Example script
+### Example Script
 
 Consider the script `nested.{sh,py,R}`. It runs one `for` loop `n` times, and
 then it runs another `for` loop inside that first one `n` times. This means its
@@ -941,7 +941,7 @@ nested(n)
 ````
 `````
 
-### Timing code
+### Timing Code
 
 Python and R both have libraries for timing this code, but there are also
 utilities like `time`. Call `time` before any other command and it will show
@@ -1055,7 +1055,7 @@ sys     0m0.073s
 
 The second one is over four times as fast!
 
-### RAM usage
+### Memory Usage
 
 Estimating how much memory your script will take follows a similar pattern:
 incrementally scale your computations until you feel confident in your ability
