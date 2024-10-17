@@ -15,7 +15,7 @@ also useful for configuring laptops and desktops.
 
 
 :::{admonition} Learning Goals
-+ Use Farm's module system
++ Use UC Davis HPC's module system
 + List popular tools for installing software on POSIX computers
 + Explain what virtual environments are and why they're useful
 + Explain the difference between conda and mamba
@@ -175,8 +175,8 @@ yourself rather than use modules.
 :::
 
 You can list all of the modules available on a cluster with the `module avail`
-command. For example, as of writing, the output from `module avail` on Farm
-begins:
+command. For example, as of writing, the output from `module avail` on UC
+Davis' Farm cluster begins:
 
 ```
 ----------------------------------------------------------------- /share/apps/22.04/modulefiles/spack/core -----------------------------------------------------------------
@@ -210,7 +210,7 @@ The Julia Language: A fresh approach to technical computing
 
 To load a module, use the `module load` command. Again, you need to specify the
 module's name and optionally its version. As an example, suppose you decide you
-want to try out the [Julia][] programming language on Farm. If you try to run
+want to try out the [Julia][] programming language on Hive. If you try to run
 `julia`, you'll see an error message saying it's not installed:
 
 [Julia]: https://julialang.org/
@@ -254,8 +254,8 @@ module's name:
 module unload julia
 ```
 
-Note that when you log out, Farm will automatically unload any modules you
-loaded.
+Note that when you log out, the cluster will automatically unload any modules
+you loaded.
 
 
 (micromamba)=

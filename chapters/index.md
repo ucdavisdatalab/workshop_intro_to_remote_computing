@@ -36,11 +36,13 @@ collection has two parts:
 
 * **Introduction to Remote Computing** (four 2-hour sessions): This workshop
   series provides an introduction to accessing and computing on remote servers
-  such as UC Davis' "Farm" cluster. The series covers everything you need to
-  know to get started: how to set up and use SSH to log in and transfer files,
-  how to install software with conda, how to reserve computing time and run
-  programs with SLURM, and shell commands that are especially useful for
+  such as [UC Davis' "Hive" cluster][hive]. The series covers everything you
+  need to know to get started: how to set up and use SSH to log in and transfer
+  files, how to install software with conda, how to reserve computing time and
+  run programs with SLURM, and shell commands that are especially useful for
   working with servers.
+
+  [hive]: https://hpc.ucdavis.edu/clusters
 
   :::{admonition} Learning Goals
   :class: note, dropdown
@@ -50,7 +52,7 @@ collection has two parts:
   + Transfer files to and from a server
   + Set up and use conda/mamba to install software on a server
   + Use SLURM to run interactive and non-interactive software on a server
-  + Explain etiquette for using a server cluster such as Farm
+  + Explain etiquette for using a server or compute cluster
   :::
 
   :::{admonition} Prerequisites
