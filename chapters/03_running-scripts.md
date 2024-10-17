@@ -283,26 +283,27 @@ This chapter will show you the basics of `tmux`. It's a little more featureful
 than `screen` and it fits nicely with other work patterns associated with
 programs like `vim`.
 
-````{dropdown} A note for MacOS + conda users
-MacOS has a path building utility that `tmux` calls twice when it initializes
-and this can throw off your conda environment. To fix this, you'll need to do a
-further bit of configuration.
+:::{admonition} Using tmux with conda on macOS
+:class: caution, dropdown
+On macOS, `tmux` runs a path-building utility that can interfere with active
+conda environments. To fix this, you'll need to do a further bit of
+configuration.
 
 First, determine which shell you are using:
 
-```
-$ echo $SHELL
+```sh
+echo $SHELL
 ```
 
 If you see `/bin/zsh`, create a new file in your Home directory:
 
-```
+```sh
 touch ~/.zprofile
 ```
 
 If you see `/bin/bash`, create a slightly different one:
 
-```
+```sh
 touch ~/.bash_profile
 ```
 
@@ -319,7 +320,7 @@ This will flush your path when `tmux` initializes and rebuild it so that conda
 is where it should be.
 
 Save and exit. You should be set!
-````
+:::
 
 To start `tmux`, simply type it in your command line:
 
