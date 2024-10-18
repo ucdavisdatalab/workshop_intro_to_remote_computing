@@ -626,7 +626,7 @@ Let's try a few of these with the `beacon.py` script from
 
 cd beacon
 # The -u parameter makes Python print output immediately.
-srun python3 -u beacon.py DataLab
+srun python -u beacon.py DataLab
 ```
 
 This batch script uses a `cd` command to set the working directory. Batch

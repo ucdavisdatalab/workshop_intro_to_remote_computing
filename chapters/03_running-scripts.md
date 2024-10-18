@@ -58,7 +58,7 @@ At a high level, that looks like the following:
 In practice, the above might look like so:
 
 ```sh
-python3 script.py input.txt output.csv
+python script.py input.txt output.csv
 ```
 
 (shebangs)=
@@ -142,7 +142,7 @@ done
 
 :::{tab-item} Python
 ```python
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 import sys
 import time
@@ -934,7 +934,7 @@ nested "$1"
 
 :::{tab-item} Python
 ```python
-#!/usr/bin/env python3
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
 import sys
@@ -1052,7 +1052,7 @@ then with NumPy.
 ::::{tab-set}
 :::{tab-item} Base Python
 ```python
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 def main():
     n = 5000
@@ -1071,7 +1071,7 @@ if __name__ == "__main__":
 
 :::{tab-item} NumPy
 ```python
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 import numpy as np
 
