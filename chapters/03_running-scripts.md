@@ -44,7 +44,7 @@ it.
 At a high level, that looks like the following:
 
 ```
-$ <interpreter> <script> <arg1, arg2, arg3, ...>
+<interpreter> <script> <arg1, arg2, arg3, ...>
 ```
 
 **Components**
@@ -57,8 +57,8 @@ $ <interpreter> <script> <arg1, arg2, arg3, ...>
 
 In practice, the above might look like so:
 
-```
-$ python3 script.py input.txt output.csv
+```sh
+python3 script.py input.txt output.csv
 ```
 
 (shebangs)=
@@ -68,7 +68,7 @@ It is, however, possible to execute a script without specifying the
 interpreter from the command line. Simply prepend the script with `./`:
 
 ```
-$ ./<script> <arg1, arg2, arg3, ...>
+./<script> <arg1, arg2, arg3, ...>
 ```
 
 But this requires inserting a **shebang** into the script. A shebang is a
@@ -95,25 +95,25 @@ be different than the one on your own.
 
 The following examples use `env` to implement a shebang for Bash, Python, and R:
 
-`````{tab-set}
-````{tab-item} Bash
-```{code-block} bash
+::::{tab-set}
+:::{tab-item} Bash
+```sh
 #!/usr/bin/env bash
 ```
-````
+:::
 
-````{tab-item} Python
-```{code-block} python
-#!/usr/bin/env python3
+:::{tab-item} Python
+```sh
+#!/usr/bin/env python
 ```
-````
+:::
 
-````{tab-item} R
-```{code-block} R
+:::{tab-item} R
+```sh
 #!/usr/bin/env Rscript
 ```
-````
-`````
+:::
+::::
 
 This will direct your computer to use the environment variables set in `env`.
 
@@ -127,9 +127,9 @@ argument from the command line, `name`. It then prints `Hello, {name}` to
 screen in an indefinite `while` loop, waiting for one second after each
 iteration.
 
-`````{tab-set}
-````{tab-item} Bash
-```{code-block} bash
+::::{tab-set}
+:::{tab-item} Bash
+```bash
 #!/usr/bin/env bash
 
 name=$1
@@ -138,10 +138,10 @@ while true; do
     sleep 1
 done
 ```
-````
+:::
 
-````{tab-item} Python
-```{code-block} python
+:::{tab-item} Python
+```python
 #!/usr/bin/env python3
 
 import sys
@@ -158,10 +158,10 @@ def main():
 if __name__ == "__main__":
     main()
 ```
-````
+:::
 
-````{tab-item} R
-```{code-block} R
+:::{tab-item} R
+```r
 #!/usr/bin/env Rscript
 
 args = commandArgs(trailingOnly=TRUE)
@@ -171,16 +171,18 @@ while (TRUE) {
   Sys.sleep(1)
 }
 ```
-````
-`````
+:::
+::::
 
 ### File Permissions
 
 To use your script (in this case, the Bash version), call it from the command
 line:
 
+```sh
+./beacon.sh DataLab
 ```
-$ ./beacon.sh DataLab
+```
 bash: permission denied: ./beacon.sh
 ```
 
@@ -191,8 +193,10 @@ from a third-party (including, potentially, other users on a computer).
 
 To inspect the file permissions for `beacon.sh`, use `ls -l`:
 
+```sh
+ls -l beacon.sh
 ```
-$ ls -l beacon.sh
+```
 -rw-r--r--  1 datalab  datalabgrp  85 Oct 12 13:30 beacon.sh
 ```
 
@@ -224,22 +228,26 @@ will suffice.
 
 To give a file execute (`x`) permissions, type the following:
 
-```
-$ chmod u+x beacon.sh
+```sh
+chmod u+x beacon.sh
 ```
 
 Above, `u+x` adds "executable" to `beacon.sh`. Note that it only does so for
 the original user (`u`).
 
+```sh
+ls -l beacon.sh
 ```
-$ ls -l beacon.sh
+```
 -rwxr--r--  1 datalab  datalabgrp  85 Oct 12 13:30 beacon.sh
 ```
 
 With this done, the script may be executed:
 
+```sh
+./beacon.sh DataLab
 ```
-$ ./beacon.sh DataLab
+```
 Hello, DataLab
 Hello, DataLab
 Hello, DataLab
@@ -324,8 +332,8 @@ Save and exit. You should be set!
 
 To start `tmux`, simply type it in your command line:
 
-```
-$ tmux
+```sh
+tmux
 ```
 
 ![New `tmux` session](../img/tmux_new.png)
@@ -336,8 +344,10 @@ number: `[0]`. This means you are working in your first session.
 
 Within your window, start `beacon.sh`:
 
+```sh
+./beacon.sh DataLab
 ```
-$ ./beacon.sh DataLab
+```
 Hello, DataLab
 ...
 ```
@@ -355,7 +365,6 @@ d`. Doing so should bring you back to your original terminal view, where you'll
 see the following:
 
 ```
-$ tmux
 [detached (from session 0)]
 ```
 
@@ -363,8 +372,8 @@ Detaching from the session will keep it alive but change the screen you're
 viewing. You can go about your work and leave `beacon.sh` running. If you'd
 like to check in on it, or terminate the script, enter:
 
-```
-$ tmux attach -t 0
+```sh
+tmux attach -t 0
 ```
 
 That is, `attach` to the target (`-t`), which in this case is session `0`.
@@ -373,21 +382,21 @@ Entering this command will bring you back to a screen view that contains the
 output of `beacon.sh`. Use `Ctrl+c` to stop your script. Then enter the
 following to close `tmux`:
 
-```
-$ exit
+```sh
+exit
 ```
 
 It's a good idea to name your sessions, rather than relying on their index
 positions.
 
-```
-$ tmux new -s "beacon"
+```sh
+tmux new -s "beacon"
 ```
 
 The following starts a new session without entering it:
 
-```
-$ tmux new -ds "not_entered"
+```sh
+tmux new -ds "not_entered"
 ```
 
 In other words, create a `new` session (`-s`) named `not_entered` in a detached
@@ -395,27 +404,29 @@ In other words, create a `new` session (`-s`) named `not_entered` in a detached
 
 List your current sessions with:
 
+```sh
+tmux ls
 ```
-$ tmux ls
+```
 beacon: 1 windows (created Thu Oct 12 15:43:30 2023)
 not_entered: 1 windows (created Thu Oct 12 15:46:07 2023)
 ```
 
 Attach to a named session like so:
 
-```
-$ tmux attach -t "not_entered"
+```sh
+tmux attach -t "not_entered"
 ```
 
 And close a session from your normal terminal view:
 
-```
-$ tmux kill-session -t "beacon"
+```sh
+tmux kill-session -t "beacon"
 ```
 
 Terminate all sessions using:
 
-```
+```sh
 tmux kill-server
 ```
 
@@ -431,15 +442,18 @@ container for the former, and you can have multiple windows. Think of them like
 tabs in a web browser.
 
 As with sessions, naming windows can be a good idea. The following starts a new
-session, `beacon`, with window `win1`.
+session, `beacon`, with window `win1`:
 
-```
+```sh
 tmux new -s "beacon" -n "win1"
 ```
 
-From `win1`, you can create another window, `win2`. To do so, enter `Ctrl+b`
-and type `:` to enter the command mode. If you've used `vim` before, this will
-feel familiar. Then type:
+You can enter tmux's command mode, which you can use to control windows and
+other aspects of tmux, by pressing and releasing `Ctrl+b`, then pressing and
+releasing colon (`:`). If you've used `vim` before, this will feel familiar.
+
+In command mode, tmux will wait for you to type a command and press `Enter`.
+For example, try entering the command to create a new window named `win2`:
 
 ```
 new-window -n "win2"
@@ -447,21 +461,23 @@ new-window -n "win2"
 
 ![A `tmux` session with two windows](../img/tmux_windows.png)
 
-Note the bottom bar, which displays the two windows. To switch between them,
-enter the keybinding and command mode key again. From here forward, we will
-notate this sequence with a shorthand `:` before the `tmux` command. Then type:
+From now on, we'll indicate commands that must be entered in tmux command mode
+with a leading colon (`:`). For instance, note that now two windows are listed
+in the tmux status bar (the bottom bar), and `win2` is active. To switch back
+to `win1`, run:
 
 ```
 :select-window -t "win1"
 ```
 
-Terminate a window like so:
+To close `win2`, run:
 
 ```
 :kill-window -t "win2"
 ```
 
-Shorthand keybindings allow for quick movement between windows:
+You can also use tmux's keybindings to switch between and close windows
+quickly:
 
 | Keybinding     | Explanation                           |
 |----------------|---------------------------------------|
@@ -472,18 +488,17 @@ Shorthand keybindings allow for quick movement between windows:
 | `Ctrl+b x`     | Close the current window              |
 
 Finally, windows can be split into **panes**. This divides a window into
-different areas, which can all run different processes. The syntax is similar
-to the above. Enter command mode with `Ctrl+b`, then enter:
+different areas, which can all run different processes. To try this, run:
 
 ```
 :split-window -v
 ```
 
-...to split the window into two vertical panes. Use `-h` to split horizontally.
-The example below is a window with three panes, each of which is running a
-different process. As this example indicates, using `tmux` in concert with a
-program like `vim` can end up acting like a custom interactive development
-environment (IDE).
+...to split the window into two vertical panes. Use `-h` instead of `-v` to
+split horizontally. The example below is a window with three panes, each of
+which is running a different process. As this example indicates, using `tmux`
+in concert with a program like `vim` can end up acting like a custom
+interactive development environment (IDE).
 
 ![A `tmux` window with three panes running multiple
 programs](../img/tmux_panes.png)
@@ -525,9 +540,11 @@ monitor and manage it as necessary.
 
 `ps` will tell you which processes are currently running in a terminal.
 
+```sh
+tmux new -s "beacon"
+ps
 ```
-$ tmux new -s "beacon"
-$ ps
+```
     PID TTY          TIME CMD
 1989588 pts/50   00:00:00 bash
 1990312 pts/50   00:00:00 ps
@@ -542,8 +559,10 @@ The output above contains the following:
 
 Now start `beacon.sh` in `tmux` and detach from the session.
 
+```sh
+./beacon.sh DataLab
 ```
-$ ./beacon.sh DataLab
+```
 Hello, DataLab
 ...
 ```
@@ -554,8 +573,10 @@ processes associated with a user, not just those associated with the active
 terminal. This is equivalent to setting the `-u` flag and specifying a user in
 Linux.
 
+```sh
+ps -u datalab
 ```
-$ ps -u datalab
+```
     PID TTY          TIME CMD
 1989412 ?        00:00:00 systemd
 1989413 ?        00:00:00 (sd-pam)
@@ -580,8 +601,10 @@ Setting the `-f` (full format) and `-j` (jobs) flags will show which processes
 were spawned by other processes. Look at the `PPID`, or process parent id,
 column below:
 
+```sh
+ps -fju datalab
 ```
-$ps -fju datalab
+```
 UID            PID    PPID    PGID     SID  C STIME TTY          TIME CMD
 datalab    1989412       1 1989412 1989412  0 20:41 ?        00:00:00 /lib/systemd/systemd --user
 datalab    1989413 1989412 1989412 1989412  0 20:41 ?        00:00:00 (sd-pam)
@@ -601,17 +624,21 @@ session id column.)
 
 Calling `ps` on a single PID provides information about a single process.
 
+```sh
+ps -f 1990640
 ```
-$ ps -f 1990640
+```
 UID            PID    PPID    PGID     SID  C STIME TTY      STAT   TIME CMD
 datalab    1990640 1989588 1990640 1989588  0 20:44 pts/50   S+     0:01 bash ./beacon.sh DataLab
 ```
 
 If you'd like to terminate a process, note its PID and use `kill`.
 
+```sh
+kill 1990640
+tmux attach -t "beacon"
 ```
-$ kill 1990640
-$ tmux attach -t "beacon"
+```
 ...
 Hello, DataLab
 Hello, DataLab
@@ -634,13 +661,13 @@ your system. But for that reason it can also be overwhelming. Calling `top`
 with no arguments shows a giant, shifting wall of text; for the purposes of
 this chapter, it will be more useful to look at a specific user.
 
-Running
+Running:
 
-```
-$ top -u datalab
+```sh
+top -u datalab
 ```
 
-Will take you to a screen like this:
+will take you to a screen like this:
 
 ```
 top - 21:36:11 up 6 days, 11:49, 47 users,  load average: 2.77, 2.76, 3.28
@@ -719,8 +746,10 @@ For Nvidia GPUs, there is `nvidia-smi`. It's a safe assumption to expect this
 utility to be installed on any computer with Nvidia GPU hardware. Set the `-l`
 flag with a number `<N>` to update the readout every `<N>` seconds.
 
+```sh
+nvidia-smi -l 5
 ```
-$ nvidia-smi -l 5
+```
 +---------------------------------------------------------------------------------------+
 | NVIDIA-SMI 535.104.12             Driver Version: 535.104.12   CUDA Version: 12.2     |
 |-----------------------------------------+----------------------+----------------------+
@@ -762,14 +791,18 @@ Use the `-d` flag to set a maximum depth to display.
 
 Setting `-d` to `0` only shows the total disk space for a directory.
 
+```sh
+du -d 0 .
 ```
-$ du -d 0 .
+```
 6788    .
 ```
 Setting it to `1` will show subdirectories directly beneath your target.
 
+```sh
+du -d 1 .
 ```
-$ du -d 1 .
+```
 40      ./chapters
 4       ./_static
 300     ./img
@@ -781,8 +814,10 @@ $ du -d 1 .
 As with `top`, the disk space units default to kilobytes. Use `-h` to get unit
 subfixes.
 
+```sh
+du -dh 1 .
 ```
-$du -dh 1 .
+```
  40K    ./chapters
 4.0K    ./_static
 300K    ./img
@@ -794,8 +829,10 @@ $du -dh 1 .
 Finally, `df` displays free disk space for all currently mounted file systems.
 As above, use it with `-h` to get more readable output.
 
+```sh
+df -h
 ```
-$ df -h
+```
 Filesystem                 Size  Used Avail Use% Mounted on
 devtmpfs                   126G     0  126G   0% /dev
 tmpfs                      126G   14M  126G   1% /dev/shm
@@ -848,12 +885,12 @@ several different types. Computer scientists express these relationships using
 **Big O notation**, which represents the growth rate of resource usage for a
 particular input size $n$. Here are some common notations:
 
-```{margin} Want to know more?
+:::{margin} Want to know more?
 The [Wikipedia page][wiki] for Big O notation is a good place to start. It
 covers the basic concepts and lists many other time complexity types.
 
 [wiki]: https://en.wikipedia.org/wiki/Big_O_notation
-```
+:::
 
 | Notation | Relationship | Explanation                                          | Example                       |
 |----------|--------------|------------------------------------------------------|-------------------------------|
@@ -876,9 +913,9 @@ Consider the script `nested.{sh,py,R}`. It runs one `for` loop `n` times, and
 then it runs another `for` loop inside that first one `n` times. This means its
 time complexity is quadratic.
 
-`````{tab-set}
-````{tab-item} Bash
-```{code-block} bash
+::::{tab-set}
+:::{tab-item} Bash
+```bash
 #!/usr/bin/env bash
 
 nested() {
@@ -893,10 +930,10 @@ nested() {
 
 nested "$1"
 ```
-````
+:::
 
-````{tab-item} Python
-```{code-block} python
+:::{tab-item} Python
+```python
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
@@ -919,10 +956,10 @@ def main():
 if __name__ == "__main__":
     main()
 ```
-````
+:::
 
-````{tab-item} R
-```{code-block} R
+:::{tab-item} R
+```r
 #!/usr/bin/env Rscript
 
 nested = function(n) {
@@ -939,8 +976,8 @@ args = commandArgs(trailingOnly=TRUE)
 n = as.integer(args[1])
 nested(n)
 ```
-````
-`````
+:::
+::::
 
 ### Timing Code
 
@@ -949,16 +986,28 @@ utilities like `time`. Call `time` before any other command and it will show
 you how long it took to execute that command. Below, we use the Python version
 of this code to compute factorials for three numbers.
 
+```sh
+time ./nested.py 1000 > output.txt
 ```
-$ time ./nested.py 1000 > output.txt
+```
 real    0m1.112s
 user    0m0.667s
 sys     0m0.049s
-$ time ./nested.py 2000 > output.txt
+```
+
+```sh
+time ./nested.py 2000 > output.txt
+```
+```
 real    0m2.512s
 user    0m2.283s
 sys     0m0.089s
-$ time ./nested.py 4000 > output.txt
+```
+
+```sh
+time ./nested.py 4000 > output.txt
+```
+```
 real    0m9.761s
 user    0m9.096s
 sys     0m0.305s
@@ -977,8 +1026,10 @@ rise in input size. Whereas our input size doubles each time, the time it takes
 to process this input first doubled, then it tripled. Can we expect it to
 quadruple next?
 
+```sh
+time ./nested.py 8000 > output.txt
 ```
-$ time ./nested.py 8000 > output.txt
+```
 real    0m36.974s
 user    0m35.701s
 sys     0m0.932s
@@ -998,9 +1049,9 @@ nested `for` loop.
 The code below shows you how to construct a big matrix with base Python and
 then with NumPy.
 
-`````{tab-set}
-````{tab-item} Base Python
-```{code-block} Python
+::::{tab-set}
+:::{tab-item} Base Python
+```python
 #!/usr/bin/env python3
 
 def main():
@@ -1016,10 +1067,10 @@ def main():
 if __name__ == "__main__":
     main()
 ```
-````
+:::
 
-````{tab-item} NumPy
-```{code-block} Python
+:::{tab-item} NumPy
+```python
 #!/usr/bin/env python3
 
 import numpy as np
@@ -1033,13 +1084,15 @@ def main():
 if __name__ == "__main__":
     main()
 ```
-````
-`````
+:::
+::::
 
 Timing the nested `for` loop version gives the following:
 
+```sh
+time ./base_matrix.py
 ```
-$ time ./base_matrix.py
+```
 real    0m1.718s
 user    0m1.492s
 sys     0m0.203s
@@ -1047,8 +1100,10 @@ sys     0m0.203s
 
 While timing the NumPy version gives this result:
 
+```sh
+time ./numpy_matrix.py
 ```
-$ time ./numpy_matrix.py
+```
 real    0m0.360s
 user    0m0.174s
 sys     0m0.073s
@@ -1070,7 +1125,7 @@ left is an interactive Python environment. It uses NumPy to create a (1,000 x
 command:
 
 ```
-$ top -cu <user>
+top -cu <user>
 ```
 
 `top` has had its memory displays altered with `e` and `Shift-e`. Additionally,
