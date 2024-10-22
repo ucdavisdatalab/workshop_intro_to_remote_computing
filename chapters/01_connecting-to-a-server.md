@@ -20,77 +20,82 @@ comfortable, and about basic server etiquette.
 What Is a Server?
 -----------------
 
-Generally, a **server** is just some computer that can be accessed over a
-network, typically the Internet. In this context, a computing server is, more
-specifically, a computer that gives users access to a remote command line from
-where they can run programs on that computer. The reason to run programs on a
-server is that servers typically offer more memory and disk space and more
-computing performance than any user's personal computer, and can therefore work
-on bigger problems.
+A **server** is a computer that can be accessed over a network---typically the
+Internet. More specifically, a computing server is one that gives users access
+to a remote command line where they can run programs on that server. Servers
+typically provide more memory, more disk space, and faster processing units
+than a personal computer, and can therefore work on bigger problems.
 
-Unlike users' personal computers, servers typically run some UNIX-like operating
-system, which in almost all cases is Linux; they are typically controlled
-exclusively via the command line; they are typically shared by multiple users,
-often multiple users at the same time; and they are operated and maintained by
-dedicated people, called **system administrators** or system operators
+Unlike users' personal computers, servers typically run some UNIX-like
+operating system, which in almost all cases is Linux; they are typically
+controlled primarily via the command line; they are typically shared by
+multiple users, often at the same time; and they are operated and maintained by
+dedicated staff, called **system administrators** or system operators
 (SysAdmins or SysOps for short).
 
 How to Connect to a Server
 --------------------------
 
-Users typically connect to a server using the SSH ("secure shell") protocol, by
-using the `ssh` command installed on their local computers (in the following,
-we will use "SSH" to refer to the SSH protocol, i.e., the language spoken
-between a local computer and a server to establish and maintain secure
-connections, and `ssh` to refer to the command line program that implements the
-client side of the SSH protocol). The "secure" in SSH denotes the fact that the
-entirety of the connection between a user's local computer and the remote
-server is encrypted using strong cryptography, meaning that it is practically
-impossible for a third party (anybody besides the user, the user's local
-computer, the server, and the server's administrators) to read any of the data
-sent over the connection.
+You can connect to most computing servers using the **secure shell protocol**
+(SSH). The "secure" in secure shell means that all messages sent between your
+local computer and the remote server are encrypted. This makes it practically
+impossible for a third party (anybody besides you and the server's
+administrators) to see what's sent over the connection.
 
-In order to be able to connect to a server over SSH, users need to have an
-account on that server. Unlike most web-based services, where users who visit a
-site for the first time can usually sign up by filling out an online form and
-then use the service immediately, computing servers in this context typically
-have some special procedure for requesting an account. A new user typically has
-to contact a system administrator or fill out some online form to request an
-account, and if the administrators accept the request, they will typically
-assign the new user an account name and some way to authenticate themselves to
-the server. "**Authentication**" here means some way for the user to prove that
-they really are who they claim they are, and that they have permission to
-access the server. In the SSH protocol, there are two main authentication
-methods: SSH passwords and SSH keys. We will discuss those in detail in the
-following sections.
+In order to connect to a server over SSH, you first need to have an account on
+that server. To get an account, you typically have to fill in an online request
+form or contact a system administrator, and then wait for your request to be
+approved. Assuming it is, you'll be given an account name and some way to
+prove, or **authenticate**, your identity to the server. In the SSH protocol,
+there are two main authentication methods: passwords and SSH keys. We'll
+discuss both in detail in the following sections.
+
+:::{tip}
+If you're affiliated with UC Davis, you can request accounts on the
+university's high-performance computing clusters (collections of servers)
+through [HiPPO][], the High Performance Personnel Onboarding website.
+:::
+
+[HiPPO]: https://hippo.ucdavis.edu/
 
 ### Opening a Connection
 
-With that in mind, once you have obtained an account on a server and a way to 
-authenticate yourself, you can log in to the server using the aforementioned 
-`ssh` command:
-
-````
-ssh -l <account name> <server name>
-````
-
-where `<account name>` is the name of the account on the server that was 
-assigned to you, and `<server name>` is the Internet host name or IP address of 
-the server. An alternative formulation of the same command is
+Once you've obtained an account on a server and a way to authenticate yourself,
+you can log in to the server using SSH with the command
 
 ````
 ssh <account name>@<server hame>
 ````
 
-which uses the "@" notation familiar from email addresses.
+where `<account name>` is the name of the account on the server that was
+assigned to you, and `<server name>` is the Internet host name or IP address of
+the server. This command establishes a connection between your computer and the
+server, and starts a new shell session on the server.
 
-Running either one of these commands will establish a connection between your 
-local computer and the remote server, and start a new shell session on the 
-remote computer. As part of setting up that connection, the `ssh` command might 
-ask for your password, in which case you will have to enter not your password 
-for your local computer, but the password for the remote server that was 
-assigned to you by the server's administrator. As usual, the password will not 
-be echoed back to you as you enter it. After the SSH connection has been 
+:::{caution}
+You've likely seen the `@` notation before in email addresses, but the account
+and server names will not necessarily match your email address.
+:::
+
+The command might ask for a password, which will be the one given to you by the
+server's administrator, not the password for your local computer.
+
+:::{important}
+It might look like nothing is happening as you type your password, because in
+the command line, characters in a password typically aren't printed. But never
+fear, the command line is still paying attention to what you type.
+
+So: keep calm, type your password, and press `Enter`!
+:::
+
+:::{note}
+For the remainder of this chapter, we'll use "SSH" to refer to the SSH
+protocol---that is, the language spoken between a local computer and a server
+to establish and maintain secure connections---and `ssh` to refer to the
+command line program that implements the client side of the SSH protocol.
+:::
+
+After the SSH connection has been 
 established, anything you type into the terminal from which the `ssh` command 
 was run will be forwarded to the shell on the remote server, and any output 
 from that remote shell, or from programs run within it, will be forwarded to, 
@@ -101,6 +106,16 @@ remote shell will be run on the remote server. Finally, when you shut down the
 remote shell, for example by entering the `exit` command, the SSH connection 
 will be closed, and the terminal on your local computer will control your local 
 shell again.
+
+:::{note}
+An alternative formulation of the log in command is:
+
+````
+ssh -l <account name> <server name>
+````
+
+The `-l` flag informs `ssh` that the account name is provided separately.
+:::
 
 A brief SSH session might proceed like this:
 
@@ -154,6 +169,7 @@ server, not on your local computer.* Only the *output* from those
 commands was forwarded from the server to your local computer over the SSH 
 connection, and then printed in your local computer's terminal.
 
+:::{tip}
 There is a second way to use `ssh` to quickly execute a single command on a
 remote server without entering an interactive shell. You do this by appending
 the command line that should be executed on the remote server to the `ssh`
@@ -167,10 +183,12 @@ me@mypc$
 ````
 
 This example connected to the same account on the same server as before, 
-executed the `date` command on the server to print *the server's* current time, 
-and then immediately closed the SSH connection and returned control to your 
+executed the `date` command on the server to print *the server's* current time,
+and then immediately closed the SSH connection and returned control to your
 local computer. This is a good way to quickly run a small command on a remote 
 server, or to run remote server commands from scripts.
+:::
+
 
 Basic Server Etiquette
 ----------------------
@@ -196,32 +214,32 @@ Server resources broadly fall into four categories:
   exceeds the existing bandwidth, computation will slow down proportionally for
   everyone.
 
-* **Memory space**: While servers typically have a lot of memory, it is, again,
-  a finite resource, and if the total memory requested by all active users 
-  exceeds existing memory, there will again be slow-downs. Memory related 
-  slow-downs, however, typically have vastly worse effects than 
-  computing-related slow-downs. If the total requested computing bandwidth 
-  exceeds available bandwidth by a factor of X, every individual computation 
-  will roughly slow down by a factor of X. If available memory is exceeded, on 
-  the other hand, the operating system will respond by "swapping" memory to and 
-  from the server's hard drives, which is *several orders of magnitude* slower 
+* **Memory**: While servers typically have a lot of memory, it is, again, a
+  finite resource, and if the total memory requested by all active users
+  exceeds existing memory, there will again be slow-downs. Memory related
+  slow-downs, however, typically have vastly worse effects than
+  computing-related slow-downs. If the total requested computing bandwidth
+  exceeds available bandwidth by a factor of X, every individual computation
+  will roughly slow down by a factor of X. If available memory is exceeded, on
+  the other hand, the operating system will respond by "swapping" memory to and
+  from the server's hard drives, which is *several orders of magnitude* slower
   than system memory, and excessive swapping can grind even a very powerful
-  server to a virtual stand-still. It is therefore crucial that users be 
+  server to a virtual stand-still. It is therefore crucial that users be
   mindful of the memory requirements of the jobs they submit to a server.
 
-* **Hard drive space**: While again much larger than the hard drive space
-  available on typical personal computers, this resource has a *hard* limit.
-  Once a server's hard drives are full, they are *full,* and no further data
-  can be written to them. This will usually crash running operations of *all*
-  active users, not just those started by the user who filled the hard drive,
-  and thus cause significant losses. To avoid this cricital problem, servers
-  typically limit the amount of hard drive space available to each user such
-  that total usage can never exceed available space, meaning that if a user's
-  program tries to use more than available hard drive space, only that user's
-  program crashes. Regardless, all users should be mindful of the amount of
-  hard drive space their submitted jobs require.
+* **Storage space**: While again much larger than the storage space available
+  on typical personal computers, this resource has a *hard* limit. Once a
+  server's hard drives are full, they are *full,* and no further data can be
+  written to them. This will usually crash running operations of *all* active
+  users, not just those started by the user who filled the hard drive, and thus
+  cause significant losses. To avoid this critical problem, servers typically
+  limit the amount of hard drive space available to each user such that total
+  usage can never exceed available space, meaning that if a user's program
+  tries to use more than available hard drive space, only that user's program
+  crashes. Regardless, all users should be mindful of the amount of hard drive
+  space their submitted jobs require.
 
-* **Hard drive bandwidth**: Writing data to or reading data from hard drives is
+* **Storage bandwidth**: Writing data to or reading data from hard drives is
   *several orders of magnitude* slower than writing or reading data from
   memory. If the total hard drive bandwidth requested by all active users
   exceeds existing bandwidth, hard drive operations will slow down 
@@ -364,7 +382,8 @@ and *not* activate the new password, meaning that you must continue to use the
 old password, whether to log into the server or to attempt to change the 
 password using `passwd` again.
 
-:::{important} SSH Password Hygiene
+:::{admonition} SSH Password Hygiene
+:class: important
 
 Due to SSH passwords being standard passwords stored on a remote server, you
 should **always:**
@@ -513,7 +532,8 @@ These are the steps of the above procedure in detail:
 From a practical perspective, key-based authentication has a number of
 important differences to password-based authentication:
 
-:::{important} SSH Key Hygiene
+:::{admonition} SSH Key Hygiene
+:class: important
 
 + *Public* SSH keys can be freely shared with anyone, without concern. They
   could be published via email, on web pages, or in phone books.
