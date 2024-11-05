@@ -47,8 +47,8 @@ that server. To get an account, you typically have to fill in an online request
 form or contact a system administrator, and then wait for your request to be
 approved. Assuming it is, you'll be given an account name and some way to
 prove, or **authenticate**, your identity to the server. In the SSH protocol,
-there are two main authentication methods: passwords and SSH keys. We'll
-discuss both in detail in the following sections.
+there are two main authentication methods: passwords and SSH keys. We will
+discuss both in detail in {numref}`ssh-authentication`.
 
 :::{tip}
 If you're affiliated with UC Davis, you can request accounts on the
@@ -322,94 +322,109 @@ like to be treated by them:
   problem with a server, should it occur, does not occur five minutes before an
   important deadline.
 
+
+(ssh-authentication)=
 SSH Authentication
 ------------------
 
-The SSH protocol has two main ways of authenticating you, i.e., establishing 
-with the server that you are who you claim to be, and that you have the right 
-to connect to the server: SSH passwords and SSH keys.
+The SSH protocol provides two main ways of authenticating that you are who you
+claim to be and that you have the right to connect to a server: passwords and
+SSH keys.
 
-### SSH Passwords
+### Passwords
 
-One of the main ways how SSH can establish your identity on a remote server
-is via passwords. SSH passwords work identically to the passwords used to log
-in to personal computers or to access web services like Google. Importantly, SSH
-passwords are *not* managed by the SSH protocol itself. They are, in fact,
-standard passwords in the server's operating system (typically Linux) and are
-managed by that operating system. This means they follow the same rules as
+For some servers, you can use a password to establish your identity. The
+process is very similar to the way you use passwords log in to your computer or
+to access websites and services such as Google Drive and your email.
+
+Server passwords are *not* managed by the SSH protocol itself. They are, in
+fact, standard passwords in the server's operating system (typically Linux) and
+are managed by that operating system. This means they follow the same rules as
 standard passwords and have the same drawbacks and caveats.
 
-If a server uses SSH passwords for authentication, that server's administrators 
-will typically assign you some random password when you sign up for an account, 
-and will communicate that password to you through some insecure channel like 
-email. As a result, you are usually expected to change that initial password 
-when you log in to the server under your new account for the first time. As SSH 
-passwords are simply operating system-level passwords *on the server,* you can 
-change them in the same way as local passwords, by running the `passwd` command 
-from a remote shell:
+:::{caution}
+When you use a password with a website or service, they have to store a record
+of your password. Their security could be breached---and your password
+leaked or stolen---at any time.
 
-````
+SSH keys, described in {numref}`ssh-keys`, are safer than passwords, because no
+private information is stored on the server. The equivalent for websites is
+[passkeys][].
+
+[passkeys]: https://en.wikipedia.org/wiki/WebAuthn
+
+Some servers do not allow password authentication because the administrators do
+not want to take on the security risk.
+:::
+
+:::{tip}
+Use a different password for each account to minimize the risk of a malicious
+person gaining access to them. You can use a password manager to help you
+choose strong passwords and eliminate the need to remember all of them.
+:::
+
+When you sign up for an account on a server that allows password
+authentication, the server's administrators will typically assign you some
+initial random password and communicate it to you through an insecure channel
+like email. You should and are expected to change this initial password the
+first time you log in to the server.
+
+To change your password, log in to the server and then run the `passwd`
+command. Here's an example of what going through these steps in a terminal
+looks like:
+
+```
 me@mypc$ ssh testuser@testserver
 testuser@testserver's password: 
 Last login: Tue Dec  5 09:02:20 2023 from 192.168.2.109
+
 testuser@testserver$ passwd
 Changing password for user testuser.
 Current password: 
 New password:
 Retype new password:
 passwd: all authentication tokens updated successfully.
-testuser@testserver$ 
-````
+```
 
-The `passwd` command will first ask for your current password, i.e., the
-one that was assigned to you during account creation. It will then ask for a new
-password, check that password against its internal password rules, whatever
-they may be, and then ask for the new password for a second time to catch
-typos. If the new password passes the internal checks and is entered
-identically for the second time, the `passwd` command will print a confirmation
-message and immediately activate the new password, meaning that you must use it
-the next time the server asks you for a password, e.g., when logging in the 
-next time.
+The `passwd` command will first ask for your current password, that is, the
+initial password that was assigned to you. The command will then ask for a new
+password and check that password against its internal password rules, whatever
+they may be.
+
+If the new password satisfies the rules, the command will ask you to enter the
+password a second time to confirm. After you enter the password again, the
+`passwd` command will print a confirmation message and immediately activate the
+new password. This means you must use the new password next time the server
+asks for your password, such as the next time you log in.
 
 If, on the other hand, something went wrong, `passwd` will print an error
 message like this:
 
-````
+```
 passwd: Authentication token manipulation error
-````
+```
 
-and *not* activate the new password, meaning that you must continue to use the 
-old password, whether to log into the server or to attempt to change the 
-password using `passwd` again.
+The command will *not* activate the new password, meaning that you must
+continue to use the old password, whether to log into the server or to attempt
+to change the password using `passwd` again.
 
-:::{admonition} SSH Password Hygiene
-:class: important
-
-Due to SSH passwords being standard passwords stored on a remote server, you
-should **always:**
-
-+ assume that your password on any given server **will be leaked or stolen**
-  at some point.
-
-+ **use different passwords for different servers,** to minimize the damage when
-  one server you use will inevitably be hacked, and your password for that
-  server will be stolen. When you use different passwords for different servers,
-  hackers will not be able to use the password they stole from one server to
-  access your accounts on other servers. It is a good idea to use a password 
-  manager so that you don't have to remember all the different passwords for 
-  all the different servers and services you use, and so that you are 
-  encouraged to use strong passwords all the time.
+:::{note}
+The `passwd` command changes passwords on computers with Unix-like operating
+systems, whether or not the computer is a server. You can use it to change your
+server passwords because server passwords are just standard operating system
+passwords.
 :::
 
-### Existing Computing Accounts
-
+:::{note}
 There is a slight variation of the password authentication method, where your 
 account on a computing server is tied to another account that you already have. 
 For example, a computing server managed by a university might use your existing 
 campus-wide IT account to authenticate you. In that case, you just log into the 
 server with your usual account name and password, and you don't change your 
 password on the server (in fact, it might not even be possible to do so).
+:::
 
+(ssh-keys)=
 ### SSH Keys
 
 The second main way how SSH can establish your identity on a remote server 
@@ -565,7 +580,7 @@ important differences to password-based authentication:
 + **NEVER EVER AT ABSOLUTELY NO TIME GIVE ANYONE YOUR SSH KEY PASSPHRASE EVER!**
 :::
 
-### The `.ssh` Configuration Directory
+### Configuring SSH
 
 The SSH protocol suite stores configuration data in a hidden `.ssh` directory
 in your home directory. Because this directory contains some data that must 
