@@ -193,15 +193,15 @@ server, or to run remote server commands from scripts.
 Basic Server Etiquette
 ----------------------
 
-Unlike most personal computers, servers are typically shared resources. This 
-not only means that a single server can have multiple user accounts that belong to 
-different people, but it often means that there are multiple users *connected 
-to the same server simultaneously,* all running programs and using the server's 
-resources at the same time. All users should therefore follow etiquette to
-ensure that no single user "hogs" a server's resources to the point that it
-unduly interferes with other users' work, that users don't invade each others'
-privacy, and that the relationship between users and server administrators
-remains amicable.
+Unlike most personal computers, servers are typically shared resources. This
+not only means that a single server can have multiple user accounts that belong
+to different people, but it often means that there are multiple users
+*connected to the same server simultaneously,* all running programs and using
+the server's resources at the same time. All users should therefore follow
+etiquette to ensure that no single user "hogs" a server's resources to the
+point that it unduly interferes with other users' work, that users don't invade
+each others' privacy, and that the relationship between users and server
+administrators remains amicable.
 
 ### Resource Use
 
@@ -260,11 +260,13 @@ submitting an exceedingly resource-intensive job.
 To ensure smooth operation and fair allocation of the above resources, many 
 servers implement job scheduling systems that let users submit operations they 
 want to run ahead of time, and then select which jobs to run in which order to 
-maximize total performance and minimize slow-downs due to contention. The later 
-chapters of this workshop discuss common scheduling systems in detail. The main
-take-home message here is that you should not start some job that requires 
-large amounts of server resources simply by logging in to a remote server and 
-immediately running a computation command from that server's shell.
+maximize total performance and minimize slow-downs due to contention.
+
+{numref}`cluster-computing` describes Slurm, a popular scheduling system, in
+detail. The main take-home message here is that you should not start some job
+that requires large amounts of server resources simply by logging in to a
+remote server and immediately running a computation command from that server's
+shell.
 
 ### Cluster Computing
 
@@ -286,6 +288,14 @@ job scheduling system. Meaning, if you start a computation *on the head node*
 by directly running some command from the remote shell, you could easily 
 overtax the head node's resources and bring the entire cluster to a halt. *Do 
 not do this.*
+
+:::{note}
+According to the system administrators, on UC Davis high-performance computing
+clusters, it's okay to compile and/or install software on the head node.
+
+Of course, after you've installed the software you need, make sure to run your
+actual analyses on computing nodes!
+:::
 
 ### User Privacy
 

@@ -1,3 +1,4 @@
+(cluster-computing)=
 Cluster Computing
 =================
 
