@@ -26,7 +26,7 @@ to a remote command line where they can run programs on that server. Servers
 typically provide more memory, more disk space, and faster processing units
 than a personal computer, and can therefore work on bigger problems.
 
-Unlike users' personal computers, servers typically run some UNIX-like
+Unlike users' personal computers, servers typically run some Unix-like
 operating system, which in almost all cases is Linux; they are typically
 controlled primarily via the command line; they are typically shared by
 multiple users, often at the same time; and they are operated and maintained by
@@ -601,7 +601,7 @@ to operate if this directory or its contents have incorrect sets of
 
 ### Permissions
 
-In UNIX-based operating systems like Linux, there are three separate sets of 
+In Unix-like operating systems like Linux, there are three separate sets of
 permissions on every file or directory:
 
 * **User (u):** These permissions apply to the single user who owns a file or 
@@ -893,7 +893,7 @@ testuser@testserver$ ls -l BlueMarble.jpg
 testuser@testserver$ 
 ````
 
-True to form for a UNIX utility, `wget` will print *absolutely nothing* in quiet
+True to form for a Unix utility, `wget` will print *absolutely nothing* in quiet
 mode unless there is an error. The output file name specified via `-O` can
 contain absolute or relative paths, such as `Images/BlueMarble1972.jpg`, or 
 `/home/testuser/Images/BlueMarble1972.jpg` or `~/Images/BlueMarble1972.jpg` for 
@@ -964,7 +964,7 @@ testuser@testserver$ curl https://www.nasa.gov/wp-content/uploads/2023/03/135918
 testuser@testserver$ 
 ````
 
-In the UNIX world, data or programs are often made available for download as
+In the Unix world, data or programs are often made available for download as
 `gzip`-compressed `tar` (for "tape archive") files, commonly known as
 "tarballs." A neat trick to download such a tarball from a web server and
 decompress and unpack it on the fly without storing the tarball itself on your
@@ -1010,7 +1010,7 @@ adding `-S` (*uppercase* S, for "not quite so silent, thankyouverymuch") after
 
 Unlike `wget` and `curl`, the next pair of commands can be used to transfer 
 files between your local computer and a remote server. The first, `scp`, is 
-non-interactive and behaves similarly to the standard UNIX `cp` command, but 
+non-interactive and behaves similarly to the standard Unix `cp` command, but
 with  the added ability to access files on remote servers. The second command, 
 `sftp`, is an interactive terminal application like `vim`, in the sense that it 
 opens a custom "shell" in which you can run commands that allow local and 
@@ -1049,7 +1049,7 @@ me@mypc$ scp testuser@testserver:Images/BlueMarble1972.jpg .
 will do the exact opposite, copying `BlueMarble1972.jpg` from the `Images`
 directory under the `testuser` account's home directory on server `testserver`
 to the current directory on your local computer. The `.` at the end of the
-command line is UNIX shorthand for the current directory, and thus tells `scp`
+command line is Unix shorthand for the current directory, and thus tells `scp`
 to give the destination file the same name as the source file, and to store it
 in the current directory on your local computer. Equivalently, you could have
 specified the name of the destination file explicitly:
@@ -1304,7 +1304,7 @@ create a new directory on the local computer: `lmkdir <path>`
 The POSIX Directory Structure and Permissions
 ---------------------------------------------
 
-As servers are typically UNIX machines, the layout of their filesystems
+As servers are typically Unix machines, the layout of their filesystems
 typically follow the **POSIX Filesystem Hierarchy Standard**. This means the
 file system is generally split between system directories, user home
 directories, and "other" directories. System directories contain programs and
@@ -1321,7 +1321,7 @@ the superuser (root). In other words, their permissions are typically
 typically `-rw-r--r--` for data files and `-rwxr-xr-x` for program and library
 files. The most relevant system directories are:
 
-* `/bin` and `/sbin` contain programs that are essential for operating a UNIX
+* `/bin` and `/sbin` contain programs that are essential for operating a Unix
   system, such as `ls`, `cat`, `cp`, etc. `/bin` contains user-level programs;
   `/sbin` contains programs that are only meant to be used by administrators
 
@@ -1330,7 +1330,7 @@ files. The most relevant system directories are:
   `/bin` and `/sbin`
 
 * `/usr` is a second-level hierarchy containing the majority of utilities and
-  applications installed on a UNIX system
+  applications installed on a Unix system
 
 * `/usr/bin`, `/usr/sbin`, `/usr/lib`, `/usr/lib<arch>` contain user-level
   programs, administrator-level programs, and libraries shared by those
@@ -1346,7 +1346,7 @@ files. The most relevant system directories are:
   `lib<arch>`, `include`, etc. directories
 
 * `/etc` contains host-specific system-wide configuration files. According to
-  UNIX lore, "etc" *does not* stand for "et cetera," and is pronounced "etsy" or
+  Unix lore, "etc" *does not* stand for "et cetera," and is pronounced "etsy" or
   sometimes "ee-tee-see"
 
 * `/opt` contains optional software packages accessible to all users on a
