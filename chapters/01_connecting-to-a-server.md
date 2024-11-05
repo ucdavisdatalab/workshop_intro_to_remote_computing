@@ -590,7 +590,8 @@ important differences to password-based authentication:
 + **NEVER EVER AT ABSOLUTELY NO TIME GIVE ANYONE YOUR SSH KEY PASSPHRASE EVER!**
 :::
 
-### Configuring SSH
+
+## Configuring SSH
 
 The SSH protocol suite stores configuration data in a hidden `.ssh` directory
 in your home directory. Because this directory contains some data that must 
