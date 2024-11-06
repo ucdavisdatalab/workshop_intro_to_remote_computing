@@ -11,7 +11,7 @@ comfortable, and about basic server etiquette.
 :::{admonition} Learning Goals
 + Learn how to connect to a remote server using the SSH protocol
 + Learn how to peacefully co-exist with other users on the same server
-+ Learn about SSH passwords and keys
++ Learn about passwords and SSH keys
 + Learn how to move data between your local PC, the Internet, and a server
   using `wget`/`curl`, `sftp`, and `scp`
 + Learn about the POSIX directory structure and access permissions
@@ -54,18 +54,19 @@ discuss both in detail in {numref}`ssh-authentication`.
 If you're affiliated with UC Davis, you can request accounts on the
 university's high-performance computing clusters (collections of servers)
 through [HiPPO][], the High Performance Personnel Onboarding website.
-:::
 
 [HiPPO]: https://hippo.ucdavis.edu/
+:::
+
 
 ### Opening a Connection
 
 Once you've obtained an account on a server and a way to authenticate yourself,
 you can log in to the server using SSH with the command
 
-````
-ssh <account name>@<server hame>
-````
+```text
+ssh <account name>@<server name>
+```
 
 where `<account name>` is the name of the account on the server that was
 assigned to you, and `<server name>` is the Internet host name or IP address of
@@ -373,6 +374,13 @@ person gaining access to them. You can use a password manager to help you
 choose strong passwords and eliminate the need to remember all of them.
 :::
 
+:::{tip}
+For sound and practical advice on how to choose strong passwords, see [this
+xkcd cartoon][xkcd_password].
+
+[xkcd_password]: https://xkcd.com/936/
+:::
+
 When you sign up for an account on a server that allows password
 authentication, the server's administrators will typically assign you some
 initial random password and communicate it to you through an insecure channel
@@ -437,158 +445,168 @@ password on the server (in fact, it might not even be possible to do so).
 (ssh-keys)=
 ### SSH Keys
 
-The second main way how SSH can establish your identity on a remote server 
-is via **SSH keys**. SSH keys are specific to the SSH protocol, and much more 
-secure than SSH passwords, both for you and for the server, to the point that 
-many servers no longer allow SSH passwords for login and require SSH keys. 
-Besides vastly improved security, an additional benefit of SSH keys is that 
-users no longer have to enter passwords when connecting to a server (they still 
-might have to enter SSH passphrases, see below, but that is usually only 
-necessary once per login session). This makes remote command execution like 
-`ssh testuser@testserver date` almost seamless and simplifies scripting or 
-using cloud services like GitHub.
+You can establish your identity with an **SSH key**, a kind of cryptographic
+key. An SSH key consists of two separate key files:
 
-Unlike SSH passwords, which are just strings of characters, SSH keys are
-cryptographic keys, typically based on the RSA algorithm, which is a
-[super interesting topic][RSA] for another day. RSA uses a two-part asymmetric
-scheme consisting of a **private key** and a **public key**. Without going into
-the details of how RSA cryptography works, a public key is used to *encrypt*
-data, and the associated private key is used to *decrypt* data. Unlike in
-*symmetric* cryptography systems, in asymmetric systems like RSA public keys
-can be shared *freely, with anyone,* without endangering security. In fact,
-many people append their public keys to their email signatures, or post them on
-their personal web pages. Also unlike SSH passwords, SSH keys are not generated
-on or assigned by the server, but are property of the user, are generated and
-stored on the user's own computer, and a user's private keys are *not* shared
-with a server as part of establishing a connection to that server.
+* A **public key** file which can be used to encrypt data. The public key is
+  meant to be freely shared, so that people (or servers) can encrypt data they
+  want to securely send to you.
+* A **private key** file which can be used to decrypt data that was encrypted
+  with the associated public key. The private key is meant for you alone, so
+  that only you can decrypt and use data that people send to you.
+
+Unlike passwords, private keys are exclusively your property, and should
+*never* be shared with *anyone* else. SSH keys are much more secure than
+passwords, to the point that many servers only allow SSH key authentication. An
+additional benefit of SSH keys is that they make connecting to a server or
+cloud service like GitHub seamless---you no longer have to enter a password.
+
+:::{note}
+SSH keys are an example of an asymmetric cryptography scheme, and are often
+based on the Rivest–Shamir–Adleman (RSA) algorithm, which is a [super
+interesting topic][RSA] for another day.
 
 [RSA]: https://en.wikipedia.org/wiki/RSA_cryptosystem
+:::
 
-In the context of SSH authentication, RSA keys are used to establish your 
-identity on a server. First, the server's administrators associate your 
-*public* key with your account, typically by asking you to send them your 
-public key via email or an online form, which is safe to do because *public* 
-SSH keys can be freely shared with anyone. Then, when you attempt to connect to 
-the server over SSH, the server takes a small piece of data, encrypts it with 
-your *public* key, and sends it to the `ssh` client program running on your 
-local computer. The `ssh` program will then decrypt the server's message using 
-your *private* key, which is stored on your local computer, and subsequently 
-prove to the server that it was able to decode the message (the details of how 
-this proof works are very interesting, but beyond the scope of this reader). 
-Being able to decode the server's message, in turn, proves to the server that 
-you know the *private* key associated with the *public* key stored with the 
-user's account on the server, and that you therefore are who you claim to be. 
-Importantly, your *private* key never leaves your local computer during this 
-exchange, and can therefore not be stolen by a malicious server or a malicious 
-third party.
+Before you can use an SSH key for authentication with a server, you must first
+send the public key to the server's administrators, so that they can associate
+it with your account. You can usually do this through an online form or via
+email.
 
-As a result of a server's assumption that anyone who knows a user's *private* 
-SSH key *is* that user, *private* SSH keys can not be freely shared like 
-*public* SSH keys and *must* be kept private and safe, as the name implies. 
-If your *private* SSH key(s) get accessed by hackers, those hackers will be 
-able to access any of your accounts using those keys. It is therefore highly 
-recommended to protect your SSH keys with strong passwords (more on that 
-below).
-
-SSH keys are created by running the `ssh-keygen` command on your local 
-computer:
-
-````
-me@mypc$ ssh-keygen -t rsa
-Generating public/private rsa key pair.
-Enter file in which to save the key (/home/me/.ssh/id_rsa): /home/me/.ssh/newkey
-Enter passphrase (empty for no passphrase):
-Enter same passphrase again: 
-Your identification has been saved in /home/me/.ssh/newkey
-Your public key has been saved in /home/me/.ssh/newkey.pub
-The key fingerprint is:
-SHA256:dhJNxMNE02Gfe4IQuk64/v7wj/fcYc+LdxOZufF/rnU me@mypc
-The key's randomart image is:
-+---[RSA 3072]----+
-|         o=*+.   |
-|  .      o+oo    |
-| . .    ..o.     |
-|. .    S..       |
-|.. . .  So. +    |
-|o.  . .+oo *     |
-|o. .. +.+   =   E|
-|..  oooo.+ + . .o|
-|..oo.+.o..o . o+o|
-+----[SHA256]-----+
-me@mypc$ 
-````
-
-These are the steps of the above procedure in detail:
-
-* `ssh-keygen -t rsa` executes the SSH key generation program and instructs it
-  to generate an SSH key using the RSA algorithm (`-t rsa`). There are several
-  different key algorithms, and servers may require or recommend specific ones,
-  but the most common key algorithm is RSA.
-
-* `ssh-keygen` asks for the name of a file in which to store the *private*
-  key. By default, as indicated in the prompt, private RSA keys will be stored
-  in a file named id_rsa in a hidden `.ssh` directory in your home
-  directory (`/home/me`). If you simply press the Enter key at this
-  prompt, `ssh-keygen` will use the default file name, which is fine unless you
-  want to maintain multiple keys (more on that below).
-
-* Next, `ssh-keygen` asks for an optional passphrase to protect the new private
-  key. As mentioned above, it is crucial that *private* SSH keys be kept
-  private and safe. As such, it is a good idea to protect them with a
-  passphrase (which is just another term for password) that will prevent
-  hackers from using the private key in case they get access to it somehow.
-  This passphrase is not stored anywhere, and **must never be given to
-  anyone.** When the `ssh` program needs to access a private key to connect to
-  a server, it will ask you for the passphrase, use it to access the private
-  key, and then immediately forget it again. For sound and practical advice on
-  how to choose cryptographically strong passphrases (or passwords in general),
-  see [this xkcd cartoon][xkcd_password].
-
-* Then, `ssh-keygen` prints the name of the file containing the *public* SSH
-  key associated with the new private SSH key, which is just the name of the
-  private SSH key file with ".pub" appended to it.
-
-* Finally, `ssh-keygen` will print the new key's *hash fingerprint* and its
-  *randomart,* which are both unimportant to anyone who is not a cryptography
-  nerd.
-
-[xkcd_password]: https://xkcd.com/936/
+When you attempt to connect to a server over SSH and use an SSH key to
+authenticate, the server encrypts a message with your public key and sends it
+to your computer. The `ssh` program on your computer then decrypts the message
+with your private key and responds to the server with proof that the message
+was correctly decrypted. This proves to the server that you have the private
+key, and thus that you are who you claim to be. Crucially, *your private key
+never leaves your computer* during this exchange, so it can't be stolen by a
+malicious third party.
 
 From a practical perspective, key-based authentication has a number of
-important differences to password-based authentication:
+important differences in comparison to password-based authentication:
 
-:::{admonition} SSH Key Hygiene
-:class: important
++ Public keys can be freely shared with anyone, without concern. They can be
+  sent via email, posted on websites, or published in books.
 
-+ *Public* SSH keys can be freely shared with anyone, without concern. They
-  could be published via email, on web pages, or in phone books.
++ Private keys must not be shared with anyone. They should only exist on your
+  computer(s). Importantly, they are *not* shared with servers you connect to
+  via SSH.
 
-+ *Private* SSH keys, unlike SSH passwords, are only stored on your local
-  computer, and are *not* shared with a server while an SSH connection is
-  established.
++ It's relatively safe to use the same SSH key for any number of different
+  servers. Even if one server gets hacked, the information that hackers could
+  potentially glean would *not* allow them to log into any of your accounts on
+  other servers.
 
-+ Because *public* SSH keys are safe to share, and *private* SSH keys are
-  not shared with servers during connection establishment, it is safe to use
-  the same SSH public/private key pair for any number of different servers.
-  Even if one server gets hacked, the information that hackers could
-  potentially glean would *not* allow them to log into any of your accounts
-  on other servers.
+:::{danger}
+Private keys must be kept private.
 
-+ **Private** SSH keys **must be kept private.**
+SSH keys are only as secure as the computer on which you store them. If your
+computer gets stolen or hacked, thieves or hackers could potentially gain
+access to your accounts on all servers for which you have SSH keys, unless the
+keys themselves are protected by strong passphrases.
 
-+ SSH keys are only as secure as your local computer where they are stored. If
-  your computer gets stolen or hacked, thieves or hackers could potentially gain
-  access to your accounts on all servers for which you have SSH keys, unless the
-  keys themselves are protected by strong passphrases.
+**NEVER EVER AT ABSOLUTELY NO TIME GIVE ANYONE YOUR PRIVATE SSH KEY EVER!**
 
-+ **NEVER EVER AT ABSOLUTELY NO TIME GIVE ANYONE YOUR PRIVATE SSH KEY EVER!**
+If an SSH key is protected by a strong passphrase, it is practically impossible
+for a hacker to use, even if they're able to access the private key files on
+your computer.
 
-+ If an SSH key is protected by a strong passphrase, it is practically
-  impossible to use by a hacker even if said hacker were able to access the key
-  files on your local computer somehow.
-
-+ **NEVER EVER AT ABSOLUTELY NO TIME GIVE ANYONE YOUR SSH KEY PASSPHRASE EVER!**
+**NEVER EVER AT ABSOLUTELY NO TIME GIVE ANYONE YOUR SSH KEY PASSPHRASE EVER!**
 :::
+
+#### Creating SSH Keys
+
+To create an SSH key, open a terminal on your local computer. Then run the
+`ssh-keygen` command:
+
+```sh
+ssh-keygen
+```
+
+```text
+Generating public/private ed25519 key pair.
+Enter file in which to save the key (/home/me/.ssh/id_ed25519): new_key
+Enter passphrase for "new_key" (empty for no passphrase):
+Enter same passphrase again:
+Your identification has been saved in new_key
+Your public key has been saved in new_key.pub
+The key fingerprint is:
+SHA256:H7pntDdIbIlSJ7GaTzI83O4SSCcNtyg5X4wNX6ZmqF8 me@mypc
+The key's randomart image is:
++--[ED25519 256]--+
+|                 |
+|    o . +        |
+|   . % = o       |
+|  + * % + .      |
+|   * X =S=..     |
+|  . o E +o*.     |
+|   . . X.+.o     |
+|    . . o.= o    |
+|       ooo . .   |
++----[SHA256]-----+
+```
+
+First `ssh-keygen` will prompt you for two pieces of information:
+
+* A file in which to save the private key. The default is a file named
+  `id_TYPE`, where `TYPE` is the type of cryptographic key, in a hidden `.ssh/`
+  directory in your home directory. Enter a path to specify the file, or leave
+  this blank to accept the default. The default is usually fine unless you want
+  to maintain multiple keys (more on that below).
+
+* An optional passphrase to protect the new private key. As mentioned above,
+  it's crucial to keep your private key private and safe. As such, it's a good
+  idea to set a passphrase for the key. Most operating systems can be
+  configured so that you only have to enter the passphrase the first time you
+  use the key in a given computing session.
+
+Then `ssh-keygen` will generate the key and print out some information:
+
+* The file where the command saved the private key. Never share this file with
+  anyone.
+
+* The file where the command saved the public key. This is just the path to the
+  private key with `.pub` appended to it. You can safely share this file with
+  others.
+
+* The new key's *hash fingerprint* and *randomart*, which are both unimportant
+  to anyone who is not a cryptography nerd.
+
+:::{note}
+When you run `ssh-keygen`, you can set the type of cryptographic key with `-t`.
+Many security experts recommend [Ed25519][EdDSA], which is the default on most
+computers (you can set `-t ed25519` to be sure). The original [RSA
+algorithm][RSA] (`-t rsa`) also remains popular. Some servers require specific
+key types.
+
+[EdDSA]: https://en.wikipedia.org/wiki/EdDSA
+:::
+
+After creating a key, you can send the public key to a server administrator so
+that they can associate it with your new account. You can also go through this
+process in the unfortunate event that you somehow lose your private key.
+
+:::{note}
+If you're affiliated with UC Davis and use [HiPPO][] to request a
+high-performance computing cluster account, you'll be asked to submit your
+public key as part of your request.
+:::
+
+#### Uploading SSH Keys
+
+If you already have an account on a server and want to switch from password
+authentication to SSH key authentication, or just want to add a new SSH key,
+it's usually possible to do so without help from the server's administrators.
+
+To upload an SSH key to a server with which you are *already able to
+authenticate*, open a terminal on your local computer and run:
+
+```text
+ssh-copy-id <account name>@<server name> -i <your_key>
+```
+
+where `<your_key>` is the path to the public key file you want to upload.
 
 
 ## Configuring SSH
