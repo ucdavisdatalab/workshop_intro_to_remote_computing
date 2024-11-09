@@ -124,14 +124,16 @@ A brief SSH session might proceed like this:
 me@mypc$ ssh testuser@testserver
 testuser@testserver's password: ************
 Last login: Mon Dec  4 12:00:59 2023 from 192.168.2.109
+
 testuser@testserver$ date
 Tue Dec  5 09:03:13 PST 2023
+
 testuser@testserver$ ls ~
 src data Documents Downloads Temp ToDoList.txt
+
 testuser@testserver$ exit
 logout
 Connection to testserver closed.
-me@mypc$
 ````
 
 These are the steps of the above example in detail:
@@ -180,7 +182,6 @@ command itself, like so:
 me@mypc$ ssh testuser@testserver date
 testuser@testserver's password:
 Tue Dec  5 09:10:14 PST 2023
-me@mypc$
 ````
 
 This example connected to the same account on the same server as before,
@@ -839,7 +840,7 @@ The `ssh` command will raise an error if you set incorrect permissions on the
 `.ssh/` directory, the `config` file, or the `known_hosts` file. The error
 message looks something like this:
 
-```
+```text
 Bad owner or permissions on ~/.ssh/config
 ```
 
@@ -896,7 +897,6 @@ index.html           [ <=>                           ]  18.89K  --.-KB/s    in 0
 
 me@mypc$ ls -l index.html
 -rw-r--r--. 1 me me 19348 Dec  5 11:17 index.html
-me@mypc$
 ````
 
 The above command will download the entirety of the Internet and store it on
@@ -929,8 +929,6 @@ Saving to: ‘135918main_bm1_high.jpg’
 135918main_bm1_high.jpg    100%[===============================>] 190.86K  --.-KB/s    in 0.007s
 
 2023-12-05 11:27:28 (27.9 MB/s) - ‘135918main_bm1_high.jpg’ saved [195439/195439]
-
-testuser@testserver$
 ````
 
 When downloading a URL, `wget` will store the file referenced by that URL in
@@ -946,9 +944,9 @@ downloading via the `-q` (for "quiet") command line option:
 
 ````
 testuser@testserver$ wget -q -O BlueMarble1972.jpg https://www.nasa.gov/wp-content/uploads/2023/03/135918main_bm1_high.jpg
+
 testuser@testserver$ ls -l BlueMarble.jpg
 -rw-rw-r-- 1 testuser testuser 195439 Apr  6  2023 BlueMarble1972.jpg
-testuser@testserver$
 ````
 
 True to form for a Unix utility, `wget` will print *absolutely nothing* in quiet
@@ -1019,7 +1017,6 @@ testuser@testserver$ curl https://www.nasa.gov/wp-content/uploads/2023/03/135918
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
 100 19206    0 19206    0     0   137k      0 --:--:-- --:--:-- --:--:--  137k
-testuser@testserver$
 ````
 
 In the Unix world, data or programs are often made available for download as
