@@ -1,0 +1,1365 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en-us" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>2. Setting Up Software &#8212; Introduction to Remote Computing</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=dddfd265"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/02_environment-setup';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="3. Running Scripts" href="03_running-scripts.html" />
+    <link rel="prev" title="1. Connecting to a Server" href="01_connecting-to-a-server.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en-us"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/datalab-logo-full-color-rgb-1.png" class="logo__image only-light" alt="Introduction to Remote Computing - Home"/>
+    <script>document.write(`<img src="../_static/datalab-logo-full-color-rgb-1.png" class="logo__image only-dark" alt="Introduction to Remote Computing - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="index.html">
+                    Overview
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Introduction to Remote Computing</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="01_connecting-to-a-server.html">1. Connecting to a Server</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">2. Setting Up Software</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03_running-scripts.html">3. Running Scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04_cluster-computing.html">4. Cluster Computing</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/ucdavisdatalab/workshop_intro_to_remote_computing" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/ucdavisdatalab/workshop_intro_to_remote_computing/issues/new?title=Issue%20on%20page%20%2Fchapters/02_environment-setup.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/chapters/02_environment-setup.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Setting Up Software</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-s-an-environment">2.1. What’s an Environment?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installing-software">2.2. Installing Software</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#package-environment-managers">2.2.1. Package &amp; Environment Managers</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#uc-davis-hpc-modules">2.2.2. UC Davis HPC Modules</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#micromamba">2.2.3. Micromamba</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#installing-micromamba">2.2.3.1. Installing Micromamba</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-environments">2.2.3.2. Creating Environments</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#exporting-environments">2.2.3.3. Exporting Environments</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#managing-storage">2.2.3.4. Managing Storage</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#editing-configurations">2.3. Editing Configurations</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bash">2.3.1. Bash</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#aliases">2.3.1.1. Aliases</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#environment-variables">2.3.1.2. Environment Variables</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#other-configuration-files">2.3.2. Other Configuration Files</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="setting-up-software">
+<h1><span class="section-number">2. </span>Setting Up Software<a class="headerlink" href="#setting-up-software" title="Link to this heading">#</a></h1>
+<!-- TODO: Define "computing environment" in the intro -->
+<p>This chapter will show you how to set up a computer so that it has the software
+you need and it’s a comfortable place to work. Along the way, you’ll learn two
+fundamental skills:</p>
+<ul class="simple">
+<li><p>How to install software, whether or not you have administrator access</p></li>
+<li><p>How to edit configuration files, particularly for the Unix shell</p></li>
+</ul>
+<p>The examples in this chapter focus on remote computers, but these skills are
+also useful for configuring laptops and desktops.</p>
+<div class="admonition-learning-goals admonition">
+<p class="admonition-title">Learning Goals</p>
+<ul class="simple">
+<li><p>Use UC Davis HPC’s module system</p></li>
+<li><p>List popular tools for installing software on POSIX computers</p></li>
+<li><p>Explain what virtual environments are and why they’re useful</p></li>
+<li><p>Explain the difference between conda and mamba</p></li>
+<li><p>Install mamba via miniforge</p></li>
+<li><p>Create virtual environments with mamba</p></li>
+<li><p>Install software with mamba</p></li>
+<li><p>Explain the difference between <code class="docutils literal notranslate"><span class="pre">.bashrc</span></code>, <code class="docutils literal notranslate"><span class="pre">.profile</span></code>, and <code class="docutils literal notranslate"><span class="pre">.bash_profile</span></code></p></li>
+<li><p>Create shell aliases</p></li>
+<li><p>Create and modify environment variables</p></li>
+</ul>
+</div>
+<section id="what-s-an-environment">
+<h2><span class="section-number">2.1. </span>What’s an Environment?<a class="headerlink" href="#what-s-an-environment" title="Link to this heading">#</a></h2>
+<p>A <strong>computing environment</strong> is a collection of hardware, software, and
+associated settings. Whenever you run software (including code) on your
+computer, it runs in a computing environment. Being able to set up, inspect,
+maintain, and document computing environments is important because:</p>
+<ul class="simple">
+<li><p>A computer may not have the software you need pre-installed. Often the best
+and sometimes the only solution is to install the software yourself. Doing it
+yourself gives you more control over what’s installed and is typically faster
+than asking an administrator to do it for you. For your personal computer,
+you may be the sole administrator. You can use the same tools to set up and
+maintain environments on your computer as you do on remote computers.</p></li>
+<li><p>Differences between software versions can cause subtle bugs. Specifying a
+required software environment, with versions, can make it easier to
+collaborate on, distribute, and revisit research projects.</p></li>
+<li><p>Different projects may require different computing environments, and you may
+need to switch between them frequently. Switching software environments and
+settings can be quick and painless with the right tools. With modern compute
+clusters and cloud computing services, even switching hardware environments
+can be relatively easy.</p></li>
+<li><p>Inspecting the computing environment is the first step to diagnosing most
+computing problems. If you ask someone for help, they’ll likely want to know
+which hardware, software, and settings you’re using.</p></li>
+</ul>
+<p>This chapter focuses on software environments and settings, because configuring
+these is often the first thing you’ll need to do, and because it’s not always
+possible to choose your hardware environment.</p>
+<!--
+Chapter 4 addresses ways to choose the hardware environment on compute clusters
+and cloud computing services.
+-->
+</section>
+<section id="installing-software">
+<h2><span class="section-number">2.2. </span>Installing Software<a class="headerlink" href="#installing-software" title="Link to this heading">#</a></h2>
+<section id="package-environment-managers">
+<h3><span class="section-number">2.2.1. </span>Package &amp; Environment Managers<a class="headerlink" href="#package-environment-managers" title="Link to this heading">#</a></h3>
+<p>A <strong>package manager</strong> is a software tool that downloads and installs software
+packages. If you’ve used R or Python, you may already be familiar with the
+package managers these languages provide. Many modern operating systems also
+provide a package manager, because package managers have several benefits. They
+can:</p>
+<ul class="simple">
+<li><p>Automatically select software compatible with the computing environment</p></li>
+<li><p>Automatically install dependencies for software</p></li>
+<li><p>Update installed software, often automatically or with a single command</p></li>
+<li><p>In some cases, provide guarantees that software packages are not malicious</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Most Linux distributions provide a package manager as the recommended way to
+install software. Nevertheless, it is possible to install software on Linux
+without a package manager. One way is to download the source code for the
+software and compile it yourself; another is to download a pre-built binary.
+<a class="reference external" href="https://flatpak.org/">FlatPak</a> and <a class="reference external" href="https://appimage.org/">AppImage</a> are two popular formats for distributing pre-built
+binaries.</p>
+<p>Install software via a package manager when possible, but be aware that there
+are alternatives when it’s not.</p>
+</div>
+<p>Sometimes you may need to simultaneously work with several conflicting versions
+of software. For example, suppose you’re working on a new project that requires
+Python 3.12 or newer, but you also want to be able to examine results from an
+older project that requires Python 3.9 or older. What should you do?</p>
+<p>A lightweight solution is to use an <strong>environment manager</strong>, a software tool
+that can create <strong>virtual environments</strong>. Each virtual environment behaves like
+an independent software environment, so you can install conflicting software in
+separate virtual environments. Many environment managers have a package manager
+built in.</p>
+<p><a class="reference external" href="https://mamba.readthedocs.io/en/latest/user_guide/micromamba.html">Micromamba</a> is the environment manager we recommend. Micromamba is based
+on the Mamba environment manager, which is, in-turn, based on the <a class="reference external" href="https://docs.conda.io/">Conda</a>
+environment manager. The three tools are drop-in replacements for one another,
+and it’s common to refer to the virtual environments created by all three as
+<strong>conda environments</strong>. We recommend Micromamba over Mamba and Conda because it
+is substantially faster and because it eliminates some of the pitfalls of the
+other two. That said, Micromamba is less mature than Mamba and Conda, so you
+may occasionally encounter missing features or bugs. <a class="reference internal" href="#micromamba"><span class="std std-numref">Section 2.2.3</span></a> goes
+into detail about how to install and use micromamba.</p>
+<p>Examples of other popular package and environment managers are:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://brew.sh/">Homebrew</a> for macOS and Linux</p></li>
+<li><p><a class="reference external" href="https://chocolatey.org/">Chocolatey</a> for Windows</p></li>
+<li><p>Advanced Packaging Tool (APT) for Debian-based Linux distributions</p></li>
+<li><p><a class="reference external" href="https://nixos.org/">Nix</a> for Linux and macOS</p></li>
+<li><p><a class="reference external" href="https://spack.io/">Spack</a> for Linux and macOS, focused on high-performance computing</p></li>
+<li><p><a class="reference external" href="https://easybuild.io/">EasyBuild</a> for Linux, focused on research computing</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>A more complex solution is to use virtualization tools, such as <a class="reference external" href="https://podman.io/">Podman</a>,
+<a class="reference external" href="https://www.docker.com/">Docker</a>, and <a class="reference external" href="https://www.virtualbox.org/">VirtualBox</a>. These provide complete control over the
+operating system and software in a computing environment, so they provide
+stronger guarantees of reproducibility. The cost is that these tools are often
+slower than environment managers and using them requires more technical
+knowledge.</p>
+<p>For most research projects, using an environment manager provides adequate
+flexibility and reproducibility.</p>
+</div>
+</section>
+<section id="uc-davis-hpc-modules">
+<h3><span class="section-number">2.2.2. </span>UC Davis HPC Modules<a class="headerlink" href="#uc-davis-hpc-modules" title="Link to this heading">#</a></h3>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>This section is specific to UC Davis HPC clusters. While some other servers and
+clusters may have a similar module system, many do not.</p>
+</div>
+<p>On most of UC Davis’ HPC clusters, the HPC Core Facility staff maintain a
+collection of ready-to-use virtual environments called <strong>modules</strong>. These are
+an alternative to setting up environments yourself.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>After learning to use Micromamba or another environment manager, you may find
+it more convenient and less of a cognitive burden to just manage environments
+yourself rather than use modules.</p>
+</div>
+<p>You can list all of the modules available on a cluster with the <code class="docutils literal notranslate"><span class="pre">module</span> <span class="pre">avail</span></code>
+command. For example, as of writing, the output from <code class="docutils literal notranslate"><span class="pre">module</span> <span class="pre">avail</span></code> on UC
+Davis’ Farm cluster begins:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">-----------------------------------------------------------------</span> <span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">apps</span><span class="o">/</span><span class="mf">22.04</span><span class="o">/</span><span class="n">modulefiles</span><span class="o">/</span><span class="n">spack</span><span class="o">/</span><span class="n">core</span> <span class="o">-----------------------------------------------------------------</span>
+<span class="n">cuda</span><span class="o">/</span><span class="mf">11.7.1</span>  <span class="n">gcc</span><span class="o">/</span><span class="mf">5.5.0</span>  <span class="n">hwloc</span><span class="o">/</span><span class="mf">2.9.3</span>                      <span class="n">jdk</span><span class="o">/</span><span class="mf">17.0.1</span>   <span class="n">julia</span><span class="o">/</span><span class="mf">1.9.0</span>  <span class="n">julia</span><span class="o">/</span><span class="mf">1.9.3</span>      <span class="n">nvhpc</span><span class="o">/</span><span class="mf">23.1</span>         <span class="n">openjdk</span><span class="o">/</span><span class="mf">16.0.2</span>  <span class="n">pigz</span><span class="o">/</span><span class="mf">2.7</span>    <span class="n">slurm</span><span class="o">/</span><span class="mf">23.02.6</span>
+<span class="n">gcc</span><span class="o">/</span><span class="mf">4.9.4</span>    <span class="n">gcc</span><span class="o">/</span><span class="mf">7.5.0</span>  <span class="n">intel</span><span class="o">-</span><span class="n">oneapi</span><span class="o">-</span><span class="n">compilers</span><span class="o">/</span><span class="mf">2022.2.1</span>  <span class="n">julia</span><span class="o">/</span><span class="mf">1.8.5</span>  <span class="n">julia</span><span class="o">/</span><span class="mf">1.9.2</span>  <span class="n">libevent</span><span class="o">/</span><span class="mf">2.1.12</span>  <span class="n">openjdk</span><span class="o">/</span><span class="mf">11.0.17_8</span>  <span class="n">openmpi</span><span class="o">/</span><span class="mf">4.1.5</span>   <span class="n">pmix</span><span class="o">/</span><span class="mf">4.2.6</span>  <span class="n">ucx</span><span class="o">/</span><span class="mf">1.14.1</span>
+
+<span class="o">-----------------------------------------------------------------</span> <span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">apps</span><span class="o">/</span><span class="mf">22.04</span><span class="o">/</span><span class="n">modulefiles</span><span class="o">/</span><span class="n">spack</span><span class="o">/</span><span class="n">libs</span> <span class="o">-----------------------------------------------------------------</span>
+<span class="n">amdfftw</span><span class="o">/</span><span class="mf">3.2</span>   <span class="n">bzip2</span><span class="o">/</span><span class="mf">1.0.8</span>  <span class="n">eigen</span><span class="o">/</span><span class="mf">3.4.0</span>  <span class="n">gmp</span><span class="o">/</span><span class="mf">6.2.1</span>  <span class="n">h5z</span><span class="o">-</span><span class="n">zfp</span><span class="o">/</span><span class="mf">1.1.0</span>  <span class="n">hypre</span><span class="o">/</span><span class="mf">2.26.0</span>               <span class="n">librsvg</span><span class="o">/</span><span class="mf">2.51.0</span>  <span class="n">mpfr</span><span class="o">/</span><span class="mf">4.1.0</span>      <span class="n">netcdf</span><span class="o">-</span><span class="n">cxx4</span><span class="o">/</span><span class="mf">4.3.1</span>     <span class="n">nvhpc</span><span class="o">/</span><span class="mf">23.1</span>  <span class="n">zlib</span><span class="o">/</span><span class="mf">1.2.13</span>
+<span class="n">boost</span><span class="o">/</span><span class="mf">1.80.0</span>  <span class="n">cgal</span><span class="o">/</span><span class="mf">5.4.1</span>   <span class="n">fftw</span><span class="o">/</span><span class="mf">3.3.10</span>  <span class="n">gsl</span><span class="o">/</span><span class="mf">2.7.1</span>  <span class="n">hdf5</span><span class="o">/</span><span class="mf">1.12.2</span>    <span class="n">intel</span><span class="o">-</span><span class="n">oneapi</span><span class="o">-</span><span class="n">mkl</span><span class="o">/</span><span class="mf">2022.2.1</span>  <span class="n">libszip</span><span class="o">/</span><span class="mf">2.1.1</span>   <span class="n">netcdf</span><span class="o">-</span><span class="n">c</span><span class="o">/</span><span class="mf">4.9.0</span>  <span class="n">netcdf</span><span class="o">-</span><span class="n">fortran</span><span class="o">/</span><span class="mf">4.6.0</span>  <span class="n">pigz</span><span class="o">/</span><span class="mf">2.7</span>
+</pre></div>
+</div>
+<p>Modules are displayed in groups defined by the server administrators. Each
+module has a name and a version number, separated by a slash. For instance,
+<code class="docutils literal notranslate"><span class="pre">julia/1.9.3</span></code> is the <code class="docutils literal notranslate"><span class="pre">julia</span></code> module, version <code class="docutils literal notranslate"><span class="pre">1.9.3</span></code>.</p>
+<p>To get help with a module, use the <code class="docutils literal notranslate"><span class="pre">module</span> <span class="pre">help</span></code> command with the module’s
+name and optionally its version. For example, to get help with the <code class="docutils literal notranslate"><span class="pre">julia</span></code>
+module:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>module<span class="w"> </span><span class="nb">help</span><span class="w"> </span>julia
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">-------------------------------------------------------------------</span>
+<span class="n">Module</span> <span class="n">Specific</span> <span class="n">Help</span> <span class="k">for</span> <span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">apps</span><span class="o">/</span><span class="mf">22.04</span><span class="o">/</span><span class="n">modulefiles</span><span class="o">/</span><span class="n">spack</span><span class="o">/</span><span class="n">core</span><span class="o">/</span><span class="n">julia</span><span class="o">/</span><span class="mf">1.9.3</span><span class="p">:</span>
+
+<span class="n">The</span> <span class="n">Julia</span> <span class="n">Language</span><span class="p">:</span> <span class="n">A</span> <span class="n">fresh</span> <span class="n">approach</span> <span class="n">to</span> <span class="n">technical</span> <span class="n">computing</span>
+<span class="o">-------------------------------------------------------------------</span>
+</pre></div>
+</div>
+<p>To load a module, use the <code class="docutils literal notranslate"><span class="pre">module</span> <span class="pre">load</span></code> command. Again, you need to specify the
+module’s name and optionally its version. As an example, suppose you decide you
+want to try out the <a class="reference external" href="https://julialang.org/">Julia</a> programming language on Hive. If you try to run
+<code class="docutils literal notranslate"><span class="pre">julia</span></code>, you’ll see an error message saying it’s not installed:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>julia
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">julia</span><span class="p">:</span> <span class="n">command</span> <span class="ow">not</span> <span class="n">found</span>
+</pre></div>
+</div>
+<p>You can load the <code class="docutils literal notranslate"><span class="pre">julia</span></code> module to switch to an environment where Julia is
+installed:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>module<span class="w"> </span>load<span class="w"> </span>julia
+</pre></div>
+</div>
+<p>Now running <code class="docutils literal notranslate"><span class="pre">julia</span></code> will open the Julia interpreter (you can exit Julia by
+typing <code class="docutils literal notranslate"><span class="pre">exit()</span></code> and pressing enter).</p>
+<p>You can check which modules are loaded at any given time with the <code class="docutils literal notranslate"><span class="pre">module</span> <span class="pre">list</span></code>
+command:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>module<span class="w"> </span>list
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Currently</span> <span class="n">Loaded</span> <span class="n">Modulefiles</span><span class="p">:</span>
+ <span class="mi">1</span><span class="p">)</span> <span class="n">slurm</span><span class="o">/</span><span class="mf">23.02.6</span>   <span class="mi">2</span><span class="p">)</span> <span class="n">openmpi</span><span class="o">/</span><span class="mf">4.1.5</span>
+</pre></div>
+</div>
+<p>You might see different output if you’ve loaded or unloaded modules.</p>
+<p>Finally, to unload a module, you can use the <code class="docutils literal notranslate"><span class="pre">module</span> <span class="pre">unload</span></code> command with the
+module’s name:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>module<span class="w"> </span>unload<span class="w"> </span>julia
+</pre></div>
+</div>
+<p>Note that when you log out, the cluster will automatically unload any modules
+you loaded.</p>
+</section>
+<section id="micromamba">
+<span id="id1"></span><h3><span class="section-number">2.2.3. </span>Micromamba<a class="headerlink" href="#micromamba" title="Link to this heading">#</a></h3>
+<section id="installing-micromamba">
+<h4><span class="section-number">2.2.3.1. </span>Installing Micromamba<a class="headerlink" href="#installing-micromamba" title="Link to this heading">#</a></h4>
+<p>The Micromamba documentation includes <a class="reference external" href="https://mamba.readthedocs.io/en/latest/installation/micromamba-installation.html">official installation
+instructions</a>. We recommend the “install script” method for
+installing Micromamba, which we describe below with slight changes. You can use
+these instructions to install Micromamba on a server or on your personal
+computer.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Before following the instructions below, make sure to review the <a class="reference external" href="https://mamba.readthedocs.io/en/latest/installation/micromamba-installation.html">official
+installation instructions</a>, as they may have changed since this was
+written. At the time of writing, the official installation command was:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">SHELL</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span>&lt;<span class="o">(</span>curl<span class="w"> </span>-L<span class="w"> </span>micro.mamba.pm/install.sh<span class="o">)</span>
+</pre></div>
+</div>
+<p>This command downloads the install script and immediately runs it. In the
+instructions below, we separate the download and install steps, to make it
+easier to troubleshoot problems and because it’s generally a good idea to read
+a script you downloaded before running it, to make sure it doesn’t do anything
+malicious.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>On Windows, we recommend installing Micromamba in <a class="reference external" href="https://git-scm.com/">Git Bash</a> or the
+<a class="reference external" href="https://learn.microsoft.com/en-us/windows/wsl/about">Windows Subsystem for Linux</a>.</p>
+<p>While it is possible to install Micromamba in Windows’ native <code class="docutils literal notranslate"><span class="pre">CMD.exe</span></code> or
+PowerShell terminals, these terminals do not support Unix shell commands, so we
+recommend against using them for research computing.</p>
+</div>
+<p>The first step is to download the install script. The official installation
+instructions suggest using the <code class="docutils literal notranslate"><span class="pre">curl</span></code> command line tool to do this. Since
+<code class="docutils literal notranslate"><span class="pre">curl</span></code> is not pre-installed on some servers, we’ve also provided instructions
+for how to do it with the <code class="docutils literal notranslate"><span class="pre">wget</span></code> command line tool. In a terminal, run:</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-0">
+curl</label><div class="sd-tab-content docutils">
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-O<span class="w"> </span>-L<span class="w"> </span>micro.mamba.pm/install.sh
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">-O</span></code> flag saves the file with the same name it had on the server
+(<code class="docutils literal notranslate"><span class="pre">install.sh</span></code>), while the <code class="docutils literal notranslate"><span class="pre">-L</span></code> flag ensures <code class="docutils literal notranslate"><span class="pre">curl</span></code> follows redirects.</p>
+<p>If you see a message like <code class="docutils literal notranslate"><span class="pre">curl:</span> <span class="pre">command</span> <span class="pre">not</span> <span class="pre">found</span></code>, try the <code class="docutils literal notranslate"><span class="pre">wget</span></code> version
+instead.</p>
+</div>
+<input id="sd-tab-item-1" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-1">
+wget</label><div class="sd-tab-content docutils">
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>wget<span class="w"> </span>micro.mamba.pm/install.sh
+</pre></div>
+</div>
+<p>If you see a message like <code class="docutils literal notranslate"><span class="pre">wget:</span> <span class="pre">command</span> <span class="pre">not</span> <span class="pre">found</span></code>, try the <code class="docutils literal notranslate"><span class="pre">curl</span></code> version
+instead.</p>
+</div>
+</div>
+<p>If the command was successful, you’ll have a file <code class="docutils literal notranslate"><span class="pre">install.sh</span></code> in your working
+directory. Take a moment to inspect the script with your preferred text editor.
+If everything looks okay, make the script executable:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>chmod<span class="w"> </span>+x<span class="w"> </span>install.sh
+</pre></div>
+</div>
+<p>Then run the script:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>./install.sh
+</pre></div>
+</div>
+<p>The script will prompt you about several installation details:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Micromamba</span> <span class="pre">binary</span> <span class="pre">folder</span></code>: where the <code class="docutils literal notranslate"><span class="pre">micromamba</span></code> tool will be installed.
+For most computers, it’s fine to accept the default by pressing <code class="docutils literal notranslate"><span class="pre">Enter</span></code>
+without typing anything.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Init</span> <span class="pre">shell</span></code>: whether to configure the shell to find the <code class="docutils literal notranslate"><span class="pre">micromamba</span></code> tool.
+Enter <code class="docutils literal notranslate"><span class="pre">Y</span></code> here unless you know how to configure this yourself.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Configure</span> <span class="pre">conda-forge</span></code>: whether to default to installing packages from the
+conda-forge package repository, which provides additional
+community-maintained packages. Enter <code class="docutils literal notranslate"><span class="pre">Y</span></code> here.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Prefix</span> <span class="pre">location</span></code>: where environments and packages will be installed. Once
+again, it’s fine to accept the default by pressing <code class="docutils literal notranslate"><span class="pre">Enter</span></code> without typing
+anything.</p></li>
+</ul>
+<p>Once the script finishes, you must reload your shell’s settings before running
+Micromamba. To do so, run this command in the terminal:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nb">source</span><span class="w"> </span>~/.bashrc
+</pre></div>
+</div>
+<p><a class="reference internal" href="#bash"><span class="std std-numref">Section 2.3.1</span></a> provides more details about what this command is doing.</p>
+<p>Then check that your shell can find Micromamba. In the terminal, run:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>micromamba<span class="w"> </span>--version
+</pre></div>
+</div>
+<p>If the installation was successful, you should see a version number like
+<code class="docutils literal notranslate"><span class="pre">1.5.3</span></code>. It’s okay if you have a different version. If you see an error message
+like <code class="docutils literal notranslate"><span class="pre">micromamba:</span> <span class="pre">command</span> <span class="pre">not</span> <span class="pre">found</span></code>, try running <code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">~/.bashrc</span></code> and then
+try the command above again. If you still see an error message, some possible
+fixes are to run the install script again or to edit the shell configuration
+files (and check the <code class="docutils literal notranslate"><span class="pre">PATH</span></code> environment variable).</p>
+</section>
+<section id="creating-environments">
+<h4><span class="section-number">2.2.3.2. </span>Creating Environments<a class="headerlink" href="#creating-environments" title="Link to this heading">#</a></h4>
+<p>The <a class="reference external" href="https://mamba.readthedocs.io/en/latest/user_guide/micromamba.html">Micromamba documentation</a> is intended for users already familiar with
+Conda. If you’re new to environment management or the Conda family of tools,
+you may find the <a class="reference external" href="https://docs.conda.io/projects/conda/en/stable/commands/index.html">Conda documentation</a> more helpful for
+understanding what commands do and how to use them. There’s also a <a class="reference external" href="https://docs.conda.io/projects/conda/en/latest/_downloads/843d9e0198f2a193a3484886fa28163c/conda-cheatsheet.pdf">Conda cheat
+sheet</a>.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>In almost all cases, Conda commands are the same as Micromamba commands—just
+replace <code class="docutils literal notranslate"><span class="pre">conda</span></code> with <code class="docutils literal notranslate"><span class="pre">micromamba</span></code>.</p>
+</div>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>If you find a different Conda cheat sheet online, make sure it’s up-to-date!
+There are a few very old cheat sheets that rank highly in search engines but
+list commands that will not work in Micromamba and recent versions of Conda.</p>
+</div>
+<p>To practice using Micromamba, let’s create a new virtual environment and
+install a few useful command line tools. You can create a new virtual
+environment with the <code class="docutils literal notranslate"><span class="pre">create</span></code> subcommand. Run this command in the terminal
+to create a new virtual evironment called <code class="docutils literal notranslate"><span class="pre">utils</span></code>:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>micromamba<span class="w"> </span>create<span class="w"> </span>--name<span class="w"> </span>utils
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Empty</span> <span class="n">environment</span> <span class="n">created</span> <span class="n">at</span> <span class="n">prefix</span><span class="p">:</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">USERNAME</span><span class="o">/</span><span class="n">micromamba</span><span class="o">/</span><span class="n">envs</span><span class="o">/</span><span class="n">utils</span>
+</pre></div>
+</div>
+<p>When the <code class="docutils literal notranslate"><span class="pre">create</span></code> subcommand runs successfully, it prints out <code class="docutils literal notranslate"><span class="pre">Empty</span> <span class="pre">environment</span> <span class="pre">created</span> <span class="pre">at</span> <span class="pre">prefix:</span></code> and a path. The path is the location where
+packages installed in the environment will be stored.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Creating a new virtual environment for each project you work on is a good way
+to avoid software version conflicts and keep track of the software each project
+requires. For some projects, you may need to create multiple virtual
+environments to accommodate distinct research directions and collections of
+software.</p>
+<p>Virtual environments are easy to create and remove (aside from the time it
+takes to download and install software), so experiment until you find a
+workflow that works well for you.</p>
+</div>
+<p>You can list all of the virtual environments Micromamba detects with the <code class="docutils literal notranslate"><span class="pre">env</span> <span class="pre">list</span></code> subcommand. Try running this command in the terminal:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>micromamba<span class="w"> </span>env<span class="w"> </span>list
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>  Name      Active  Path
+────────────────────────────────────────────────────────────────
+  utils             /home/USERNAME/micromamba/envs/utils
+</pre></div>
+</div>
+<p>In order to use an environment and its installed packages, you must first
+<strong>activate</strong> the environment. You can activate an environment with the
+<code class="docutils literal notranslate"><span class="pre">activate</span></code> subcommand. Go ahead and activate the <code class="docutils literal notranslate"><span class="pre">utils</span></code> environment:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>micromamba<span class="w"> </span>activate<span class="w"> </span>utils
+</pre></div>
+</div>
+<p>By default, the name of the active virtual environment (if any) is displayed as
+a prefix on the shell prompt. So after running the <code class="docutils literal notranslate"><span class="pre">activate</span></code> subcommand above,
+you should see <code class="docutils literal notranslate"><span class="pre">(utils)</span></code> at the beginning of the shell prompt. The environment
+will remain active as long as your terminal is open. If you close the terminal
+(or log out, for SSH connections) the environment will be deactivated.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can also deactivate the currently active environment by running <code class="docutils literal notranslate"><span class="pre">micromamba</span> <span class="pre">deactivate</span></code>. It is <em>not</em> necessary to do this before activating a different
+environment.</p>
+</div>
+<p>Let’s install a file search tool, [ripgrep][rg], in the <code class="docutils literal notranslate"><span class="pre">utils</span></code> environment.
+The ripgrep (<code class="docutils literal notranslate"><span class="pre">rg</span></code>) tool searches for files which contain a given text string
+(or regular expression). You can use the <code class="docutils literal notranslate"><span class="pre">install</span></code> subcommand to install
+packages. The default is to install packages into the active environment. You
+can list any number of packages after <code class="docutils literal notranslate"><span class="pre">install</span></code>. For instance, to install
+ripgrep:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>micromamba<span class="w"> </span>install<span class="w"> </span>ripgrep
+</pre></div>
+</div>
+<p>The subcommand will list the packages that will be installed and prompt you to
+confirm. If you see more than just the requested packages in the listing, it’s
+because the requested packages have dependencies.</p>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>Whenever you run the <code class="docutils literal notranslate"><span class="pre">install</span></code> subcommand, it will also try to update packages
+that are already installed. This is good for keeping your software up-to-date,
+but a problem if your project requires specific versions. You can use the
+<code class="docutils literal notranslate"><span class="pre">--freeze-installed</span></code> flag to prevent updates to packages that are already
+installed.</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>You can install a specific version of a package by quoting the name of the
+package and using <code class="docutils literal notranslate"><span class="pre">=</span></code>, <code class="docutils literal notranslate"><span class="pre">&lt;</span></code>, <code class="docutils literal notranslate"><span class="pre">&lt;=</span></code>, <code class="docutils literal notranslate"><span class="pre">&gt;</span></code>, or <code class="docutils literal notranslate"><span class="pre">&gt;=</span></code> to indicate the version. For
+instance, to install Python 3.9:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>micromamba<span class="w"> </span>install<span class="w"> </span><span class="s1">&#39;python=3.9&#39;</span>
+</pre></div>
+</div>
+</div>
+<p>After the installation is complete, try out one of the commands. For example,
+create a file called <code class="docutils literal notranslate"><span class="pre">foo.txt</span></code> with the text <code class="docutils literal notranslate"><span class="pre">hello</span> <span class="pre">world</span></code>, and then try
+finding it with <code class="docutils literal notranslate"><span class="pre">rg</span></code>:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;hello world&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>foo.txt
+rg<span class="w"> </span>hello
+</pre></div>
+</div>
+<p>You can list all of the packages installed in a virtual environment with the
+<code class="docutils literal notranslate"><span class="pre">list</span></code> subcommand. The default is to list packages in the active environment:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>micromamba<span class="w"> </span>list
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>List of packages in environment: &quot;/home/nick/micromamba/envs/utils&quot;
+
+  Name           Version  Build        Channel
+────────────────────────────────────────────────────
+  _libgcc_mutex  0.1      conda_forge  conda-forge
+  _openmp_mutex  4.5      2_gnu        conda-forge
+  libgcc-ng      13.2.0   h807b86a_5   conda-forge
+  libgomp        13.2.0   h807b86a_5   conda-forge
+  ripgrep        14.1.0   he8a937b_0   conda-forge
+</pre></div>
+</div>
+<p>The list might differ slightly on your computer because of different operating
+systems and new versions of packages released since this was written. However,
+you should see ripgrep in the list. All of the other packages—which we did
+not request directly—are dependencies.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">create</span></code>, <code class="docutils literal notranslate"><span class="pre">activate</span></code>, and <code class="docutils literal notranslate"><span class="pre">install</span></code> subcommands are fundamental to using
+Micromamba. There are many other subcommands, which you can learn about by
+reading the <a class="reference external" href="https://docs.conda.io/projects/conda/en/stable/commands/index.html">Conda documentation</a>.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>The ripgrep search tool is worth knowing about if you work in the command line
+frequently. It can help you find files quickly. It’s a faster, modernized
+versions of the classic <code class="docutils literal notranslate"><span class="pre">grep</span></code> tool.</p>
+</div>
+</section>
+<section id="exporting-environments">
+<h4><span class="section-number">2.2.3.3. </span>Exporting Environments<a class="headerlink" href="#exporting-environments" title="Link to this heading">#</a></h4>
+<p>One of the benefits of using conda environments is that they can be exported
+and then recreated later, possibly by other people or on other computers.
+You can export a conda environment with the <code class="docutils literal notranslate"><span class="pre">env</span> <span class="pre">export</span></code> subcommand. In most
+cases, you should also use the <code class="docutils literal notranslate"><span class="pre">--from-history</span></code> flag, which exports only the
+packages you installed directly. For example, run this command in the <code class="docutils literal notranslate"><span class="pre">utils</span></code>
+environment:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>micromamba<span class="w"> </span>env<span class="w"> </span><span class="nb">export</span><span class="w"> </span>--from-history
+</pre></div>
+</div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">utils</span>
+<span class="nt">channels</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">conda-forge</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pkgs/main</span>
+<span class="nt">dependencies</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ripgrep</span>
+</pre></div>
+</div>
+<p>The subcommand prints out the environment specification in <a class="reference external" href="https://en.wikipedia.org/wiki/YAML">YAML</a>, a
+human-readable markup language. The <code class="docutils literal notranslate"><span class="pre">dependencies</span></code> section lists the packages
+as you installed them, so each package’s version is omitted unless you
+installed a specific version. The <code class="docutils literal notranslate"><span class="pre">channels</span></code> section lists the channels
+(package repositories) from which you downloaded the packages.</p>
+<p>You’ll probably want to save the environment specification rather than just
+print it out. You can use the shell <code class="docutils literal notranslate"><span class="pre">&gt;</span></code> command to pipe the output to a file,
+to save or share with others. It’s a good idea to include the environment name
+in the name of the file, and to use a <code class="docutils literal notranslate"><span class="pre">.yml</span></code> or <code class="docutils literal notranslate"><span class="pre">.yaml</span></code> extension. So for the
+<code class="docutils literal notranslate"><span class="pre">utils</span></code> environment:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>micromamba<span class="w"> </span>env<span class="w"> </span><span class="nb">export</span><span class="w"> </span>--from-history<span class="w"> </span>&gt;<span class="w"> </span>utils.yml
+</pre></div>
+</div>
+<p>After running the command, there will be a <code class="docutils literal notranslate"><span class="pre">utils.yml</span></code> file in your working
+directory. You can use a text editor to check its contents.</p>
+<p>You can recreate an environment from a specification file with the <code class="docutils literal notranslate"><span class="pre">env</span> <span class="pre">create</span></code>
+subcommand and the <code class="docutils literal notranslate"><span class="pre">--file</span></code> flag. Let’s remove the <code class="docutils literal notranslate"><span class="pre">utils</span></code> environment from
+Micromamba, so that we can recreate it from the <code class="docutils literal notranslate"><span class="pre">utils.yml</span></code> file. To remove the
+environment, run this command:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>micromamba<span class="w"> </span>env<span class="w"> </span>remove<span class="w"> </span>--name<span class="w"> </span>utils
+</pre></div>
+</div>
+<p>Then recreate the environment from <code class="docutils literal notranslate"><span class="pre">utils.yml</span></code>:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>micromamba<span class="w"> </span>env<span class="w"> </span>create<span class="w"> </span>--file<span class="w"> </span>utils.yml
+</pre></div>
+</div>
+<p>After the packages finish installing, activate the environment and test that
+ripgrep (<code class="docutils literal notranslate"><span class="pre">rg</span></code>) is there.</p>
+<p>Keep environment specification files with the code for the project to which
+they belong. For instance, if you version your code with git, version your
+environment file(s) too. Share the environment specification files with anyone
+who needs to work on your project, so that you can make sure their environment
+is set up with the same software as yours.</p>
+<p>The environment specification files produced by <code class="docutils literal notranslate"><span class="pre">env</span> <span class="pre">export</span></code> with the
+<code class="docutils literal notranslate"><span class="pre">--from-history</span></code> flag do not include version info for most packages. This is by
+design: the format is meant to be cross-platform, and sometimes specific
+versions are not available on all platforms. The tradeoff is that when the
+environment is recreated, Micromamba might install newer versions of packages,
+which might cause compatibility issues. If you know your project depends on
+specific versions of packages, make sure to specify the versions when you
+install the packages. Alternatively, you can export to a specification format
+that has complete version information but is <em>not</em> cross-platform by omitting
+the <code class="docutils literal notranslate"><span class="pre">--from-history</span></code> flag. The command to recreate an environment from a
+specification file in this format is the same.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Environment export is still under development in both the Conda and Mamba
+(which includes Micromamba) projects, and there’s no consensus yet. As of
+writing:</p>
+<ul class="simple">
+<li><p>The <a class="reference external" href="https://github.com/conda/conda-lock">conda-lock</a> subproject is a relatively mature tool for exporting
+environments.</p></li>
+<li><p>The Conda developers <a class="reference external" href="https://github.com/conda/conda/issues/10345">might add an option to include version information in
+the cross-platform format</a>.</p></li>
+<li><p>The Mamba developers <a class="reference external" href="https://github.com/mamba-org/mamba/issues/1209">might create a new format</a>.</p></li>
+</ul>
+</div>
+</section>
+<section id="managing-storage">
+<h4><span class="section-number">2.2.3.4. </span>Managing Storage<a class="headerlink" href="#managing-storage" title="Link to this heading">#</a></h4>
+<p>Depending on which packages you install, conda environments can potentially use
+10s of gigabytes of storage. Micromamba automatically caches installed packages
+and shares them between environments when possible, but there are also a few
+things you can do to keep storage usage under control.</p>
+<p>First, make sure you use <code class="docutils literal notranslate"><span class="pre">env</span> <span class="pre">remove</span></code> to remove old environments that you no
+longer use. If you export these environments before removing them, you can
+recreate them if you need them again later.</p>
+<p>Second, periodically clean up Micromamba’s cache to remove old, unused
+packages. To do this, run:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>micromamba<span class="w"> </span>clean<span class="w"> </span>--all
+</pre></div>
+</div>
+<p>This will remove all packages from the cache that are not installed in any
+environments. Unless you install packages via symlinks, which is beyond the
+scope of this reader, then this is a safe command and will not break your
+environments.</p>
+</section>
+</section>
+</section>
+<section id="editing-configurations">
+<h2><span class="section-number">2.3. </span>Editing Configurations<a class="headerlink" href="#editing-configurations" title="Link to this heading">#</a></h2>
+<p>After installing software in your computing environment, you’ll likely want to
+configure it. Many software, especially command-line software, read settings
+from a <strong>configuration file</strong> when they run. By editing configuration files,
+you can customize your computing environment to make it do what you want and
+make it more comfortable to use.</p>
+<section id="bash">
+<span id="id2"></span><h3><span class="section-number">2.3.1. </span>Bash<a class="headerlink" href="#bash" title="Link to this heading">#</a></h3>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Bash_(Unix_shell)">Bash</a> is a <strong>shell</strong>: a programming language and prompt that serves as a
+command line interface for computers. Bash is widely used, and is the default
+shell for most Linux distributions. Knowing how to configure Bash can make it
+much easier to work in a terminal.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>This section is about configuring Bash, but some POSIX computers default to
+other shells (such as the <a class="reference external" href="https://en.wikipedia.org/wiki/Z_shell">Z Shell (Zsh)</a> or <a class="reference external" href="https://en.wikipedia.org/wiki/Fish_(Unix_shell)">Fish</a>). These shells
+can also be configured, but the files and commands needed to do so may be
+different; see their documentation for details.</p>
+<p>You can check the default shell on a POSIX computer with this command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>echo $SHELL
+</pre></div>
+</div>
+<p>On macOS, the default shell for versions 10.3 through 10.14 is Bash. Beginning
+with version 10.15, the default shell is Zsh.</p>
+</div>
+<p>Three files in your home directory are especially important for configuring
+Bash. Each one is a script, which means they contain commands for Bash (<code class="docutils literal notranslate"><span class="pre">bash</span></code>)
+or its predecessor, the <a class="reference external" href="https://en.wikipedia.org/wiki/Bourne_shell">Bourne shell</a> (<code class="docutils literal notranslate"><span class="pre">sh</span></code>). The files are:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">~/.bash_profile</span></code> runs every time you log in (to a server, for example).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">~/.profile</span></code> also runs every time you log in, but only if <code class="docutils literal notranslate"><span class="pre">.bash_profile</span></code>
+doesn’t exist. It can only contain <code class="docutils literal notranslate"><span class="pre">sh</span></code> commands, not <code class="docutils literal notranslate"><span class="pre">bash</span></code> commands.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">~/.bashrc</span></code> runs every time you open a shell when you’re <em>already logged in</em>.</p></li>
+</ul>
+<p>When these files don’t exist or are empty, Bash uses default settings. If they
+alredy exist on your computer and contain commands, they may have been set up
+by your operating system or by your computer’s administrator. Leave them intact
+until you have enough experience to know what the commands do—they might be
+important. You can still add your own settings to the files.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can learn more about how Bash reads configuration files at startup in the
+<a class="reference external" href="https://www.gnu.org/software/bash/manual/bash.html#Bash-Startup-Files">Bash Startup Files</a> section of the Bash manual.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Configuration files are also called <strong>dotfiles</strong>, because they usually have
+names that begin with a dot.</p>
+</div>
+<p>We recommend setting up the Bash configuration files so that <code class="docutils literal notranslate"><span class="pre">.bash_profile</span></code>
+always runs <code class="docutils literal notranslate"><span class="pre">.profile</span></code> and <code class="docutils literal notranslate"><span class="pre">.bashrc</span></code>. Then use <code class="docutils literal notranslate"><span class="pre">.profile</span></code> to set environment
+variables (<a class="reference internal" href="#environment-variables"><span class="std std-numref">Section 2.3.1.2</span></a>) and use <code class="docutils literal notranslate"><span class="pre">.bashrc</span></code> for everything
+else. This approach ensures that your environment variables are loaded whenever
+you use any <code class="docutils literal notranslate"><span class="pre">sh</span></code>-compatible shell and that your Bash configuration is loaded
+whenever you use Bash. To set this up, use a text editor (such as <code class="docutils literal notranslate"><span class="pre">vi</span></code>) to add
+these lines to your <code class="docutils literal notranslate"><span class="pre">.bash_profile</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1">#</span>
+<span class="c1"># .bash_profile</span>
+<span class="c1">#</span>
+<span class="c1"># This file is runs on login to a Bash shell.</span>
+
+<span class="o">[[</span><span class="w"> </span>-r<span class="w"> </span>~/.profile<span class="w"> </span><span class="o">]]</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">source</span><span class="w"> </span>~/.profile
+<span class="o">[[</span><span class="w"> </span>-r<span class="w"> </span>~/.bashrc<span class="w">  </span><span class="o">]]</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">source</span><span class="w"> </span>~/.bashrc
+</pre></div>
+</div>
+<p>These commands check that <code class="docutils literal notranslate"><span class="pre">.profile</span></code> and <code class="docutils literal notranslate"><span class="pre">.bashrc</span></code> exist, and run them if they
+do. Leave the rest of your <code class="docutils literal notranslate"><span class="pre">.bash_profile</span></code> blank.</p>
+<section id="aliases">
+<span id="id3"></span><h4><span class="section-number">2.3.1.1. </span>Aliases<a class="headerlink" href="#aliases" title="Link to this heading">#</a></h4>
+<p>While learning about Micromamba, did you ever feel like typing out <code class="docutils literal notranslate"><span class="pre">micromamba</span></code>
+for every command was a little bit tedious? One way you can customize the shell
+is by creating <strong>aliases</strong> for commands that are long or hard to remember.
+Let’s create an alias <code class="docutils literal notranslate"><span class="pre">mm</span></code> for the <code class="docutils literal notranslate"><span class="pre">micromamba</span></code> command, so that you can just
+type <code class="docutils literal notranslate"><span class="pre">mm</span></code> instead of typing <code class="docutils literal notranslate"><span class="pre">micromamba</span></code>.</p>
+<p>The command to create an alias is <code class="docutils literal notranslate"><span class="pre">alias</span></code>, followed by a space, the name of the
+alias, an equals sign, and then the aliased command in quotes.</p>
+<p>For example, try adding this code to your <code class="docutils literal notranslate"><span class="pre">.bashrc</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">alias</span><span class="w"> </span><span class="nv">mm</span><span class="o">=</span><span class="s1">&#39;micromamba&#39;</span>
+</pre></div>
+</div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Be careful to match the spacing and quotes exactly. In Bash, spacing often
+matters and single quotes have a distinct meaning from double quotes.</p>
+</div>
+<p>After adding the <code class="docutils literal notranslate"><span class="pre">alias</span></code> command to <code class="docutils literal notranslate"><span class="pre">.bashrc</span></code>, save and close the file. You can
+make Bash “reload” the settings in <code class="docutils literal notranslate"><span class="pre">.bashrc</span></code> with this command:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nb">source</span><span class="w"> </span>~/.bashrc
+</pre></div>
+</div>
+<p>Alternatively, you can restart or open a new terminal, since <code class="docutils literal notranslate"><span class="pre">.bashrc</span></code> runs
+every time you open a new interactive shell. Then try using the alias to
+list your conda environments:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>mm<span class="w"> </span>env<span class="w"> </span>list
+</pre></div>
+</div>
+<p>This should print a list of environments. Notice that you can add arguments as
+you would normally after the aliased command.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If the alias doesn’t work, or the shell prints <code class="docutils literal notranslate"><span class="pre">mm:</span> <span class="pre">command</span> <span class="pre">not</span> <span class="pre">found</span></code>,
+double-check that your saved the <code class="docutils literal notranslate"><span class="pre">alias</span></code> command in <code class="docutils literal notranslate"><span class="pre">~/.bashrc</span></code> and that you
+ran the <code class="docutils literal notranslate"><span class="pre">source</span></code> command.</p>
+</div>
+<p>If you ever decide you don’t like an alias, you can use the <code class="docutils literal notranslate"><span class="pre">unalias</span></code> command
+to unset aliases in your current shell (for example, <code class="docutils literal notranslate"><span class="pre">unalias</span> <span class="pre">mm</span></code>). Make sure
+to remove the alias from <code class="docutils literal notranslate"><span class="pre">.bashrc</span></code> as well, or else it will return next time
+you open a new shell.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>For many shell commands, you can set an argument several times and only the
+last setting applies. As a result, you can use aliases to set your preferred
+defaults for a command, and then override them as needed.</p>
+<p>For example, to make the <code class="docutils literal notranslate"><span class="pre">ls</span></code> command color-code file names and display file
+sizes in human-readable units by default, add this alias to your <code class="docutils literal notranslate"><span class="pre">.bashrc</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">alias</span><span class="w"> </span><span class="nv">ls</span><span class="o">=</span><span class="s1">&#39;ls --color=auto --human-readable&#39;</span>
+</pre></div>
+</div>
+</div>
+<p>You can find many examples of helpful aliases online; try searching for <code class="docutils literal notranslate"><span class="pre">bash</span> <span class="pre">aliases</span></code> or <code class="docutils literal notranslate"><span class="pre">bash</span> <span class="pre">dotfiles</span></code>.</p>
+</section>
+<section id="environment-variables">
+<span id="id4"></span><h4><span class="section-number">2.3.1.2. </span>Environment Variables<a class="headerlink" href="#environment-variables" title="Link to this heading">#</a></h4>
+<p>You can assign variables in your shell just like in most other programming
+languages. Typically, some variables are assigned automatically when the shell
+starts.</p>
+<p>For example, the <code class="docutils literal notranslate"><span class="pre">PATH</span></code> variable contains a colon-separated list of paths where
+the shell should search for commands (software programs). Without <code class="docutils literal notranslate"><span class="pre">PATH</span></code>, you’d
+have to type the full path to every command.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>You can use the <code class="docutils literal notranslate"><span class="pre">which</span></code> command to check where the shell found a command. For
+instance, to check where the <code class="docutils literal notranslate"><span class="pre">git</span></code> command is:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>which<span class="w"> </span>git
+</pre></div>
+</div>
+</div>
+<p>In the shell, the <code class="docutils literal notranslate"><span class="pre">echo</span></code> command prints things, and you can get the value of a
+variable by putting a dollar sign <code class="docutils literal notranslate"><span class="pre">$</span></code> in front of its name. Put these two ideas
+together to print the value of <code class="docutils literal notranslate"><span class="pre">PATH</span></code>:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span><span class="w"> </span><span class="nv">$PATH</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">nick</span><span class="o">/.</span><span class="n">local</span><span class="o">/</span><span class="nb">bin</span><span class="p">:</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="n">sbin</span><span class="p">:</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="nb">bin</span><span class="p">:</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="nb">bin</span>
+</pre></div>
+</div>
+<p>You should see a colon-separated list of directories, like the one above. Some
+of the directories listed will probably be different on your computer.</p>
+<p>You can assign a variable by typing a name, an equals sign (<code class="docutils literal notranslate"><span class="pre">=</span></code>), and then a
+value. The equals sign <em>must not</em> have spaces around it, and if the value
+contains spaces, it must be quoted. By convention, names of shell variables
+should be all uppercase. Here’s how to assign a variable <code class="docutils literal notranslate"><span class="pre">FOO</span></code> with the value
+<code class="docutils literal notranslate"><span class="pre">Hello</span> <span class="pre">world!</span></code>:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nv">FOO</span><span class="o">=</span><span class="s1">&#39;Hello world!&#39;</span>
+</pre></div>
+</div>
+<p>Try printing <code class="docutils literal notranslate"><span class="pre">FOO</span></code> with <code class="docutils literal notranslate"><span class="pre">echo</span></code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can delete a variable with the <code class="docutils literal notranslate"><span class="pre">unset</span></code> command. For instance, to delete
+<code class="docutils literal notranslate"><span class="pre">FOO</span></code>, run:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nb">unset</span><span class="w"> </span>FOO
+</pre></div>
+</div>
+<p>If you try this, make sure to reassign <code class="docutils literal notranslate"><span class="pre">FOO</span></code> again, as we’ll use it in a
+subsequent example.</p>
+</div>
+<p>An <strong>environment variable</strong> is a shell variable that’s shared with other
+programs (including other shells). Environment variables are typically used to
+configure the computing environment. As it turns out, <code class="docutils literal notranslate"><span class="pre">PATH</span></code> is an environment
+variable.</p>
+<p>You can get a list of all environment variables with the <code class="docutils literal notranslate"><span class="pre">env</span></code> command. Here’s
+an example of a few lines of output from the command:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>env
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SHELL</span><span class="o">=/</span><span class="n">usr</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">bash</span>
+<span class="n">SESSION_MANAGER</span><span class="o">=</span><span class="n">local</span><span class="o">/</span><span class="n">zen</span><span class="p">:</span><span class="o">@/</span><span class="n">tmp</span><span class="o">/.</span><span class="n">ICE</span><span class="o">-</span><span class="n">unix</span><span class="o">/</span><span class="mi">579</span><span class="p">,</span><span class="n">unix</span><span class="o">/</span><span class="n">zen</span><span class="p">:</span><span class="o">/</span><span class="n">tmp</span><span class="o">/.</span><span class="n">ICE</span><span class="o">-</span><span class="n">unix</span><span class="o">/</span><span class="mi">579</span>
+<span class="n">R_PROFILE_USER</span><span class="o">=/</span><span class="n">home</span><span class="o">/</span><span class="n">nick</span><span class="o">/.</span><span class="n">config</span><span class="o">/</span><span class="n">R</span><span class="o">/</span><span class="n">rprofile</span>
+<span class="n">LESSHISTFILE</span><span class="o">=/</span><span class="n">home</span><span class="o">/</span><span class="n">nick</span><span class="o">/.</span><span class="n">config</span><span class="o">/</span><span class="n">less</span><span class="o">/</span><span class="n">history</span>
+<span class="n">COLORTERM</span><span class="o">=</span><span class="n">truecolor</span>
+</pre></div>
+</div>
+<p>On your computer, you’ll probably see some environment variables with different
+names and values.</p>
+<p>Shell variables are not automatically environment variables. Notice that the
+variable <code class="docutils literal notranslate"><span class="pre">FOO</span></code>, created above, is not in the output from <code class="docutils literal notranslate"><span class="pre">env</span></code>. To assign an
+environment variable, you can use the <code class="docutils literal notranslate"><span class="pre">export</span></code> command. To make <code class="docutils literal notranslate"><span class="pre">FOO</span></code> an
+environment variable, run:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span>FOO
+</pre></div>
+</div>
+<p>Now <code class="docutils literal notranslate"><span class="pre">FOO</span></code> is an environment variable and will appear in the output of <code class="docutils literal notranslate"><span class="pre">env</span></code>.</p>
+<p>Variables you assign interactively will be deleted when you close the shell. If
+you want to automatically assign or modify a variable every time you open a
+shell, put the assignment in your <code class="docutils literal notranslate"><span class="pre">~/.profile</span></code> file.</p>
+<p>As an example, let’s make an executable script that prints <code class="docutils literal notranslate"><span class="pre">Hello,</span> <span class="pre">world!</span></code> and
+add it to the <code class="docutils literal notranslate"><span class="pre">PATH</span></code>. To start, create and navigate to a directory called
+<code class="docutils literal notranslate"><span class="pre">~/scripts</span></code>:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>~/scripts
+<span class="nb">cd</span><span class="w"> </span>~/scripts
+</pre></div>
+</div>
+<p>Open <code class="docutils literal notranslate"><span class="pre">hello.sh</span></code> in a text editor (for example, <code class="docutils literal notranslate"><span class="pre">nano</span> <span class="pre">hello.sh</span></code>), enter the
+following, and save the file:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/sh</span>
+<span class="nb">echo</span><span class="w"> </span>Hello<span class="w"> </span>world!
+</pre></div>
+</div>
+<p>Then make the script executable:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>chmod<span class="w"> </span>+x<span class="w"> </span>hello.sh
+</pre></div>
+</div>
+<p>Try running the script to make sure it works:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">hello</span><span class="o">.</span><span class="n">sh</span>
+</pre></div>
+</div>
+<p>If you want to run the script from any other directory, you’ll have to tell the
+shell where to find the script by typing the full path <code class="docutils literal notranslate"><span class="pre">~/scripts/hello.sh</span></code>.</p>
+<p>For instance, navigate back to your home directory and try running <code class="docutils literal notranslate"><span class="pre">hello.sh</span></code>
+without the full path:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~
+hello.sh
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">-</span><span class="n">bash</span><span class="p">:</span> <span class="n">hello</span><span class="o">.</span><span class="n">sh</span><span class="p">:</span> <span class="n">command</span> <span class="ow">not</span> <span class="n">found</span>
+</pre></div>
+</div>
+<p>The shell is unable to find <code class="docutils literal notranslate"><span class="pre">hello.sh</span></code>. You can tell the shell where to look by
+adding <code class="docutils literal notranslate"><span class="pre">~/scripts</span></code> to the <code class="docutils literal notranslate"><span class="pre">PATH</span></code>. The command is:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/scripts:</span><span class="nv">$PATH</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+<p>This prepends <code class="docutils literal notranslate"><span class="pre">~/scripts</span></code> (<code class="docutils literal notranslate"><span class="pre">$HOME/scripts</span></code>) and a colon (<code class="docutils literal notranslate"><span class="pre">:</span></code>) to the <code class="docutils literal notranslate"><span class="pre">PATH</span></code>.</p>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>Be careful not to overwrite the <code class="docutils literal notranslate"><span class="pre">PATH</span></code>, as this can break your shell. Instead,
+prepend or append directories to the <code class="docutils literal notranslate"><span class="pre">PATH</span></code>.</p>
+<p>If you do accidentally overwrite the <code class="docutils literal notranslate"><span class="pre">PATH</span></code>, you can usually reset it by
+closing and reopening the shell. On a server, you can do this by logging out
+and then logging in again.</p>
+</div>
+<p>Now try running <code class="docutils literal notranslate"><span class="pre">hello.sh</span></code> again:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>hello.sh
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Hello world!
+</pre></div>
+</div>
+<p>As it stands, <code class="docutils literal notranslate"><span class="pre">~/scripts</span></code> will only stay on the <code class="docutils literal notranslate"><span class="pre">PATH</span></code> until the shell is
+closed. You can make the change persistent by adding the <code class="docutils literal notranslate"><span class="pre">export</span></code> command above
+to <code class="docutils literal notranslate"><span class="pre">~/.profile</span></code>. Open <code class="docutils literal notranslate"><span class="pre">~/.profile</span></code> in a text editor and add this line:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/scripts:</span><span class="nv">$PATH</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+<p>Now <code class="docutils literal notranslate"><span class="pre">~/scripts</span></code> will be on the <code class="docutils literal notranslate"><span class="pre">PATH</span></code> even if you close and reopen the shell.</p>
+<p>Besides the <code class="docutils literal notranslate"><span class="pre">PATH</span></code>, there are many other environment variables you might want
+to customize. For instance, you can assign <code class="docutils literal notranslate"><span class="pre">EDITOR</span></code> to specify your preferred
+text editor or assign <code class="docutils literal notranslate"><span class="pre">R_LIBS_USER</span></code> to control where R stores packages. Check
+the documentation for your favorite software to learn more about how they use
+environment variables.</p>
+<!--
+### Shell Tips
+-->
+</section>
+</section>
+<section id="other-configuration-files">
+<h3><span class="section-number">2.3.2. </span>Other Configuration Files<a class="headerlink" href="#other-configuration-files" title="Link to this heading">#</a></h3>
+<p><a class="reference internal" href="#bash"><span class="std std-numref">Section 2.3.1</span></a> focuses on Bash configuration files, but software such as git,
+tmux, R, Python, and Vim can also be customized through configuration files.
+For software you use frequently, learning to edit the configuration file(s) is
+often a worthwhile investment because allows you to tailor the software to your
+specific needs and workflows.</p>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./chapters"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="01_connecting-to-a-server.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">1. </span>Connecting to a Server</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="03_running-scripts.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">3. </span>Running Scripts</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-s-an-environment">2.1. What’s an Environment?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installing-software">2.2. Installing Software</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#package-environment-managers">2.2.1. Package &amp; Environment Managers</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#uc-davis-hpc-modules">2.2.2. UC Davis HPC Modules</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#micromamba">2.2.3. Micromamba</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#installing-micromamba">2.2.3.1. Installing Micromamba</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-environments">2.2.3.2. Creating Environments</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#exporting-environments">2.2.3.3. Exporting Environments</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#managing-storage">2.2.3.4. Managing Storage</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#editing-configurations">2.3. Editing Configurations</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bash">2.3.1. Bash</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#aliases">2.3.1.1. Aliases</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#environment-variables">2.3.1.2. Environment Variables</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#other-configuration-files">2.3.2. Other Configuration Files</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Oliver Kreylos, Tyler Shoemaker, Nick Ulle
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">
+  <img alt="CC BY-SA 4.0" src="https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg"> 
+</a>
+
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
