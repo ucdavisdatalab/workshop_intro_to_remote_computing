@@ -594,6 +594,47 @@ high-performance computing cluster account, you'll be asked to submit your
 public key as part of your request.
 :::
 
+If your server administrator uses a web form for new account requests, you
+might need to copy the contents of your public key into the form. There are
+several different ways to copy a file's contents to the clipboard, depending on
+your operating system:
+
+::::{tab-set}
+:::{tab-item} Windows (Git Bash)
+You can use `clip` to copy the contents of a file to the clipboard:
+
+```sh
+clip < ~/.ssh/new_key.pub
+```
+:::
+
+:::{tab-item} macOS
+You can use `pbcopy` to copy the contents of a file to the clipboard:
+```sh
+pbcopy < ~/.ssh/new_key.pub
+```
+:::
+
+:::{tab-item} Linux
+You can use `xsel` to copy the contents of a file to the clipboard:
+```sh
+xsel --clipboard < ~/.ssh/new_key.pub
+```
+
+Alternatively, you can use `xclip`:
+```sh
+xclip -selection clipboard < ~/.ssh/new_key.pub
+```
+
+Some Linux distributions do not include either command by default, but they can
+generally be installed through the package manager.
+:::
+::::
+
+These commands are all for convenience. If none of them work for you, you can
+instead open the public key file with a text editor (such as `nano` or `vi`),
+select all of the contents, and copy the selection.
+
 #### Uploading SSH Keys
 
 If you already have an account on a server and want to switch from password
