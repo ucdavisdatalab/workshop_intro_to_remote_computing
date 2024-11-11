@@ -369,18 +369,22 @@ Some servers do not allow password authentication because the administrators do
 not want to take on the security risk.
 :::
 
-:::{tip}
+::::{tip}
 Use a different password for each account to minimize the risk of a malicious
 person gaining access to them. You can use a password manager to help you
 choose strong passwords and eliminate the need to remember all of them.
+
+The webcomic [xkcd][] also provides some sound and practical advice on how to
+choose strong passwords:
+
+:::{figure} /img/xkcd_password_strength.png
+"Password Strength" from ["xkcd"][xkcd] by Randall Munroe
+([license][xkcd-license]).
 :::
 
-:::{tip}
-For sound and practical advice on how to choose strong passwords, see [this
-xkcd cartoon][xkcd_password].
-
-[xkcd_password]: https://xkcd.com/936/
-:::
+[xkcd]: https://xkcd.com/
+[xkcd-license]: https://xkcd.com/license.html
+::::
 
 When you sign up for an account on a server that allows password
 authentication, the server's administrators will typically assign you some
