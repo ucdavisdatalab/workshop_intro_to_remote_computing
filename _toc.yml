@@ -12,5 +12,5 @@ parts:
       - file: chapters/01_connecting-to-a-server
       - url: https://ucdavisdatalab.github.io/workshop_reproducible_research/chapters/installing-software/01_installing-software.html
         title: Setting Up Software
-      - file: chapters/03_running-scripts
-      - file: chapters/04_cluster-computing
+      - file: chapters/02_running-scripts
+      - file: chapters/03_cluster-computing
