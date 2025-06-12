@@ -1151,7 +1151,7 @@ cd ~
 pixi init bml
 ```
 
-[dl-pixi]: https://ucdavisdatalab.github.io/workshop_reproducible_research/chapters/installing-software/01_installing-software.html
+[dl-pixi]: https://ucdavisdatalab.github.io/workshop_reproducible_research/chapters/installing-software/01_environment-managers.html
 
 Then add the packages `python`, `numpy`, and `matplotlib`:
 
