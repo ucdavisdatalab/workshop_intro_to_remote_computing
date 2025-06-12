@@ -286,10 +286,10 @@ alive for as long as you'd like.
 
 The two most popular multiplexers are `screen` and `tmux`. Most computers will
 come with one or both of these applications installed, though you can also
-install them separately with a package manager like Homebrew and even conda.
-This chapter will show you the basics of `tmux`. It's a little more featureful
-than `screen` and it fits nicely with other work patterns associated with
-programs like `vim`.
+install them separately with a package manager like Pixi or even Homebrew. This
+chapter will show you the basics of `tmux`. It's a little more featureful than
+`screen` and it fits nicely with other work patterns associated with programs
+like `vim`.
 
 :::{admonition} Using tmux with conda on macOS
 :class: caution, dropdown

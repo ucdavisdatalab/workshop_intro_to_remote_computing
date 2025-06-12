@@ -38,7 +38,7 @@ collection has two parts:
   series provides an introduction to accessing and computing on remote servers
   such as [UC Davis' "Hive" cluster][hive]. The series covers everything you
   need to know to get started: how to set up and use SSH to log in and transfer
-  files, how to install software with conda, how to reserve computing time and
+  files, how to install software with Pixi, how to reserve computing time and
   run programs with SLURM, and shell commands that are especially useful for
   working with servers.
 
@@ -50,7 +50,7 @@ collection has two parts:
   
   + Use SSH to log in to a server
   + Transfer files to and from a server
-  + Set up and use conda/mamba to install software on a server
+  + Set up and use Pixi to install software on a server
   + Use SLURM to run interactive and non-interactive software on a server
   + Explain etiquette for using a server or compute cluster
   :::

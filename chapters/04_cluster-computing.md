@@ -391,12 +391,14 @@ in the computing cluster and equipped with extra memory and compute power.
 
 :::{tip}
 Don't want to type that sequence for every job request? Consider aliasing it to
-a new command in your `~/.bashrc` file (recall {numref}`aliases`). That might
+a new command in your `~/.bashrc` file (recall [Aliases][]). That might
 look like the following:
 
 ```sh
 alias scpu='srun --partition=med --time=60 --pty /bin/bash -il'
 ```
+
+[Aliases]: https://ucdavisdatalab.github.io/workshop_reproducible_research/chapters/installing-software/a_configuring-the-shell.html#aliases
 
 If you'd like to change parameters for different requests, you could create a
 Bash function instead.
@@ -632,9 +634,9 @@ srun python -u beacon.py DataLab
 
 This batch script uses a `cd` command to set the working directory. Batch
 scripts should include whatever commands are necessary to set up the
-environment for your computation. For instance, you might need to run
-`micromamba activate <environment>` if you want to run a script that requires
-packages installed with Micromamba.
+environment for your computation. For instance, you might need to use `pixi run
+<command>` if you want to run a script that requires packages installed with
+Pixi.
 
 Use a text editor to make a new file, copy in the code above, edit the
 `--mail-user` line, and save the file as `~/run_beacon.sh`. Then submit the
@@ -1141,23 +1143,21 @@ if __name__ == "__main__":
 In order to run the Python script, we need an appropriate environment and a
 batch script.
 
-We can use Micromamba to create an environment where the script can
-run (see {numref}`micromamba`). First make the environment:
+We can use Pixi to create an environment where the script can run (see
+[Setting Up Software][dl-pixi]). First make the environment:
 
 ```sh
-micromamba env create --name bml
+cd ~
+pixi init bml
 ```
 
-Then activate the environment:
+[dl-pixi]: https://ucdavisdatalab.github.io/workshop_reproducible_research/chapters/installing-software/01_installing-software.html
+
+Then add the packages `python`, `numpy`, and `matplotlib`:
 
 ```sh
-micromamba activate bml
-```
-
-Finally, install the packages `python`, `numpy`, and `matplotlib`:
-
-```sh
-micromamba install python numpy matplotlib
+cd bml
+pixi add python numpy matplotlib
 ```
 
 Next, we need to set up the batch script, which should start an array job with
@@ -1167,34 +1167,18 @@ argument. This batch script will do:
 ```sh
 #!/bin/bash
 
-#SBATCH --partition med
+#SBATCH --partition low
 #SBATCH --time 10
 #SBATCH --array 1-10
 
-srun python bml.py $SLURM_ARRAY_TASK_ID
+srun pixi run python bml.py $SLURM_ARRAY_TASK_ID
 ```
 
-:::{note}
-When you run an array job on a cluster, Slurm automatically passes on your
-shell environment to the subjobs. This is why we didn't have to activate the
-`bml` environment from within the batch script.
-
-On other clusters, Slurm may be configured differently. In order to use
-`micromamba` from within a batch script, you may have to initialize it first
-(within the batch script) with this command:
-
-```sh
-eval "$(micromamba shell hook --shell )"
-```
-
-Then you can use Micromamba normally.
-:::
-
-Save the batch script into a file called `run_bml.py`. Then submit the batch
+Save the batch script into a file called `run_bml.sh`. Then submit the batch
 script to Slurm:
 
 ```sh
-sbatch run_bml.py
+sbatch run_bml.sh
 ```
 
 It may take a few minutes for the job to finish, but if everything went well,
