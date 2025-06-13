@@ -370,10 +370,10 @@ be a path to a shell. Any subsequent arguments will be passed to the shell, so
 generally you should set `--pty` last. Most of the time, you'll set `--pty
 /bin/bash -il` to run Bash as an interactive login (`-il`) shell.
 
-Try running this command, which requests 30 minutes on the `med` partition:
+Try running this command, which requests 30 minutes on the `low` partition:
 
 ```sh
-srun --partition=med --time=30 --pty /bin/bash -il
+srun --partition=low --time=30 --pty /bin/bash -il
 ```
 
 ```
@@ -395,7 +395,7 @@ a new command in your `~/.bashrc` file (recall [Aliases][]). That might
 look like the following:
 
 ```sh
-alias scpu='srun --partition=med --time=60 --pty /bin/bash -il'
+alias scpu='srun --partition=low --time=60 --pty /bin/bash -il'
 ```
 
 [Aliases]: https://ucdavisdatalab.github.io/workshop_reproducible_research/chapters/installing-software/a_configuring-the-shell.html#aliases
@@ -422,7 +422,7 @@ squeue --me
 ```
 ```
   JOBID PARTITION NAME    USER  ACCOUNT ST TIME TIME_LEFT NODES CPU MIN_ME NODELIST(REASON)
-9377346       med bash datalab datalabg  R 0:07     59:53     1 2   2000M  cpu-8-87
+9377346       low bash datalab datalabg  R 0:07     59:53     1 2   2000M  cpu-8-87
 ```
 
 The above should align with your `srun` request, though note the extra columns:
@@ -491,7 +491,7 @@ of the allocated node:
 ```sh
 #!/bin/bash
 
-#SBATCH --partition med
+#SBATCH --partition low
 #SBATCH --time 10
 
 srun hostname
@@ -573,7 +573,7 @@ cpu-10-88
 Name                : hello.sh
 User                : nulle
 Account             : ctbrowngrp
-Partition           : med
+Partition           : low
 Nodes               : cpu-10-88
 Cores               : 2
 GPUs                : 0
@@ -618,7 +618,7 @@ Let's try a few of these with the `beacon.py` script from
 #!/bin/bash
 
 #SBATCH --job-name beacon
-#SBATCH --partition med
+#SBATCH --partition low
 #SBATCH --time 15
 #SBATCH --mem 10MB
 #SBATCH --mail-user=<your@email.com>
@@ -656,7 +656,7 @@ squeue --me
 ```
 ```
    JOBID PARTITION     NAME     USER  ACCOUNT ST        TIME   TIME_LEFT NODES CPU MIN_ME NODELIST(REASON)
-10070390       med   beacon    nulle ctbrowng  R        0:05       14:55     1 2   10M    cpu-10-72
+10070390       low   beacon    nulle ctbrowng  R        0:05       14:55     1 2   10M    cpu-10-72
 ```
 
 And if you've told Slurm to update you via email, you should have an email in
@@ -697,7 +697,7 @@ Hello, DataLab
 Name                : beacon
 User                : nulle
 Account             : ctbrowngrp
-Partition           : med
+Partition           : low
 Nodes               : cpu-10-72
 Cores               : 2
 GPUs                : 0
@@ -779,7 +779,7 @@ After making these changes, the `hello.sh` script becomes:
 ```sh
 #!/bin/bash
 
-#SBATCH --partition med
+#SBATCH --partition low
 #SBATCH --time 10
 #SBATCH --nodes 2
 
@@ -813,7 +813,7 @@ cpu-10-66
 Name                : parallel_hello.sh
 User                : nulle
 Account             : ctbrowngrp
-Partition           : med
+Partition           : low
 Nodes               : cpu-10-[18,66]
 Cores               : 4
 GPUs                : 0
@@ -863,7 +863,7 @@ becomes:
 ```sh
 #!/bin/bash
 
-#SBATCH --partition med
+#SBATCH --partition low
 #SBATCH --time 10
 #SBATCH --array 1-2
 
@@ -941,7 +941,7 @@ script:
 ```sh
 #!/bin/bash
 
-#SBATCH --partition med
+#SBATCH --partition low
 #SBATCH --time 10
 #SBATCH --array 1-2
 
