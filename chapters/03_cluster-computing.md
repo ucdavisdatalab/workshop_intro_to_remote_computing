@@ -611,8 +611,8 @@ parameters that we haven't described yet:
 
 See `man sbatch` for more details and a complete parameter list.
 
-Let's try a few of these with the `beacon.py` script from
-{numref}`example-script`. Here's a batch script to run the Python script:
+Let's try a few of these with the `beacon.sh` script from
+{numref}`example-script`. Here's a batch script to run the shell script:
 
 ```sh
 #!/bin/bash
@@ -628,8 +628,7 @@ Let's try a few of these with the `beacon.py` script from
 #SBATCH --nodes 1
 
 cd beacon
-# The -u parameter makes Python print output immediately.
-srun python -u beacon.py DataLab
+srun ./beacon.sh DataLab
 ```
 
 This batch script uses a `cd` command to set the working directory. Batch
