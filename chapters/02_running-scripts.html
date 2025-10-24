@@ -1,0 +1,1625 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en-us" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>2. Running Scripts &#8212; Introduction to Remote Computing</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=dddfd265"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/02_running-scripts';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="3. Cluster Computing" href="03_cluster-computing.html" />
+    <link rel="prev" title="1. Connecting to a Server" href="01_connecting-to-a-server.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en-us"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/datalab-logo-full-color-rgb-1.png" class="logo__image only-light" alt="Introduction to Remote Computing - Home"/>
+    <script>document.write(`<img src="../_static/datalab-logo-full-color-rgb-1.png" class="logo__image only-dark" alt="Introduction to Remote Computing - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="index.html">
+                    Overview
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Introduction to Remote Computing</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="01_connecting-to-a-server.html">1. Connecting to a Server</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://ucdavisdatalab.github.io/workshop_research_computing/chapters/installing-software/">Setting Up Software</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">2. Running Scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03_cluster-computing.html">3. Cluster Computing</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/ucdavisdatalab/workshop_intro_to_remote_computing" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/ucdavisdatalab/workshop_intro_to_remote_computing/issues/new?title=Issue%20on%20page%20%2Fchapters/02_running-scripts.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/chapters/02_running-scripts.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Running Scripts</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#executable-scripts">2.1. Executable Scripts</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-an-executable-script">2.1.1. Using an Executable Script</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#shebangs">2.1.2. Shebangs</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-script">2.1.3. Example Script</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#file-permissions">2.1.4. File Permissions</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#managing-multiple-sessions">2.2. Managing Multiple Sessions</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-basics-of-tmux">2.2.1. The Basics of <code class="docutils literal notranslate"><span class="pre">tmux</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#windows-panes">2.2.2. Windows &amp; Panes</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#monitoring-your-code">2.3. Monitoring Your Code</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#finding-a-process">2.3.1. Finding a Process</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#monitoring-real-time-system-performance">2.3.2. Monitoring Real-Time System Performance</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#other-resource-information">2.3.3. Other Resource Information</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#estimating-resource-requirements">2.4. Estimating Resource Requirements</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#computational-complexity">2.4.1. Computational Complexity</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">2.4.2. Example Script</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#timing-code">2.4.3. Timing Code</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#memory-usage">2.4.4. Memory Usage</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="running-scripts">
+<h1><span class="section-number">2. </span>Running Scripts<a class="headerlink" href="#running-scripts" title="Link to this heading">#</a></h1>
+<p>This chapter will show you how to write and run scripts on the command line.
+Scripts are like recipes, which your computer follows to complete a task.
+They’re essential for automating workflows, working on remote systems, scaling
+processes, and doing reproducible research. In addition to writing and running
+scripts, this chapter will show you how to manage terminal sessions and monitor
+processes so that you can successfully do your work.</p>
+<div class="admonition-learning-goals admonition">
+<p class="admonition-title">Learning Goals</p>
+<ul class="simple">
+<li><p>Write and run executable scripts from the command line</p></li>
+<li><p>Explain what processes, process groups, sessions, and terminals are</p></li>
+<li><p>Use a terminal multiplexer (<code class="docutils literal notranslate"><span class="pre">tmux</span></code>) to create multiple persistent sessions</p></li>
+<li><p>Use various utilities (<code class="docutils literal notranslate"><span class="pre">ps</span></code>, <code class="docutils literal notranslate"><span class="pre">top</span></code>, <code class="docutils literal notranslate"><span class="pre">htop</span></code>) to monitor and manage processes
+and jobs as they run</p></li>
+<li><p>Identify resource usage and related system information</p></li>
+<li><p>Estimate the resources required to execute your code</p></li>
+</ul>
+</div>
+<section id="executable-scripts">
+<h2><span class="section-number">2.1. </span>Executable Scripts<a class="headerlink" href="#executable-scripts" title="Link to this heading">#</a></h2>
+<p><strong>Executable</strong> files contain a set of instructions that your computer
+interprets and follows to perform a task. Here, “instruction” covers a wide
+scope of formats: certain files contain machine or binary code, while others
+contain human-readable code written in C++, Python, or R. Many executable files
+are pre-compiled binaries that can be run directly; some (like C++) must be
+compiled before they can be run; and a final group are interpreted files
+written in high-level scripting languages (like Python and R), which require an
+external program to run.</p>
+<p>This chapter focuses on the third group of files: executable scripts.</p>
+<section id="using-an-executable-script">
+<h3><span class="section-number">2.1.1. </span>Using an Executable Script<a class="headerlink" href="#using-an-executable-script" title="Link to this heading">#</a></h3>
+<p>Using an executable script works very similarly to using command line programs
+like <code class="docutils literal notranslate"><span class="pre">ls</span></code>, <code class="docutils literal notranslate"><span class="pre">grep</span></code>, etc.: scripts have names and some can take optional
+arguments. The biggest difference is that there is no preset <strong>interpreter</strong>
+for your script. Unlike most command line programs, which are precompiled
+binaries, you need to execute your script by specifying a program to interpret
+it.</p>
+<p>At a high level, that looks like the following:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">interpreter</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">script</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">arg1</span><span class="p">,</span> <span class="n">arg2</span><span class="p">,</span> <span class="n">arg3</span><span class="p">,</span> <span class="o">...&gt;</span>
+</pre></div>
+</div>
+<p><strong>Components</strong></p>
+<ul class="simple">
+<li><p>Interpreter: a program that interprets and executes instructions written in a
+script; common examples include Bash, Python, and R</p></li>
+<li><p>Script: a plaintext file that contains your code; typically its file
+extension hints at the kind of instructions it contains</p></li>
+<li><p>Arguments: extra commands that change the behavior of your script, point it
+to specific resources, etc.</p></li>
+</ul>
+<p>In practice, the above might look like so:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>script.py<span class="w"> </span>input.txt<span class="w"> </span>output.csv
+</pre></div>
+</div>
+</section>
+<section id="shebangs">
+<span id="id1"></span><h3><span class="section-number">2.1.2. </span>Shebangs<a class="headerlink" href="#shebangs" title="Link to this heading">#</a></h3>
+<p>It is, however, possible to execute a script without specifying the
+interpreter from the command line. Simply prepend the script with <code class="docutils literal notranslate"><span class="pre">./</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./&lt;</span><span class="n">script</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">arg1</span><span class="p">,</span> <span class="n">arg2</span><span class="p">,</span> <span class="n">arg3</span><span class="p">,</span> <span class="o">...&gt;</span>
+</pre></div>
+</div>
+<p>But this requires inserting a <strong>shebang</strong> into the script. A shebang is a
+special type of comment that tells your computer how it should interpret the
+contents of a script. If you do not include one, your computer will default to
+using your shell interpreter (typically Bash or Zsh) to parse the script. As
+you might imagine, if you wrote your script in Python or R, this will throw
+errors.</p>
+<p>Shebangs always go on the first line of a script. They begin with <code class="docutils literal notranslate"><span class="pre">#!</span></code>; this
+sequence is followed by an absolute path to your interpreter and any optional
+arguments.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ch">#!&lt;/path/to/interpreter&gt; &lt;arguments&gt;</span>
+</pre></div>
+</div>
+<p>Often you’ll have several interpreters to choose from (different versions of
+Python, for example). Technically there’s no constraint on what you choose, but
+it’s usually best to let your <code class="docutils literal notranslate"><span class="pre">env</span></code> command direct your computer to whatever
+interpreter is in your current environment. This is especially important when
+you’ve copied a script onto a remote computer, where the path configuration may
+be different than the one on your own.</p>
+<p>The following examples use <code class="docutils literal notranslate"><span class="pre">env</span></code> to implement a shebang for Bash, Python, and R:</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-0">
+Bash</label><div class="sd-tab-content docutils">
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env bash</span>
+</pre></div>
+</div>
+</div>
+<input id="sd-tab-item-1" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-1">
+Python</label><div class="sd-tab-content docutils">
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
+</pre></div>
+</div>
+</div>
+<input id="sd-tab-item-2" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-2">
+R</label><div class="sd-tab-content docutils">
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env Rscript</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>This will direct your computer to use the environment variables set in <code class="docutils literal notranslate"><span class="pre">env</span></code>.</p>
+</section>
+<section id="example-script">
+<span id="id2"></span><h3><span class="section-number">2.1.3. </span>Example Script<a class="headerlink" href="#example-script" title="Link to this heading">#</a></h3>
+<p>Now that you know the anatomy of an executable script, you can write one
+yourself. There are three versions of such a script below, one for Bash,
+Python, and R, respectively. The script, <code class="docutils literal notranslate"><span class="pre">beacon.{sh,py,R}</span></code>, accepts one
+argument from the command line, <code class="docutils literal notranslate"><span class="pre">name</span></code>. It then prints <code class="docutils literal notranslate"><span class="pre">Hello,</span> <span class="pre">{name}</span></code> to
+screen in an indefinite <code class="docutils literal notranslate"><span class="pre">while</span></code> loop, waiting for one second after each
+iteration.</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-3" name="sd-tab-set-1" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-3">
+Bash</label><div class="sd-tab-content docutils">
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env bash</span>
+
+<span class="nv">name</span><span class="o">=</span><span class="nv">$1</span>
+<span class="k">while</span><span class="w"> </span>true<span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Hello, </span><span class="nv">$name</span><span class="s2">&quot;</span>
+<span class="w">    </span>sleep<span class="w"> </span><span class="m">1</span>
+<span class="k">done</span>
+</pre></div>
+</div>
+</div>
+<input id="sd-tab-item-4" name="sd-tab-set-1" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-4">
+Python</label><div class="sd-tab-content docutils">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
+
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Hello, </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<input id="sd-tab-item-5" name="sd-tab-set-1" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-5">
+R</label><div class="sd-tab-content docutils">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1">#!/usr/bin/env Rscript</span>
+
+<span class="n">args</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">commandArgs</span><span class="p">(</span><span class="n">trailingOnly</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">)</span>
+<span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">args</span><span class="p">[</span><span class="m">1</span><span class="p">]</span>
+<span class="nf">while </span><span class="p">(</span><span class="kc">TRUE</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nf">cat</span><span class="p">(</span><span class="nf">paste</span><span class="p">(</span><span class="s">&quot;Hello&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">name</span><span class="p">))</span>
+<span class="w">  </span><span class="nf">Sys.sleep</span><span class="p">(</span><span class="m">1</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="file-permissions">
+<h3><span class="section-number">2.1.4. </span>File Permissions<a class="headerlink" href="#file-permissions" title="Link to this heading">#</a></h3>
+<p>To use your script (in this case, the Bash version), call it from the command
+line:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>./beacon.sh<span class="w"> </span>DataLab
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">bash</span><span class="p">:</span> <span class="n">permission</span> <span class="n">denied</span><span class="p">:</span> <span class="o">./</span><span class="n">beacon</span><span class="o">.</span><span class="n">sh</span>
+</pre></div>
+</div>
+<p>This will very likely throw an error. The default file permissions for creating
+new files on your computer typically do not include allowing that file to be
+executed. This is to protect against users unwittingly running malicious code
+from a third-party (including, potentially, other users on a computer).</p>
+<p>To inspect the file permissions for <code class="docutils literal notranslate"><span class="pre">beacon.sh</span></code>, use <code class="docutils literal notranslate"><span class="pre">ls</span> <span class="pre">-l</span></code>:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>ls<span class="w"> </span>-l<span class="w"> </span>beacon.sh
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--</span><span class="n">r</span><span class="o">--</span>  <span class="mi">1</span> <span class="n">datalab</span>  <span class="n">datalabgrp</span>  <span class="mi">85</span> <span class="n">Oct</span> <span class="mi">12</span> <span class="mi">13</span><span class="p">:</span><span class="mi">30</span> <span class="n">beacon</span><span class="o">.</span><span class="n">sh</span>
+</pre></div>
+</div>
+<p>We’re interested in the first part, <code class="docutils literal notranslate"><span class="pre">-rw-r--r--</span></code>. These are called <strong>permission
+bits</strong>. They determine whether a file has permission to be:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">r</span></code>: read</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">w</span></code>: written</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">x</span></code>: executed</p></li>
+</ul>
+<p>The first bit in this sequence designates whether something is a directory,
+<a class="reference external" href="https://en.wikipedia.org/wiki/Symbolic_link">symlink</a>, or a file. The next nine parts designate who has what
+permissions, using three bits for each to flag this:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">-</span></code>: <code class="docutils literal notranslate"><span class="pre">beacon.sh</span></code> is a file</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">rw-</span></code>: the user (<code class="docutils literal notranslate"><span class="pre">datalab</span></code>) who created it can read and write it</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">r--</span></code>: other users in this user’s group (<code class="docutils literal notranslate"><span class="pre">datalabgrp</span></code>) can read it</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">r--</span></code>: users outside that group can also read it</p></li>
+</ul>
+<p>At present, no one is allowed to execute the file. But the command line program
+<code class="docutils literal notranslate"><span class="pre">chmod</span></code> can change this. There are two ways to use <code class="docutils literal notranslate"><span class="pre">chmod</span></code>. One involves
+knowing <a class="reference external" href="https://www.ibm.com/docs/en/zos/3.1.0?topic=directories-using-octal-numbers-specify-permissions">octal</a> permission representations, which are too detailed for
+this session; instead, using the symbolic representation of <code class="docutils literal notranslate"><span class="pre">r</span></code>, <code class="docutils literal notranslate"><span class="pre">w</span></code>, and <code class="docutils literal notranslate"><span class="pre">x</span></code>
+will suffice.</p>
+<p>To give a file execute (<code class="docutils literal notranslate"><span class="pre">x</span></code>) permissions, type the following:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>chmod<span class="w"> </span>u+x<span class="w"> </span>beacon.sh
+</pre></div>
+</div>
+<p>Above, <code class="docutils literal notranslate"><span class="pre">u+x</span></code> adds “executable” to <code class="docutils literal notranslate"><span class="pre">beacon.sh</span></code>. Note that it only does so for
+the original user (<code class="docutils literal notranslate"><span class="pre">u</span></code>).</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>ls<span class="w"> </span>-l<span class="w"> </span>beacon.sh
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">-</span><span class="n">rwxr</span><span class="o">--</span><span class="n">r</span><span class="o">--</span>  <span class="mi">1</span> <span class="n">datalab</span>  <span class="n">datalabgrp</span>  <span class="mi">85</span> <span class="n">Oct</span> <span class="mi">12</span> <span class="mi">13</span><span class="p">:</span><span class="mi">30</span> <span class="n">beacon</span><span class="o">.</span><span class="n">sh</span>
+</pre></div>
+</div>
+<p>With this done, the script may be executed:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>./beacon.sh<span class="w"> </span>DataLab
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Hello</span><span class="p">,</span> <span class="n">DataLab</span>
+<span class="n">Hello</span><span class="p">,</span> <span class="n">DataLab</span>
+<span class="n">Hello</span><span class="p">,</span> <span class="n">DataLab</span>
+<span class="n">Hello</span><span class="p">,</span> <span class="n">DataLab</span>
+<span class="o">...</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="managing-multiple-sessions">
+<h2><span class="section-number">2.2. </span>Managing Multiple Sessions<a class="headerlink" href="#managing-multiple-sessions" title="Link to this heading">#</a></h2>
+<p>With no control flow to specify when the script should stop, <code class="docutils literal notranslate"><span class="pre">beacon.sh</span></code> will
+run indefinitely. While this is a toy example, which is easily stopped by
+typing <code class="docutils literal notranslate"><span class="pre">Ctrl+c</span></code>, there are many instances where you might write a script with
+the intent of having it run for a long time. Fitting a big model is one
+example; or perhaps you have a big file to download instead. Keeping your code
+running requires you to keep the <strong>session</strong> in which you started your script
+running as well. Importantly, in Unix-speak, a session is <em>not</em> the same thing
+as your <strong>terminal</strong>. The latter is what you use when you interact with your
+computer via the command line. By contrast, a session is created when you log
+in (start interacting) and it persists until you log out (stop interacting). It
+is comprised of a collection of <strong>processes</strong>. Each process is dedicated to a
+separate program in your session.</p>
+<p>Every time you open your terminal, you start a session. Various processes start
+as well; you start others whenever you interact with the command line. Closing
+your terminal (even unintentionally, as in the case of a lost internet
+connection) terminates all processes associated with a session, including those
+that are still running. That would “kill” <code class="docutils literal notranslate"><span class="pre">beacon.sh</span></code>. In this instance there’s
+no harm in that, but if you have a script that you want to run for multiple
+hours, or even days, you will need a way to keep your session alive. One way to
+do this is with a <strong>terminal multiplexer</strong>. Multiplexers are applications that
+enable you to run one or more sessions at the same time and keep those sessions
+alive for as long as you’d like.</p>
+<section id="the-basics-of-tmux">
+<h3><span class="section-number">2.2.1. </span>The Basics of <code class="docutils literal notranslate"><span class="pre">tmux</span></code><a class="headerlink" href="#the-basics-of-tmux" title="Link to this heading">#</a></h3>
+<p>The two most popular multiplexers are <code class="docutils literal notranslate"><span class="pre">screen</span></code> and <code class="docutils literal notranslate"><span class="pre">tmux</span></code>. Most computers will
+come with one or both of these applications installed, though you can also
+install them separately with a package manager like Pixi or even Homebrew. This
+chapter will show you the basics of <code class="docutils literal notranslate"><span class="pre">tmux</span></code>. It’s a little more featureful than
+<code class="docutils literal notranslate"><span class="pre">screen</span></code> and it fits nicely with other work patterns associated with programs
+like <code class="docutils literal notranslate"><span class="pre">vim</span></code>.</p>
+<div class="caution dropdown admonition">
+<p class="admonition-title">Using tmux with conda on macOS</p>
+<p>On macOS, <code class="docutils literal notranslate"><span class="pre">tmux</span></code> runs a path-building utility that can interfere with active
+conda environments. To fix this, you’ll need to do a further bit of
+configuration.</p>
+<p>First, determine which shell you are using:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span><span class="w"> </span><span class="nv">$SHELL</span>
+</pre></div>
+</div>
+<p>If you see <code class="docutils literal notranslate"><span class="pre">/bin/zsh</span></code>, create a new file in your Home directory:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>touch<span class="w"> </span>~/.zprofile
+</pre></div>
+</div>
+<p>If you see <code class="docutils literal notranslate"><span class="pre">/bin/bash</span></code>, create a slightly different one:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>touch<span class="w"> </span>~/.bash_profile
+</pre></div>
+</div>
+<p>Open the file (either <code class="docutils literal notranslate"><span class="pre">.zprofile</span></code> or <code class="docutils literal notranslate"><span class="pre">.bash_profile</span></code>) and enter the following:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span>!<span class="w"> </span>-z<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$TMUX</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">]]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span><span class="nv">PATH</span><span class="o">=</span><span class="s2">&quot;&quot;</span>
+<span class="w">    </span><span class="nb">eval</span><span class="w"> </span><span class="sb">`</span>/usr/libexec/path_helper<span class="w"> </span>-s<span class="sb">`</span>
+<span class="k">fi</span>
+</pre></div>
+</div>
+<p>This will flush your path when <code class="docutils literal notranslate"><span class="pre">tmux</span></code> initializes and rebuild it so that conda
+is where it should be.</p>
+<p>Save and exit. You should be set!</p>
+</div>
+<p>To start <code class="docutils literal notranslate"><span class="pre">tmux</span></code>, simply type it in your command line:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>tmux
+</pre></div>
+</div>
+<p><img alt="New  session" src="../_images/tmux_new.png" /></p>
+<p>You are now in a <strong>window</strong>, which sits inside a screen. It looks the same as
+your regular terminal view, except for a new bar at the bottom. Note the
+number: <code class="docutils literal notranslate"><span class="pre">[0]</span></code>. This means you are working in your first session.</p>
+<p>Within your window, start <code class="docutils literal notranslate"><span class="pre">beacon.sh</span></code>:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>./beacon.sh<span class="w"> </span>DataLab
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Hello</span><span class="p">,</span> <span class="n">DataLab</span>
+<span class="o">...</span>
+</pre></div>
+</div>
+<p>That will kick off the script, which you’ll leave running. But since the script
+is running, you can’t type any further commands into your terminal itself.
+Instead, you’ll need to type a special sequence, or <strong>keybinding</strong>, to
+communicate with <code class="docutils literal notranslate"><span class="pre">tmux</span></code>. Default keybindings in <code class="docutils literal notranslate"><span class="pre">tmux</span></code> start with the sequence
+<code class="docutils literal notranslate"><span class="pre">Ctrl+b</span></code>. You’ll always type these two keys before specifying what you want the
+program to do.</p>
+<p>In this case, you want to leave, or <strong>detach</strong>, your session so that you can do
+more work while the code continues to run. The sequence you’ll type is <code class="docutils literal notranslate"><span class="pre">Ctrl+b</span> <span class="pre">d</span></code>. Doing so should bring you back to your original terminal view, where you’ll
+see the following:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">detached</span> <span class="p">(</span><span class="kn">from</span> <span class="nn">session</span> <span class="mi">0</span><span class="p">)]</span>
+</pre></div>
+</div>
+<p>Detaching from the session will keep it alive but change the screen you’re
+viewing. You can go about your work and leave <code class="docutils literal notranslate"><span class="pre">beacon.sh</span></code> running. If you’d
+like to check in on it, or terminate the script, enter:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>tmux<span class="w"> </span>attach<span class="w"> </span>-t<span class="w"> </span><span class="m">0</span>
+</pre></div>
+</div>
+<p>That is, <code class="docutils literal notranslate"><span class="pre">attach</span></code> to the target (<code class="docutils literal notranslate"><span class="pre">-t</span></code>), which in this case is session <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p>
+<p>Entering this command will bring you back to a screen view that contains the
+output of <code class="docutils literal notranslate"><span class="pre">beacon.sh</span></code>. Use <code class="docutils literal notranslate"><span class="pre">Ctrl+c</span></code> to stop your script. Then enter the
+following to close <code class="docutils literal notranslate"><span class="pre">tmux</span></code>:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nb">exit</span>
+</pre></div>
+</div>
+<p>It’s a good idea to name your sessions, rather than relying on their index
+positions.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>tmux<span class="w"> </span>new<span class="w"> </span>-s<span class="w"> </span><span class="s2">&quot;beacon&quot;</span>
+</pre></div>
+</div>
+<p>The following starts a new session without entering it:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>tmux<span class="w"> </span>new<span class="w"> </span>-ds<span class="w"> </span><span class="s2">&quot;not_entered&quot;</span>
+</pre></div>
+</div>
+<p>In other words, create a <code class="docutils literal notranslate"><span class="pre">new</span></code> session (<code class="docutils literal notranslate"><span class="pre">-s</span></code>) named <code class="docutils literal notranslate"><span class="pre">not_entered</span></code> in a detached
+(<code class="docutils literal notranslate"><span class="pre">-d</span></code>) state.</p>
+<p>List your current sessions with:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>tmux<span class="w"> </span>ls
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">beacon</span><span class="p">:</span> <span class="mi">1</span> <span class="n">windows</span> <span class="p">(</span><span class="n">created</span> <span class="n">Thu</span> <span class="n">Oct</span> <span class="mi">12</span> <span class="mi">15</span><span class="p">:</span><span class="mi">43</span><span class="p">:</span><span class="mi">30</span> <span class="mi">2023</span><span class="p">)</span>
+<span class="n">not_entered</span><span class="p">:</span> <span class="mi">1</span> <span class="n">windows</span> <span class="p">(</span><span class="n">created</span> <span class="n">Thu</span> <span class="n">Oct</span> <span class="mi">12</span> <span class="mi">15</span><span class="p">:</span><span class="mi">46</span><span class="p">:</span><span class="mi">07</span> <span class="mi">2023</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Attach to a named session like so:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>tmux<span class="w"> </span>attach<span class="w"> </span>-t<span class="w"> </span><span class="s2">&quot;not_entered&quot;</span>
+</pre></div>
+</div>
+<p>And close a session from your normal terminal view:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>tmux<span class="w"> </span>kill-session<span class="w"> </span>-t<span class="w"> </span><span class="s2">&quot;beacon&quot;</span>
+</pre></div>
+</div>
+<p>Terminate all sessions using:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>tmux<span class="w"> </span>kill-server
+</pre></div>
+</div>
+<p>This functionality becomes extremely powerful with remote systems. Using
+<code class="docutils literal notranslate"><span class="pre">tmux</span></code>, you can start a session on a remote computer, kick off a script, detach
+from the session, and log off the remote computer altogether. All the while,
+the script will continue running until you log in again.</p>
+</section>
+<section id="windows-panes">
+<h3><span class="section-number">2.2.2. </span>Windows &amp; Panes<a class="headerlink" href="#windows-panes" title="Link to this heading">#</a></h3>
+<p>In <code class="docutils literal notranslate"><span class="pre">tmux</span></code>, a window is not the same thing as a session. The latter is a
+container for the former, and you can have multiple windows. Think of them like
+tabs in a web browser.</p>
+<p>As with sessions, naming windows can be a good idea. The following starts a new
+session, <code class="docutils literal notranslate"><span class="pre">beacon</span></code>, with window <code class="docutils literal notranslate"><span class="pre">win1</span></code>:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>tmux<span class="w"> </span>new<span class="w"> </span>-s<span class="w"> </span><span class="s2">&quot;beacon&quot;</span><span class="w"> </span>-n<span class="w"> </span><span class="s2">&quot;win1&quot;</span>
+</pre></div>
+</div>
+<p>You can enter tmux’s command mode, which you can use to control windows and
+other aspects of tmux, by pressing and releasing <code class="docutils literal notranslate"><span class="pre">Ctrl+b</span></code>, then pressing and
+releasing colon (<code class="docutils literal notranslate"><span class="pre">:</span></code>). If you’ve used <code class="docutils literal notranslate"><span class="pre">vim</span></code> before, this will feel familiar.</p>
+<p>In command mode, tmux will wait for you to type a command and press <code class="docutils literal notranslate"><span class="pre">Enter</span></code>.
+For example, try entering the command to create a new window named <code class="docutils literal notranslate"><span class="pre">win2</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">new</span><span class="o">-</span><span class="n">window</span> <span class="o">-</span><span class="n">n</span> <span class="s2">&quot;win2&quot;</span>
+</pre></div>
+</div>
+<p><img alt="A  session with two windows" src="../_images/tmux_windows.png" /></p>
+<p>From now on, we’ll indicate commands that must be entered in tmux command mode
+with a leading colon (<code class="docutils literal notranslate"><span class="pre">:</span></code>). For instance, note that now two windows are listed
+in the tmux status bar (the bottom bar), and <code class="docutils literal notranslate"><span class="pre">win2</span></code> is active. To switch back
+to <code class="docutils literal notranslate"><span class="pre">win1</span></code>, run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">:</span><span class="n">select</span><span class="o">-</span><span class="n">window</span> <span class="o">-</span><span class="n">t</span> <span class="s2">&quot;win1&quot;</span>
+</pre></div>
+</div>
+<p>To close <code class="docutils literal notranslate"><span class="pre">win2</span></code>, run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">:</span><span class="n">kill</span><span class="o">-</span><span class="n">window</span> <span class="o">-</span><span class="n">t</span> <span class="s2">&quot;win2&quot;</span>
+</pre></div>
+</div>
+<p>You can also use tmux’s keybindings to switch between and close windows
+quickly:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Keybinding</p></th>
+<th class="head"><p>Explanation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Ctrl+b</span> <span class="pre">c</span></code></p></td>
+<td><p>Create a new unnamed window</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Ctrl+b</span> <span class="pre">p</span></code></p></td>
+<td><p>Toggle the previous window</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Ctrl+b</span> <span class="pre">n</span></code></p></td>
+<td><p>Toggle the next window</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Ctrl+b</span> <span class="pre">0...9</span></code></p></td>
+<td><p>Select a window by its index position</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Ctrl+b</span> <span class="pre">x</span></code></p></td>
+<td><p>Close the current window</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Finally, windows can be split into <strong>panes</strong>. This divides a window into
+different areas, which can all run different processes. To try this, run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">:</span><span class="n">split</span><span class="o">-</span><span class="n">window</span> <span class="o">-</span><span class="n">v</span>
+</pre></div>
+</div>
+<p>…to split the window into two vertical panes. Use <code class="docutils literal notranslate"><span class="pre">-h</span></code> instead of <code class="docutils literal notranslate"><span class="pre">-v</span></code> to
+split horizontally. The example below is a window with three panes, each of
+which is running a different process. As this example indicates, using <code class="docutils literal notranslate"><span class="pre">tmux</span></code>
+in concert with a program like <code class="docutils literal notranslate"><span class="pre">vim</span></code> can end up acting like a custom
+interactive development environment (IDE).</p>
+<p><img alt="A  window with three panes running multipleprograms" src="../_images/tmux_panes.png" /></p>
+<p>As before, keybindings make creating panes and navigating between them faster:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Keybinding</p></th>
+<th class="head"><p>Explanation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Ctrl+b</span> <span class="pre">&quot;</span></code></p></td>
+<td><p>Do a vertical split</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Ctrl+b</span> <span class="pre">%</span></code></p></td>
+<td><p>Do a horizontal split</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Ctrl-b</span> <span class="pre">x</span></code></p></td>
+<td><p>Close the current pane</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Ctrl+b</span> <span class="pre">left</span></code></p></td>
+<td><p>Move to the pane on the left</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Ctrl+b</span> <span class="pre">right</span></code></p></td>
+<td><p>Move to the pane on the right</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Ctrl+b</span> <span class="pre">up</span></code></p></td>
+<td><p>Move to the pane above</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Ctrl+b</span> <span class="pre">down</span></code></p></td>
+<td><p>Move to the pane below</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>This only scratches the surface of <code class="docutils literal notranslate"><span class="pre">tmux</span></code>. It has much more functionality than
+the above, and nearly all of those functions may be configured according to
+your preferences. Use the application’s <code class="docutils literal notranslate"><span class="pre">man</span></code> page to find out more, or consult
+a <a class="reference external" href="https://devhints.io/tmux">cheat sheet</a> online.</p>
+</section>
+</section>
+<section id="monitoring-your-code">
+<h2><span class="section-number">2.3. </span>Monitoring Your Code<a class="headerlink" href="#monitoring-your-code" title="Link to this heading">#</a></h2>
+<p>As your work spreads across sessions, windows, and panes, it becomes
+increasingly necessary to track what is running, and where. In the context of
+remote computing, tracking your work is not only essential but good etiquette.
+Resources can be limited, and you want to be sure you aren’t negatively
+affecting users’ work.</p>
+<section id="finding-a-process">
+<h3><span class="section-number">2.3.1. </span>Finding a Process<a class="headerlink" href="#finding-a-process" title="Link to this heading">#</a></h3>
+<p>Recall that each program runs on its own process. Every time you interact with
+your computer, you spawn a process, or multiple processes. Your computer
+assigns a unique <strong>process id</strong> (PID) to each process, which enables you to
+monitor and manage it as necessary.</p>
+<p><code class="docutils literal notranslate"><span class="pre">ps</span></code> will tell you which processes are currently running in a terminal.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>tmux<span class="w"> </span>new<span class="w"> </span>-s<span class="w"> </span><span class="s2">&quot;beacon&quot;</span>
+ps
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>    <span class="n">PID</span> <span class="n">TTY</span>          <span class="n">TIME</span> <span class="n">CMD</span>
+<span class="mi">1989588</span> <span class="n">pts</span><span class="o">/</span><span class="mi">50</span>   <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="n">bash</span>
+<span class="mi">1990312</span> <span class="n">pts</span><span class="o">/</span><span class="mi">50</span>   <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="n">ps</span>
+</pre></div>
+</div>
+<p>The output above contains the following:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">PID</span></code>: unique process ids</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">TTY</span></code>: terminal associated with the process</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">TIME</span></code>: CPU time a process has used</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CMD</span></code>: command that started the process</p></li>
+</ul>
+<p>Now start <code class="docutils literal notranslate"><span class="pre">beacon.sh</span></code> in <code class="docutils literal notranslate"><span class="pre">tmux</span></code> and detach from the session.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>./beacon.sh<span class="w"> </span>DataLab
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Hello</span><span class="p">,</span> <span class="n">DataLab</span>
+<span class="o">...</span>
+</pre></div>
+</div>
+<p>If you’re on Linux, running <code class="docutils literal notranslate"><span class="pre">ps</span></code> outside <code class="docutils literal notranslate"><span class="pre">tmux</span></code> will show similar output to the
+above, but with different PIDs. MacOS’s version of <code class="docutils literal notranslate"><span class="pre">ps</span></code> defaults to showing all
+processes associated with a user, not just those associated with the active
+terminal. This is equivalent to setting the <code class="docutils literal notranslate"><span class="pre">-u</span></code> flag and specifying a user in
+Linux.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>ps<span class="w"> </span>-u<span class="w"> </span>datalab
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>    PID TTY          TIME CMD
+1989412 ?        00:00:00 systemd
+1989413 ?        00:00:00 (sd-pam)
+1989436 ?        00:00:00 sshd
+1989437 pts/35   00:00:00 bash
+1989587 ?        00:00:00 tmux: server
+1989588 pts/50   00:00:00 bash
+1990640 pts/50   00:00:00 bash
+1995213 pts/50   00:00:00 sleep
+1995214 pts/35   00:00:00 ps
+</pre></div>
+</div>
+<p>Now there are two instances of Bash running, one for the shell that called <code class="docutils literal notranslate"><span class="pre">ps</span></code>
+and one for the shell that started <code class="docutils literal notranslate"><span class="pre">beacon.sh</span></code>. There’s another process for
+<code class="docutils literal notranslate"><span class="pre">tmux</span></code> itself and a separate one for <code class="docutils literal notranslate"><span class="pre">sleep</span></code>. Two terminals manage these
+processes, though not all processes have a terminal associated with them.
+Processes with <code class="docutils literal notranslate"><span class="pre">?</span></code> in the <code class="docutils literal notranslate"><span class="pre">TTY</span></code> column are system-level programs, which are
+included here because they are the <strong>parents</strong> of other processes. That is,
+these processes spawned other processes.</p>
+<p>Setting the <code class="docutils literal notranslate"><span class="pre">-f</span></code> (full format) and <code class="docutils literal notranslate"><span class="pre">-j</span></code> (jobs) flags will show which processes
+were spawned by other processes. Look at the <code class="docutils literal notranslate"><span class="pre">PPID</span></code>, or process parent id,
+column below:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>ps<span class="w"> </span>-fju<span class="w"> </span>datalab
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>UID            PID    PPID    PGID     SID  C STIME TTY          TIME CMD
+datalab    1989412       1 1989412 1989412  0 20:41 ?        00:00:00 /lib/systemd/systemd --user
+datalab    1989413 1989412 1989412 1989412  0 20:41 ?        00:00:00 (sd-pam)
+datalab    1989436 1989378 1989378 1989378  0 20:41 ?        00:00:00 sshd: datalab@pts/35
+datalab    1989437 1989436 1989437 1989437  0 20:41 pts/35   00:00:00 -bash
+datalab    1989587       1 1989587 1989587  0 20:41 ?        00:00:00 tmux new -ds beacon
+datalab    1989588 1989587 1989588 1989588  0 20:41 pts/50   00:00:00 /bin/bash
+datalab    1990640 1989588 1990640 1989588  0 20:44 pts/50   00:00:01 bash ./beacon.sh DataLab
+datalab    2002776 1990640 1990640 1989588  0 21:12 pts/50   00:00:00 sleep 1
+datalab    2002783 1989437 2002783 1989437  0 21:12 pts/35   00:00:00 ps -fju datalab
+</pre></div>
+</div>
+<p>See how <code class="docutils literal notranslate"><span class="pre">sleep</span> <span class="pre">1</span></code> (2002776) has the parent 1990640, which is the PID of the
+process that executed <code class="docutils literal notranslate"><span class="pre">beacon.sh</span></code>? Both are in the same <strong>process group</strong>,
+which is reflected in the <code class="docutils literal notranslate"><span class="pre">PGID</span></code> column. (Note in passing <code class="docutils literal notranslate"><span class="pre">SID</span></code>, which is the
+session id column.)</p>
+<p>Calling <code class="docutils literal notranslate"><span class="pre">ps</span></code> on a single PID provides information about a single process.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>ps<span class="w"> </span>-f<span class="w"> </span><span class="m">1990640</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">UID</span>            <span class="n">PID</span>    <span class="n">PPID</span>    <span class="n">PGID</span>     <span class="n">SID</span>  <span class="n">C</span> <span class="n">STIME</span> <span class="n">TTY</span>      <span class="n">STAT</span>   <span class="n">TIME</span> <span class="n">CMD</span>
+<span class="n">datalab</span>    <span class="mi">1990640</span> <span class="mi">1989588</span> <span class="mi">1990640</span> <span class="mi">1989588</span>  <span class="mi">0</span> <span class="mi">20</span><span class="p">:</span><span class="mi">44</span> <span class="n">pts</span><span class="o">/</span><span class="mi">50</span>   <span class="n">S</span><span class="o">+</span>     <span class="mi">0</span><span class="p">:</span><span class="mi">01</span> <span class="n">bash</span> <span class="o">./</span><span class="n">beacon</span><span class="o">.</span><span class="n">sh</span> <span class="n">DataLab</span>
+</pre></div>
+</div>
+<p>If you’d like to terminate a process, note its PID and use <code class="docutils literal notranslate"><span class="pre">kill</span></code>.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nb">kill</span><span class="w"> </span><span class="m">1990640</span>
+tmux<span class="w"> </span>attach<span class="w"> </span>-t<span class="w"> </span><span class="s2">&quot;beacon&quot;</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">...</span>
+<span class="n">Hello</span><span class="p">,</span> <span class="n">DataLab</span>
+<span class="n">Hello</span><span class="p">,</span> <span class="n">DataLab</span>
+<span class="n">Terminated</span>
+</pre></div>
+</div>
+<p>This can be especially important if you’ve written a script that causes your
+terminal to be unresponsive. For example, maybe your computer is getting bogged
+down because a script is taking up too many resources. You might notice this
+and want to terminate the script before it causes any further problems and
+rethink how to implement your code.</p>
+<p>But how would you know what resources are being used?</p>
+</section>
+<section id="monitoring-real-time-system-performance">
+<h3><span class="section-number">2.3.2. </span>Monitoring Real-Time System Performance<a class="headerlink" href="#monitoring-real-time-system-performance" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">top</span></code> will display real-time information about every process running on a
+computer. It’s a great bird’s-eye view of what is going on at any one point in
+your system. But for that reason it can also be overwhelming. Calling <code class="docutils literal notranslate"><span class="pre">top</span></code>
+with no arguments shows a giant, shifting wall of text; for the purposes of
+this chapter, it will be more useful to look at a specific user.</p>
+<p>Running:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>top<span class="w"> </span>-u<span class="w"> </span>datalab
+</pre></div>
+</div>
+<p>will take you to a screen like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">top</span> <span class="o">-</span> <span class="mi">21</span><span class="p">:</span><span class="mi">36</span><span class="p">:</span><span class="mi">11</span> <span class="n">up</span> <span class="mi">6</span> <span class="n">days</span><span class="p">,</span> <span class="mi">11</span><span class="p">:</span><span class="mi">49</span><span class="p">,</span> <span class="mi">47</span> <span class="n">users</span><span class="p">,</span>  <span class="n">load</span> <span class="n">average</span><span class="p">:</span> <span class="mf">2.77</span><span class="p">,</span> <span class="mf">2.76</span><span class="p">,</span> <span class="mf">3.28</span>
+<span class="n">Tasks</span><span class="p">:</span> <span class="mi">1834</span> <span class="n">total</span><span class="p">,</span>   <span class="mi">1</span> <span class="n">running</span><span class="p">,</span> <span class="mi">1833</span> <span class="n">sleeping</span><span class="p">,</span>   <span class="mi">0</span> <span class="n">stopped</span><span class="p">,</span>   <span class="mi">0</span> <span class="n">zombie</span>
+<span class="o">%</span><span class="n">Cpu</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>  <span class="mf">0.5</span> <span class="n">us</span><span class="p">,</span>  <span class="mf">1.0</span> <span class="n">sy</span><span class="p">,</span>  <span class="mf">0.0</span> <span class="n">ni</span><span class="p">,</span> <span class="mf">98.4</span> <span class="nb">id</span><span class="p">,</span>  <span class="mf">0.0</span> <span class="n">wa</span><span class="p">,</span>  <span class="mf">0.0</span> <span class="n">hi</span><span class="p">,</span>  <span class="mf">0.0</span> <span class="n">si</span><span class="p">,</span>  <span class="mf">0.0</span> <span class="n">st</span>
+<span class="n">MiB</span> <span class="n">Mem</span> <span class="p">:</span>  <span class="mf">64273.2</span> <span class="n">total</span><span class="p">,</span>   <span class="mf">8747.3</span> <span class="n">free</span><span class="p">,</span>   <span class="mf">6632.5</span> <span class="n">used</span><span class="p">,</span>  <span class="mf">48893.4</span> <span class="n">buff</span><span class="o">/</span><span class="n">cache</span>
+<span class="n">MiB</span> <span class="n">Swap</span><span class="p">:</span>   <span class="mf">8192.0</span> <span class="n">total</span><span class="p">,</span>   <span class="mf">6785.1</span> <span class="n">free</span><span class="p">,</span>   <span class="mf">1406.8</span> <span class="n">used</span><span class="o">.</span>  <span class="mf">56968.1</span> <span class="n">avail</span> <span class="n">Mem</span>
+
+    <span class="n">PID</span> <span class="n">USER</span>        <span class="n">PR</span>  <span class="n">NI</span>    <span class="n">VIRT</span>    <span class="n">RES</span>    <span class="n">SHR</span> <span class="n">S</span>  <span class="o">%</span><span class="n">CPU</span>  <span class="o">%</span><span class="n">MEM</span>     <span class="n">TIME</span><span class="o">+</span> <span class="n">COMMAND</span>
+<span class="mi">2012094</span> <span class="n">datalab</span>     <span class="mi">20</span>   <span class="mi">0</span>   <span class="mi">12936</span>   <span class="mi">5632</span>   <span class="mi">3072</span> <span class="n">R</span>   <span class="mf">1.6</span>   <span class="mf">0.0</span>   <span class="mi">0</span><span class="p">:</span><span class="mf">00.35</span> <span class="n">top</span>
+<span class="mi">1989412</span> <span class="n">datalab</span>     <span class="mi">20</span>   <span class="mi">0</span>   <span class="mi">17840</span>   <span class="mi">9984</span>   <span class="mi">7936</span> <span class="n">S</span>   <span class="mf">0.0</span>   <span class="mf">0.0</span>   <span class="mi">0</span><span class="p">:</span><span class="mf">00.56</span> <span class="n">systemd</span>
+<span class="mi">1989413</span> <span class="n">datalab</span>     <span class="mi">20</span>   <span class="mi">0</span>  <span class="mi">172916</span>   <span class="mi">8380</span>   <span class="mi">1536</span> <span class="n">S</span>   <span class="mf">0.0</span>   <span class="mf">0.0</span>   <span class="mi">0</span><span class="p">:</span><span class="mf">00.00</span> <span class="p">(</span><span class="n">sd</span><span class="o">-</span><span class="n">pam</span><span class="p">)</span>
+<span class="mi">1989587</span> <span class="n">datalab</span>     <span class="mi">20</span>   <span class="mi">0</span>    <span class="mi">9124</span>   <span class="mi">3880</span>   <span class="mi">3072</span> <span class="n">S</span>   <span class="mf">0.0</span>   <span class="mf">0.0</span>   <span class="mi">0</span><span class="p">:</span><span class="mf">00.64</span> <span class="n">tmux</span><span class="p">:</span> <span class="n">server</span>
+<span class="mi">1989588</span> <span class="n">datalab</span>     <span class="mi">20</span>   <span class="mi">0</span>   <span class="mi">12748</span>   <span class="mi">7680</span>   <span class="mi">3328</span> <span class="n">S</span>   <span class="mf">0.0</span>   <span class="mf">0.0</span>   <span class="mi">0</span><span class="p">:</span><span class="mf">00.07</span> <span class="n">bash</span>
+<span class="mi">2011773</span> <span class="n">datalab</span>     <span class="mi">20</span>   <span class="mi">0</span>   <span class="mi">17360</span>   <span class="mi">7672</span>   <span class="mi">5376</span> <span class="n">S</span>   <span class="mf">0.0</span>   <span class="mf">0.0</span>   <span class="mi">0</span><span class="p">:</span><span class="mf">00.02</span> <span class="n">sshd</span>
+<span class="mi">2011775</span> <span class="n">datalab</span>     <span class="mi">20</span>   <span class="mi">0</span>   <span class="mi">11652</span>   <span class="mi">7680</span>   <span class="mi">3328</span> <span class="n">S</span>   <span class="mf">0.0</span>   <span class="mf">0.0</span>   <span class="mi">0</span><span class="p">:</span><span class="mf">00.07</span> <span class="n">bash</span>
+<span class="mi">2011885</span> <span class="n">datalab</span>     <span class="mi">20</span>   <span class="mi">0</span>    <span class="mi">7900</span>   <span class="mi">3840</span>   <span class="mi">3328</span> <span class="n">S</span>   <span class="mf">0.0</span>   <span class="mf">0.0</span>   <span class="mi">0</span><span class="p">:</span><span class="mf">00.03</span> <span class="n">bash</span>
+<span class="mi">2012182</span> <span class="n">datalab</span>     <span class="mi">20</span>   <span class="mi">0</span>    <span class="mi">6192</span>   <span class="mi">1792</span>   <span class="mi">1792</span> <span class="n">S</span>   <span class="mf">0.0</span>   <span class="mf">0.0</span>   <span class="mi">0</span><span class="p">:</span><span class="mf">00.00</span> <span class="n">sleep</span>
+</pre></div>
+</div>
+<p>The header portion of <code class="docutils literal notranslate"><span class="pre">top</span></code>, or its <strong>dashboard</strong>, will tell you information
+about how long a computer has been running (<code class="docutils literal notranslate"><span class="pre">up...</span></code>), how many users are on the
+computer, the number of processes (<code class="docutils literal notranslate"><span class="pre">Tasks</span></code>), and so on. Below the header is
+information that’s similar to what we saw with <code class="docutils literal notranslate"><span class="pre">ps</span></code>. It’s called the <strong>task
+list</strong>. The PID and user for each process are listed here, as well as the
+command that started them.</p>
+<p>Sandwiched in between these columns is information about the memory and CPU
+usage of these processes.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">VIRT</span></code>: virtual memory used by a process</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">RES</span></code>: resident (non-swap) memory used by a process</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SHR</span></code>: shared memory used by a process</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">S</span></code>: status of a process (<code class="docutils literal notranslate"><span class="pre">R</span></code> for running, <code class="docutils literal notranslate"><span class="pre">S</span></code> for sleeping)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">%CPU</span></code>: amount of CPU a process uses</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">%MEM</span></code>: amount of physical RAM a process uses</p></li>
+</ul>
+<p>Two other columns, <code class="docutils literal notranslate"><span class="pre">PR</span></code> and <code class="docutils literal notranslate"><span class="pre">NI</span></code> stand for process priority and a “nice value”
+(used for process scheduling), respectively.</p>
+<p>Right now the task list displays its values in kilobytes. That’s hard to read.
+Type <code class="docutils literal notranslate"><span class="pre">e</span></code> when <code class="docutils literal notranslate"><span class="pre">top</span></code> is active to toggle between kilobytes, megabytes,
+gigabytes, and so on. Use <code class="docutils literal notranslate"><span class="pre">Shift+e</span></code> to toggle the dashboard values.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">top</span> <span class="o">-</span> <span class="mi">21</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">22</span> <span class="n">up</span> <span class="mi">6</span> <span class="n">days</span><span class="p">,</span> <span class="mi">12</span><span class="p">:</span><span class="mi">04</span><span class="p">,</span> <span class="mi">46</span> <span class="n">users</span><span class="p">,</span>  <span class="n">load</span> <span class="n">average</span><span class="p">:</span> <span class="mf">1.44</span><span class="p">,</span> <span class="mf">1.60</span><span class="p">,</span> <span class="mf">2.18</span>
+<span class="n">Tasks</span><span class="p">:</span> <span class="mi">1836</span> <span class="n">total</span><span class="p">,</span>   <span class="mi">2</span> <span class="n">running</span><span class="p">,</span> <span class="mi">1834</span> <span class="n">sleeping</span><span class="p">,</span>   <span class="mi">0</span> <span class="n">stopped</span><span class="p">,</span>   <span class="mi">0</span> <span class="n">zombie</span>
+<span class="o">%</span><span class="n">Cpu</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>  <span class="mf">0.4</span> <span class="n">us</span><span class="p">,</span>  <span class="mf">0.4</span> <span class="n">sy</span><span class="p">,</span>  <span class="mf">0.0</span> <span class="n">ni</span><span class="p">,</span> <span class="mf">98.9</span> <span class="nb">id</span><span class="p">,</span>  <span class="mf">0.0</span> <span class="n">wa</span><span class="p">,</span>  <span class="mf">0.0</span> <span class="n">hi</span><span class="p">,</span>  <span class="mf">0.3</span> <span class="n">si</span><span class="p">,</span>  <span class="mf">0.0</span> <span class="n">st</span>
+<span class="n">GiB</span> <span class="n">Mem</span> <span class="p">:</span>     <span class="mf">62.8</span> <span class="n">total</span><span class="p">,</span>      <span class="mf">9.0</span> <span class="n">free</span><span class="p">,</span>      <span class="mf">6.4</span> <span class="n">used</span><span class="p">,</span>     <span class="mf">47.4</span> <span class="n">buff</span><span class="o">/</span><span class="n">cache</span>
+<span class="n">GiB</span> <span class="n">Swap</span><span class="p">:</span>      <span class="mf">8.0</span> <span class="n">total</span><span class="p">,</span>      <span class="mf">6.6</span> <span class="n">free</span><span class="p">,</span>      <span class="mf">1.4</span> <span class="n">used</span><span class="o">.</span>     <span class="mf">55.7</span> <span class="n">avail</span> <span class="n">Mem</span>
+
+    <span class="n">PID</span> <span class="n">USER</span><span class="o">.</span>       <span class="n">PR</span>  <span class="n">NI</span>    <span class="n">VIRT</span>    <span class="n">RES</span>    <span class="n">SHR</span> <span class="n">S</span>  <span class="o">%</span><span class="n">CPU</span>  <span class="o">%</span><span class="n">MEM</span>     <span class="n">TIME</span><span class="o">+</span> <span class="n">COMMAND</span>
+<span class="mi">2015504</span> <span class="n">datalab</span>     <span class="mi">20</span>   <span class="mi">0</span>   <span class="mf">12.5</span><span class="n">m</span>   <span class="mf">5.5</span><span class="n">m</span>   <span class="mf">3.0</span><span class="n">m</span> <span class="n">R</span>   <span class="mf">1.6</span>   <span class="mf">0.0</span>   <span class="mi">0</span><span class="p">:</span><span class="mf">00.51</span> <span class="n">top</span>
+<span class="mi">1989412</span> <span class="n">datalab</span>     <span class="mi">20</span>   <span class="mi">0</span>   <span class="mf">17.4</span><span class="n">m</span>   <span class="mf">9.8</span><span class="n">m</span>   <span class="mf">7.8</span><span class="n">m</span> <span class="n">S</span>   <span class="mf">0.0</span>   <span class="mf">0.0</span>   <span class="mi">0</span><span class="p">:</span><span class="mf">00.60</span> <span class="n">systemd</span>
+<span class="mi">1989413</span> <span class="n">datalab</span>     <span class="mi">20</span>   <span class="mi">0</span>  <span class="mf">168.9</span><span class="n">m</span>   <span class="mf">8.2</span><span class="n">m</span>   <span class="mf">1.5</span><span class="n">m</span> <span class="n">S</span>   <span class="mf">0.0</span>   <span class="mf">0.0</span>   <span class="mi">0</span><span class="p">:</span><span class="mf">00.00</span> <span class="p">(</span><span class="n">sd</span><span class="o">-</span><span class="n">pam</span><span class="p">)</span>
+<span class="mi">1989587</span> <span class="n">datalab</span>     <span class="mi">20</span>   <span class="mi">0</span>    <span class="mf">9.1</span><span class="n">m</span>   <span class="mf">3.8</span><span class="n">m</span>   <span class="mf">3.0</span><span class="n">m</span> <span class="n">S</span>   <span class="mf">0.0</span>   <span class="mf">0.0</span>   <span class="mi">0</span><span class="p">:</span><span class="mf">00.84</span> <span class="n">tmux</span><span class="p">:</span> <span class="n">server</span>
+<span class="mi">1989588</span> <span class="n">datalab</span>     <span class="mi">20</span>   <span class="mi">0</span>   <span class="mf">12.4</span><span class="n">m</span>   <span class="mf">7.5</span><span class="n">m</span>   <span class="mf">3.2</span><span class="n">m</span> <span class="n">S</span>   <span class="mf">0.0</span>   <span class="mf">0.0</span>   <span class="mi">0</span><span class="p">:</span><span class="mf">00.07</span> <span class="n">bash</span>
+<span class="mi">2011773</span> <span class="n">datalab</span>     <span class="mi">20</span>   <span class="mi">0</span>   <span class="mf">17.0</span><span class="n">m</span>   <span class="mf">7.5</span><span class="n">m</span>   <span class="mf">5.2</span><span class="n">m</span> <span class="n">S</span>   <span class="mf">0.0</span>   <span class="mf">0.0</span>   <span class="mi">0</span><span class="p">:</span><span class="mf">00.08</span> <span class="n">sshd</span>
+<span class="mi">2011885</span> <span class="n">datalab</span>     <span class="mi">20</span>   <span class="mi">0</span>    <span class="mf">7.7</span><span class="n">m</span>   <span class="mf">3.8</span><span class="n">m</span>   <span class="mf">3.2</span><span class="n">m</span> <span class="n">S</span>   <span class="mf">0.0</span>   <span class="mf">0.0</span>   <span class="mi">0</span><span class="p">:</span><span class="mf">00.51</span> <span class="n">bash</span>
+<span class="mi">2015629</span> <span class="n">datalab</span>     <span class="mi">20</span>   <span class="mi">0</span>    <span class="mf">6.0</span><span class="n">m</span>   <span class="mf">1.8</span><span class="n">m</span>   <span class="mf">1.8</span><span class="n">m</span> <span class="n">S</span>   <span class="mf">0.0</span>   <span class="mf">0.0</span>   <span class="mi">0</span><span class="p">:</span><span class="mf">00.00</span> <span class="n">sleep</span>
+</pre></div>
+</div>
+<p>You can end a process from <code class="docutils literal notranslate"><span class="pre">top</span></code> by entering <code class="docutils literal notranslate"><span class="pre">k</span></code> followed by the PID. Quit
+<code class="docutils literal notranslate"><span class="pre">top</span></code> by entering <code class="docutils literal notranslate"><span class="pre">q</span></code>.</p>
+<p>A newer version of <code class="docutils literal notranslate"><span class="pre">top</span></code>, <code class="docutils literal notranslate"><span class="pre">htop</span></code>, adds some nice interactivity to the display.
+We recommend it, though you may have to install it yourself. Visit the
+application’s <a class="reference external" href="https://github.com/htop-dev/htop">GitHub repository</a> for more information. You may have also
+noticed that <code class="docutils literal notranslate"><span class="pre">top</span></code> has not provided any information about special hardware,
+GPUs. It usually doesn’t. GPU manufacturers frequently provide their own
+utilities for system monitoring.</p>
+<p>For Nvidia GPUs, there is <code class="docutils literal notranslate"><span class="pre">nvidia-smi</span></code>. It’s a safe assumption to expect this
+utility to be installed on any computer with Nvidia GPU hardware. Set the <code class="docutils literal notranslate"><span class="pre">-l</span></code>
+flag with a number <code class="docutils literal notranslate"><span class="pre">&lt;N&gt;</span></code> to update the readout every <code class="docutils literal notranslate"><span class="pre">&lt;N&gt;</span></code> seconds.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>nvidia-smi<span class="w"> </span>-l<span class="w"> </span><span class="m">5</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">+---------------------------------------------------------------------------------------+</span>
+<span class="o">|</span> <span class="n">NVIDIA</span><span class="o">-</span><span class="n">SMI</span> <span class="mf">535.104.12</span>             <span class="n">Driver</span> <span class="n">Version</span><span class="p">:</span> <span class="mf">535.104.12</span>   <span class="n">CUDA</span> <span class="n">Version</span><span class="p">:</span> <span class="mf">12.2</span>     <span class="o">|</span>
+<span class="o">|-----------------------------------------+----------------------+----------------------+</span>
+<span class="o">|</span> <span class="n">GPU</span>  <span class="n">Name</span>                 <span class="n">Persistence</span><span class="o">-</span><span class="n">M</span> <span class="o">|</span> <span class="n">Bus</span><span class="o">-</span><span class="n">Id</span>        <span class="n">Disp</span><span class="o">.</span><span class="n">A</span> <span class="o">|</span> <span class="n">Volatile</span> <span class="n">Uncorr</span><span class="o">.</span> <span class="n">ECC</span> <span class="o">|</span>
+<span class="o">|</span> <span class="n">Fan</span>  <span class="n">Temp</span>   <span class="n">Perf</span>          <span class="n">Pwr</span><span class="p">:</span><span class="n">Usage</span><span class="o">/</span><span class="n">Cap</span> <span class="o">|</span>         <span class="n">Memory</span><span class="o">-</span><span class="n">Usage</span> <span class="o">|</span> <span class="n">GPU</span><span class="o">-</span><span class="n">Util</span>  <span class="n">Compute</span> <span class="n">M</span><span class="o">.</span> <span class="o">|</span>
+<span class="o">|</span>                                         <span class="o">|</span>                      <span class="o">|</span>               <span class="n">MIG</span> <span class="n">M</span><span class="o">.</span> <span class="o">|</span>
+<span class="o">|=========================================+======================+======================|</span>
+<span class="o">|</span>   <span class="mi">0</span>  <span class="n">NVIDIA</span> <span class="n">A100</span> <span class="mi">80</span><span class="n">GB</span> <span class="n">PCIe</span>          <span class="n">On</span>  <span class="o">|</span> <span class="mi">00000000</span><span class="p">:</span><span class="n">C4</span><span class="p">:</span><span class="mf">00.0</span> <span class="n">Off</span> <span class="o">|</span>                    <span class="mi">0</span> <span class="o">|</span>
+<span class="o">|</span> <span class="n">N</span><span class="o">/</span><span class="n">A</span>   <span class="mi">36</span><span class="n">C</span>    <span class="n">P0</span>              <span class="mi">45</span><span class="n">W</span> <span class="o">/</span> <span class="mi">300</span><span class="n">W</span> <span class="o">|</span>      <span class="mi">4</span><span class="n">MiB</span> <span class="o">/</span> <span class="mi">81920</span><span class="n">MiB</span> <span class="o">|</span>      <span class="mi">0</span><span class="o">%</span>      <span class="n">Default</span> <span class="o">|</span>
+<span class="o">|</span>                                         <span class="o">|</span>                      <span class="o">|</span>             <span class="n">Disabled</span> <span class="o">|</span>
+<span class="o">+-----------------------------------------+----------------------+----------------------+</span>
+
+<span class="o">+---------------------------------------------------------------------------------------+</span>
+<span class="o">|</span> <span class="n">Processes</span><span class="p">:</span>                                                                            <span class="o">|</span>
+<span class="o">|</span>  <span class="n">GPU</span>   <span class="n">GI</span>   <span class="n">CI</span>        <span class="n">PID</span>   <span class="n">Type</span>   <span class="n">Process</span> <span class="n">name</span>                            <span class="n">GPU</span> <span class="n">Memory</span> <span class="o">|</span>
+<span class="o">|</span>        <span class="n">ID</span>   <span class="n">ID</span>                                                             <span class="n">Usage</span>      <span class="o">|</span>
+<span class="o">|=======================================================================================|</span>
+<span class="o">|</span>  <span class="n">No</span> <span class="n">running</span> <span class="n">processes</span> <span class="n">found</span>                                                           <span class="o">|</span>
+<span class="o">+---------------------------------------------------------------------------------------+</span>
+</pre></div>
+</div>
+<p>Cells in the header will tell you information about your <a class="reference external" href="https://en.wikipedia.org/wiki/CUDA">CUDA</a> version,
+which GPU(s) you have, and memory usage. Below the header, the task list will
+show you any running processes.</p>
+</section>
+<section id="other-resource-information">
+<h3><span class="section-number">2.3.3. </span>Other Resource Information<a class="headerlink" href="#other-resource-information" title="Link to this heading">#</a></h3>
+<p>General disk usage information is available with <code class="docutils literal notranslate"><span class="pre">du</span></code>. This little command can
+be especially useful on remote systems, where there are usually more
+constraints around where users are allowed to store data and how much disk
+space they’ve been allocated.</p>
+<p><code class="docutils literal notranslate"><span class="pre">du</span></code> traverses the file tree, starting from your current position and going
+down to the bottom-most directory. Running it without any flags will display
+information about every single file, which tends to be too much information.
+Use the <code class="docutils literal notranslate"><span class="pre">-d</span></code> flag to set a maximum depth to display.</p>
+<p>Setting <code class="docutils literal notranslate"><span class="pre">-d</span></code> to <code class="docutils literal notranslate"><span class="pre">0</span></code> only shows the total disk space for a directory.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>du<span class="w"> </span>-d<span class="w"> </span><span class="m">0</span><span class="w"> </span>.
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">6788</span>    <span class="o">.</span>
+</pre></div>
+</div>
+<p>Setting it to <code class="docutils literal notranslate"><span class="pre">1</span></code> will show subdirectories directly beneath your target.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>du<span class="w"> </span>-d<span class="w"> </span><span class="m">1</span><span class="w"> </span>.
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">40</span>      <span class="o">./</span><span class="n">chapters</span>
+<span class="mi">4</span>       <span class="o">./</span><span class="n">_static</span>
+<span class="mi">300</span>     <span class="o">./</span><span class="n">img</span>
+<span class="mi">3628</span>    <span class="o">./</span><span class="n">_build</span>
+<span class="mi">2768</span>    <span class="o">./.</span><span class="n">git</span>
+<span class="mi">6788</span>    <span class="o">.</span>
+</pre></div>
+</div>
+<p>As with <code class="docutils literal notranslate"><span class="pre">top</span></code>, the disk space units default to kilobytes. Use <code class="docutils literal notranslate"><span class="pre">-h</span></code> to get unit
+subfixes.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>du<span class="w"> </span>-dh<span class="w"> </span><span class="m">1</span><span class="w"> </span>.
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span> <span class="mi">40</span><span class="n">K</span>    <span class="o">./</span><span class="n">chapters</span>
+<span class="mf">4.0</span><span class="n">K</span>    <span class="o">./</span><span class="n">_static</span>
+<span class="mi">300</span><span class="n">K</span>    <span class="o">./</span><span class="n">img</span>
+<span class="mf">3.5</span><span class="n">M</span>    <span class="o">./</span><span class="n">_build</span>
+<span class="mf">2.7</span><span class="n">M</span>    <span class="o">./.</span><span class="n">git</span>
+<span class="mf">6.6</span><span class="n">M</span>    <span class="o">.</span>
+</pre></div>
+</div>
+<p>Finally, <code class="docutils literal notranslate"><span class="pre">df</span></code> displays free disk space for all currently mounted file systems.
+As above, use it with <code class="docutils literal notranslate"><span class="pre">-h</span></code> to get more readable output.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>df<span class="w"> </span>-h
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Filesystem</span>                 <span class="n">Size</span>  <span class="n">Used</span> <span class="n">Avail</span> <span class="n">Use</span><span class="o">%</span> <span class="n">Mounted</span> <span class="n">on</span>
+<span class="n">devtmpfs</span>                   <span class="mi">126</span><span class="n">G</span>     <span class="mi">0</span>  <span class="mi">126</span><span class="n">G</span>   <span class="mi">0</span><span class="o">%</span> <span class="o">/</span><span class="n">dev</span>
+<span class="n">tmpfs</span>                      <span class="mi">126</span><span class="n">G</span>   <span class="mi">14</span><span class="n">M</span>  <span class="mi">126</span><span class="n">G</span>   <span class="mi">1</span><span class="o">%</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">shm</span>
+<span class="n">tmpfs</span>                      <span class="mi">126</span><span class="n">G</span>  <span class="mf">4.1</span><span class="n">G</span>  <span class="mi">122</span><span class="n">G</span>   <span class="mi">4</span><span class="o">%</span> <span class="o">/</span><span class="n">run</span>
+<span class="n">tmpfs</span>                      <span class="mi">126</span><span class="n">G</span>     <span class="mi">0</span>  <span class="mi">126</span><span class="n">G</span>   <span class="mi">0</span><span class="o">%</span> <span class="o">/</span><span class="n">sys</span><span class="o">/</span><span class="n">fs</span><span class="o">/</span><span class="n">cgroup</span>
+<span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">mapper</span><span class="o">/</span><span class="n">VG0</span><span class="o">-</span><span class="n">LVRoot</span>     <span class="mf">9.8</span><span class="n">G</span>  <span class="mf">7.9</span><span class="n">G</span>  <span class="mf">1.8</span><span class="n">G</span>  <span class="mi">82</span><span class="o">%</span> <span class="o">/</span>
+<span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">mapper</span><span class="o">/</span><span class="n">VG0</span><span class="o">-</span><span class="n">LVUsr</span>       <span class="mi">16</span><span class="n">G</span>   <span class="mi">15</span><span class="n">G</span>  <span class="mf">1.5</span><span class="n">G</span>  <span class="mi">91</span><span class="o">%</span> <span class="o">/</span><span class="n">usr</span>
+<span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda1</span>                  <span class="mi">477</span><span class="n">M</span>  <span class="mi">240</span><span class="n">M</span>  <span class="mi">234</span><span class="n">M</span>  <span class="mi">51</span><span class="o">%</span> <span class="o">/</span><span class="n">boot</span>
+<span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">mapper</span><span class="o">/</span><span class="n">VG0</span><span class="o">-</span><span class="n">LVHome</span>     <span class="mi">502</span><span class="n">G</span>  <span class="mi">416</span><span class="n">G</span>   <span class="mi">87</span><span class="n">G</span>  <span class="mi">83</span><span class="o">%</span> <span class="o">/</span><span class="n">home</span>
+<span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">mapper</span><span class="o">/</span><span class="n">VG0</span><span class="o">-</span><span class="n">LVVar</span>      <span class="mf">8.8</span><span class="n">G</span>  <span class="mf">3.9</span><span class="n">G</span>  <span class="mf">4.9</span><span class="n">G</span>  <span class="mi">45</span><span class="o">%</span> <span class="o">/</span><span class="n">var</span>
+<span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">mapper</span><span class="o">/</span><span class="n">VG0</span><span class="o">-</span><span class="n">LVData</span>     <span class="mi">906</span><span class="n">G</span>  <span class="mi">843</span><span class="n">G</span>   <span class="mi">63</span><span class="n">G</span>  <span class="mi">94</span><span class="o">%</span> <span class="o">/</span><span class="n">data_small</span>
+<span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">mapper</span><span class="o">/</span><span class="n">VG0</span><span class="o">-</span><span class="n">LVOutput</span>   <span class="mi">463</span><span class="n">G</span>   <span class="mi">72</span><span class="n">M</span>  <span class="mi">463</span><span class="n">G</span>   <span class="mi">1</span><span class="o">%</span> <span class="o">/</span><span class="n">output</span>
+<span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">mapper</span><span class="o">/</span><span class="n">VG1</span><span class="o">-</span><span class="n">LVCoraid1</span>  <span class="mf">4.1</span><span class="n">T</span>  <span class="mi">231</span><span class="n">G</span>  <span class="mf">3.9</span><span class="n">T</span>   <span class="mi">6</span><span class="o">%</span> <span class="o">/</span><span class="n">data</span>
+<span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">mapper</span><span class="o">/</span><span class="n">VG3</span><span class="o">-</span><span class="n">LVCoraid2</span>  <span class="mi">174</span><span class="n">T</span>   <span class="mi">58</span><span class="n">T</span>  <span class="mi">117</span><span class="n">T</span>  <span class="mi">33</span><span class="o">%</span> <span class="o">/</span><span class="n">dsl</span>
+<span class="n">tmpfs</span>                       <span class="mi">26</span><span class="n">G</span>     <span class="mi">0</span>   <span class="mi">26</span><span class="n">G</span>   <span class="mi">0</span><span class="o">%</span> <span class="o">/</span><span class="n">run</span><span class="o">/</span><span class="n">user</span><span class="o">/</span><span class="mi">1027</span>
+<span class="n">tmpfs</span>                       <span class="mi">26</span><span class="n">G</span>     <span class="mi">0</span>   <span class="mi">26</span><span class="n">G</span>   <span class="mi">0</span><span class="o">%</span> <span class="o">/</span><span class="n">run</span><span class="o">/</span><span class="n">user</span><span class="o">/</span><span class="mi">1031</span>
+<span class="n">tmpfs</span>                       <span class="mi">26</span><span class="n">G</span>     <span class="mi">0</span>   <span class="mi">26</span><span class="n">G</span>   <span class="mi">0</span><span class="o">%</span> <span class="o">/</span><span class="n">run</span><span class="o">/</span><span class="n">user</span><span class="o">/</span><span class="mi">1032</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="estimating-resource-requirements">
+<h2><span class="section-number">2.4. </span>Estimating Resource Requirements<a class="headerlink" href="#estimating-resource-requirements" title="Link to this heading">#</a></h2>
+<p>Remote computing environments will ask you to estimate how many resources you
+need to do your work. Typically, these resources are <strong>time</strong> and <strong>run-time
+memory</strong> (RAM). Computer scientists have developed formalized methods for
+estimating these two resources, and we will discuss them briefly below, but
+making such estimations also relies on the particularities of whatever system
+you’re using. This section is therefore primarily about practical
+considerations for estimating resource requirements.</p>
+<p>If you take away anything from this section, it should be this: you should
+estimate resource usage by tip-toeing up from simple instances to more complex
+ones. There’s no point in estimating resource usage by starting with hundreds
+of gigabytes of data. That will be time-intensive and probably misleading.
+Instead, start with a small amount of data and gradually scale your tests until
+you feel you’re able to make a good estimate.</p>
+<section id="computational-complexity">
+<h3><span class="section-number">2.4.1. </span>Computational Complexity<a class="headerlink" href="#computational-complexity" title="Link to this heading">#</a></h3>
+<p>In computer science, <strong>computational complexity</strong> refers to the amount of
+resources an algorithm requires to run. Time is often the focus in this topic,
+because certain operations in your code can quickly balloon from only a few
+seconds to several minutes, hours, and even days. That is, the amount of data,
+or <strong>input size</strong>, your code processes does not always hold a linear
+relationship with the amount of time it takes to process that input; the same
+goes for memory considerations as well.</p>
+<p>Instead, the relationship between input size and resource usage might be one of
+several different types. Computer scientists express these relationships using
+<strong>Big O notation</strong>, which represents the growth rate of resource usage for a
+particular input size <span class="math notranslate nohighlight">\(n\)</span>. Here are some common notations:</p>
+<aside class="margin sidebar">
+<p class="sidebar-title">Want to know more?</p>
+<p>The <a class="reference external" href="https://en.wikipedia.org/wiki/Big_O_notation">Wikipedia page</a> for Big O notation is a good place to start. It
+covers the basic concepts and lists many other time complexity types.</p>
+</aside>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Notation</p></th>
+<th class="head"><p>Relationship</p></th>
+<th class="head"><p>Explanation</p></th>
+<th class="head"><p>Example</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(O(1)\)</span></p></td>
+<td><p>Constant</p></td>
+<td><p>Constant resource use, regardless of input</p></td>
+<td><p>Indexing an array</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(O(n)\)</span></p></td>
+<td><p>Linear</p></td>
+<td><p>Resource use is proportional to input</p></td>
+<td><p>A <code class="docutils literal notranslate"><span class="pre">for</span></code> loop</p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(O(n^2)\)</span></p></td>
+<td><p>Quadratic</p></td>
+<td><p>Requirements are proportional to the square of input</p></td>
+<td><p>Two nested <code class="docutils literal notranslate"><span class="pre">for</span></code> loops</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(O(2^n)\)</span></p></td>
+<td><p>Exponential</p></td>
+<td><p>Each new input element doubles resource use</p></td>
+<td><p>Calculating Fibonacci numbers</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Importantly, Big O notation represents the worst-case scenario for how many
+resources your code might require. But not every piece of code you write is
+guaranteed to require the full extent of possible resources defined by this
+notation. Various optimizations, from your computer’s hardware to the design of
+software libraries like NumPy or dplyr, help mitigate this. But you should be
+aware that the possibility of this eventuality nevertheless exists, and thus
+try to mitigate it yourself when possible.</p>
+</section>
+<section id="id3">
+<h3><span class="section-number">2.4.2. </span>Example Script<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<p>Consider the script <code class="docutils literal notranslate"><span class="pre">nested.{sh,py,R}</span></code>. It runs one <code class="docutils literal notranslate"><span class="pre">for</span></code> loop <code class="docutils literal notranslate"><span class="pre">n</span></code> times, and
+then it runs another <code class="docutils literal notranslate"><span class="pre">for</span></code> loop inside that first one <code class="docutils literal notranslate"><span class="pre">n</span></code> times. This means its
+time complexity is quadratic.</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-6" name="sd-tab-set-2" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-6">
+Bash</label><div class="sd-tab-content docutils">
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env bash</span>
+
+nested<span class="o">()</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="c1"># Run an inner and outer for loop n times</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="o">((</span><span class="nv">i</span><span class="o">=</span><span class="m">1</span><span class="p">;</span><span class="w"> </span>i&lt;<span class="o">=</span><span class="nv">$1</span><span class="p">;</span><span class="w"> </span>i++<span class="o">))</span><span class="w"> </span><span class="k">do</span>
+<span class="w">        </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Outer loop </span><span class="nv">$i</span><span class="s2">&quot;</span>
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="o">((</span><span class="nv">j</span><span class="o">=</span><span class="m">1</span><span class="p">;</span><span class="w"> </span>j&lt;<span class="o">=</span><span class="nv">$1</span><span class="p">;</span><span class="w"> </span>j++<span class="o">))</span><span class="w"> </span><span class="k">do</span>
+<span class="w">            </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Inner loop </span><span class="nv">$j</span><span class="s2">&quot;</span>
+<span class="w">        </span><span class="k">done</span>
+<span class="w">    </span><span class="k">done</span>
+<span class="o">}</span>
+
+nested<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+</div>
+<input id="sd-tab-item-7" name="sd-tab-set-2" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-7">
+Python</label><div class="sd-tab-content docutils">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="kn">import</span> <span class="nn">sys</span>
+
+
+<span class="k">def</span> <span class="nf">nested</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="c1"># Run an inner and outer for loop n times</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Outer loop&quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Inner loop&quot;</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">nested</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<input id="sd-tab-item-8" name="sd-tab-set-2" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-8">
+R</label><div class="sd-tab-content docutils">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1">#!/usr/bin/env Rscript</span>
+
+<span class="n">nested</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">function</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1"># &#39; Run an inner and outer for loop n times</span>
+<span class="w">  </span><span class="nf">for </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nf">cat</span><span class="p">(</span><span class="nf">paste</span><span class="p">(</span><span class="s">&quot;Outer loop&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;\n&quot;</span><span class="p">))</span>
+<span class="w">    </span><span class="nf">for </span><span class="p">(</span><span class="n">j</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nf">cat</span><span class="p">(</span><span class="nf">paste</span><span class="p">(</span><span class="s">&quot;Inner loop&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;\n&quot;</span><span class="p">))</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">args</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">commandArgs</span><span class="p">(</span><span class="n">trailingOnly</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">)</span>
+<span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">as.integer</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="m">1</span><span class="p">])</span>
+<span class="nf">nested</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="timing-code">
+<h3><span class="section-number">2.4.3. </span>Timing Code<a class="headerlink" href="#timing-code" title="Link to this heading">#</a></h3>
+<p>Python and R both have libraries for timing this code, but there are also
+utilities like <code class="docutils literal notranslate"><span class="pre">time</span></code>. Call <code class="docutils literal notranslate"><span class="pre">time</span></code> before any other command and it will show
+you how long it took to execute that command. Below, we use the Python version
+of this code to compute factorials for three numbers.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nb">time</span><span class="w"> </span>./nested.py<span class="w"> </span><span class="m">1000</span><span class="w"> </span>&gt;<span class="w"> </span>output.txt
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">real</span>    <span class="mi">0</span><span class="n">m1</span><span class="mf">.112</span><span class="n">s</span>
+<span class="n">user</span>    <span class="mi">0</span><span class="n">m0</span><span class="mf">.667</span><span class="n">s</span>
+<span class="n">sys</span>     <span class="mi">0</span><span class="n">m0</span><span class="mf">.049</span><span class="n">s</span>
+</pre></div>
+</div>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nb">time</span><span class="w"> </span>./nested.py<span class="w"> </span><span class="m">2000</span><span class="w"> </span>&gt;<span class="w"> </span>output.txt
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">real</span>    <span class="mi">0</span><span class="n">m2</span><span class="mf">.512</span><span class="n">s</span>
+<span class="n">user</span>    <span class="mi">0</span><span class="n">m2</span><span class="mf">.283</span><span class="n">s</span>
+<span class="n">sys</span>     <span class="mi">0</span><span class="n">m0</span><span class="mf">.089</span><span class="n">s</span>
+</pre></div>
+</div>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nb">time</span><span class="w"> </span>./nested.py<span class="w"> </span><span class="m">4000</span><span class="w"> </span>&gt;<span class="w"> </span>output.txt
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">real</span>    <span class="mi">0</span><span class="n">m9</span><span class="mf">.761</span><span class="n">s</span>
+<span class="n">user</span>    <span class="mi">0</span><span class="n">m9</span><span class="mf">.096</span><span class="n">s</span>
+<span class="n">sys</span>     <span class="mi">0</span><span class="n">m0</span><span class="mf">.305</span><span class="n">s</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">time</span></code> outputs three metrics:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">real</span></code>: elapsed time for the entire process</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">user</span></code>: time spent executing the actual script instructions</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sys</span></code>: time spent on system-level processes (e.g. loading data into a script,
+calls to the kernel)</p></li>
+</ul>
+<p>We won’t be subjecting these outputs to a rigorous time analysis, but do note
+the fact that the time taken to execute this program quickly expands beyond the
+rise in input size. Whereas our input size doubles each time, the time it takes
+to process this input first doubled, then it tripled. Can we expect it to
+quadruple next?</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nb">time</span><span class="w"> </span>./nested.py<span class="w"> </span><span class="m">8000</span><span class="w"> </span>&gt;<span class="w"> </span>output.txt
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">real</span>    <span class="mi">0</span><span class="n">m36</span><span class="mf">.974</span><span class="n">s</span>
+<span class="n">user</span>    <span class="mi">0</span><span class="n">m35</span><span class="mf">.701</span><span class="n">s</span>
+<span class="n">sys</span>     <span class="mi">0</span><span class="n">m0</span><span class="mf">.932</span><span class="n">s</span>
+</pre></div>
+</div>
+<p>Roughly, yes!</p>
+<p>While this is a trivial example, certain data structures can require nested
+<code class="docutils literal notranslate"><span class="pre">for</span></code> loops to construct them. For example, we often need to populate big
+matrices for mathematical operations. One way to do that would be with these
+double loops, but that can get slow quickly, and you may end up spending a lot
+of time simply building matrices before you can run computations on them. This
+is where optimized code libraries come in. NumPy, for example, has vectorized
+operations for building matrices, which run much faster than your typical
+nested <code class="docutils literal notranslate"><span class="pre">for</span></code> loop.</p>
+<p>The code below shows you how to construct a big matrix with base Python and
+then with NumPy.</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-9" name="sd-tab-set-3" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-9">
+Base Python</label><div class="sd-tab-content docutils">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="mi">5000</span>
+    <span class="n">mat</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="n">sublist</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+            <span class="n">sublist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">mat</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sublist</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<input id="sd-tab-item-10" name="sd-tab-set-3" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-10">
+NumPy</label><div class="sd-tab-content docutils">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="mi">5000</span>
+    <span class="n">mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n</span><span class="p">,</span> <span class="n">n</span><span class="p">))</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Timing the nested <code class="docutils literal notranslate"><span class="pre">for</span></code> loop version gives the following:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nb">time</span><span class="w"> </span>./base_matrix.py
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">real</span>    <span class="mi">0</span><span class="n">m1</span><span class="mf">.718</span><span class="n">s</span>
+<span class="n">user</span>    <span class="mi">0</span><span class="n">m1</span><span class="mf">.492</span><span class="n">s</span>
+<span class="n">sys</span>     <span class="mi">0</span><span class="n">m0</span><span class="mf">.203</span><span class="n">s</span>
+</pre></div>
+</div>
+<p>While timing the NumPy version gives this result:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nb">time</span><span class="w"> </span>./numpy_matrix.py
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">real</span>    <span class="mi">0</span><span class="n">m0</span><span class="mf">.360</span><span class="n">s</span>
+<span class="n">user</span>    <span class="mi">0</span><span class="n">m0</span><span class="mf">.174</span><span class="n">s</span>
+<span class="n">sys</span>     <span class="mi">0</span><span class="n">m0</span><span class="mf">.073</span><span class="n">s</span>
+</pre></div>
+</div>
+<p>The second one is over four times as fast!</p>
+</section>
+<section id="memory-usage">
+<h3><span class="section-number">2.4.4. </span>Memory Usage<a class="headerlink" href="#memory-usage" title="Link to this heading">#</a></h3>
+<p>Estimating how much memory your script will take follows a similar pattern:
+incrementally scale your computations until you feel confident in your ability
+to make an informed guess. While there are third-party command line utilities
+available for measuring memory usage, <code class="docutils literal notranslate"><span class="pre">tmux</span></code> and <code class="docutils literal notranslate"><span class="pre">top</span></code> will do just fine. We
+will conclude by showing you the setup for such a test.</p>
+<p>The first screenshot below shows a <code class="docutils literal notranslate"><span class="pre">tmux</span></code> window split into two panes. On the
+left is an interactive Python environment. It uses NumPy to create a (1,000 x
+1,000) matrix of zeros. On the right, <code class="docutils literal notranslate"><span class="pre">top</span></code> has been opened with the following
+command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">top</span> <span class="o">-</span><span class="n">cu</span> <span class="o">&lt;</span><span class="n">user</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">top</span></code> has had its memory displays altered with <code class="docutils literal notranslate"><span class="pre">e</span></code> and <code class="docutils literal notranslate"><span class="pre">Shift-e</span></code>. Additionally,
+<code class="docutils literal notranslate"><span class="pre">Shift-m</span></code> has sorted the processes so the one with the most memory sits at the
+top.</p>
+<p><img alt="A two-pane  window with Python and  showing a smallmatrix" src="../_images/np_small.png" /></p>
+<p>The second screenshot shows the same setup, but this time the matrix is
+substantially larger: it’s (100,000 x 100,000). Note the difference in virtual
+memory!</p>
+<p><img alt="A two-pane  window with Python and  showing a largematrix" src="../_images/np_large.png" /></p>
+<p>Using a similar setup on the command line is also possible. Simply execute your
+script and monitor it as it runs with <code class="docutils literal notranslate"><span class="pre">top</span></code>. Scale up or down as necessary.</p>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./chapters"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="01_connecting-to-a-server.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">1. </span>Connecting to a Server</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="03_cluster-computing.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">3. </span>Cluster Computing</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#executable-scripts">2.1. Executable Scripts</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-an-executable-script">2.1.1. Using an Executable Script</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#shebangs">2.1.2. Shebangs</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-script">2.1.3. Example Script</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#file-permissions">2.1.4. File Permissions</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#managing-multiple-sessions">2.2. Managing Multiple Sessions</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-basics-of-tmux">2.2.1. The Basics of <code class="docutils literal notranslate"><span class="pre">tmux</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#windows-panes">2.2.2. Windows &amp; Panes</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#monitoring-your-code">2.3. Monitoring Your Code</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#finding-a-process">2.3.1. Finding a Process</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#monitoring-real-time-system-performance">2.3.2. Monitoring Real-Time System Performance</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#other-resource-information">2.3.3. Other Resource Information</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#estimating-resource-requirements">2.4. Estimating Resource Requirements</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#computational-complexity">2.4.1. Computational Complexity</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">2.4.2. Example Script</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#timing-code">2.4.3. Timing Code</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#memory-usage">2.4.4. Memory Usage</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Oliver Kreylos, Tyler Shoemaker, Nick Ulle
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">
+  <img alt="CC BY-SA 4.0" src="https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg"> 
+</a>
+
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,1688 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en-us" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>3. Cluster Computing &#8212; Introduction to Remote Computing</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=dddfd265"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/03_cluster-computing';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="2. Running Scripts" href="02_running-scripts.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en-us"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/datalab-logo-full-color-rgb-1.png" class="logo__image only-light" alt="Introduction to Remote Computing - Home"/>
+    <script>document.write(`<img src="../_static/datalab-logo-full-color-rgb-1.png" class="logo__image only-dark" alt="Introduction to Remote Computing - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="index.html">
+                    Overview
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Introduction to Remote Computing</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="01_connecting-to-a-server.html">1. Connecting to a Server</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://ucdavisdatalab.github.io/workshop_research_computing/chapters/installing-software/">Setting Up Software</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02_running-scripts.html">2. Running Scripts</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">3. Cluster Computing</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/ucdavisdatalab/workshop_intro_to_remote_computing" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/ucdavisdatalab/workshop_intro_to_remote_computing/issues/new?title=Issue%20on%20page%20%2Fchapters/03_cluster-computing.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/chapters/03_cluster-computing.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Cluster Computing</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-parallel-computation">3.1. What Is Parallel Computation?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-threading-vs-distributed-computing">3.1.1. Multi-threading vs Distributed Computing</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hybrid-models-of-computation">3.1.2. Hybrid Models of Computation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-a-cluster">3.2. What Is a Cluster?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-slurm">3.3. What Is Slurm?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#monitoring-partitions-and-jobs">3.4. Monitoring Partitions and Jobs</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#partitions">3.4.1. Partitions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#jobs">3.4.2. Jobs</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interactive-jobs">3.5. Interactive Jobs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#non-interactive-batch-jobs">3.6. Non-interactive (Batch) Jobs</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hello-batch-scripts">3.6.1. Hello, Batch Scripts!</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configuring-cancelling-jobs">3.6.2. Configuring &amp; Cancelling Jobs</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parallel-array-jobs">3.7. Parallel (Array) Jobs</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#parallel-steps">3.7.1. Parallel Steps</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#job-arrays">3.7.2. Job Arrays</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#case-study-bml-traffic-model">3.7.3. Case Study: BML Traffic Model</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="cluster-computing">
+<span id="id1"></span><h1><span class="section-number">3. </span>Cluster Computing<a class="headerlink" href="#cluster-computing" title="Link to this heading">#</a></h1>
+<div class="admonition-learning-goals admonition">
+<p class="admonition-title">Learning Goals</p>
+<ul class="simple">
+<li><p>Explain how partitioning and job scheduling works</p></li>
+<li><p>Know the basics of submitting and monitoring jobs with Slurm</p></li>
+<li><p>Run compute-intensive jobs interactively</p></li>
+<li><p>Submit and run compute-intensive jobs to a task queue</p></li>
+<li><p>Explain what parallel processing is</p></li>
+<li><p>Know the basics of writing code for multi-thread and multi-partition
+processes</p></li>
+</ul>
+</div>
+<section id="what-is-parallel-computation">
+<h2><span class="section-number">3.1. </span>What Is Parallel Computation?<a class="headerlink" href="#what-is-parallel-computation" title="Link to this heading">#</a></h2>
+<p>The default mode of computation is <strong>sequential</strong> or <strong>single-threaded</strong>
+computation. In this mode, a program, which comprises a number of small
+individual steps or instructions, is executed by a single CPU, one instruction
+after the other. The sequence of instructions that are executed over time, from
+the beginning of the program to its conclusion, is called the “thread of
+execution.” In a sequential program, there is only one thread of execution,
+which progresses in a deterministic and orderly way.</p>
+<p>In <strong>parallel computation,</strong> on the other hand, a program contains multiple
+threads of execution. These threads are executed independently of each other,
+and typically at the same time, using multiple CPUs cores, or multiple CPUs, or
+even multiple computers. Importantly, while the instructions in each individual
+thread of execution are still executed deterministically in sequence, there is
+no implicit ordering between instructions in different threads of execution,
+meaning that the order of execution of instructions across an entire program is
+no longer deterministic. Dealing with this non-determinancy and the problems it
+causes is one of the big challenges of parallel programming.</p>
+<section id="multi-threading-vs-distributed-computing">
+<h3><span class="section-number">3.1.1. </span>Multi-threading vs Distributed Computing<a class="headerlink" href="#multi-threading-vs-distributed-computing" title="Link to this heading">#</a></h3>
+<p>In almost all cases, the multiple threads of execution that compose a parallel
+computation are working towards a common goal, such as multiplying very large
+matrices, or solving large sets of partial differential equations. To achieve
+those common goals, there typically needs to be some form of communication
+between individual threads of execution. There are two major models of parallel
+computing based on two different methods of communication between threads of
+execution.</p>
+<p>In <strong>multi-threading,</strong> different threads of execution primarily communicate
+with each other by reading from or writing to the same memory. For example, one
+thread might write a result to some variable, and a different thread might later
+retrieve that result by reading from the same variable. Besides sharing memory,
+different threads also need mechanisms to synchronize with each other, for
+example to ensure that one thread only reads a result from some variable <em>after</em>
+another thread has writting that result to that variable. As mentioned before,
+there is no implicit order of execution between different threads, meaning that
+this order has to be established explicitly by the programmer through the use
+of synchronization. This is typically done via mechanisms provided by the
+operating system, such as POSIX pthreads.</p>
+<p>In <strong>distributed computing,</strong> on the other hand, different threads of execution
+do not share memory, and instead communicate and synchronize by sending messages
+to each other. Unlike multi-threading, which relies on the existence of shared
+memory that can be accessed by all threads, and therefore only works on a single
+computer, distributed computing can work on multiple computers, by sending
+messages between computers over some network, such as Ethernet or the Internet.
+For example, one thread of execution might calculate some partial result, and
+then pack that result into a message and explicitly send that message to another
+thread of execution on a different computer, for example over a TCP connection.
+That other thread of execution will explicitly wait for such a message to
+arrive, extract the partial result from the message, and then use it for its own
+computation. This send/receive paradigm not only exchanges data, but also
+synchronizes between the involved threads, because implicitly, a message has to
+be sent before it can be received. Therefore, there is no need for a dedicated
+synchronization method, as it is necessary in multi-threading.</p>
+<p>Of the two models, multi-threading is typically the easier one for programmers.
+A multi-threaded program often does not look very different from a sequential
+program, because it is based on the same paradigm of reading and writing the
+values of variables from and to memory. Many algorithms can be extended from
+sequential programming to multi-threading in a straightforward manner. The
+primary difference between sequential and multi-threaded programs is the need
+for explicit synchronization, which is usually supported by the operating
+system.</p>
+<p>Turning a sequential program into a distributed program, on the other hand,
+typically requires a lot more effort because the familiar paradigm of reading
+and writing from and to memory no longer applies to the program as a whole.
+Oftentimes, distributed computing requires a major re-structuring of existing
+sequential programs, including the use of completely different algorithms. In
+addition, there is also the difficulty of actually sending messages between
+parts of a program running on different computers. There can be a multitude of
+different types of networks, or different ways how the individual computers are
+connected to each other. For that reason, distributed computing typically relies
+on higher-level support libraries such as MPI (“message passing interface”) that
+hide the ugly details of inter-computer communication from the programmer.</p>
+<p>The primary benefit of using distributed computing over multi-threading is
+<strong>scalabililty.</strong> If one needs to run a parallel computation using thousands or
+tens of thousands of threads of execution to solve a very large problem, it is
+much easier and cheaper to build multiple computers that together contain such
+a large number of CPUs and connect them via a high-speed network than to build
+a single supercomputer containing the same number of CPUs. For that reason, the
+vasy majority of high-performance computing resources available today are such
+networks.</p>
+</section>
+<section id="hybrid-models-of-computation">
+<h3><span class="section-number">3.1.2. </span>Hybrid Models of Computation<a class="headerlink" href="#hybrid-models-of-computation" title="Link to this heading">#</a></h3>
+<p>On a high-performance computing resource comprising a network of individual
+computers, it is typically the case that each of those computers also contain
+multiple CPUs or CPU cores. It is therefore natural to use a hybrid model of
+parallel computation where a program is split into a number of <strong>processes</strong>
+which each run on individual computers and communicate by sending messages to
+each other, and to split each of those processes in turn into a number of
+<strong>threads</strong> which run on the same computer and communicate with each other by
+sharing memory. These days, almost all computers contain multiple CPU cores,
+typcially between 4 and 16, and therefore this hybrid model of computation is
+the de-facto standard model, to the point that the job management and scheduling
+systems described in the remainder of this chapter assume that all programs
+submitted by users follow it.</p>
+<p>In summary, a parallel program following this default model has the following
+components:</p>
+<ul class="simple">
+<li><p>A single <strong>program,</strong> which executes a desired computation.</p></li>
+<li><p>One or more <strong>processes,</strong> which each run on a different computer, and
+communicate with each other by passing messages, typically using a support
+library such as MPI.</p></li>
+<li><p>For each process, one or more <strong>threads,</strong> which all run on the same computer,
+and communicate with each other by sharing memory and using operating system-
+supplied synchronization mechanisms such as POSIX pthreads.</p></li>
+</ul>
+</section>
+</section>
+<section id="what-is-a-cluster">
+<h2><span class="section-number">3.2. </span>What Is a Cluster?<a class="headerlink" href="#what-is-a-cluster" title="Link to this heading">#</a></h2>
+<p>A <strong>cluster</strong> is a high-performance computing resource comprising a collection
+of individual computers that are connected via an internal high-speed
+communication network, intended to run large-scale parallel computations based
+on the aforementioned “standard” hybrid model of parallel computation. A cluster
+is distinguished from other types of supercomputers by the absence of shared
+memory that is accessible to <em>all</em> CPUs in the cluster, which means that, in
+order to use the full computing power of a cluster, parallel programs must
+follow the distributed computing or hybrid model. On the other hand, clusters
+typically offer very large amounts of secondary (hard drive) storage that can be
+accessed by all CPUs, usually in the form of network-attached storage (NAS).</p>
+<p>A <em><strong>node</strong></em> is one single computer in a cluster. Fundamentally, there are two
+classes of nodes: there is a number of <em><strong>compute nodes</strong></em> that together execute
+large computations, and – typically – a single <em><strong>head node</strong></em> that manages
+the entire cluster. The head node is also the “face” of the cluster, where users
+log in, run commands, and copy data between the user’s local computer, the
+cluster, and the Internet. Usually, each node in a cluster, but especially the
+compute nodes, are themselves high-performance computers containing a medium
+number (typically dozens) of CPU cores across multiple CPUs, large amounts of
+memory, and sometimes one or more GPUs (“graphical processing units”) that can
+compute certain types of problems with very high efficiency.</p>
+<p>A <strong>workload manager</strong> or <strong>job scheduler</strong> is a software system that manages
+the allocation of cluster resources to the <strong>jobs,</strong> i.e., parallel programs,
+that the cluster’s users want to run. Instead of running their parallel programs
+directly, for example from the command line when logging into a cluster, users
+submit their jobs to the manager. The manager will then ensure that all
+resources a job needs are available to it before it is started, assign the job
+to a subset of the cluster’s compute nodes depending on the number of processes
+the job wants to use, and finally run the job and keep the user informed of the
+job’s progress.</p>
+</section>
+<section id="what-is-slurm">
+<h2><span class="section-number">3.3. </span>What Is Slurm?<a class="headerlink" href="#what-is-slurm" title="Link to this heading">#</a></h2>
+<p>Slurm (“Simple Linux Utility for Resource Management”) is the workload manager
+used on most of UC Davis’s compute clusters.</p>
+<p>Slurm describes computations at three different levels of granularity. From
+smallest to largest, they are:</p>
+<ul class="simple">
+<li><p>A <strong>task</strong> is a process that runs on a single compute node. A compute node
+may have more than one CPU or a CPU with multiple cores, so tasks can be
+multithreaded.</p></li>
+<li><p>A <strong>step</strong> is a single command in a computation, which launches one or more
+tasks (processes). In a batch script (for <code class="docutils literal notranslate"><span class="pre">sbatch</span></code>), each line is one step.</p></li>
+<li><p>A <strong>job</strong> is an entire computation, made up of one or more steps. Jobs can be
+initiated with the <code class="docutils literal notranslate"><span class="pre">srun</span></code> or <code class="docutils literal notranslate"><span class="pre">sbatch</span></code> commands.</p></li>
+</ul>
+<p>Distinguishing between tasks, steps, and jobs is especially important when you
+want to carry out non-interactive computations in parallel across multiple
+nodes. When you work interactively on a single node, the distinction is not as
+important: <code class="docutils literal notranslate"><span class="pre">srun</span></code> creates a single job and step where you can interactively
+enter tasks.</p>
+<p>When you submit a job to Slurm, it’s added to a job queue, called a
+<strong>partition</strong>, until the compute resources you requested are available. Slurm
+uses different partitions for different types of hardware (for example, nodes
+with GPUs) and different levels of job priority.
+<a class="reference internal" href="#monitoring-patitions-and-jobs"><span class="std std-numref">Section 3.4</span></a> gives examples of partitions on the
+cluster and how they relate to priority.</p>
+</section>
+<section id="monitoring-partitions-and-jobs">
+<span id="monitoring-patitions-and-jobs"></span><h2><span class="section-number">3.4. </span>Monitoring Partitions and Jobs<a class="headerlink" href="#monitoring-partitions-and-jobs" title="Link to this heading">#</a></h2>
+<p>Most clusters are a shared by many users and have many different kinds of
+nodes. Given this scope, it’s helpful to get information about the organization
+and state of the cluster before requesting compute resources for a specific
+job.</p>
+<section id="partitions">
+<h3><span class="section-number">3.4.1. </span>Partitions<a class="headerlink" href="#partitions" title="Link to this heading">#</a></h3>
+<p>You can use the <code class="docutils literal notranslate"><span class="pre">sinfo</span></code> command to list available partitions, their nodes, and
+the maximum time you can request for a job. This command will also show you
+whether partitions and nodes are up and running. Use the command’s
+<code class="docutils literal notranslate"><span class="pre">--summarize</span></code> argument to get a summary, which is easier to read on compute
+clusters that have many nodes. Let’s try running the command on Hive:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>sinfo<span class="w"> </span>--summarize
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">PARTITION</span> <span class="n">AVAIL</span>  <span class="n">TIMELIMIT</span>   <span class="n">NODES</span><span class="p">(</span><span class="n">A</span><span class="o">/</span><span class="n">I</span><span class="o">/</span><span class="n">O</span><span class="o">/</span><span class="n">T</span><span class="p">)</span> <span class="n">NODELIST</span>
+<span class="n">low</span>          <span class="n">up</span> <span class="mi">1</span><span class="o">-</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>          <span class="mi">0</span><span class="o">/</span><span class="mi">8</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">8</span> <span class="n">hive</span><span class="o">-</span><span class="n">dc</span><span class="o">-</span><span class="mi">7</span><span class="o">-</span><span class="mi">10</span><span class="o">-</span><span class="p">[</span><span class="mi">18</span><span class="p">,</span><span class="mi">22</span><span class="p">,</span><span class="mi">26</span><span class="p">,</span><span class="mi">30</span><span class="p">,</span><span class="mi">42</span><span class="p">,</span><span class="mi">46</span><span class="p">,</span><span class="mi">50</span><span class="p">,</span><span class="mi">54</span><span class="p">]</span>
+<span class="n">high</span><span class="o">*</span>        <span class="n">up</span> <span class="mi">30</span><span class="o">-</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">0</span>          <span class="mi">0</span><span class="o">/</span><span class="mi">8</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">8</span> <span class="n">hive</span><span class="o">-</span><span class="n">dc</span><span class="o">-</span><span class="mi">7</span><span class="o">-</span><span class="mi">10</span><span class="o">-</span><span class="p">[</span><span class="mi">18</span><span class="p">,</span><span class="mi">22</span><span class="p">,</span><span class="mi">26</span><span class="p">,</span><span class="mi">30</span><span class="p">,</span><span class="mi">42</span><span class="p">,</span><span class="mi">46</span><span class="p">,</span><span class="mi">50</span><span class="p">,</span><span class="mi">54</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>In the output, the fourth column shows available nodes, idle nodes, nodes
+running a job, and the total number of nodes on a partition. If you ran <code class="docutils literal notranslate"><span class="pre">sinfo</span></code>
+without <code class="docutils literal notranslate"><span class="pre">--summarize</span></code>, you’ll see a slightly different set of rows and columns.</p>
+<p>Your account on a cluster will not necessarily have access to every partition.
+To see which partitions you can use, run this command:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>sacctmgr<span class="w"> </span>show<span class="w"> </span>associations<span class="w"> </span>where<span class="w"> </span><span class="nv">user</span><span class="o">=</span>&lt;username&gt;
+</pre></div>
+</div>
+<p>For instance, to see which partitions Nick can use:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>sacctmgr<span class="w"> </span>show<span class="w"> </span>associations<span class="w"> </span>where<span class="w"> </span><span class="nv">user</span><span class="o">=</span>nulle
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>   <span class="n">Cluster</span>    <span class="n">Account</span>       <span class="n">User</span>  <span class="n">Partition</span>     <span class="n">Share</span>   <span class="n">Priority</span> <span class="n">GrpJobs</span>       <span class="n">GrpTRES</span> <span class="n">GrpSubmit</span>     <span class="n">GrpWall</span>   <span class="n">GrpTRESMins</span> <span class="n">MaxJobs</span>       <span class="n">MaxTRES</span> <span class="n">MaxTRESPerNode</span> <span class="n">MaxSubmit</span>     <span class="n">MaxWall</span>   <span class="n">MaxTRESMins</span>                  <span class="n">QOS</span>   <span class="n">Def</span> <span class="n">QOS</span> <span class="n">GrpTRESRunMin</span>
+<span class="o">----------</span> <span class="o">----------</span> <span class="o">----------</span> <span class="o">----------</span> <span class="o">---------</span> <span class="o">----------</span> <span class="o">-------</span> <span class="o">-------------</span> <span class="o">---------</span> <span class="o">-----------</span> <span class="o">-------------</span> <span class="o">-------</span> <span class="o">-------------</span> <span class="o">--------------</span> <span class="o">---------</span> <span class="o">-----------</span> <span class="o">-------------</span> <span class="o">--------------------</span> <span class="o">---------</span> <span class="o">-------------</span>
+      <span class="n">hive</span>  <span class="n">publicgrp</span>      <span class="n">nulle</span>       <span class="n">high</span>         <span class="mi">1</span>                                                                                                                                                 <span class="n">publicgrp</span><span class="o">-</span><span class="n">high</span><span class="o">-</span><span class="n">qos</span>
+      <span class="n">hive</span>  <span class="n">publicgrp</span>      <span class="n">nulle</span>        <span class="n">low</span>         <span class="mi">1</span>                                                                                                                                                  <span class="n">publicgrp</span><span class="o">-</span><span class="n">low</span><span class="o">-</span><span class="n">qos</span>
+</pre></div>
+</div>
+</section>
+<section id="jobs">
+<h3><span class="section-number">3.4.2. </span>Jobs<a class="headerlink" href="#jobs" title="Link to this heading">#</a></h3>
+<p>Sometimes you might want detailed information about jobs running on a partition
+or even a specific node. You can use the <code class="docutils literal notranslate"><span class="pre">squeue</span></code> command to get this
+information. Think of <code class="docutils literal notranslate"><span class="pre">squeue</span></code> as the Slurm equivalent to <code class="docutils literal notranslate"><span class="pre">top</span></code> or <code class="docutils literal notranslate"><span class="pre">htop</span></code>.</p>
+<p>On big clusters, the output of <code class="docutils literal notranslate"><span class="pre">squeue</span></code> can be quite long. Below, we use <code class="docutils literal notranslate"><span class="pre">head</span></code>
+to take only the first 10 rows:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>squeue<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-n<span class="w"> </span><span class="m">10</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>  <span class="n">JOBID</span> <span class="n">PARTITION</span>     <span class="n">NAME</span>  <span class="n">USER</span> <span class="n">ACCOUNT</span> <span class="n">ST</span>       <span class="n">TIME</span>   <span class="n">TIME_LEFT</span> <span class="n">NODES</span> <span class="n">CPU</span> <span class="n">MIN_ME</span> <span class="n">NODELIST</span><span class="p">(</span><span class="n">REASON</span><span class="p">)</span>
+<span class="mi">9375115</span>      <span class="n">bgpu</span>     <span class="n">bash</span> <span class="n">user1</span>   <span class="n">acct1</span>  <span class="n">R</span>    <span class="mi">7</span><span class="p">:</span><span class="mi">42</span><span class="p">:</span><span class="mi">28</span>     <span class="mi">2</span><span class="p">:</span><span class="mi">17</span><span class="p">:</span><span class="mi">32</span>     <span class="mi">1</span> <span class="mi">6</span>   <span class="mi">32</span><span class="n">G</span>    <span class="n">gpu</span><span class="o">-</span><span class="mi">4</span><span class="o">-</span><span class="mi">54</span>
+<span class="mi">9375105</span>      <span class="n">bgpu</span>  <span class="n">UserJob</span> <span class="n">user2</span>   <span class="n">acct1</span>  <span class="n">R</span>    <span class="mi">8</span><span class="p">:</span><span class="mi">21</span><span class="p">:</span><span class="mi">50</span>  <span class="mi">7</span><span class="o">-</span><span class="mi">03</span><span class="p">:</span><span class="mi">38</span><span class="p">:</span><span class="mi">10</span>     <span class="mi">1</span> <span class="mi">6</span>   <span class="mi">200</span><span class="n">G</span>   <span class="n">gpu</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">92</span>
+<span class="mi">9297800</span>   <span class="n">bigmemh</span>   <span class="n">sbatch</span> <span class="n">user3</span>   <span class="n">acct2</span>  <span class="n">R</span> <span class="mi">9</span><span class="o">-</span><span class="mi">17</span><span class="p">:</span><span class="mi">58</span><span class="p">:</span><span class="mi">59</span>     <span class="mi">6</span><span class="p">:</span><span class="mi">01</span><span class="p">:</span><span class="mi">01</span>     <span class="mi">1</span> <span class="mi">16</span>  <span class="mi">120</span><span class="n">G</span>   <span class="n">bigmem8</span>
+<span class="mi">6173446</span>   <span class="n">bigmemm</span> <span class="n">McL</span><span class="o">-</span><span class="n">hmm</span><span class="o">-</span> <span class="n">user4</span>   <span class="n">acct3</span> <span class="n">PD</span>       <span class="mi">0</span><span class="p">:</span><span class="mi">00</span>  <span class="mi">2</span><span class="o">-</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>     <span class="mi">1</span> <span class="mi">4</span>   <span class="mi">8</span><span class="n">G</span>     <span class="p">(</span><span class="n">launch</span> <span class="n">failed</span> <span class="n">requeued</span> <span class="n">held</span><span class="p">)</span>
+<span class="mi">9375794</span>   <span class="n">bigmemm</span>     <span class="n">bash</span> <span class="n">user5</span>   <span class="n">acct4</span>  <span class="n">R</span>    <span class="mi">5</span><span class="p">:</span><span class="mi">13</span><span class="p">:</span><span class="mi">36</span>  <span class="mi">3</span><span class="o">-</span><span class="mi">18</span><span class="p">:</span><span class="mi">46</span><span class="p">:</span><span class="mi">24</span>     <span class="mi">1</span> <span class="mi">16</span>  <span class="mi">40</span><span class="n">G</span>    <span class="n">bigmem10</span>
+<span class="mi">9377337</span>   <span class="n">bigmemm</span> <span class="n">raNTallg</span> <span class="n">user6</span>   <span class="n">acct5</span>  <span class="n">R</span>       <span class="mi">0</span><span class="p">:</span><span class="mi">42</span> <span class="mi">20</span><span class="o">-</span><span class="mi">19</span><span class="p">:</span><span class="mi">59</span><span class="p">:</span><span class="mi">18</span>     <span class="mi">1</span> <span class="mi">2</span>   <span class="mi">4</span><span class="n">G</span>     <span class="n">bigmem10</span>
+<span class="mi">9377130</span>   <span class="n">bigmemm</span> <span class="n">raNTallg</span> <span class="n">user6</span>   <span class="n">acct5</span>  <span class="n">R</span>      <span class="mi">37</span><span class="p">:</span><span class="mi">10</span> <span class="mi">20</span><span class="o">-</span><span class="mi">19</span><span class="p">:</span><span class="mi">22</span><span class="p">:</span><span class="mi">50</span>     <span class="mi">1</span> <span class="mi">2</span>   <span class="mi">4</span><span class="n">G</span>     <span class="n">bigmem10</span>
+<span class="mi">9376376</span>   <span class="n">bigmemm</span> <span class="n">raallga1</span> <span class="n">user6</span>   <span class="n">acct5</span>  <span class="n">R</span>    <span class="mi">1</span><span class="p">:</span><span class="mi">38</span><span class="p">:</span><span class="mi">22</span> <span class="mi">20</span><span class="o">-</span><span class="mi">18</span><span class="p">:</span><span class="mi">21</span><span class="p">:</span><span class="mi">38</span>     <span class="mi">1</span> <span class="mi">2</span>   <span class="mi">4</span><span class="n">G</span>     <span class="n">bigmem10</span>
+<span class="mi">9318810</span>       <span class="n">bmh</span>   <span class="n">censor</span> <span class="n">user7</span>   <span class="n">acct6</span>  <span class="n">R</span> <span class="mi">4</span><span class="o">-</span><span class="mi">03</span><span class="p">:</span><span class="mi">19</span><span class="p">:</span><span class="mi">08</span>  <span class="mi">5</span><span class="o">-</span><span class="mi">20</span><span class="p">:</span><span class="mi">40</span><span class="p">:</span><span class="mi">52</span>     <span class="mi">1</span> <span class="mi">4</span>   <span class="mi">20</span><span class="n">G</span>    <span class="n">bm20</span>
+</pre></div>
+</div>
+<p>Above, <code class="docutils literal notranslate"><span class="pre">squeue</span></code> lists out jobs along with a fair bit of metadata about each
+one. The following table breaks out this information into its individual
+components:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Column</p></th>
+<th class="head"><p>Explanation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>JOBID</p></td>
+<td><p>Unique identifier for the job</p></td>
+</tr>
+<tr class="row-odd"><td><p>PARTITION</p></td>
+<td><p>Partition for the job</p></td>
+</tr>
+<tr class="row-even"><td><p>NAME</p></td>
+<td><p>Name of the job</p></td>
+</tr>
+<tr class="row-odd"><td><p>USER</p></td>
+<td><p>Name of the user running the job</p></td>
+</tr>
+<tr class="row-even"><td><p>ACCOUNT</p></td>
+<td><p>The HPC account to which this user belongs</p></td>
+</tr>
+<tr class="row-odd"><td><p>ST</p></td>
+<td><p>Job status; <code class="docutils literal notranslate"><span class="pre">R</span></code> is “running”, <code class="docutils literal notranslate"><span class="pre">PD</span></code> is “pending”, <code class="docutils literal notranslate"><span class="pre">S</span></code> is “suspended”</p></td>
+</tr>
+<tr class="row-even"><td><p>TIME</p></td>
+<td><p>Total run time of the job thus far</p></td>
+</tr>
+<tr class="row-odd"><td><p>TIME_LEFT</p></td>
+<td><p>Remaining allocated time</p></td>
+</tr>
+<tr class="row-even"><td><p>NODES</p></td>
+<td><p>Number of nodes allocated to the job</p></td>
+</tr>
+<tr class="row-odd"><td><p>CPU</p></td>
+<td><p>Number of CPU cores allocated to the job</p></td>
+</tr>
+<tr class="row-even"><td><p>MIN_ME</p></td>
+<td><p>Minimum memory allocated to the job</p></td>
+</tr>
+<tr class="row-odd"><td><p>NODELIST</p></td>
+<td><p>Node(s) on which the job is running</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>When you’re planning a job, you might want to run it on a specific partition.
+Use the <code class="docutils literal notranslate"><span class="pre">--partition</span></code> flag to check which jobs are currently running. If the
+partition’s nodes are all busy, your job won’t start until some become idle.</p>
+<p>For example, this command asks <code class="docutils literal notranslate"><span class="pre">squeue</span></code> for information about the <code class="docutils literal notranslate"><span class="pre">bgpu</span></code>
+partition, which has GPU capabilities:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>squeue<span class="w"> </span>--partition<span class="w"> </span>bgpu
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>  <span class="n">JOBID</span> <span class="n">PARTITION</span>    <span class="n">NAME</span>  <span class="n">USER</span> <span class="n">ACCOUNT</span> <span class="n">ST</span>    <span class="n">TIME</span>  <span class="n">TIME_LEFT</span> <span class="n">NODES</span> <span class="n">CPU</span> <span class="n">MIN_ME</span> <span class="n">NODELIST</span><span class="p">(</span><span class="n">REASON</span><span class="p">)</span>
+<span class="mi">9375115</span>      <span class="n">bgpu</span>    <span class="n">bash</span> <span class="n">user1</span>   <span class="n">acct1</span>  <span class="n">R</span> <span class="mi">7</span><span class="p">:</span><span class="mi">42</span><span class="p">:</span><span class="mi">28</span>    <span class="mi">2</span><span class="p">:</span><span class="mi">17</span><span class="p">:</span><span class="mi">32</span>     <span class="mi">1</span> <span class="mi">6</span>   <span class="mi">32</span><span class="n">G</span>    <span class="n">gpu</span><span class="o">-</span><span class="mi">4</span><span class="o">-</span><span class="mi">54</span>
+<span class="mi">9375105</span>      <span class="n">bgpu</span> <span class="n">UserJob</span> <span class="n">user2</span>   <span class="n">acct1</span>  <span class="n">R</span> <span class="mi">8</span><span class="p">:</span><span class="mi">21</span><span class="p">:</span><span class="mi">50</span> <span class="mi">7</span><span class="o">-</span><span class="mi">03</span><span class="p">:</span><span class="mi">38</span><span class="p">:</span><span class="mi">10</span>     <span class="mi">1</span> <span class="mi">6</span>   <span class="mi">200</span><span class="n">G</span>   <span class="n">gpu</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">92</span>
+</pre></div>
+</div>
+<p>Currently, there are two jobs running on the <code class="docutils literal notranslate"><span class="pre">bgpu</span></code> partition: one has about
+two hours remaining, while the other has been allocated up to a week of run
+time.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For most Slurm commands (and most shell commands) you can set arguments for
+parameters by putting a space between the parameter and argument (<code class="docutils literal notranslate"><span class="pre">--partition</span> <span class="pre">bgpu</span></code>) or by putting an equals sign between the parameter and argument
+(<code class="docutils literal notranslate"><span class="pre">--partition=bgpu</span></code>). You can use whichever form is most comfortable.</p>
+</div>
+<p>Checking with <code class="docutils literal notranslate"><span class="pre">sinfo</span></code> will tell you whether there is another node for your job
+on your desired partition.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>sinfo<span class="w"> </span>--partition<span class="w"> </span>bgpu
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">PARTITION</span> <span class="n">AVAIL</span>  <span class="n">TIMELIMIT</span>  <span class="n">NODES</span>  <span class="n">STATE</span> <span class="n">NODELIST</span>
+<span class="n">bgpu</span>         <span class="n">up</span> <span class="mi">150</span><span class="o">-</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span>      <span class="mi">2</span>    <span class="n">mix</span> <span class="n">gpu</span><span class="o">-</span><span class="mi">4</span><span class="o">-</span><span class="mi">54</span><span class="p">,</span><span class="n">gpu</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">92</span>
+</pre></div>
+</div>
+<p>Unfortunately, there isn’t. If you want to use this partition, you’ll need to
+wait your turn.</p>
+</section>
+</section>
+<section id="interactive-jobs">
+<h2><span class="section-number">3.5. </span>Interactive Jobs<a class="headerlink" href="#interactive-jobs" title="Link to this heading">#</a></h2>
+<p>Once you know which partitions and nodes are available, you can submit a
+request to Slurm to <strong>allocate</strong> compute resources for your computations. There
+are two ways to do this: in real time, or by adding your job to a queue.</p>
+<p>Running a job in real time puts you into an environment that resembles any
+other command line interface. It’s an ideal way to develop and test code with
+the added space and compute power of a big partition.</p>
+<p>You can use the <code class="docutils literal notranslate"><span class="pre">srun</span></code> command to request an interactive job on a partition.
+This command has a large number of parameters, so we encourage you to consult
+its <code class="docutils literal notranslate"><span class="pre">man</span></code> page; but for the purposes of introducing it, the most important
+parameters are:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter</p></th>
+<th class="head"><p>Explanation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--time</span></code></p></td>
+<td><p>time limit</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--pty</span></code></p></td>
+<td><p>a process to run in pseudo terminal mode</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--partition</span></code></p></td>
+<td><p>which partition to use</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--mem</span></code></p></td>
+<td><p>minimum memory per node</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--job-name</span></code></p></td>
+<td><p>the name of the job</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">--time</span></code> parameter is required and its argument can take a variety of
+forms; two common forms are <code class="docutils literal notranslate"><span class="pre">minutes</span></code> or <code class="docutils literal notranslate"><span class="pre">days-hours</span></code>. For instance, <code class="docutils literal notranslate"><span class="pre">--time</span> <span class="pre">15</span></code> requests 15 minutes, while <code class="docutils literal notranslate"><span class="pre">--time</span> <span class="pre">0-1</span></code> requests 1 hour.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">--pty</span></code> parameter is required <em>for interactive jobs</em>. Its argument should
+be a path to a shell. Any subsequent arguments will be passed to the shell, so
+generally you should set <code class="docutils literal notranslate"><span class="pre">--pty</span></code> last. Most of the time, you’ll set <code class="docutils literal notranslate"><span class="pre">--pty</span> <span class="pre">/bin/bash</span> <span class="pre">-il</span></code> to run Bash as an interactive login (<code class="docutils literal notranslate"><span class="pre">-il</span></code>) shell.</p>
+<p>Try running this command, which requests 30 minutes on the <code class="docutils literal notranslate"><span class="pre">low</span></code> partition:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>srun<span class="w"> </span>--partition<span class="o">=</span>low<span class="w"> </span>--time<span class="o">=</span><span class="m">30</span><span class="w"> </span>--pty<span class="w"> </span>/bin/bash<span class="w"> </span>-il
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">srun</span><span class="p">:</span> <span class="n">job</span> <span class="mi">9377346</span> <span class="n">queued</span> <span class="ow">and</span> <span class="n">waiting</span> <span class="k">for</span> <span class="n">resources</span>
+<span class="n">srun</span><span class="p">:</span> <span class="n">job</span> <span class="mi">9377346</span> <span class="n">has</span> <span class="n">been</span> <span class="n">allocated</span> <span class="n">resources</span>
+<span class="n">Unloading</span> <span class="n">openmpi</span><span class="o">/</span><span class="mf">4.1.5</span>
+<span class="n">Unloading</span> <span class="n">slurm</span><span class="o">/</span><span class="mf">23.02.7</span>
+<span class="n">Loading</span> <span class="n">slurm</span><span class="o">/</span><span class="mf">23.02.7</span>
+<span class="n">Loading</span> <span class="n">openmpi</span><span class="o">/</span><span class="mf">4.1.5</span>
+</pre></div>
+</div>
+<p>The result is a command line interface, just like the one you use to interact
+with on your own computer or other machines. Except, now you’re on a node, deep
+in the computing cluster and equipped with extra memory and compute power.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Don’t want to type that sequence for every job request? Consider aliasing it to
+a new command in your <code class="docutils literal notranslate"><span class="pre">~/.bashrc</span></code> file (recall <a class="reference external" href="https://ucdavisdatalab.github.io/workshop_reproducible_research/chapters/installing-software/a_configuring-the-shell.html#aliases">Aliases</a>). That might
+look like the following:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nb">alias</span><span class="w"> </span><span class="nv">scpu</span><span class="o">=</span><span class="s1">&#39;srun --partition=low --time=60 --pty /bin/bash -il&#39;</span>
+</pre></div>
+</div>
+<p>If you’d like to change parameters for different requests, you could create a
+Bash function instead.</p>
+</div>
+<p>You can use the <code class="docutils literal notranslate"><span class="pre">hostname</span></code> command to check which node you’re using:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>hostname
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cpu</span><span class="o">-</span><span class="mi">8</span><span class="o">-</span><span class="mi">87</span>
+</pre></div>
+</div>
+<p>Alternatively, you can use <code class="docutils literal notranslate"><span class="pre">squeue</span></code> to get information about your jobs. Pass
+the <code class="docutils literal notranslate"><span class="pre">--me</span></code> flag to list only your own jobs:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>squeue<span class="w"> </span>--me
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>  <span class="n">JOBID</span> <span class="n">PARTITION</span> <span class="n">NAME</span>    <span class="n">USER</span>  <span class="n">ACCOUNT</span> <span class="n">ST</span> <span class="n">TIME</span> <span class="n">TIME_LEFT</span> <span class="n">NODES</span> <span class="n">CPU</span> <span class="n">MIN_ME</span> <span class="n">NODELIST</span><span class="p">(</span><span class="n">REASON</span><span class="p">)</span>
+<span class="mi">9377346</span>       <span class="n">low</span> <span class="n">bash</span> <span class="n">datalab</span> <span class="n">datalabg</span>  <span class="n">R</span> <span class="mi">0</span><span class="p">:</span><span class="mi">07</span>     <span class="mi">59</span><span class="p">:</span><span class="mi">53</span>     <span class="mi">1</span> <span class="mi">2</span>   <span class="mi">2000</span><span class="n">M</span>  <span class="n">cpu</span><span class="o">-</span><span class="mi">8</span><span class="o">-</span><span class="mi">87</span>
+</pre></div>
+</div>
+<p>The above should align with your <code class="docutils literal notranslate"><span class="pre">srun</span></code> request, though note the extra columns:
+with <code class="docutils literal notranslate"><span class="pre">srun</span></code>, it’s possible to request multiple nodes, change the memory
+allocation, and more. We will discuss more of these parameters below.</p>
+<p>Slurm also sets environment variables on the node with information about the
+job. You can use the command <code class="docutils literal notranslate"><span class="pre">env</span> <span class="pre">|</span> <span class="pre">grep</span> <span class="pre">SLURM</span></code> to print all of them. For
+instance, <code class="docutils literal notranslate"><span class="pre">SLURM_JOB_ID</span></code> contains the job’s unique identifier:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span><span class="w"> </span><span class="nv">$SLURM_JOB_ID</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">9377346</span>
+</pre></div>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Slurm’s <code class="docutils literal notranslate"><span class="pre">scontrol</span></code> and <code class="docutils literal notranslate"><span class="pre">sstat</span></code> commands provide even more ways to get
+information about a job. See their <code class="docutils literal notranslate"><span class="pre">man</span></code> pages for details.</p>
+</div>
+<p>From here, you’re free to do your work: write code, run scripts, move data
+around—anything. When you’re done, simply use <code class="docutils literal notranslate"><span class="pre">exit</span></code> or <code class="docutils literal notranslate"><span class="pre">logout</span></code> to end the
+job and return to the head node.</p>
+<p>You can confirm that you’re back on the head node with <code class="docutils literal notranslate"><span class="pre">hostname</span></code>:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>hostname
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">login1</span>
+</pre></div>
+</div>
+</section>
+<section id="non-interactive-batch-jobs">
+<h2><span class="section-number">3.6. </span>Non-interactive (Batch) Jobs<a class="headerlink" href="#non-interactive-batch-jobs" title="Link to this heading">#</a></h2>
+<p>Interactive jobs are convenient for prototyping code and experimenting with
+data, but once you’ve worked out the details, interactivity isn’t necessary and
+may even be undesirable. This is especially true for long-running jobs, like
+running a simulation or training a model: there’s no reason to keep a terminal
+open while the computation runs. Instead, it’s more convenient to start the
+job, log off, and go about your business until you get a notification—hours
+or possibly days later—that the job is complete.</p>
+<p>You can use the <code class="docutils literal notranslate"><span class="pre">sbatch</span></code> command to submit a non-interactive job to Slurm. The
+command adds the job to a queue and runs it when the requested resources become
+available.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Another way to keep a job running is to run it in a terminal multiplexer like
+<code class="docutils literal notranslate"><span class="pre">tmux</span></code> and detach.</p>
+</div>
+<section id="hello-batch-scripts">
+<span id="id2"></span><h3><span class="section-number">3.6.1. </span>Hello, Batch Scripts!<a class="headerlink" href="#hello-batch-scripts" title="Link to this heading">#</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">sbatch</span></code> and <code class="docutils literal notranslate"><span class="pre">srun</span></code> commands have many parameters in common, but with
+<code class="docutils literal notranslate"><span class="pre">sbatch</span></code> the preferred way to set the parameters is to create a <strong>batch
+script</strong>. Here’s an example of a simple batch script that prints the hostname
+of the allocated node:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+
+<span class="c1">#SBATCH --partition low</span>
+<span class="c1">#SBATCH --time 10</span>
+
+srun<span class="w"> </span>hostname
+</pre></div>
+</div>
+<p>Every batch script, including this one, has three parts:</p>
+<ol class="arabic simple">
+<li><p>A shebang (<code class="docutils literal notranslate"><span class="pre">#!</span></code>) line, as introduced in <a class="reference internal" href="02_running-scripts.html#shebangs"><span class="std std-numref">Section 2.1.2</span></a>.</p></li>
+<li><p>An <code class="docutils literal notranslate"><span class="pre">sbatch</span></code> header, made up of lines that begin with <code class="docutils literal notranslate"><span class="pre">#SBATCH</span></code>. Each line
+sets a parameter for the job.</p></li>
+<li><p>Shell commands to run as part of the job. Lines that begin with <code class="docutils literal notranslate"><span class="pre">srun</span></code> are
+treated as independent steps and run in a new shell. Generally, each command
+that performs a computation should be prefixed with <code class="docutils literal notranslate"><span class="pre">srun</span></code> so that Slurm can
+report job status information correctly. Commands that change the overall
+job state, such as <code class="docutils literal notranslate"><span class="pre">cd</span></code>, should NOT be prefixed with <code class="docutils literal notranslate"><span class="pre">srun</span></code>.</p></li>
+</ol>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Commands in a batch script inherit the working directory from <code class="docutils literal notranslate"><span class="pre">sbatch</span></code>. You can
+use <code class="docutils literal notranslate"><span class="pre">cd</span></code> to change the working directory from within a batch script.</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>You can set parameters for <code class="docutils literal notranslate"><span class="pre">srun</span></code> commands within a batch script to specify the
+subset of resources needed for a particular step. For example, you might use
+<code class="docutils literal notranslate"><span class="pre">sbatch</span></code> to allocate multiple nodes, but have a “setup” step in your batch
+script that only requires one node to run.</p>
+</div>
+<p>Use a text editor (such as <code class="docutils literal notranslate"><span class="pre">vim</span></code>) to create a new file, paste in the batch
+script above, and save it as <code class="docutils literal notranslate"><span class="pre">hello.sh</span></code>. Then submit the batch script to Slurm
+by running:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>sbatch<span class="w"> </span>hello.sh
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Submitted</span> <span class="n">batch</span> <span class="n">job</span> <span class="mi">10070274</span>
+</pre></div>
+</div>
+<p>Slurm confirms that the job has been submitted and prints the job’s identifier.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Technically, you can write a Slurm batch script in any language that uses the
+pound sign (<code class="docutils literal notranslate"><span class="pre">#</span></code>) for comments (such as Python or R). That said, most people
+write batch scripts as shell scripts, and we recommend following this
+convention to keep things simple.</p>
+<p>You can always run code in other languages from a batch script by calling the
+appropriate command (for instance, <code class="docutils literal notranslate"><span class="pre">python</span></code> or <code class="docutils literal notranslate"><span class="pre">R</span></code>).</p>
+</div>
+<p>You can use <code class="docutils literal notranslate"><span class="pre">squeue</span></code> with <code class="docutils literal notranslate"><span class="pre">--me</span></code> or <code class="docutils literal notranslate"><span class="pre">--job</span> <span class="pre">&lt;job_id&gt;</span></code> to check the status of the
+job. If the job isn’t listed in the output from <code class="docutils literal notranslate"><span class="pre">squeue</span></code>, it probably finished
+running already!</p>
+<p>When the job is done, you’ll see a new file named <code class="docutils literal notranslate"><span class="pre">slurm-&lt;job_id&gt;.out</span></code> in your
+working directory:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>ls
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">hello</span><span class="o">.</span><span class="n">sh</span>  <span class="n">slurm</span><span class="o">-</span><span class="mf">10070274.</span><span class="n">out</span>
+</pre></div>
+</div>
+<p>This file contains the printed output from the job and a summary of the job.
+You can display the contents with <code class="docutils literal notranslate"><span class="pre">cat</span></code> or open the file in a text editor:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>cat<span class="w"> </span>slurm-10070274.out<span class="w"> </span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">==========================================</span>
+<span class="n">SLURM_JOB_ID</span> <span class="o">=</span> <span class="mi">10070274</span>
+<span class="n">SLURM_NODELIST</span> <span class="o">=</span> <span class="n">cpu</span><span class="o">-</span><span class="mi">10</span><span class="o">-</span><span class="mi">88</span>
+<span class="o">==========================================</span>
+<span class="n">cpu</span><span class="o">-</span><span class="mi">10</span><span class="o">-</span><span class="mi">88</span>
+
+<span class="c1">############### Job 10070274 summary ###############</span>
+<span class="n">Name</span>                <span class="p">:</span> <span class="n">hello</span><span class="o">.</span><span class="n">sh</span>
+<span class="n">User</span>                <span class="p">:</span> <span class="n">nulle</span>
+<span class="n">Account</span>             <span class="p">:</span> <span class="n">ctbrowngrp</span>
+<span class="n">Partition</span>           <span class="p">:</span> <span class="n">low</span>
+<span class="n">Nodes</span>               <span class="p">:</span> <span class="n">cpu</span><span class="o">-</span><span class="mi">10</span><span class="o">-</span><span class="mi">88</span>
+<span class="n">Cores</span>               <span class="p">:</span> <span class="mi">2</span>
+<span class="n">GPUs</span>                <span class="p">:</span> <span class="mi">0</span>
+<span class="n">State</span>               <span class="p">:</span> <span class="n">COMPLETED</span>
+<span class="n">ExitCode</span>            <span class="p">:</span> <span class="mi">0</span><span class="p">:</span><span class="mi">0</span>
+<span class="n">Submit</span>              <span class="p">:</span> <span class="mi">2024</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">28</span><span class="n">T16</span><span class="p">:</span><span class="mi">01</span><span class="p">:</span><span class="mi">48</span>
+<span class="n">Start</span>               <span class="p">:</span> <span class="mi">2024</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">28</span><span class="n">T16</span><span class="p">:</span><span class="mi">01</span><span class="p">:</span><span class="mi">50</span>
+<span class="n">End</span>                 <span class="p">:</span> <span class="mi">2024</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">28</span><span class="n">T16</span><span class="p">:</span><span class="mi">01</span><span class="p">:</span><span class="mi">50</span>
+<span class="n">Reserved</span> <span class="n">walltime</span>   <span class="p">:</span> <span class="mi">00</span><span class="p">:</span><span class="mi">30</span><span class="p">:</span><span class="mi">00</span>
+<span class="n">Used</span> <span class="n">walltime</span>       <span class="p">:</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>
+<span class="n">Used</span> <span class="n">CPU</span> <span class="n">time</span>       <span class="p">:</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>
+<span class="o">%</span> <span class="n">User</span> <span class="p">(</span><span class="n">Computation</span><span class="p">):</span> <span class="mf">41.27</span><span class="o">%</span>
+<span class="o">%</span> <span class="n">System</span> <span class="p">(</span><span class="n">I</span><span class="o">/</span><span class="n">O</span><span class="p">)</span>      <span class="p">:</span> <span class="mf">57.14</span><span class="o">%</span>
+<span class="n">Mem</span> <span class="n">reserved</span>        <span class="p">:</span> <span class="mi">2000</span><span class="n">M</span>
+<span class="n">Max</span> <span class="n">Mem</span> <span class="n">used</span>        <span class="p">:</span> <span class="mf">52.00</span><span class="n">K</span> <span class="p">(</span><span class="n">cpu</span><span class="o">-</span><span class="mi">10</span><span class="o">-</span><span class="mi">88</span><span class="p">)</span>
+<span class="n">Max</span> <span class="n">Disk</span> <span class="n">Write</span>      <span class="p">:</span> <span class="mf">0.00</span>  <span class="p">(</span><span class="n">cpu</span><span class="o">-</span><span class="mi">10</span><span class="o">-</span><span class="mi">88</span><span class="p">)</span>
+<span class="n">Max</span> <span class="n">Disk</span> <span class="n">Read</span>       <span class="p">:</span> <span class="mf">0.00</span>  <span class="p">(</span><span class="n">cpu</span><span class="o">-</span><span class="mi">10</span><span class="o">-</span><span class="mi">88</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="configuring-cancelling-jobs">
+<h3><span class="section-number">3.6.2. </span>Configuring &amp; Cancelling Jobs<a class="headerlink" href="#configuring-cancelling-jobs" title="Link to this heading">#</a></h3>
+<p>Slurm provides many <code class="docutils literal notranslate"><span class="pre">sbatch</span></code> (and <code class="docutils literal notranslate"><span class="pre">srun</span></code>) parameters which you can set to
+control what kinds of resources are allocated to a job. Here are some useful
+parameters that we haven’t described yet:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter</p></th>
+<th class="head"><p>Explanation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--mail-user</span></code></p></td>
+<td><p>email address to send job status notifications</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--mail-type</span></code></p></td>
+<td><p>types of events to send notifications about</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--output</span></code></p></td>
+<td><p>path to save output; can include <code class="docutils literal notranslate"><span class="pre">%j</span></code> as the job identifier</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--error</span></code></p></td>
+<td><p>path to save error messages; can include <code class="docutils literal notranslate"><span class="pre">%j</span></code> as the job identifier</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--nodes</span></code></p></td>
+<td><p>number of nodes to allocate</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--ntasks</span></code></p></td>
+<td><p>maximum number of simultaneous tasks (processes)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--cpus-per-task</span></code></p></td>
+<td><p>number of CPUs per task</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>See <code class="docutils literal notranslate"><span class="pre">man</span> <span class="pre">sbatch</span></code> for more details and a complete parameter list.</p>
+<p>Let’s try a few of these with the <code class="docutils literal notranslate"><span class="pre">beacon.sh</span></code> script from
+<a class="reference internal" href="02_running-scripts.html#example-script"><span class="std std-numref">Section 2.1.3</span></a>. Here’s a batch script to run the shell script:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+
+<span class="c1">#SBATCH --job-name beacon</span>
+<span class="c1">#SBATCH --partition low</span>
+<span class="c1">#SBATCH --time 15</span>
+<span class="c1">#SBATCH --mem 10MB</span>
+<span class="c1">#SBATCH --mail-user=&lt;your@email.com&gt;</span>
+<span class="c1">#SBATCH --mail-type=ALL</span>
+<span class="c1">#SBATCH --output logs/beacon_%j.out</span>
+<span class="c1">#SBATCH --error logs/beacon_%j.err</span>
+<span class="c1">#SBATCH --nodes 1</span>
+
+<span class="nb">cd</span><span class="w"> </span>beacon
+srun<span class="w"> </span>./beacon.sh<span class="w"> </span>DataLab
+</pre></div>
+</div>
+<p>This batch script uses a <code class="docutils literal notranslate"><span class="pre">cd</span></code> command to set the working directory. Batch
+scripts should include whatever commands are necessary to set up the
+environment for your computation. For instance, you might need to use <code class="docutils literal notranslate"><span class="pre">pixi</span> <span class="pre">run</span> <span class="pre">&lt;command&gt;</span></code> if you want to run a script that requires packages installed with
+Pixi.</p>
+<p>Use a text editor to make a new file, copy in the code above, edit the
+<code class="docutils literal notranslate"><span class="pre">--mail-user</span></code> line, and save the file as <code class="docutils literal notranslate"><span class="pre">~/run_beacon.sh</span></code>. Then submit the
+job:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>sbatch<span class="w"> </span>run_beacon.sh
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Submitted</span> <span class="n">batch</span> <span class="n">job</span> <span class="mi">10070390</span>
+</pre></div>
+</div>
+<p>If you check <code class="docutils literal notranslate"><span class="pre">squeue</span></code>, you’ll see it either waiting to be run or running:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>squeue<span class="w"> </span>--me
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>   <span class="n">JOBID</span> <span class="n">PARTITION</span>     <span class="n">NAME</span>     <span class="n">USER</span>  <span class="n">ACCOUNT</span> <span class="n">ST</span>        <span class="n">TIME</span>   <span class="n">TIME_LEFT</span> <span class="n">NODES</span> <span class="n">CPU</span> <span class="n">MIN_ME</span> <span class="n">NODELIST</span><span class="p">(</span><span class="n">REASON</span><span class="p">)</span>
+<span class="mi">10070390</span>       <span class="n">low</span>   <span class="n">beacon</span>    <span class="n">nulle</span> <span class="n">ctbrowng</span>  <span class="n">R</span>        <span class="mi">0</span><span class="p">:</span><span class="mi">05</span>       <span class="mi">14</span><span class="p">:</span><span class="mi">55</span>     <span class="mi">1</span> <span class="mi">2</span>   <span class="mi">10</span><span class="n">M</span>    <span class="n">cpu</span><span class="o">-</span><span class="mi">10</span><span class="o">-</span><span class="mi">72</span>
+</pre></div>
+</div>
+<p>And if you’ve told Slurm to update you via email, you should have an email in
+your inbox telling you that your job is in the queue. Slurm will notify you
+when the job starts and ends.</p>
+<p>Recall, however, that <code class="docutils literal notranslate"><span class="pre">beacon.py</span></code> uses a <code class="docutils literal notranslate"><span class="pre">while</span></code> loop to print a name
+indefinitely. That means it will only end when your request time runs out or
+when you end the program early. To do the latter, take note of the <code class="docutils literal notranslate"><span class="pre">JOBID</span></code> in
+the <code class="docutils literal notranslate"><span class="pre">squeue</span></code> output and enter that as an argument to <code class="docutils literal notranslate"><span class="pre">scancel</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">scancel</span> <span class="mi">10070390</span>
+</pre></div>
+</div>
+<p>Slurm will cancel the job, log output and errors to the <code class="docutils literal notranslate"><span class="pre">.out</span></code> and <code class="docutils literal notranslate"><span class="pre">.err</span></code>
+files, respectively, and notify you via email that the job is no longer
+running.</p>
+<p>You can use <code class="docutils literal notranslate"><span class="pre">cat</span></code> or a text editor on the <code class="docutils literal notranslate"><span class="pre">.out</span></code> file to see the output:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>cat<span class="w"> </span>logs/beacon_10070390.out
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">==========================================</span>
+<span class="n">SLURM_JOB_ID</span> <span class="o">=</span> <span class="mi">10070390</span>
+<span class="n">SLURM_NODELIST</span> <span class="o">=</span> <span class="n">cpu</span><span class="o">-</span><span class="mi">10</span><span class="o">-</span><span class="mi">72</span>
+<span class="o">==========================================</span>
+<span class="n">Hello</span><span class="p">,</span> <span class="n">DataLab</span>
+<span class="n">Hello</span><span class="p">,</span> <span class="n">DataLab</span>
+<span class="n">Hello</span><span class="p">,</span> <span class="n">DataLab</span>
+<span class="n">Hello</span><span class="p">,</span> <span class="n">DataLab</span>
+<span class="n">Hello</span><span class="p">,</span> <span class="n">DataLab</span>
+<span class="n">Hello</span><span class="p">,</span> <span class="n">DataLab</span>
+
+<span class="c1">############### Job 10070390 summary ###############</span>
+<span class="n">Name</span>                <span class="p">:</span> <span class="n">beacon</span>
+<span class="n">User</span>                <span class="p">:</span> <span class="n">nulle</span>
+<span class="n">Account</span>             <span class="p">:</span> <span class="n">ctbrowngrp</span>
+<span class="n">Partition</span>           <span class="p">:</span> <span class="n">low</span>
+<span class="n">Nodes</span>               <span class="p">:</span> <span class="n">cpu</span><span class="o">-</span><span class="mi">10</span><span class="o">-</span><span class="mi">72</span>
+<span class="n">Cores</span>               <span class="p">:</span> <span class="mi">2</span>
+<span class="n">GPUs</span>                <span class="p">:</span> <span class="mi">0</span>
+<span class="n">State</span>               <span class="p">:</span> <span class="n">CANCELLED</span> <span class="n">by</span> <span class="mi">823623</span><span class="p">,</span><span class="n">CANCELLED</span>
+<span class="n">ExitCode</span>            <span class="p">:</span> <span class="mi">0</span><span class="p">:</span><span class="mi">0</span>
+<span class="n">Submit</span>              <span class="p">:</span> <span class="mi">2024</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">28</span><span class="n">T18</span><span class="p">:</span><span class="mi">06</span><span class="p">:</span><span class="mi">52</span>
+<span class="n">Start</span>               <span class="p">:</span> <span class="mi">2024</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">28</span><span class="n">T18</span><span class="p">:</span><span class="mi">06</span><span class="p">:</span><span class="mi">52</span>
+<span class="n">End</span>                 <span class="p">:</span> <span class="mi">2024</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">28</span><span class="n">T18</span><span class="p">:</span><span class="mi">06</span><span class="p">:</span><span class="mi">59</span>
+<span class="n">Reserved</span> <span class="n">walltime</span>   <span class="p">:</span> <span class="mi">00</span><span class="p">:</span><span class="mi">15</span><span class="p">:</span><span class="mi">00</span>
+<span class="n">Used</span> <span class="n">walltime</span>       <span class="p">:</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">07</span>
+<span class="n">Used</span> <span class="n">CPU</span> <span class="n">time</span>       <span class="p">:</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>
+<span class="o">%</span> <span class="n">User</span> <span class="p">(</span><span class="n">Computation</span><span class="p">):</span> <span class="o">--</span>
+<span class="o">%</span> <span class="n">System</span> <span class="p">(</span><span class="n">I</span><span class="o">/</span><span class="n">O</span><span class="p">)</span>      <span class="p">:</span> <span class="o">--</span>
+<span class="n">Mem</span> <span class="n">reserved</span>        <span class="p">:</span> <span class="mi">10</span><span class="n">M</span>
+<span class="n">Max</span> <span class="n">Mem</span> <span class="n">used</span>        <span class="p">:</span> <span class="mf">0.00</span>  <span class="p">(</span><span class="n">cpu</span><span class="o">-</span><span class="mi">10</span><span class="o">-</span><span class="mi">72</span><span class="p">)</span>
+<span class="n">Max</span> <span class="n">Disk</span> <span class="n">Write</span>      <span class="p">:</span> <span class="mf">0.00</span>  <span class="p">(</span><span class="n">cpu</span><span class="o">-</span><span class="mi">10</span><span class="o">-</span><span class="mi">72</span><span class="p">)</span>
+<span class="n">Max</span> <span class="n">Disk</span> <span class="n">Read</span>       <span class="p">:</span> <span class="mf">0.00</span>  <span class="p">(</span><span class="n">cpu</span><span class="o">-</span><span class="mi">10</span><span class="o">-</span><span class="mi">72</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>You can use the <code class="docutils literal notranslate"><span class="pre">set</span> <span class="pre">-x</span></code> command to in shell scripts to make Bash print out
+shell commands as they run. This information can be helpful for debugging,
+especially if some of the commands use variables as arguments.</p>
+</div>
+</section>
+</section>
+<section id="parallel-array-jobs">
+<h2><span class="section-number">3.7. </span>Parallel (Array) Jobs<a class="headerlink" href="#parallel-array-jobs" title="Link to this heading">#</a></h2>
+<p>One of the advantages of computing clusters is that they can run computations
+in parallel, using multiple CPUs or even multiple nodes. Parallel computations
+are usually non-interactive: it’s difficult to interact with multiple
+computations at once!</p>
+<p>With Slurm and <code class="docutils literal notranslate"><span class="pre">sbatch</span></code>, two approaches to run part or all of a job in parallel
+are:</p>
+<ol class="arabic simple">
+<li><p><strong>Parallel steps</strong>: in this approach, you allocate multiple nodes or CPUs,
+and then set <code class="docutils literal notranslate"><span class="pre">srun</span></code> parameters on the job steps so that each job only uses
+a fraction of the total allocation. This approach is well-suited to jobs
+where you need to run many qualitatively different computations (for
+instance, many different scripts) and the order in which they run doesn’t
+matter.</p></li>
+<li><p><strong>Array jobs</strong>: in this approach, you use the special <code class="docutils literal notranslate"><span class="pre">--array</span></code> job
+parameter to make <code class="docutils literal notranslate"><span class="pre">sbatch</span></code> run the batch script multiple times (an array of
+subjobs). Slurm assigns a unique index to each subjob. This approach is
+well-suited to jobs where you need to run many qualitatively similar
+computations (for instance, one script with many different sets of initial
+parameters) and the order in which they run doesn’t matter.</p></li>
+</ol>
+<p>These are not the only approaches, but others tend to be more complicated.</p>
+<p>Let’s try out both approaches to parallelism using modified versions of the
+<code class="docutils literal notranslate"><span class="pre">hello.sh</span></code> script from <a class="reference internal" href="#hello-batch-scripts"><span class="std std-numref">Section 3.6.1</span></a>. We’ll make the script run
+<code class="docutils literal notranslate"><span class="pre">hostname</span></code> twice, possibly on two different nodes.</p>
+<section id="parallel-steps">
+<h3><span class="section-number">3.7.1. </span>Parallel Steps<a class="headerlink" href="#parallel-steps" title="Link to this heading">#</a></h3>
+<p>In the parallel steps approach, the batch script header must allocate the total
+number of nodes (with <code class="docutils literal notranslate"><span class="pre">--nodes</span></code>) and number of CPUs (with <code class="docutils literal notranslate"><span class="pre">--ntasks</span></code>) needed
+when the parallel steps run. So if you want to run 10 steps in parallel and
+each requires an entire node, set <code class="docutils literal notranslate"><span class="pre">--nodes</span> <span class="pre">10</span></code>. For the <code class="docutils literal notranslate"><span class="pre">hello.sh</span></code> script,
+we’ll set <code class="docutils literal notranslate"><span class="pre">--nodes</span> <span class="pre">2</span></code>.</p>
+<p>Then, for each step (line with <code class="docutils literal notranslate"><span class="pre">srun</span></code>) that should be parallel:</p>
+<ul class="simple">
+<li><p>Set the number of nodes (again with <code class="docutils literal notranslate"><span class="pre">--nodes</span></code>) and number of CPUs
+(<code class="docutils literal notranslate"><span class="pre">--ntasks</span></code>) required. So if a step requires 4 CPUs, set <code class="docutils literal notranslate"><span class="pre">--ntasks</span> <span class="pre">4</span></code>.</p></li>
+<li><p>Put an ampersand <code class="docutils literal notranslate"><span class="pre">&amp;</span></code> at the end of the line; this makes the shell run the
+command without waiting for it to complete.</p></li>
+</ul>
+<p>Finally, put a <code class="docutils literal notranslate"><span class="pre">wait</span></code> command at any point where all prior steps must finish
+before proceeding. The batch script must include at least one <code class="docutils literal notranslate"><span class="pre">wait</span></code> to make
+sure that the job doesn’t end before the parallel steps finish.</p>
+<p>After making these changes, the <code class="docutils literal notranslate"><span class="pre">hello.sh</span></code> script becomes:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+
+<span class="c1">#SBATCH --partition low</span>
+<span class="c1">#SBATCH --time 10</span>
+<span class="c1">#SBATCH --nodes 2</span>
+
+srun<span class="w"> </span>--nodes<span class="w"> </span><span class="m">1</span><span class="w"> </span>hostname<span class="w"> </span><span class="p">&amp;</span>
+srun<span class="w"> </span>--nodes<span class="w"> </span><span class="m">1</span><span class="w"> </span>hostname<span class="w"> </span><span class="p">&amp;</span>
+<span class="nb">wait</span>
+</pre></div>
+</div>
+<p>Save this version of the script as <code class="docutils literal notranslate"><span class="pre">parallel_hello.sh</span></code>, and submit it to Slurm
+with <code class="docutils literal notranslate"><span class="pre">sbatch</span></code>:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>sbatch<span class="w"> </span>parallel_hello.sh
+</pre></div>
+</div>
+<p>The job won’t take long to run. When it finishes, use <code class="docutils literal notranslate"><span class="pre">cat</span></code> or a text editor to
+take a look at the <code class="docutils literal notranslate"><span class="pre">.out</span></code> file:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>cat<span class="w"> </span>slurm-10071069.out
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">==========================================</span>
+<span class="n">SLURM_JOB_ID</span> <span class="o">=</span> <span class="mi">10071069</span>
+<span class="n">SLURM_NODELIST</span> <span class="o">=</span> <span class="n">cpu</span><span class="o">-</span><span class="mi">10</span><span class="o">-</span><span class="p">[</span><span class="mi">18</span><span class="p">,</span><span class="mi">66</span><span class="p">]</span>
+<span class="o">==========================================</span>
+<span class="n">cpu</span><span class="o">-</span><span class="mi">10</span><span class="o">-</span><span class="mf">18.</span><span class="n">farm</span><span class="o">.</span><span class="n">hpc</span><span class="o">.</span><span class="n">ucdavis</span><span class="o">.</span><span class="n">edu</span>
+<span class="n">cpu</span><span class="o">-</span><span class="mi">10</span><span class="o">-</span><span class="mi">66</span>
+
+<span class="c1">############### Job 10071069 summary ###############</span>
+<span class="n">Name</span>                <span class="p">:</span> <span class="n">parallel_hello</span><span class="o">.</span><span class="n">sh</span>
+<span class="n">User</span>                <span class="p">:</span> <span class="n">nulle</span>
+<span class="n">Account</span>             <span class="p">:</span> <span class="n">ctbrowngrp</span>
+<span class="n">Partition</span>           <span class="p">:</span> <span class="n">low</span>
+<span class="n">Nodes</span>               <span class="p">:</span> <span class="n">cpu</span><span class="o">-</span><span class="mi">10</span><span class="o">-</span><span class="p">[</span><span class="mi">18</span><span class="p">,</span><span class="mi">66</span><span class="p">]</span>
+<span class="n">Cores</span>               <span class="p">:</span> <span class="mi">4</span>
+<span class="n">GPUs</span>                <span class="p">:</span> <span class="mi">0</span>
+<span class="n">State</span>               <span class="p">:</span> <span class="n">COMPLETED</span>
+<span class="n">ExitCode</span>            <span class="p">:</span> <span class="mi">0</span><span class="p">:</span><span class="mi">0</span>
+<span class="n">Submit</span>              <span class="p">:</span> <span class="mi">2024</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">28</span><span class="n">T22</span><span class="p">:</span><span class="mi">38</span><span class="p">:</span><span class="mi">25</span>
+<span class="n">Start</span>               <span class="p">:</span> <span class="mi">2024</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">28</span><span class="n">T22</span><span class="p">:</span><span class="mi">38</span><span class="p">:</span><span class="mi">26</span>
+<span class="n">End</span>                 <span class="p">:</span> <span class="mi">2024</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">28</span><span class="n">T22</span><span class="p">:</span><span class="mi">38</span><span class="p">:</span><span class="mi">26</span>
+<span class="n">Reserved</span> <span class="n">walltime</span>   <span class="p">:</span> <span class="mi">00</span><span class="p">:</span><span class="mi">10</span><span class="p">:</span><span class="mi">00</span>
+<span class="n">Used</span> <span class="n">walltime</span>       <span class="p">:</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>
+<span class="n">Used</span> <span class="n">CPU</span> <span class="n">time</span>       <span class="p">:</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>
+<span class="o">%</span> <span class="n">User</span> <span class="p">(</span><span class="n">Computation</span><span class="p">):</span> <span class="o">--</span>
+<span class="o">%</span> <span class="n">System</span> <span class="p">(</span><span class="n">I</span><span class="o">/</span><span class="n">O</span><span class="p">)</span>      <span class="p">:</span> <span class="o">--</span>
+<span class="n">Mem</span> <span class="n">reserved</span>        <span class="p">:</span> <span class="mi">4000</span><span class="n">M</span>
+<span class="n">Max</span> <span class="n">Mem</span> <span class="n">used</span>        <span class="p">:</span> <span class="mf">0.00</span>  <span class="p">(</span><span class="n">cpu</span><span class="o">-</span><span class="mi">10</span><span class="o">-</span><span class="mi">66</span><span class="p">,</span><span class="n">cpu</span><span class="o">-</span><span class="mi">10</span><span class="o">-</span><span class="mi">18</span><span class="p">)</span>
+<span class="n">Max</span> <span class="n">Disk</span> <span class="n">Write</span>      <span class="p">:</span> <span class="mf">0.00</span>  <span class="p">(</span><span class="n">cpu</span><span class="o">-</span><span class="mi">10</span><span class="o">-</span><span class="mi">66</span><span class="p">,</span><span class="n">cpu</span><span class="o">-</span><span class="mi">10</span><span class="o">-</span><span class="mi">18</span><span class="p">)</span>
+<span class="n">Max</span> <span class="n">Disk</span> <span class="n">Read</span>       <span class="p">:</span> <span class="mf">0.00</span>  <span class="p">(</span><span class="n">cpu</span><span class="o">-</span><span class="mi">10</span><span class="o">-</span><span class="mi">66</span><span class="p">,</span><span class="n">cpu</span><span class="o">-</span><span class="mi">10</span><span class="o">-</span><span class="mi">18</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The host names are different, so the <code class="docutils literal notranslate"><span class="pre">hostname</span></code> command ran on two different
+nodes.</p>
+<p>The parallel steps approach is extremely flexible, because each step can use a
+different set of resources (nodes, CPUs, memory, …) and run an entirely
+different command. You can also have a set of parallel steps followed by a set
+of serial steps or vice-versa. Just make sure to use <code class="docutils literal notranslate"><span class="pre">wait</span></code> as needed and to
+leave off the ampersand <code class="docutils literal notranslate"><span class="pre">&amp;</span></code> on the serial steps.</p>
+</section>
+<section id="job-arrays">
+<h3><span class="section-number">3.7.2. </span>Job Arrays<a class="headerlink" href="#job-arrays" title="Link to this heading">#</a></h3>
+<p>In the job array approach, the batch script header must set the <code class="docutils literal notranslate"><span class="pre">--array</span></code>
+parameter with the indices for the array of jobs. The batch script will run
+once for each index. The indices must be a comma-separated list or
+dash-separated range of unique, positive integers (see <code class="docutils literal notranslate"><span class="pre">man</span> <span class="pre">sbatch</span></code> for more
+forms). For instance, to use indices from 1 to 20, set <code class="docutils literal notranslate"><span class="pre">--array</span> <span class="pre">1-20</span></code>. To use
+indices 1, 3, and 5 to 10, use <code class="docutils literal notranslate"><span class="pre">--array</span> <span class="pre">1,3,5-10</span></code>.</p>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>On some clusters, there’s an upper limit on the indices—typically <code class="docutils literal notranslate"><span class="pre">1001</span></code> or
+<code class="docutils literal notranslate"><span class="pre">5001</span></code>.</p>
+</div>
+<p>Adding the setting <code class="docutils literal notranslate"><span class="pre">--array</span> <span class="pre">1-2</span></code> to run 2 subjobs, the <code class="docutils literal notranslate"><span class="pre">hello.sh</span></code> script
+becomes:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+
+<span class="c1">#SBATCH --partition low</span>
+<span class="c1">#SBATCH --time 10</span>
+<span class="c1">#SBATCH --array 1-2</span>
+
+srun<span class="w"> </span>hostname
+</pre></div>
+</div>
+<p>Save this version of the script as <code class="docutils literal notranslate"><span class="pre">array_hello.sh</span></code>, and submit it to Slurm
+with <code class="docutils literal notranslate"><span class="pre">sbatch</span></code>:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>sbatch<span class="w"> </span>array_hello.sh
+</pre></div>
+</div>
+<p>Once again, the job will finish quickly once it start running. Array jobs
+generate a separate <code class="docutils literal notranslate"><span class="pre">.out</span></code> file for each subjob, with the job identifier and
+array index in the filename. Use <code class="docutils literal notranslate"><span class="pre">cat</span></code> or a text editor to examine the first
+<code class="docutils literal notranslate"><span class="pre">.out</span></code> file:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>cat<span class="w"> </span>slurm-10071088_1.out
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">==========================================</span>
+<span class="n">SLURM_JOB_ID</span> <span class="o">=</span> <span class="mi">10071089</span>
+<span class="n">SLURM_NODELIST</span> <span class="o">=</span> <span class="n">cpu</span><span class="o">-</span><span class="mi">10</span><span class="o">-</span><span class="mi">88</span>
+<span class="o">==========================================</span>
+<span class="n">cpu</span><span class="o">-</span><span class="mi">10</span><span class="o">-</span><span class="mi">88</span>
+
+<span class="c1">############### Job 10071089 summary ###############</span>
+<span class="n">Name</span>                <span class="p">:</span> <span class="n">allocation</span>
+<span class="n">User</span>                <span class="p">:</span> <span class="n">nulle</span>
+<span class="n">Account</span>             <span class="p">:</span> <span class="n">ctbrowngrp</span>
+<span class="n">Partition</span>           <span class="p">:</span>
+<span class="n">Nodes</span>               <span class="p">:</span> <span class="n">cpu</span><span class="o">-</span><span class="mi">10</span><span class="o">-</span><span class="mi">88</span>
+<span class="n">Cores</span>               <span class="p">:</span> <span class="mi">2</span>
+<span class="n">GPUs</span>                <span class="p">:</span> <span class="mi">0</span>
+<span class="n">State</span>               <span class="p">:</span> <span class="n">COMPLETED</span>
+<span class="n">ExitCode</span>            <span class="p">:</span> <span class="mi">0</span><span class="p">:</span><span class="mi">0</span>
+<span class="n">Submit</span>              <span class="p">:</span> <span class="mi">2024</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">28</span><span class="n">T23</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">33</span>
+<span class="n">Start</span>               <span class="p">:</span> <span class="mi">2024</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">28</span><span class="n">T23</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">33</span>
+<span class="n">End</span>                 <span class="p">:</span> <span class="mi">2024</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">28</span><span class="n">T23</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">35</span>
+<span class="n">Reserved</span> <span class="n">walltime</span>   <span class="p">:</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>
+<span class="n">Used</span> <span class="n">walltime</span>       <span class="p">:</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">02</span>
+<span class="n">Used</span> <span class="n">CPU</span> <span class="n">time</span>       <span class="p">:</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>
+<span class="o">%</span> <span class="n">User</span> <span class="p">(</span><span class="n">Computation</span><span class="p">):</span>  <span class="mf">0.00</span><span class="o">%</span>
+<span class="o">%</span> <span class="n">System</span> <span class="p">(</span><span class="n">I</span><span class="o">/</span><span class="n">O</span><span class="p">)</span>      <span class="p">:</span> <span class="mf">73.68</span><span class="o">%</span>
+<span class="n">Mem</span> <span class="n">reserved</span>        <span class="p">:</span> <span class="mi">0</span>
+<span class="n">Max</span> <span class="n">Mem</span> <span class="n">used</span>        <span class="p">:</span> <span class="mf">76.00</span><span class="n">K</span> <span class="p">(</span><span class="n">cpu</span><span class="o">-</span><span class="mi">10</span><span class="o">-</span><span class="mi">88</span><span class="p">)</span>
+<span class="n">Max</span> <span class="n">Disk</span> <span class="n">Write</span>      <span class="p">:</span> <span class="mf">0.00</span>  <span class="p">(</span><span class="n">cpu</span><span class="o">-</span><span class="mi">10</span><span class="o">-</span><span class="mi">88</span><span class="p">)</span>
+<span class="n">Max</span> <span class="n">Disk</span> <span class="n">Read</span>       <span class="p">:</span> <span class="mf">0.00</span>  <span class="p">(</span><span class="n">cpu</span><span class="o">-</span><span class="mi">10</span><span class="o">-</span><span class="mi">88</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Then examine the second <code class="docutils literal notranslate"><span class="pre">.out</span></code> file:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>cat<span class="w"> </span>slurm-10071088_2.out
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">==========================================</span>
+<span class="n">SLURM_JOB_ID</span> <span class="o">=</span> <span class="mi">10071088</span>
+<span class="n">SLURM_NODELIST</span> <span class="o">=</span> <span class="n">cpu</span><span class="o">-</span><span class="mi">10</span><span class="o">-</span><span class="mi">88</span>
+<span class="o">==========================================</span>
+<span class="n">cpu</span><span class="o">-</span><span class="mi">10</span><span class="o">-</span><span class="mi">88</span>
+</pre></div>
+</div>
+<p>In this case, Slurm ran both subjobs on the same node, but used 2 separate CPUs
+(most nodes have at least 4 CPUs).</p>
+<p>There’s one more important feature of array jobs that the preceding example
+didn’t demonstrate. When you run an array job, for each subjob, Slurm sets the
+<code class="docutils literal notranslate"><span class="pre">SLURM_ARRAY_TASK_ID</span></code> environment variable to its index. This way you can get
+the index from within the subjob and use it to select sets of initial
+parameters, which code to run, and so on. For example, try running this batch
+script:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+
+<span class="c1">#SBATCH --partition low</span>
+<span class="c1">#SBATCH --time 10</span>
+<span class="c1">#SBATCH --array 1-2</span>
+
+srun<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Hello from subjob </span><span class="nv">$SLURM_ARRAY_TASK_ID</span><span class="s2">!&quot;</span>
+</pre></div>
+</div>
+<p><a class="reference internal" href="#case-study-bml-traffic-model"><span class="std std-numref">Section 3.7.3</span></a> provides a more detailed example of how
+to use this feature.</p>
+<p>Compared to the parallel steps approach, the array job approach is less
+flexible but easier to set up. In the <code class="docutils literal notranslate"><span class="pre">hello.sh</span></code> example, we only had to add
+one line to the batch script to make it run in parallel.</p>
+</section>
+<section id="case-study-bml-traffic-model">
+<span id="id3"></span><h3><span class="section-number">3.7.3. </span>Case Study: BML Traffic Model<a class="headerlink" href="#case-study-bml-traffic-model" title="Link to this heading">#</a></h3>
+<p>The <a class="reference external" href="https://en.wikipedia.org/wiki/Biham%E2%80%93Middleton%E2%80%93Levine_traffic_model">Biham-Middleton-Levine traffic model</a> (BML model) is a simple model
+for traffic flow that has been studied by many mathematicians and computer
+scientists, including UC Davis’ own <a class="reference external" href="https://doi.org/10.1103/PhysRevE.71.066112">Raissa D’Souza</a>. The model
+consists of a rectangular grid of cells, where each cell can hold at most one
+car. Cars are either red and move 1 cell to the right each time they move, or
+blue and move 1 cell up each time they move. At each time step, only one color
+of cars moves; the other color moves on the next time step. Cars do not travel
+if another car is in their destination cell. Depending on the density of the
+cars, different patterns of jams and free-flowing traffic emerge.</p>
+<p>The Python script below simulates 1,000 steps of a BML model and then plots the
+resulting pattern of cars to a PNG file. The initial parameters for the model
+(grid size and proportions of blue and red cars) are selected from 10 different
+parameter sets stored in the <code class="docutils literal notranslate"><span class="pre">PARAMETER_SETS</span></code> variable. The script reads a
+single index (1-10) from the command line to select the parameter set. In other
+words, the script is designed to run as a Slurm array job.</p>
+<p>Use a text editor to create a new file, copy and paste the script into the
+file, and save it as <code class="docutils literal notranslate"><span class="pre">bml.py</span></code>.</p>
+<div class="dropdown admonition">
+<p class="admonition-title">Python BML Traffic Model Code</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="kn">import</span> <span class="nn">sys</span>
+
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="c1"># Get the index as a command line argument.</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">index</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Requires an integer index argument.&quot;</span><span class="p">)</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="c1"># Get the parameter set.</span>
+    <span class="n">PARAMETER_SETS</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="p">{</span><span class="s2">&quot;shape&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span> <span class="s2">&quot;p_up&quot;</span><span class="p">:</span> <span class="mf">0.05</span><span class="p">,</span> <span class="s2">&quot;p_right&quot;</span><span class="p">:</span> <span class="mf">0.05</span><span class="p">},</span>
+
+        <span class="p">{</span><span class="s2">&quot;shape&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span> <span class="s2">&quot;p_up&quot;</span><span class="p">:</span> <span class="mf">0.10</span><span class="p">,</span> <span class="s2">&quot;p_right&quot;</span><span class="p">:</span> <span class="mf">0.05</span><span class="p">},</span>
+        <span class="p">{</span><span class="s2">&quot;shape&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span> <span class="s2">&quot;p_up&quot;</span><span class="p">:</span> <span class="mf">0.15</span><span class="p">,</span> <span class="s2">&quot;p_right&quot;</span><span class="p">:</span> <span class="mf">0.05</span><span class="p">},</span>
+        <span class="p">{</span><span class="s2">&quot;shape&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span> <span class="s2">&quot;p_up&quot;</span><span class="p">:</span> <span class="mf">0.20</span><span class="p">,</span> <span class="s2">&quot;p_right&quot;</span><span class="p">:</span> <span class="mf">0.05</span><span class="p">},</span>
+        <span class="p">{</span><span class="s2">&quot;shape&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span> <span class="s2">&quot;p_up&quot;</span><span class="p">:</span> <span class="mf">0.25</span><span class="p">,</span> <span class="s2">&quot;p_right&quot;</span><span class="p">:</span> <span class="mf">0.05</span><span class="p">},</span>
+
+        <span class="p">{</span><span class="s2">&quot;shape&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span> <span class="s2">&quot;p_up&quot;</span><span class="p">:</span> <span class="mf">0.05</span><span class="p">,</span> <span class="s2">&quot;p_right&quot;</span><span class="p">:</span> <span class="mf">0.10</span><span class="p">},</span>
+        <span class="p">{</span><span class="s2">&quot;shape&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span> <span class="s2">&quot;p_up&quot;</span><span class="p">:</span> <span class="mf">0.05</span><span class="p">,</span> <span class="s2">&quot;p_right&quot;</span><span class="p">:</span> <span class="mf">0.15</span><span class="p">},</span>
+        <span class="p">{</span><span class="s2">&quot;shape&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span> <span class="s2">&quot;p_up&quot;</span><span class="p">:</span> <span class="mf">0.05</span><span class="p">,</span> <span class="s2">&quot;p_right&quot;</span><span class="p">:</span> <span class="mf">0.20</span><span class="p">},</span>
+        <span class="p">{</span><span class="s2">&quot;shape&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span> <span class="s2">&quot;p_up&quot;</span><span class="p">:</span> <span class="mf">0.05</span><span class="p">,</span> <span class="s2">&quot;p_right&quot;</span><span class="p">:</span> <span class="mf">0.25</span><span class="p">},</span>
+
+        <span class="p">{</span><span class="s2">&quot;shape&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span> <span class="s2">&quot;p_up&quot;</span><span class="p">:</span> <span class="mf">0.25</span><span class="p">,</span> <span class="s2">&quot;p_right&quot;</span><span class="p">:</span> <span class="mf">0.25</span><span class="p">}</span>
+    <span class="p">]</span>
+    <span class="n">params</span> <span class="o">=</span> <span class="n">PARAMETER_SETS</span><span class="p">[</span><span class="n">index</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+
+    <span class="c1"># Run the model.</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">BMLModel</span><span class="p">(</span><span class="o">**</span><span class="n">params</span><span class="p">)</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
+
+    <span class="c1"># Plot the final state and save the plot to a file.</span>
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+    <span class="n">out_path</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;bml_</span><span class="si">{</span><span class="n">index</span><span class="si">:</span><span class="s2">02</span><span class="si">}</span><span class="s2">.png&quot;</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">out_path</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Saved &#39;</span><span class="si">{</span><span class="n">out_path</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">BMLModel</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shape</span><span class="p">,</span> <span class="n">p_up</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">,</span> <span class="n">p_right</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">,</span> <span class="n">rng</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">time</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="n">shape</span>
+        <span class="n">n_cells</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span>
+
+        <span class="c1"># Get number of cars.</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="n">p_up</span> <span class="o">+</span> <span class="n">p_right</span>
+        <span class="k">if</span> <span class="n">p</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Sum of `p_up` and `p_right` must not exceed 1.&quot;</span><span class="p">)</span>
+        <span class="n">n_cars</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">p</span> <span class="o">*</span> <span class="n">n_cells</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+        <span class="n">n_up</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">p_up</span> <span class="o">*</span> <span class="n">n_cells</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+
+        <span class="c1"># Set up car positions (column-major indexes).</span>
+        <span class="k">if</span> <span class="n">rng</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">()</span>
+        <span class="n">pos</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">n_cells</span><span class="p">),</span> <span class="n">n_cars</span><span class="p">,</span> <span class="n">replace</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">positions_up</span> <span class="o">=</span> <span class="n">pos</span><span class="p">[:</span><span class="n">n_up</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">positions_right</span> <span class="o">=</span> <span class="n">pos</span><span class="p">[</span><span class="n">n_up</span><span class="p">:]</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;BMLModel (</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2"> x </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">)</span><span class="se">\n</span><span class="s2">&quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;Time: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;Blue (up) cars: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">positions_up</span><span class="p">)</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;Red (right) cars: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">positions_right</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">msg</span>
+
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">move_right</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">move_up</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">time</span> <span class="o">+=</span> <span class="n">n</span>
+
+    <span class="k">def</span> <span class="nf">move_up</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">h</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">shape</span>
+        <span class="n">old_pos</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">positions_up</span>
+        <span class="n">pos</span> <span class="o">=</span> <span class="n">old_pos</span> <span class="o">-</span> <span class="p">(</span><span class="n">old_pos</span> <span class="o">%</span> <span class="n">h</span><span class="p">)</span> <span class="o">+</span> <span class="p">((</span><span class="n">old_pos</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="n">h</span><span class="p">)</span>
+
+        <span class="c1"># Back off if there&#39;s a collision.</span>
+        <span class="n">is_collision</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">pos</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">positions_right</span><span class="p">)</span>
+        <span class="n">ix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">flatnonzero</span><span class="p">(</span><span class="n">is_collision</span><span class="p">)</span>
+        <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">ix</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">pos</span><span class="p">[</span><span class="n">ix</span><span class="p">]</span> <span class="o">=</span> <span class="n">old_pos</span><span class="p">[</span><span class="n">ix</span><span class="p">]</span>
+            <span class="c1"># Did this create any within-color collisions?</span>
+            <span class="n">is_collision</span> <span class="o">=</span> <span class="o">~</span><span class="n">is_collision</span> <span class="o">&amp;</span> <span class="n">np</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">pos</span><span class="p">,</span> <span class="n">pos</span><span class="p">[</span><span class="n">ix</span><span class="p">])</span>
+            <span class="n">ix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">flatnonzero</span><span class="p">(</span><span class="n">is_collision</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">positions_up</span> <span class="o">=</span> <span class="n">pos</span>
+
+    <span class="k">def</span> <span class="nf">move_right</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">h</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">shape</span>
+        <span class="n">old_pos</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">positions_right</span>
+        <span class="n">pos</span> <span class="o">=</span> <span class="p">(</span><span class="n">old_pos</span> <span class="o">+</span> <span class="n">h</span><span class="p">)</span> <span class="o">%</span> <span class="p">(</span><span class="n">h</span> <span class="o">*</span> <span class="n">w</span><span class="p">)</span>
+
+        <span class="c1"># Back off if there&#39;s a collision.</span>
+        <span class="n">is_collision</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">pos</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">positions_up</span><span class="p">)</span>
+        <span class="n">ix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">flatnonzero</span><span class="p">(</span><span class="n">is_collision</span><span class="p">)</span>
+        <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">ix</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">pos</span><span class="p">[</span><span class="n">ix</span><span class="p">]</span> <span class="o">=</span> <span class="n">old_pos</span><span class="p">[</span><span class="n">ix</span><span class="p">]</span>
+            <span class="c1"># Did this create any within-color collisions?</span>
+            <span class="n">is_collision</span> <span class="o">=</span> <span class="o">~</span><span class="n">is_collision</span> <span class="o">&amp;</span> <span class="n">np</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">pos</span><span class="p">,</span> <span class="n">pos</span><span class="p">[</span><span class="n">ix</span><span class="p">])</span>
+            <span class="n">ix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">flatnonzero</span><span class="p">(</span><span class="n">is_collision</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">positions_right</span> <span class="o">=</span> <span class="n">pos</span>
+
+    <span class="k">def</span> <span class="nf">xy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">h</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">x_up</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">positions_up</span> <span class="o">//</span> <span class="n">h</span>
+        <span class="n">y_up</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">positions_up</span> <span class="o">-</span> <span class="n">x_up</span> <span class="o">*</span> <span class="n">h</span>
+        <span class="n">x_right</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">positions_right</span> <span class="o">//</span> <span class="n">h</span>
+        <span class="n">y_right</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">positions_right</span> <span class="o">-</span> <span class="n">x_right</span> <span class="o">*</span> <span class="n">h</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">x_up</span><span class="p">,</span> <span class="n">y_up</span><span class="p">),</span> <span class="p">(</span><span class="n">x_right</span><span class="p">,</span> <span class="n">y_right</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Set up the plot.</span>
+        <span class="n">h</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">shape</span>
+        <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">h</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">linestyle</span> <span class="o">=</span> <span class="s2">&quot;dotted&quot;</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_axisbelow</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="n">xy_up</span><span class="p">,</span> <span class="n">xy_right</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">xy</span><span class="p">()</span>
+        <span class="c1"># Plot blue (up) cars.</span>
+        <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">xy_up</span><span class="p">):</span>
+            <span class="n">rect</span> <span class="o">=</span> <span class="n">mpl</span><span class="o">.</span><span class="n">patches</span><span class="o">.</span><span class="n">Rectangle</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">width</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">facecolor</span> <span class="o">=</span> <span class="s2">&quot;#0000FF88&quot;</span><span class="p">,</span>
+                <span class="n">edgecolor</span> <span class="o">=</span> <span class="s2">&quot;#000000&quot;</span><span class="p">)</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">rect</span><span class="p">)</span>
+
+        <span class="c1"># Plot red (right) cars.</span>
+        <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">xy_right</span><span class="p">):</span>
+            <span class="n">rect</span> <span class="o">=</span> <span class="n">mpl</span><span class="o">.</span><span class="n">patches</span><span class="o">.</span><span class="n">Rectangle</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">width</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">facecolor</span> <span class="o">=</span> <span class="s2">&quot;#FF000088&quot;</span><span class="p">,</span>
+                <span class="n">edgecolor</span> <span class="o">=</span> <span class="s2">&quot;#000000&quot;</span><span class="p">)</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">rect</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">fig</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>In order to run the Python script, we need an appropriate environment and a
+batch script.</p>
+<p>We can use Pixi to create an environment where the script can run (see
+<a class="reference external" href="https://ucdavisdatalab.github.io/workshop_reproducible_research/chapters/installing-software/01_environment-managers.html">Setting Up Software</a>). First make the environment:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~
+pixi<span class="w"> </span>init<span class="w"> </span>bml
+</pre></div>
+</div>
+<p>Then add the packages <code class="docutils literal notranslate"><span class="pre">python</span></code>, <code class="docutils literal notranslate"><span class="pre">numpy</span></code>, and <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code>:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>bml
+pixi<span class="w"> </span>add<span class="w"> </span>python<span class="w"> </span>numpy<span class="w"> </span>matplotlib
+</pre></div>
+</div>
+<p>Next, we need to set up the batch script, which should start an array job with
+indices 1-10 and run the Python script with the current subjob’s index as an
+argument. This batch script will do:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+
+<span class="c1">#SBATCH --partition low</span>
+<span class="c1">#SBATCH --time 10</span>
+<span class="c1">#SBATCH --array 1-10</span>
+
+srun<span class="w"> </span>pixi<span class="w"> </span>run<span class="w"> </span>python<span class="w"> </span>bml.py<span class="w"> </span><span class="nv">$SLURM_ARRAY_TASK_ID</span>
+</pre></div>
+</div>
+<p>Save the batch script into a file called <code class="docutils literal notranslate"><span class="pre">run_bml.sh</span></code>. Then submit the batch
+script to Slurm:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>sbatch<span class="w"> </span>run_bml.sh
+</pre></div>
+</div>
+<p>It may take a few minutes for the job to finish, but if everything went well,
+you’ll see 10 PNG files in your working directory. Use <code class="docutils literal notranslate"><span class="pre">scp</span></code> or another file
+transfer tool to download the files (see <a class="reference internal" href="01_connecting-to-a-server.html#transfer-files"><span class="std std-numref">Section 1.6.4</span></a>), and check
+out the traffic patterns!</p>
+<!--
+Jobs in Practice
+----------------
+
+### Etiquette
+
+Using storage responsibly (callback to `du`/`df`)
+
+Using shared storage (if lab/dept has it)
+
+Using `/scratch/`
+
+Compression when uploading/downloading files
+
+
+### Project Organization
+
+Callout to reproducible research reader
+
+Keeping files in sync with `rsync`
+
+Keeping files in sync with `git`
+
+General advice about working on servers vs locally
+
+* SSH tunneling for RStudio/Jupyter/VSCode?
+-->
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./chapters"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="02_running-scripts.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">2. </span>Running Scripts</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-parallel-computation">3.1. What Is Parallel Computation?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-threading-vs-distributed-computing">3.1.1. Multi-threading vs Distributed Computing</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hybrid-models-of-computation">3.1.2. Hybrid Models of Computation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-a-cluster">3.2. What Is a Cluster?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-slurm">3.3. What Is Slurm?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#monitoring-partitions-and-jobs">3.4. Monitoring Partitions and Jobs</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#partitions">3.4.1. Partitions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#jobs">3.4.2. Jobs</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interactive-jobs">3.5. Interactive Jobs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#non-interactive-batch-jobs">3.6. Non-interactive (Batch) Jobs</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hello-batch-scripts">3.6.1. Hello, Batch Scripts!</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configuring-cancelling-jobs">3.6.2. Configuring &amp; Cancelling Jobs</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parallel-array-jobs">3.7. Parallel (Array) Jobs</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#parallel-steps">3.7.1. Parallel Steps</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#job-arrays">3.7.2. Job Arrays</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#case-study-bml-traffic-model">3.7.3. Case Study: BML Traffic Model</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Oliver Kreylos, Tyler Shoemaker, Nick Ulle
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">
+  <img alt="CC BY-SA 4.0" src="https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg"> 
+</a>
+
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
