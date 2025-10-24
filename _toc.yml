@@ -10,7 +10,7 @@ parts:
     numbered: true
     chapters:
       - file: chapters/01_connecting-to-a-server
-      - url: https://ucdavisdatalab.github.io/workshop_reproducible_research/chapters/installing-software/01_environment-managers.html
+      - url: https://ucdavisdatalab.github.io/workshop_research_computing/chapters/installing-software/
         title: Setting Up Software
       - file: chapters/02_running-scripts
       - file: chapters/03_cluster-computing
